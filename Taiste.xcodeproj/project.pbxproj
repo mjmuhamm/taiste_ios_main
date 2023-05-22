@@ -16,8 +16,8 @@
 		F4599F512A1BDBFA00E4078D /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F4F2A1BDBFA00E4078D /* CommentsTableViewCell.swift */; };
 		F4599F542A1BDC4900E4078D /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F522A1BDC4900E4078D /* Reviews.swift */; };
 		F4599F552A1BDC4900E4078D /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F532A1BDC4900E4078D /* Comments.swift */; };
-		F4599F582A1BDC8900E4078D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F562A1BDC8900E4078D /* CommentsViewController.swift */; };
-		F4599F592A1BDC8900E4078D /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F572A1BDC8900E4078D /* ReviewsViewController.swift */; };
+		F46F205A2A1C0D2100A7C8C0 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */; };
+		F46F205C2A1C0D7E00A7C8C0 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */; };
 		F47031C329F5ADE300981048 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F47031C229F5ADE300981048 /* GoogleService-Info.plist */; };
 		F481948327C80252002BB9D3 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481948127C80252002BB9D3 /* HomeTableViewCell.swift */; };
 		F481948427C80252002BB9D3 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F481948227C80252002BB9D3 /* HomeTableViewCell.xib */; };
@@ -123,8 +123,8 @@
 		F4599F4F2A1BDBFA00E4078D /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsTableViewCell.swift; path = ../../../../Comments/CommentsTableViewCell.swift; sourceTree = "<group>"; };
 		F4599F522A1BDC4900E4078D /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reviews.swift; path = ../../../../../Reviews.swift; sourceTree = "<group>"; };
 		F4599F532A1BDC4900E4078D /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comments.swift; path = ../../../../../Comments.swift; sourceTree = "<group>"; };
-		F4599F562A1BDC8900E4078D /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsViewController.swift; path = ../../../../CommentsViewController.swift; sourceTree = "<group>"; };
-		F4599F572A1BDC8900E4078D /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewsViewController.swift; path = ../../../../ReviewsViewController.swift; sourceTree = "<group>"; };
+		F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		F47031C229F5ADE300981048 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F481948127C80252002BB9D3 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		F481948227C80252002BB9D3 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
@@ -487,9 +487,9 @@
 				F4E44B1427C95160007F6295 /* ItemDetailViewController.swift */,
 				F4E44B1627C965AC007F6295 /* ProfileAsUserViewController.swift */,
 				F4A080C02A019D4500895938 /* MessagesViewController.swift */,
-				F4599F562A1BDC8900E4078D /* CommentsViewController.swift */,
-				F4599F572A1BDC8900E4078D /* ReviewsViewController.swift */,
 				F4A080C92A01AF6000895938 /* SearchViewController.swift */,
+				F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */,
+				F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */,
 			);
 			path = both;
 			sourceTree = "<group>";
@@ -794,7 +794,7 @@
 				F4B90E0627C70B69004B1FB1 /* DashboardViewController.swift in Sources */,
 				F4B90E0827C70B72004B1FB1 /* ChefOrdersViewController.swift in Sources */,
 				F4B90DC827C709A9004B1FB1 /* StartViewController.swift in Sources */,
-				F4599F592A1BDC8900E4078D /* ReviewsViewController.swift in Sources */,
+				F46F205C2A1C0D7E00A7C8C0 /* ReviewsViewController.swift in Sources */,
 				F4A080C12A019D4600895938 /* MessagesViewController.swift in Sources */,
 				F4A080B629FDA3CA00895938 /* ChefBusinessViewController.swift in Sources */,
 				F4B90E0A27C70B79004B1FB1 /* ChefMeViewController.swift in Sources */,
@@ -833,7 +833,7 @@
 				F4B90E0127C70B52004B1FB1 /* FeedViewController.swift in Sources */,
 				F4E44B1A27C96DEF007F6295 /* ChefItemTableViewCell.swift in Sources */,
 				F4B90DC627C709A9004B1FB1 /* SceneDelegate.swift in Sources */,
-				F4599F582A1BDC8900E4078D /* CommentsViewController.swift in Sources */,
+				F46F205A2A1C0D2100A7C8C0 /* CommentsViewController.swift in Sources */,
 				F4FDB63027CE64940078E563 /* Profile.swift in Sources */,
 				F4A13EB827CD820700A63A00 /* Orders.swift in Sources */,
 				F4599F512A1BDBFA00E4078D /* CommentsTableViewCell.swift in Sources */,
