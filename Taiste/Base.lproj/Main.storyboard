@@ -4163,7 +4163,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TQs-DP-mGF">
                                 <rect key="frame" x="0.0" y="147.5" width="414" height="494.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rc5-XV-l52">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rc5-XV-l52">
                                     <size key="itemSize" width="416" height="501"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -8321,7 +8321,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <segue reference="Dwe-Tp-kXr"/>
         <segue reference="tkP-ld-7rs"/>
         <segue reference="QE2-o5-q5i"/>
-        <segue reference="Rso-l9-LlW"/>
+        <segue reference="jEP-Gm-UqI"/>
         <segue reference="BS6-oY-CaB"/>
         <segue reference="S4F-HQ-YjE"/>
         <segue reference="tTE-cs-Wrc"/>
