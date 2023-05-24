@@ -18,8 +18,6 @@ class AddPersonViewController: UIViewController {
     
     var newInfoOrEditedInfo = "new"
     var newAccountOrEditedAccount = "new"
-    var bankingOrPerson = ""
-    var individualOrBanking = ""
     var representativeOrOwner = ""
     
     @IBOutlet weak var personLabel: UILabel!
@@ -28,7 +26,6 @@ class AddPersonViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var personView: UIView!
-    @IBOutlet weak var externalAccountView: UIView!
     
     //Person View
     @IBOutlet weak var isPersonAnOwnerYes: UIButton!
@@ -48,61 +45,51 @@ class AddPersonViewController: UIViewController {
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var last4OfSSN: UITextField!
     
-    //ExternalAccount View
-    @IBOutlet weak var bankName: UITextField!
-    @IBOutlet weak var accountHolderName: UITextField!
-    @IBOutlet weak var accountNumber: UITextField!
-    @IBOutlet weak var routingNumber: UITextField!
-    
-    var representative : Representative?
-    var externalAccount : ExternalAccount?
-    
-    @IBOutlet weak var bankingSaveButton: UIButton!
     @IBOutlet weak var personSaveButton: UIButton!
     
     
+    var representative : Representative?
     private var isPersonAnOwner = "Yes"
     private var isPersonAnExectutive = "Yes"
     
     var stripeAccountId = ""
-    var externalAccountId = ""
     var personId = ""
     var representativeId = ""
     
+    var businessBankingInfo : BusinessBankingInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("new info or edited info \(newInfoOrEditedInfo)")
         
         if newAccountOrEditedAccount == "edit" {
 //            bankingSaveButton.isEnabled = false
             personSaveButton.isEnabled = false
         } else {
-            bankingSaveButton.isEnabled = true
             personSaveButton.isEnabled = true
         }
-        if newInfoOrEditedInfo.prefix(4) == "edit" && representativeOrOwner == "owner"  {
-            deleteButton.isHidden = false
-        } else {
+        if representativeOrOwner.prefix(5) != "owner" {
             deleteButton.isHidden = true
-        }
-        
-        if bankingOrPerson == "banking" {
-            personView.isHidden = true
-            externalAccountView.isHidden = false
         } else {
-            personView.isHidden = false
-            externalAccountView.isHidden = true
+            deleteButton.isHidden = false
         }
+//        if newInfoOrEditedInfo.prefix(4) == "edit" && representativeOrOwner == "owner"  {
+//            deleteButton.isHidden = false
+//        } else {
+//            deleteButton.isHidden = true
+//        }
         
         
-        if representative != nil {
-            if representativeOrOwner == "representative" {
-                disclaimerLabel.text = "The representative will be the manager of this account and must be an owner or executive of the business."
-                personLabel.text = "Representative"
-            } else if representativeOrOwner == "owner" {
-                disclaimerLabel.text = "All owners with more than 25% ownership must be reported."
-                personLabel.text = "Owner"
-            }
-            if representative!.isPersonAnOwner == "Yes" {
+        if representativeOrOwner == "representative" {
+            disclaimerLabel.text = "The representative will be the manager of this account and must be an owner or executive of the business."
+            personLabel.text = "Representative"
+        } else if representativeOrOwner == "owner" {
+            disclaimerLabel.text = "All owners with more than 25% ownership must be reported."
+            personLabel.text = "Owner"
+        }
+        if representativeOrOwner == "representative" {
+            if businessBankingInfo!.representative!.isPersonAnOwner == "1" {
             isPersonAnOwnerYes.setTitleColor(UIColor.white, for: .normal)
             isPersonAnOwnerYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
             isPersonAnOwnerNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
@@ -115,7 +102,7 @@ class AddPersonViewController: UIViewController {
                 isPersonAnOwnerYes.backgroundColor = UIColor.white
                 isPersonAnOwner = "No"
             }
-            if representative!.isPersonAnExectutive == "Yes" {
+            if businessBankingInfo!.representative!.isPersonAnExectutive == "1" {
                 isPersonAnExectutiveYes.setTitleColor(UIColor.white, for: .normal)
                 isPersonAnExectutiveYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
                 isPersonAnExectutiveNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
@@ -128,81 +115,197 @@ class AddPersonViewController: UIViewController {
                 isPersonAnExectutiveYes.backgroundColor = UIColor.white
                 isPersonAnExectutive = "No"
             }
-            firstName.text = representative!.firstName
-            lastName.text = representative!.lastName
-            month.text = representative!.month
-            day.text = representative!.day
-            year.text = representative!.year
-            streetAddress.text = representative!.streetAddress
-            city.text = representative!.city
-            state.text = representative!.state
-            zipCode.text = representative!.zipCode
-            emailAddress.text = representative!.emailAddress
-            phoneNumber.text = representative!.phoneNumber
-            last4OfSSN.text = representative!.last4OfSSN
+            firstName.text = businessBankingInfo!.representative!.firstName
+            lastName.text = businessBankingInfo!.representative!.lastName
+            month.text = businessBankingInfo!.representative!.month
+            day.text = businessBankingInfo!.representative!.day
+            year.text = businessBankingInfo!.representative!.year
+            streetAddress.text = businessBankingInfo!.representative!.streetAddress
+            city.text = businessBankingInfo!.representative!.city
+            state.text = businessBankingInfo!.representative!.state
+            zipCode.text = businessBankingInfo!.representative!.zipCode
+            emailAddress.text = businessBankingInfo!.representative!.emailAddress
+            phoneNumber.text = businessBankingInfo!.representative!.phoneNumber
+            last4OfSSN.text = businessBankingInfo!.representative!.last4OfSSN
+        } else {
+            if representativeOrOwner == "owner1" {
+                if businessBankingInfo?.owner1 != nil {
+                    firstName.text = businessBankingInfo!.owner1!.firstName
+                    lastName.text = businessBankingInfo!.owner1!.lastName
+                    month.text = businessBankingInfo!.owner1!.month
+                    day.text = businessBankingInfo!.owner1!.day
+                    year.text = businessBankingInfo!.owner1!.year
+                    streetAddress.text = businessBankingInfo!.owner1!.streetAddress
+                    city.text = businessBankingInfo!.owner1!.city
+                    state.text = businessBankingInfo!.owner1!.state
+                    zipCode.text = businessBankingInfo!.owner1!.zipCode
+                    emailAddress.text = businessBankingInfo!.owner1!.emailAddress
+                    phoneNumber.text = businessBankingInfo!.owner1!.phoneNumber
+                    last4OfSSN.text = businessBankingInfo!.owner1!.last4OfSSN
+                }
+                if businessBankingInfo!.owner1!.isPersonAnOwner == "1" {
+                isPersonAnOwnerYes.setTitleColor(UIColor.white, for: .normal)
+                isPersonAnOwnerYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                isPersonAnOwnerNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                isPersonAnOwnerNo.backgroundColor = UIColor.white
+                isPersonAnOwner = "Yes"
+                } else {
+                    isPersonAnOwnerNo.setTitleColor(UIColor.white, for: .normal)
+                    isPersonAnOwnerNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    isPersonAnOwnerYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    isPersonAnOwnerYes.backgroundColor = UIColor.white
+                    isPersonAnOwner = "No"
+                }
+                if businessBankingInfo!.owner1!.isPersonAnExectutive == "1" {
+                    isPersonAnExectutiveYes.setTitleColor(UIColor.white, for: .normal)
+                    isPersonAnExectutiveYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    isPersonAnExectutiveNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    isPersonAnExectutiveNo.backgroundColor = UIColor.white
+                    isPersonAnExectutive = "Yes"
+                } else {
+                    isPersonAnExectutiveNo.setTitleColor(UIColor.white, for: .normal)
+                    isPersonAnExectutiveNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    isPersonAnExectutiveYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    isPersonAnExectutiveYes.backgroundColor = UIColor.white
+                    isPersonAnExectutive = "No"
+                }
+            } else if representativeOrOwner == "owner2" {
+                if businessBankingInfo?.owner2 != nil {
+                    if businessBankingInfo!.owner2!.isPersonAnOwner == "1" {
+                    isPersonAnOwnerYes.setTitleColor(UIColor.white, for: .normal)
+                    isPersonAnOwnerYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    isPersonAnOwnerNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    isPersonAnOwnerNo.backgroundColor = UIColor.white
+                    isPersonAnOwner = "Yes"
+                    } else {
+                        isPersonAnOwnerNo.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnOwnerNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnOwnerYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnOwnerYes.backgroundColor = UIColor.white
+                        isPersonAnOwner = "No"
+                    }
+                    if businessBankingInfo!.owner2!.isPersonAnExectutive == "1" {
+                        isPersonAnExectutiveYes.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnExectutiveYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnExectutiveNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnExectutiveNo.backgroundColor = UIColor.white
+                        isPersonAnExectutive = "Yes"
+                    } else {
+                        isPersonAnExectutiveNo.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnExectutiveNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnExectutiveYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnExectutiveYes.backgroundColor = UIColor.white
+                        isPersonAnExectutive = "No"
+                    }
+                    firstName.text = businessBankingInfo!.owner2!.firstName
+                    lastName.text = businessBankingInfo!.owner2!.lastName
+                    month.text = businessBankingInfo!.owner2!.month
+                    day.text = businessBankingInfo!.owner2!.day
+                    year.text = businessBankingInfo!.owner2!.year
+                    streetAddress.text = businessBankingInfo!.owner2!.streetAddress
+                    city.text = businessBankingInfo!.owner2!.city
+                    state.text = businessBankingInfo!.owner2!.state
+                    zipCode.text = businessBankingInfo!.owner2!.zipCode
+                    emailAddress.text = businessBankingInfo!.owner2!.emailAddress
+                    phoneNumber.text = businessBankingInfo!.owner2!.phoneNumber
+                    last4OfSSN.text = businessBankingInfo!.owner2!.last4OfSSN
+                }
+            } else if representativeOrOwner == "owner3" {
+                if businessBankingInfo?.owner3 != nil {
+                    if businessBankingInfo!.owner3!.isPersonAnOwner == "1" {
+                    isPersonAnOwnerYes.setTitleColor(UIColor.white, for: .normal)
+                    isPersonAnOwnerYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    isPersonAnOwnerNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    isPersonAnOwnerNo.backgroundColor = UIColor.white
+                    isPersonAnOwner = "Yes"
+                    } else {
+                        isPersonAnOwnerNo.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnOwnerNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnOwnerYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnOwnerYes.backgroundColor = UIColor.white
+                        isPersonAnOwner = "No"
+                    }
+                    if businessBankingInfo!.owner3!.isPersonAnExectutive == "1" {
+                        isPersonAnExectutiveYes.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnExectutiveYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnExectutiveNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnExectutiveNo.backgroundColor = UIColor.white
+                        isPersonAnExectutive = "Yes"
+                    } else {
+                        isPersonAnExectutiveNo.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnExectutiveNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnExectutiveYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnExectutiveYes.backgroundColor = UIColor.white
+                        isPersonAnExectutive = "No"
+                    }
+                    firstName.text = businessBankingInfo!.owner3!.firstName
+                    lastName.text = businessBankingInfo!.owner3!.lastName
+                    month.text = businessBankingInfo!.owner3!.month
+                    day.text = businessBankingInfo!.owner3!.day
+                    year.text = businessBankingInfo!.owner3!.year
+                    streetAddress.text = businessBankingInfo!.owner3!.streetAddress
+                    city.text = businessBankingInfo!.owner3!.city
+                    state.text = businessBankingInfo!.owner3!.state
+                    zipCode.text = businessBankingInfo!.owner3!.zipCode
+                    emailAddress.text = businessBankingInfo!.owner3!.emailAddress
+                    phoneNumber.text = businessBankingInfo!.owner3!.phoneNumber
+                    last4OfSSN.text = businessBankingInfo!.owner3!.last4OfSSN
+                }
+            } else if representativeOrOwner == "owner4" {
+                if businessBankingInfo?.owner4 != nil {
+                    if businessBankingInfo!.owner4!.isPersonAnOwner == "1" {
+                    isPersonAnOwnerYes.setTitleColor(UIColor.white, for: .normal)
+                    isPersonAnOwnerYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    isPersonAnOwnerNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    isPersonAnOwnerNo.backgroundColor = UIColor.white
+                    isPersonAnOwner = "Yes"
+                    } else {
+                        isPersonAnOwnerNo.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnOwnerNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnOwnerYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnOwnerYes.backgroundColor = UIColor.white
+                        isPersonAnOwner = "No"
+                    }
+                    if businessBankingInfo!.owner4!.isPersonAnExectutive == "1" {
+                        isPersonAnExectutiveYes.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnExectutiveYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnExectutiveNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnExectutiveNo.backgroundColor = UIColor.white
+                        isPersonAnExectutive = "Yes"
+                    } else {
+                        isPersonAnExectutiveNo.setTitleColor(UIColor.white, for: .normal)
+                        isPersonAnExectutiveNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        isPersonAnExectutiveYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        isPersonAnExectutiveYes.backgroundColor = UIColor.white
+                        isPersonAnExectutive = "No"
+                    }
+                    firstName.text = businessBankingInfo!.owner4!.firstName
+                    lastName.text = businessBankingInfo!.owner4!.lastName
+                    month.text = businessBankingInfo!.owner4!.month
+                    day.text = businessBankingInfo!.owner4!.day
+                    year.text = businessBankingInfo!.owner4!.year
+                    streetAddress.text = businessBankingInfo!.owner4!.streetAddress
+                    city.text = businessBankingInfo!.owner4!.city
+                    state.text = businessBankingInfo!.owner4!.state
+                    zipCode.text = businessBankingInfo!.owner4!.zipCode
+                    emailAddress.text = businessBankingInfo!.owner4!.emailAddress
+                    phoneNumber.text = businessBankingInfo!.owner4!.phoneNumber
+                    last4OfSSN.text = businessBankingInfo!.owner4!.last4OfSSN
+                    
+                }
+            }
         }
         
-        if externalAccount != nil {
-            bankName.text = externalAccount!.bankName
-            accountHolderName.text = externalAccount!.accountHolder
-            accountNumber.text = externalAccount!.accountNumber
-            routingNumber.text = externalAccount!.routingNumber
-            self.personLabel.text = "Banking"
-        }
         
 
         // Do any additional setup after loading the view.
     }
     
     
-    private func deleteExternalAccount(stripeAccountId: String, externalAccount: String) {
-        let json: [String: Any] = ["stripeAccountId" : "\(stripeAccountId)", "externalAccountId" : "\(externalAccount)"]
-        
     
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/delete-bank-account")!)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-            guard let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                let self = self else {
-            // Handle error
-            return
-            }
-            
-        })
-        task.resume()
-    }
     
-    private func createExternalAccount(stripeAccountId: String) {
-        let json: [String: Any] = ["stripeAccountId" : "\(stripeAccountId)", "account_holder" : "\(self.externalAccount!.accountHolder)", "account_number": "\(self.externalAccount!.accountNumber)", "routing_number" : "\(self.externalAccount!.routingNumber)", "account_type" : "\(individualOrBanking)"]
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/create-bank-account")!)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-            guard let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                  let externalAccount = json["externalAccount"],
-                let self = self else {
-            // Handle error
-            return
-            }
-            DispatchQueue.main.async {
-                let data : [String:Any] = ["id" : stripeAccountId, "externalAccount" : "\(externalAccount)"]
-                self.db.collection("Chef").document("\(Auth.auth().currentUser!.email!)").collection("BankingInfo").document(UUID().uuidString).setData(data)
-            }
-        })
-        task.resume()
-    }
-        
-    private func createPerson() {
+    private func createPerson(representativeOrOwner: String) {
         var rep = "No"
         if representativeOrOwner == "representative" {
             rep = "Yes"
@@ -226,7 +329,38 @@ class AddPersonViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    
+                    if representativeOrOwner == "representative" {
+                        let data : [String: Any] = ["representativeId" : id]
+                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").document(self.businessBankingInfo!.bankingInfoDocumentId).updateData(data)
+                        
+                        var rep = Representative(isPersonAnOwner: self.isPersonAnOwner, isPersonAnExectutive: self.isPersonAnExectutive, firstName: self.firstName.text!, lastName: self.lastName.text!, month: self.month.text!, day: self.day.text!, year: self.year.text!, streetAddress: self.streetAddress.text!, city: self.city.text!, state: self.state.text!, zipCode: self.zipCode.text!, emailAddress: self.emailAddress.text!, phoneNumber: self.phoneNumber.text!, last4OfSSN: self.last4OfSSN.text!, id: id)
+                        self.businessBankingInfo!.representative! = rep
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
+                            
+                            vc.businessBankingInfo = self.businessBankingInfo!
+                            vc.external = "Business"
+                            
+                            self.present(vc, animated: true)
+                        }
+                    } else {
+                        
+                        var owner = Representative(isPersonAnOwner: self.isPersonAnOwner, isPersonAnExectutive: self.isPersonAnExectutive, firstName: self.firstName.text!, lastName: self.lastName.text!, month: self.month.text!, day: self.day.text!, year: self.year.text!, streetAddress: self.streetAddress.text!, city: self.city.text!, state: self.state.text!, zipCode: self.zipCode.text!, emailAddress: self.emailAddress.text!, phoneNumber: self.phoneNumber.text!, last4OfSSN: self.last4OfSSN.text!, id: id)
+                        
+                        if representativeOrOwner == "owner1" {
+                            self.businessBankingInfo!.owner1 = owner
+                        } else if representativeOrOwner == "owner2" {
+                            self.businessBankingInfo!.owner2 = owner
+                        } else if representativeOrOwner == "owner3" {
+                            self.businessBankingInfo!.owner3 = owner
+                        } else if representativeOrOwner == "owner4" {
+                            self.businessBankingInfo!.owner4 = owner
+                        }
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Owners") as? OwnersViewController  {
+                            
+                            vc.businessBankingInfo = self.businessBankingInfo!
+                            self.present(vc, animated: true)
+                        }
+                    }
                     }
             })
             task.resume()
@@ -234,7 +368,7 @@ class AddPersonViewController: UIViewController {
         
     }
     
-    private func deletePerson(stripeId: String, personId: String) {
+    private func deletePerson(stripeId: String, personId: String, representativeOrOwner: String) {
         let json : [String:Any] = ["stripeAccountId" : "\(stripeId)", "personId" : "\(personId)"]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -254,8 +388,11 @@ class AddPersonViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-                
+                if representativeOrOwner == "representative" {
+                    let data : [String: Any] = ["representativeId" : ""]
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").document(self.businessBankingInfo!.bankingInfoDocumentId).updateData(data)
                 }
+            }
         })
         task.resume()
     }
@@ -319,236 +456,132 @@ class AddPersonViewController: UIViewController {
             self.showToast(message: "Please enter your phone number", font: .systemFont(ofSize: 12))
         } else if last4OfSSN.text == "" || last4OfSSN.text?.count != 9 {
             self.showToast(message: "Please enter your ssn", font: .systemFont(ofSize: 12))
+        } else if isPersonAnExectutive != "Yes" && representativeOrOwner == "representative" {
+            self.showToast(message: "The representative must be an executive of the company.", font: .systemFont(ofSize: 12))
+        } else if isPersonAnOwner != "Yes" && representativeOrOwner == "owner" {
+            self.showToast(message: "You must click 'yes' that the owner is in fact an owner.", font: .systemFont(ofSize: 12))
         } else {
-            representative = Representative(isPersonAnOwner: isPersonAnOwner, isPersonAnExectutive: isPersonAnExectutive, firstName: firstName.text!, lastName: lastName.text!, month: month.text!, day: day.text!, year: year.text!, streetAddress: streetAddress.text!, city: city.text!, state: state.text!, zipCode: zipCode.text!, emailAddress: emailAddress.text!, phoneNumber: phoneNumber.text!, last4OfSSN: last4OfSSN.text!, id: "")
             
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
-                if self.representativeOrOwner == "representative" {
-                    vc.representative = self.representative
-                    vc.addRepresentativeLabel.text = "\(firstName.text!) \(lastName.text!)"
-                    if self.newAccountOrEditedAccount == "edit" {
-                        deletePerson(stripeId: stripeAccountId, personId: representativeId)
-                        createPerson()
-                    }
-                    if isPersonAnOwner == "Yes" {
-                        if let index = vc.owners.firstIndex(where: { "\($0.firstName) \($0.lastName) \($0.last4OfSSN)" == "\(self.representative!.firstName) \(self.representative!.lastName) \(self.representative!.last4OfSSN)" }) {
-                            
-                            vc.owners[index] = self.representative!
-                            if index == 0 {
-                                vc.addOwnerLabel.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 41.5
-                            } else if index == 1 {
-                                vc.addOwner2Stack.isHidden = false
-                                vc.addOwner2Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 80.5
-                            } else if index == 2 {
-                                vc.addOwner3Stack.isHidden = false
-                                vc.addOwner3Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 101.5
-                            } else {
-                                vc.addOwner4Stack.isHidden = false
-                                vc.addOwner4Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 147.5
-                                vc.addOwnerButton.isHidden = true
-                            }
-                        } else {
-                            
-                            vc.owners.append(self.representative!)
-                            if vc.owners.count == 1 {
-                                vc.addOwnerLabel.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 41.5
-                            } else if vc.owners.count == 2 {
-                                vc.addOwner2Stack.isHidden = false
-                                vc.addOwner2Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 80.5
-                            } else if vc.owners.count == 3 {
-                                vc.addOwner3Stack.isHidden = false
-                                vc.addOwner3Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 101.5
-                            } else {
-                                vc.addOwner4Stack.isHidden = false
-                                vc.addOwner4Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                                vc.businessSaveConstraint.constant = 147.5
-                                vc.addOwnerButton.isHidden = true
-                            }
-                        }
-                    }
-                } else {
-                    if self.newAccountOrEditedAccount == "edit" {
-                        deletePerson(stripeId: stripeAccountId, personId: representative!.id)
-                        createPerson()
-                    }
-                    if self.newInfoOrEditedInfo == "new" {
-                    vc.owners.append(self.representative!)
-                        if vc.owners.count == 1 {
-                            vc.addOwnerLabel.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 41.5
-                        } else if vc.owners.count == 2 {
-                            vc.addOwner2Stack.isHidden = false
-                            vc.addOwner2Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 80.5
-                        } else if vc.owners.count == 3 {
-                            vc.addOwner3Stack.isHidden = false
-                            vc.addOwner3Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 101.5
-                        } else {
-                            vc.addOwner4Stack.isHidden = false
-                            vc.addOwner4Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 147.5
-                            vc.addOwnerButton.isHidden = true
-                        }
-                    } else {
-                        if newInfoOrEditedInfo.suffix(1) == "0" {
-                            vc.addOwnerLabel.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 41.5
-                        } else if newInfoOrEditedInfo.suffix(1) == "1" {
-                            vc.addOwner2Stack.isHidden = false
-                            vc.addOwner2Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 80.5
-                        } else if newInfoOrEditedInfo.suffix(1) == "2" {
-                            vc.addOwner3Stack.isHidden = false
-                            vc.addOwner3Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 101.5
-                        } else {
-                            vc.addOwner4Stack.isHidden = false
-                            vc.addOwner4Label.text = "\(self.firstName.text!) \(self.lastName.text!)"
-                            vc.businessSaveConstraint.constant = 147.5
-                            vc.addOwnerButton.isHidden = true
-                        }
-                        vc.owners[Int(self.newInfoOrEditedInfo.suffix(1))!] = self.representative!
-                    }
-                }
-                    self.present(vc, animated: true, completion: nil)
-            }
-        }
-        
-        
-        
-    }
-    
-    //Banking
-    @IBAction func bankingSaveButtonPressed(_ sender: Any) {
-        
-        if newAccountOrEditedAccount == "edit" {
-            let alert = UIAlertController(title: "Please make sure that there are no pending deposits before continuing.", message: nil, preferredStyle: .actionSheet)
-            
-            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (handler) in
-                    if self.bankName.text == "" {
-                        self.showToast(message: "Please enter your bank name", font: .systemFont(ofSize: 12))
-                    } else if self.accountHolderName.text == "" {
-                        self.showToast(message: "Please enter the account holder", font: .systemFont(ofSize: 12))
-                    } else if self.accountNumber.text == "" {
-                        self.showToast(message: "Please enter your account number", font: .systemFont(ofSize: 12))
-                    } else if self.routingNumber.text == "" {
-                        self.showToast(message: "Please enter your routing number", font: .systemFont(ofSize: 12))
-                    } else {
-                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
-                        vc.externalAccountInfo = ExternalAccount(bankName: self.bankName.text!, accountHolder: self.accountHolderName.text!, accountNumber: self.accountNumber.text!, routingNumber: self.routingNumber.text!, id: "")
-                        if self.individualOrBanking == "individual" {
-                            vc.addAccountText.text = "****\(self.accountNumber.text!.suffix(4))"
-                        } else {
-                            vc.bAddAccountText.text = "****\(self.accountNumber.text!.suffix(4))"
-                        }
-                            
-                        self.deleteExternalAccount(stripeAccountId: self.stripeAccountId,externalAccount: self.externalAccountId)
-                        self.createExternalAccount(stripeAccountId: self.stripeAccountId)
-                        self.present(vc, animated: true, completion: nil)
-                    }
+            if representativeOrOwner == "representative" {
+                
+                if newAccountOrEditedAccount == "edit" {
+                    let alert = UIAlertController(title: "Are you sure you want to continue? This will delete this representative and create a new person with this information.", message: nil, preferredStyle: .actionSheet)
+                    
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
                         
-                    }
-                
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (handler) in
-                self.dismiss(animated: true, completion: nil)
-            }))
-            present(alert, animated: true, completion: nil)
-        } else {
-            if bankName.text == "" {
-                self.showToast(message: "Please enter your bank name", font: .systemFont(ofSize: 12))
-            } else if accountHolderName.text == "" {
-                self.showToast(message: "Please enter the account holder", font: .systemFont(ofSize: 12))
-            } else if accountNumber.text == "" {
-                self.showToast(message: "Please enter your account number", font: .systemFont(ofSize: 12))
-            } else if routingNumber.text == "" {
-                self.showToast(message: "Please enter your routing number", font: .systemFont(ofSize: 12))
-            } else {
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
-                vc.externalAccountInfo = ExternalAccount(bankName: bankName.text!, accountHolder: accountHolderName.text!, accountNumber: accountNumber.text!, routingNumber: routingNumber.text!, id: "")
-                if individualOrBanking == "individual" {
-                    vc.addAccountText.text = "****\(accountNumber.text!.suffix(4))"
+                        self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.representative!.id, representativeOrOwner: "representative")
+                        self.createPerson(representativeOrOwner: "representative")
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                    }))
+                    
+                    alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                    }))
+                    present(alert, animated: true, completion: nil)
+                    
                 } else {
-                    vc.bAddAccountText.text = "****\(accountNumber.text!.suffix(4))"
+                    
+                    var rep = Representative(isPersonAnOwner: self.isPersonAnOwner, isPersonAnExectutive: self.isPersonAnExectutive, firstName: self.firstName.text!, lastName: self.lastName.text!, month: self.month.text!, day: self.day.text!, year: self.year.text!, streetAddress: self.streetAddress.text!, city: self.city.text!, state: self.state.text!, zipCode: self.zipCode.text!, emailAddress: self.emailAddress.text!, phoneNumber: self.phoneNumber.text!, last4OfSSN: self.last4OfSSN.text!, id: "")
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
+                        self.businessBankingInfo!.representative = rep
+                        vc.newAccountOrEditedAccount = "new"
+                        vc.businessBankingInfo = self.businessBankingInfo!
+                        vc.external = "Business"
+                        self.present(vc, animated: true)
+                    }
+                }} else {
+                    
+                    if newAccountOrEditedAccount == "edit" {
+                        let alert = UIAlertController(title: "Are you sure you want to continue? This will delete this owner and create a new person with this information.", message: nil, preferredStyle: .actionSheet)
+                        
+                        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                            
+                            self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.representative!.id, representativeOrOwner: "owner")
+                            self.createPerson(representativeOrOwner: "owner")
+                            
+                            
+                            alert.dismiss(animated: true, completion: nil)
+                        }))
+                        
+                        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                            
+                            alert.dismiss(animated: true, completion: nil)
+                        }))
+                        present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        var owner = Representative(isPersonAnOwner: self.isPersonAnOwner, isPersonAnExectutive: self.isPersonAnExectutive, firstName: self.firstName.text!, lastName: self.lastName.text!, month: self.month.text!, day: self.day.text!, year: self.year.text!, streetAddress: self.streetAddress.text!, city: self.city.text!, state: self.state.text!, zipCode: self.zipCode.text!, emailAddress: self.emailAddress.text!, phoneNumber: self.phoneNumber.text!, last4OfSSN: self.last4OfSSN.text!, id: "")
+                        
+                        if representativeOrOwner == "owner1" {
+                            self.businessBankingInfo!.owner1 = owner
+                        } else if representativeOrOwner == "owner2" {
+                            self.businessBankingInfo!.owner2 = owner
+                        } else if representativeOrOwner == "owner3" {
+                            self.businessBankingInfo!.owner3 = owner
+                        } else if representativeOrOwner == "owner4" {
+                            self.businessBankingInfo!.owner4 = owner
+                        }
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Owners") as? OwnersViewController  {
+                            vc.newAccountOrEditedAccount = "new"
+                            vc.businessBankingInfo = self.businessBankingInfo!
+                            self.present(vc, animated: true)
+                        }
+                    }
+                    
                 }
-                    self.present(vc, animated: true, completion: nil)
-            }
-                
-                
-            }
         }
         
         
     }
     
     @IBAction func delerteButtonPressed(_ sender: UIButton) {
+        var owner = Representative(isPersonAnOwner: "", isPersonAnExectutive: "", firstName: "", lastName: "", month: "", day: "", year: "", streetAddress: "", city: "", state: "", zipCode: "", emailAddress: "", phoneNumber: "", last4OfSSN: "", id: "")
         if newAccountOrEditedAccount == "new" {
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
-                    if let index = vc.owners.firstIndex(where: { "\($0.firstName) \($0.lastName) \($0.last4OfSSN)" == "\(self.representative!.firstName) \(self.representative!.lastName) \($0.last4OfSSN)" }) {
-                        vc.owners.remove(at: index)
-                        if vc.owners.count == 0 {
-                            vc.addOwnerLabel.text = "Add Owner"
-                        } else if vc.owners.count == 1 {
-                            vc.addOwnerLabel.text = "\(vc.owners[0].firstName) \(vc.owners[0].lastName)"
-                            vc.addOwner2Stack.isHidden = true
-                            vc.businessSaveConstraint.constant = 41.5
-                        } else if vc.owners.count == 2 {
-                            vc.addOwnerLabel.text = "\(vc.owners[0].firstName) \(vc.owners[0].lastName)"
-                            vc.addOwner2Label.text = "\(vc.owners[1].firstName) \(vc.owners[1].lastName)"
-                            vc.addOwner3Stack.isHidden = true
-                            vc.businessSaveConstraint.constant = 80.5
-                        } else if vc.owners.count == 3 {
-                            vc.addOwnerLabel.text = "\(vc.owners[0].firstName) \(vc.owners[0].lastName)"
-                            vc.addOwner2Label.text = "\(vc.owners[1].firstName) \(vc.owners[1].lastName)"
-                            vc.addOwner3Label.text = "\(vc.owners[2].firstName) \(vc.owners[2].lastName)"
-                            vc.addOwner4Stack.isHidden = true
-                            vc.addOwnerButton.isHidden = false
-                            vc.businessSaveConstraint.constant = 101.5
-                        }
-                    }
+            
+            if representativeOrOwner == "owner1" {
+                businessBankingInfo!.owner1 = owner
+            } else if representativeOrOwner == "owner2" {
+                businessBankingInfo!.owner2 = owner
+            } else if representativeOrOwner == "owner3" {
+                businessBankingInfo!.owner3 = owner
+            } else if representativeOrOwner == "owner4" {
+                businessBankingInfo!.owner4 = owner
+            }
+            
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Owners") as? OwnersViewController  {
+                    
+                vc.businessBankingInfo = businessBankingInfo!
                 self.present(vc, animated: true, completion: nil)
                 }
-                
-                
         } else {
             let alert = UIAlertController(title: "Are you sure you want to delete this person?", message: nil, preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (handler) in
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
-                            if let index = vc.owners.firstIndex(where: { $0.id == self.representative!.id}) {
-                                vc.owners.remove(at: index)
-                                if vc.owners.count == 0 {
-                                    vc.addOwnerLabel.text = "Add Owner"
-                                } else if vc.owners.count == 1 {
-                                    vc.addOwnerLabel.text = "\(vc.owners[0].firstName) \(vc.owners[0].lastName)"
-                                    vc.addOwner2Stack.isHidden = true
-                                    vc.businessSaveConstraint.constant = 41.5
-                                } else if vc.owners.count == 2 {
-                                    vc.addOwnerLabel.text = "\(vc.owners[0].firstName) \(vc.owners[0].lastName)"
-                                    vc.addOwner2Label.text = "\(vc.owners[1].firstName) \(vc.owners[1].lastName)"
-                                    vc.addOwner3Stack.isHidden = true
-                                    vc.businessSaveConstraint.constant = 80.5
-                                } else if vc.owners.count == 3 {
-                                    vc.addOwnerLabel.text = "\(vc.owners[0].firstName) \(vc.owners[0].lastName)"
-                                    vc.addOwner2Label.text = "\(vc.owners[1].firstName) \(vc.owners[1].lastName)"
-                                    vc.addOwner3Label.text = "\(vc.owners[2].firstName) \(vc.owners[2].lastName)"
-                                    vc.addOwner4Stack.isHidden = true
-                                    vc.addOwnerButton.isHidden = false
-                                    vc.businessSaveConstraint.constant = 101.5
-                                }
-                        }
-                    self.deletePerson(stripeId: self.stripeAccountId, personId: self.representative!.id)
-                        self.dismiss(animated: true)
-                        }
+                var owner = Representative(isPersonAnOwner: "", isPersonAnExectutive: "", firstName: "", lastName: "", month: "", day: "", year: "", streetAddress: "", city: "", state: "", zipCode: "", emailAddress: "", phoneNumber: "", last4OfSSN: "", id: "")
+                
+                
+                if self.representativeOrOwner == "owner1" {
+                    self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.owner1!.id, representativeOrOwner: "owner")
+                    self.businessBankingInfo!.owner1 = owner
+                } else if self.representativeOrOwner == "owner2" {
+                    self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.owner2!.id, representativeOrOwner: "owner")
+                    self.businessBankingInfo!.owner2 = owner
+                } else if self.representativeOrOwner == "owner3" {
+                    self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.owner3!.id, representativeOrOwner: "owner")
+                    self.businessBankingInfo!.owner3 = owner
+                } else if self.representativeOrOwner == "owner4" {
+                    self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.owner4!.id, representativeOrOwner: "owner")
+                    self.businessBankingInfo!.owner4 = owner
+                }
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Owners") as? OwnersViewController  {
+                    
+                    vc.businessBankingInfo = self.businessBankingInfo!
+                    self.present(vc, animated: true, completion: nil)
+                }
+                alert.dismiss(animated: true)
+        
                 }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (handler) in

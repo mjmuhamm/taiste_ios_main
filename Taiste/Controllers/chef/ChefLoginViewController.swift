@@ -18,6 +18,7 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 import MaterialComponents.MaterialButtons
 import MaterialComponents
 import Firebase
+import FirebaseFirestore
 
 class ChefLoginViewController: UIViewController {
 
@@ -26,6 +27,8 @@ class ChefLoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: MDCButton!
     @IBOutlet weak var signUpButton: MDCButton!
+    
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +74,21 @@ class ChefLoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { [weak self] authResult, error in
           guard let strongSelf = self else { return }
           // ...
+            if error != nil {
+                self!.showToast(message: "An error has occured. \(error!.localizedDescription)", font: .systemFont(ofSize: 12))
+            } else {
+                self!.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+                    if error == nil {
+                        if documents?.documents.isEmpty == true {
+                            self!.performSegue(withIdentifier: "ChefLoginToChefBanking", sender: self)
+                        } else {
+                            self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
+                        }
+                    }
+                }
+                
+            }
             
-            self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
-            print("\(Auth.auth().currentUser)")
         }
         }
     }

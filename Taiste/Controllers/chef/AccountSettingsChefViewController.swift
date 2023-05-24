@@ -67,8 +67,13 @@ class AccountSettingsChefViewController: UIViewController {
     
     
     @IBAction func dataPrivacyButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicy") as? PrivacyPolicyViewController {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
-    @IBAction func termsOfServiceButtonPressed(_ sender: Any) {
+    @IBAction func termsOfServiceButtonPressed(_ sender: Any) { if let vc = self.storyboard?.instantiateViewController(withIdentifier: "TermsOfService") as? TermsOfServiceViewController {
+        self.present(vc, animated: true, completion: nil)
+    }
     }
     
     @IBAction func reportAnIssueButtonPressed(_ sender: Any) {

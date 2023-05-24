@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C85B21F142398F3FBD1C030A /* Pods_Taiste.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF6BC1FBC57B3B140EC4756 /* Pods_Taiste.framework */; };
 		F415572D27CAB0C2000C8DE5 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F415572C27CAB0C2000C8DE5 /* CheckoutViewController.swift */; };
+		F423AC0E2A1D136A009E9600 /* ExternalAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */; };
+		F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */; };
 		F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436E52F29F6FCFD00B2F38C /* Dashboard.swift */; };
 		F4599F4C2A1BDBEF00E4078D /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */; };
 		F4599F4D2A1BDBEF00E4078D /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */; };
@@ -116,6 +118,8 @@
 		3BF6BC1FBC57B3B140EC4756 /* Pods_Taiste.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Taiste.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B88A05B0D69E5C5CBBB918 /* Pods-Taiste.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taiste.release.xcconfig"; path = "Target Support Files/Pods-Taiste/Pods-Taiste.release.xcconfig"; sourceTree = "<group>"; };
 		F415572C27CAB0C2000C8DE5 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
+		F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAccountViewController.swift; sourceTree = "<group>"; };
+		F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnersViewController.swift; sourceTree = "<group>"; };
 		F436E52F29F6FCFD00B2F38C /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dashboard.swift; path = Taiste/Controllers/user/Dashboard.swift; sourceTree = SOURCE_ROOT; };
 		F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewsTableViewCell.swift; path = ../../../../Reviews/ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReviewsTableViewCell.xib; path = ../../../../Reviews/ReviewsTableViewCell.xib; sourceTree = "<group>"; };
@@ -290,6 +294,8 @@
 			children = (
 				F4A080BA29FFDE8000895938 /* AddPersonViewController.swift */,
 				F4A080BC2A00020900895938 /* StripeTermsOfServiceViewController.swift */,
+				F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */,
+				F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */,
 			);
 			path = Banking;
 			sourceTree = "<group>";
@@ -814,6 +820,7 @@
 				F4B3D77527CAB7F700AA5544 /* CheckoutTableViewCell.swift in Sources */,
 				F4FDB63C27CE838C0078E563 /* UserReviewsTableViewCell.swift in Sources */,
 				F4A080AF29FD6B6500895938 /* AddContentViewController.swift in Sources */,
+				F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */,
 				F4FDB64327CEAE5E0078E563 /* ChefContentCollectionViewCell.swift in Sources */,
 				F4A080B229FDA3B000895938 /* RegulationViewController.swift in Sources */,
 				F4B90E0C27C70B82004B1FB1 /* HomeViewController.swift in Sources */,
@@ -827,6 +834,7 @@
 				F4E44B1727C965AC007F6295 /* ProfileAsUserViewController.swift in Sources */,
 				F4DA73202A056A66004FE58F /* UserReviewViewController.swift in Sources */,
 				F4C5E7E92A1ABAB60063A5E1 /* AccountSettingsChefViewController.swift in Sources */,
+				F423AC0E2A1D136A009E9600 /* ExternalAccountViewController.swift in Sources */,
 				F482BA6E29FB1379007965C9 /* MenuItemViewController.swift in Sources */,
 				F4A080CE2A0281EA00895938 /* SearchTableViewCell.swift in Sources */,
 				F485458B2A02CC9500158E1B /* UserPersonalViewController.swift in Sources */,

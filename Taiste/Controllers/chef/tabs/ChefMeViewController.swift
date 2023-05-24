@@ -98,8 +98,8 @@ class ChefMeViewController: UIViewController {
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
         
-        loadChefInfo()
-        loadItems()
+//        loadChefInfo()
+//        loadItems()
         
     }
     
