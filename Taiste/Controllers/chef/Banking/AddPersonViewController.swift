@@ -492,12 +492,26 @@ class AddPersonViewController: UIViewController {
                         self.present(vc, animated: true)
                     }
                 }} else {
+                    var rep = Representative(isPersonAnOwner: self.isPersonAnOwner, isPersonAnExectutive: self.isPersonAnExectutive, firstName: self.firstName.text!, lastName: self.lastName.text!, month: self.month.text!, day: self.day.text!, year: self.year.text!, streetAddress: self.streetAddress.text!, city: self.city.text!, state: self.state.text!, zipCode: self.zipCode.text!, emailAddress: self.emailAddress.text!, phoneNumber: self.phoneNumber.text!, last4OfSSN: self.last4OfSSN.text!, id: "")
+                    
                     
                     if newAccountOrEditedAccount == "edit" {
-                        let alert = UIAlertController(title: "Are you sure you want to continue? This will delete this owner and create a new person with this information.", message: nil, preferredStyle: .actionSheet)
+                        var message = "Are you sure you want to continue? This will delete this owner and create a new person with this information."
+                        if self.representativeOrOwner == "owner1" && self.businessBankingInfo?.owner1 == nil || self.representativeOrOwner == "owner2" && self.businessBankingInfo?.owner2 == nil || self.representativeOrOwner == "owner3" && self.businessBankingInfo?.owner3 == nil || self.representativeOrOwner == "owner4" && self.businessBankingInfo?.owner4 == nil {
+                            message = "Are you sure you want to continue?"
+                        }
+                        let alert = UIAlertController(title: message, message: nil, preferredStyle: .actionSheet)
                         
                         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
-                            
+                            if self.representativeOrOwner == "owner1" {
+                                self.businessBankingInfo?.owner1 = rep
+                            } else if self.representativeOrOwner == "owner2" {
+                                self.businessBankingInfo?.owner2 = rep
+                            } else if self.representativeOrOwner == "owner3" {
+                                self.businessBankingInfo?.owner3 = rep
+                            } else if self.representativeOrOwner == "owner4" {
+                                self.businessBankingInfo?.owner4 = rep
+                            }
                             self.deletePerson(stripeId: self.businessBankingInfo!.stripeAccountId, personId: self.businessBankingInfo!.representative!.id, representativeOrOwner: "owner")
                             self.createPerson(representativeOrOwner: "owner")
                             
