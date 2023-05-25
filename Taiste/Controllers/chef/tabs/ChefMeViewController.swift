@@ -255,12 +255,12 @@ class ChefMeViewController: UIViewController {
     }
     private var createdAt = 0
     private func loadContent() {
-        let json: [String: Any] = ["created_at": "\(createdAt)"]
+        let json: [String: Any] = ["name": "\(Auth.auth().currentUser!.email!)"]
         
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh-video.herokuapp.com/get-videos")!)
+        var request = URLRequest(url: URL(string: "https://ruh-video.herokuapp.com/get-user-videos")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData

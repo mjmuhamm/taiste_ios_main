@@ -60,6 +60,7 @@ class ProfileAsUserViewController: UIViewController {
     
     var user = ""
     var chefOrUser = ""
+    var chefEmail = ""
     
     
     @IBOutlet weak var itemTableView: UITableView!
@@ -373,10 +374,10 @@ class ProfileAsUserViewController: UIViewController {
                     let data = doc.data()
                     
                     if let chefPassion = data["chefPassion"] as? String, let city = data["city"] as? String, let education = data["education"] as? String, let fullName = data["fullName"] as? String, let state = data["state"] as? String, let username = data["chefName"] as? String, let email = data["email"] as? String {
-                        
+                        self.chefEmail = email
                         let chefRef = storageRef.child("chefs/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
                         
-                        
+                            
                         URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                                   // Error handling...
                                   guard let imageData = data else { return }
@@ -513,12 +514,12 @@ class ProfileAsUserViewController: UIViewController {
     
     private var createdAt = 0
     private func loadContent() {
-        let json: [String: Any] = ["created_at": "\(createdAt)"]
+        let json: [String: Any] = ["name": "\(chefEmail)"]
         
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh-video.herokuapp.com/get-videos")!)
+        var request = URLRequest(url: URL(string: "https://ruh-video.herokuapp.com/get-user-videos")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
