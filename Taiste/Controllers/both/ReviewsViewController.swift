@@ -18,7 +18,7 @@ class ReviewsViewController: UIViewController {
     @IBOutlet weak var reviewLabel: UILabel!
     @IBOutlet weak var reviewTableView: UITableView!
     
-    private var reviews: [Reviews] = []
+    var reviews: [Reviews] = []
     
     var item : FeedMenuItems?
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class ReviewsViewController: UIViewController {
         
         reviewTableView.register(UINib(nibName: "ReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "ReviewsReusableCell")
         
-        loadReviews()
+        reviewTableView.reloadData()
     }
     
     private func loadReviews() {

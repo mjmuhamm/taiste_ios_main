@@ -56,6 +56,13 @@ class ItemDetailViewController: UIViewController {
     var itemImage : UIImage? = nil
     var currentIndex = 0
     
+    private var reviews : [Reviews] = []
+    private var reviewData: [ReviewData] = []
+    
+    private var expectationsData = 0
+    private var qualityData = 0
+    private var chefRatingData = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,11 +83,121 @@ class ItemDetailViewController: UIViewController {
         print("item \(item)")
         
         loadImages()
+        loadReviews()
 
         
         // Do any additional setup after loading the view.
     }
     
+    private func loadReviews() {
+        let storageRef = storage.reference()
+        
+        db.collection(item!.itemType).document(item!.menuItemId).collection("UserReviews").addSnapshotListener { documents, error in
+            if error == nil {
+                if documents != nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        if let date = data["date"] as? String, let expectations = data["expectations"] as? Int, let likes = data["liked"] as? [String], let quality = data["quality"] as? Int, let recommend = data["recommend"] as? Int, let chefRating = data["chefRating"] as? Int, let thoughts = data["thoughts"] as? String, let userImageId = data["userImageId"] as? String, let userEmail = data["userEmail"] as? String {
+                            
+                            if let index = self.reviews.firstIndex(where: { $0.documentId == doc.documentID }) {} else {
+                            
+                                       
+                                DispatchQueue.main.async {
+
+                                    self.reviews.append(Reviews(date: date, expectations: expectations, quality: quality, chefRating: chefRating, likes: likes, recommend: recommend, thoughts: thoughts, image: UIImage(), userImageId: userImageId, userEmail: userEmail, documentId: doc.documentID))
+                                    
+                                    self.reviewData.append(ReviewData(expectationsMet: expectations, quality: quality, chefRating: chefRating))
+                                    self.expectationsData = self.expectationsData + expectations
+                                    self.qualityData = self.qualityData + quality
+                                    self.chefRatingData = self.chefRatingData + chefRating
+                                    
+                                    if self.reviewData.count == documents?.documents.count {
+                                        var exp = self.expectationsData / self.reviewData.count
+                                        var qual = self.qualityData / self.reviewData.count
+                                        var chefr = self.chefRatingData / self.reviewData.count
+                                        print("exp \(exp)")
+                                        print("qual \(qual)")
+                                        print("chefr \(chefr)")
+                                        if exp > 4 {
+                                            self.expectations1.image = UIImage(systemName: "star.fill")
+                                            self.expectations2.image = UIImage(systemName: "star.fill")
+                                            self.expecations3.image = UIImage(systemName: "star.fill")
+                                            self.expecations4.image = UIImage(systemName: "star.fill")
+                                            self.expecations5.image = UIImage(systemName: "star.fill")
+                                        } else if exp > 3 && exp < 5 {
+                                            self.expectations1.image = UIImage(systemName: "star.fill")
+                                            self.expectations2.image = UIImage(systemName: "star.fill")
+                                            self.expecations3.image = UIImage(systemName: "star.fill")
+                                            self.expecations4.image = UIImage(systemName: "star.fill")
+                                        } else if exp > 2 && exp < 4 {
+                                            self.expectations1.image = UIImage(systemName: "star.fill")
+                                            self.expectations2.image = UIImage(systemName: "star.fill")
+                                            self.expecations3.image = UIImage(systemName: "star.fill")
+                                        } else if exp > 1 && exp < 3 {
+                                            self.expectations1.image = UIImage(systemName: "star.fill")
+                                            self.expectations2.image = UIImage(systemName: "star.fill")
+                                        } else if exp < 2 {
+                                            self.expectations1.image = UIImage(systemName: "star.fill")
+                                        }
+                                        if qual > 4 {
+                                            self.quality1.image = UIImage(systemName: "star.fill")
+                                            self.quality2.image = UIImage(systemName: "star.fill")
+                                            self.quality3.image = UIImage(systemName: "star.fill")
+                                            self.quality4.image = UIImage(systemName: "star.fill")
+                                            self.quality5.image = UIImage(systemName: "star.fill")
+                                        } else if qual > 3 && qual < 5 {
+                                            self.quality1.image = UIImage(systemName: "star.fill")
+                                            self.quality2.image = UIImage(systemName: "star.fill")
+                                            self.quality3.image = UIImage(systemName: "star.fill")
+                                            self.quality4.image = UIImage(systemName: "star.fill")
+                                        } else if qual > 2 && qual < 4 {
+                                            self.quality1.image = UIImage(systemName: "star.fill")
+                                            self.quality2.image = UIImage(systemName: "star.fill")
+                                            self.quality3.image = UIImage(systemName: "star.fill")
+                                        } else if qual > 1 && qual < 3 {
+                                            self.quality1.image = UIImage(systemName: "star.fill")
+                                            self.quality2.image = UIImage(systemName: "star.fill")
+                                        } else if qual < 2 {
+                                            self.quality1.image = UIImage(systemName: "star.fill")
+                                        }
+                                        
+                                        if chefr > 4 {
+                                            self.chefRating1.image = UIImage(systemName: "star.fill")
+                                            self.chefRating2.image = UIImage(systemName: "star.fill")
+                                            self.chefRating3.image = UIImage(systemName: "star.fill")
+                                            self.chefRating4.image = UIImage(systemName: "star.fill")
+                                            self.chefRating5.image = UIImage(systemName: "star.fill")
+                                        } else if chefr > 3 && chefr < 5 {
+                                            self.chefRating1.image = UIImage(systemName: "star.fill")
+                                            self.chefRating2.image = UIImage(systemName: "star.fill")
+                                            self.chefRating3.image = UIImage(systemName: "star.fill")
+                                            self.chefRating4.image = UIImage(systemName: "star.fill")
+                                        } else if chefr > 2 && chefr < 4 {
+                                            self.chefRating1.image = UIImage(systemName: "star.fill")
+                                            self.chefRating2.image = UIImage(systemName: "star.fill")
+                                            self.chefRating3.image = UIImage(systemName: "star.fill")
+                                        } else if chefr > 1 && chefr < 3 {
+                                            self.chefRating1.image = UIImage(systemName: "star.fill")
+                                            self.chefRating2.image = UIImage(systemName: "star.fill")
+                                        } else if chefr < 2 {
+                                            self.chefRating1.image = UIImage(systemName: "star.fill")
+                                        }
+                                        
+                                        
+                                    }
+                                        }
+                                
+                            }
+                            
+                            
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
     private func loadImages() {
         if item != nil {
             itemType = item!.itemType
@@ -121,6 +238,7 @@ class ItemDetailViewController: UIViewController {
     @IBAction func reviewsButtonPressed(_ sender: UIButton) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Reviews") as? ReviewsViewController {
             vc.item = self.item
+            vc.reviews = self.reviews
             self.present(vc, animated: true, completion: nil)
         }
     }
