@@ -1,8 +1,8 @@
 //
-//  UserPersonalViewController.swift
+//  FilterViewController.swift
 //  Taiste
 //
-//  Created by Malik Muhammad on 5/3/23.
+//  Created by Malik Muhammad on 5/25/23.
 //
 
 import UIKit
@@ -12,30 +12,27 @@ import FirebaseStorage
 import MaterialComponents.MaterialButtons
 import MaterialComponents
 
-class UserPersonalViewController: UIViewController {
-
-    let db = Firestore.firestore()
-    let storage = Storage.storage()
+class FilterViewController: UIViewController {
     
-    @IBOutlet weak var userImage: UIImageView!
-    
-    @IBOutlet weak var fullName: UITextField!
-    @IBOutlet weak var userName: UITextField!
-    
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var confirmPassword: UITextField!
-    @IBOutlet weak var city: UITextField!
-    @IBOutlet weak var state: UITextField!
-    
-    @IBOutlet weak var stateConstant: NSLayoutConstraint!
-    @IBOutlet weak var preferenceConstant: NSLayoutConstraint!
-    @IBOutlet weak var surpriseMeConstant: NSLayoutConstraint!
-    //64.5
+    private let db = Firestore.firestore()
     
     @IBOutlet weak var localButton: MDCButton!
     @IBOutlet weak var regionButton: MDCButton!
     @IBOutlet weak var nationButton: MDCButton!
+    @IBOutlet weak var city: UITextField!
+    @IBOutlet weak var state: UITextField!
+    
+    @IBOutlet weak var stateConstant: NSLayoutConstraint!
+    //22
+    //154
+    
+    @IBOutlet weak var preferencesConstant: NSLayoutConstraint!
+    //73.5
+    //14.5
+    
+    @IBOutlet weak var surpriseMeConstant: NSLayoutConstraint!
+    //68.5
+    //9.5
     
     @IBOutlet weak var surpriseMeButton: MDCButton!
     @IBOutlet weak var burgerButton: MDCButton!
@@ -48,74 +45,33 @@ class UserPersonalViewController: UIViewController {
     @IBOutlet weak var seafoodButton: MDCButton!
     @IBOutlet weak var workoutButton: MDCButton!
     
-    var local = 0
-    var region = 0
-    var nation = 0
-    var surpriseMe = 0
-    var burger = 0
-    var creative = 0
-    var lowCal = 0
-    var lowCarb = 0
-    var pasta = 0
-    var healthy = 0
-    var vegan = 0
-    var seafood = 0
-    var workout = 0
+    private var local = 1
+    private var region = 0
+    private var nation = 0
+    
+    private var surpriseMe = 0
+    private var burger = 0
+    private var creative = 0
+    private var lowCal = 0
+    private var lowCarb = 0
+    private var pasta = 0
+    private var healthy = 0
+    private var vegan = 0
+    private var seafood = 0
+    private var workout = 0
     
     private var documentId = ""
     
-    private var newOrEdit = "new"
     
-    private var userImage1 : UIImage?
-    private var userImageData : Data?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userImage.layer.borderWidth = 1
-        userImage.layer.masksToBounds = false
-        userImage.layer.borderColor = UIColor.white.cgColor
-        userImage.layer.cornerRadius = userImage.frame.height/2
-        userImage.clipsToBounds = true
-        
+        loadFilter()
+        // Do any additional setup after loading the view.
     }
     
-    @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func userImageButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (handler) in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                let image = UIImagePickerController()
-                image.allowsEditing = true
-                image.sourceType = .camera
-                image.delegate = self
-//                image.mediaTypes = [UTType.image.identifier]
-                self.present(image, animated: true, completion: nil)
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (handler) in
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                let image = UIImagePickerController()
-                image.allowsEditing = true
-                image.delegate = self
-                self.present(image, animated: true, completion: nil)
-                
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (handler) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func loadPersonalInfo() {
+    private func loadFilter() {
         db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
             if error == nil {
                 for doc in documents!.documents {
@@ -144,8 +100,8 @@ class UserPersonalViewController: UIViewController {
                             self.city.text = city
                             self.state.text = state
                             self.stateConstant.constant = 154
-                            preferenceConstant.constant = 69.5
-                            surpriseMeConstant.constant = 64.5
+                            self.preferencesConstant.constant = 73.5
+                            self.surpriseMeConstant.constant = 68.5
                             self.localButton.setTitleColor(UIColor.white, for: .normal)
                             self.localButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             self.regionButton.backgroundColor = UIColor.white
@@ -160,8 +116,8 @@ class UserPersonalViewController: UIViewController {
                             self.state.isHidden = false
                             self.state.text = state
                             self.stateConstant.constant = 22
-                            preferenceConstant.constant = 69.5
-                            surpriseMeConstant.constant = 64.5
+                            self.preferencesConstant.constant = 73.5
+                            self.surpriseMeConstant.constant = 68.5
                             self.regionButton.setTitleColor(UIColor.white, for: .normal)
                             self.regionButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             self.localButton.backgroundColor = UIColor.white
@@ -174,8 +130,8 @@ class UserPersonalViewController: UIViewController {
                             self.nation = 1
                             self.city.isHidden = true
                             self.state.isHidden = true
-                            preferenceConstant.constant = 29.5
-                            surpriseMeConstant.constant = 24.5
+                            self.preferencesConstant.constant = 14.5
+                            self.surpriseMeConstant.constant = 9.5
                             self.nationButton.setTitleColor(UIColor.white, for: .normal)
                             self.nationButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             self.localButton.backgroundColor = UIColor.white
@@ -255,10 +211,16 @@ class UserPersonalViewController: UIViewController {
                             self.workoutButton.backgroundColor = UIColor.white
                             self.workoutButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
+                        
                     }
+                    
                 }
             }
         }
+    }
+    
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     @IBAction func localButtonPressed(_ sender: Any) {
@@ -267,9 +229,9 @@ class UserPersonalViewController: UIViewController {
         nation = 0
         city.isHidden = false
         state.isHidden = false
-        stateConstant.constant = 152
-        preferenceConstant.constant = 69.5
-        surpriseMeConstant.constant = 64.5
+        stateConstant.constant = 154
+        preferencesConstant.constant = 73.5
+        surpriseMeConstant.constant = 68.5
         
         localButton.setTitleColor(UIColor.white, for: .normal)
         localButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
@@ -277,18 +239,18 @@ class UserPersonalViewController: UIViewController {
         regionButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         nationButton.backgroundColor = UIColor.white
         nationButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        
     }
     
     @IBAction func regionButtonPressed(_ sender: Any) {
         local = 0
         region = 1
         nation = 0
-        
-        city.isHidden = false
+        city.isHidden = true
         state.isHidden = false
-        stateConstant.constant = 10
-        preferenceConstant.constant = 69.5
-        surpriseMeConstant.constant = 64.5
+        stateConstant.constant = 22
+        preferencesConstant.constant = 73.5
+        surpriseMeConstant.constant = 68.5
         
         regionButton.setTitleColor(UIColor.white, for: .normal)
         regionButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
@@ -303,12 +265,10 @@ class UserPersonalViewController: UIViewController {
         local = 0
         region = 0
         nation = 1
-        
         city.isHidden = true
         state.isHidden = true
-        
-        preferenceConstant.constant = 29.5
-        surpriseMeConstant.constant = 24.5
+        preferencesConstant.constant = 14.5
+        surpriseMeConstant.constant = 9.5
         nationButton.setTitleColor(UIColor.white, for: .normal)
         nationButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         localButton.backgroundColor = UIColor.white
@@ -320,232 +280,132 @@ class UserPersonalViewController: UIViewController {
     
     @IBAction func surpriseMeButtonPressed(_ sender: Any) {
         if surpriseMe == 0 {
+            surpriseMeButton.setTitleColor(UIColor.white, for: .normal)
+            surpriseMeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             surpriseMe = 1
-            surpriseMeButton.setTitleColor(UIColor.white, for:.normal)
-            surpriseMeButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
         } else {
-            surpriseMe = 0
-            surpriseMeButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
             surpriseMeButton.backgroundColor = UIColor.white
-            
+            surpriseMeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            surpriseMe = 0
         }
     }
     
     
     @IBAction func burgerButtonPressed(_ sender: Any) {
-        if burgerButton.isSelected {
-            burgerButton.isSelected = false
-            burger = 0
-            burgerButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            burgerButton.backgroundColor = UIColor.white
-        } else {
-            burgerButton.isSelected = true
+        if burger == 0 {
+            burgerButton.setTitleColor(UIColor.white, for: .normal)
+            burgerButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             burger = 1
-            burgerButton.setTitleColor(UIColor.white, for:.normal)
-            burgerButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            burgerButton.backgroundColor = UIColor.white
+            burgerButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            burger = 0
         }
     }
     
     @IBAction func creativeButtonPressed(_ sender: Any) {
-        if creativeButton.isSelected {
-            creativeButton.isSelected = false
-            creative = 0
-            creativeButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            creativeButton.backgroundColor = UIColor.white
-        } else {
-            creativeButton.isSelected = true
+        if creative == 0 {
+            creativeButton.setTitleColor(UIColor.white, for: .normal)
+            creativeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             creative = 1
-            creativeButton.setTitleColor(UIColor.white, for:.normal)
-            creativeButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            creativeButton.backgroundColor = UIColor.white
+            creativeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            creative = 0
         }
     }
     
     @IBAction func lowCalButtonPressed(_ sender: Any) {
-        if lowCalButton.isSelected {
-            lowCalButton.isSelected = false
-            lowCal = 0
-            lowCalButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            lowCalButton.backgroundColor = UIColor.white
-        } else {
-            lowCalButton.isSelected = true
+        if lowCal == 0 {
+            lowCalButton.setTitleColor(UIColor.white, for: .normal)
+            lowCalButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             lowCal = 1
-            lowCalButton.setTitleColor(UIColor.white, for:.normal)
-            lowCalButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            lowCalButton.backgroundColor = UIColor.white
+            lowCalButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            lowCal = 0
         }
+        
     }
     
     @IBAction func lowCarbButtonPressed(_ sender: Any) {
-        if lowCarbButton.isSelected {
-            lowCarbButton.isSelected = false
-            lowCarb = 0
-            lowCarbButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            lowCarbButton.backgroundColor = UIColor.white
-        } else {
-            lowCarbButton.isSelected = true
+        if lowCarb == 0 {
+            lowCarbButton.setTitleColor(UIColor.white, for: .normal)
+            lowCarbButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             lowCarb = 1
-            lowCarbButton.setTitleColor(UIColor.white, for:.normal)
-            lowCarbButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            lowCarbButton.backgroundColor = UIColor.white
+            lowCarbButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            lowCarb = 0
         }
     }
     
     @IBAction func pastaButtonPressed(_ sender: Any) {
-        if pastaButton.isSelected {
-            pastaButton.isSelected = false
-            pasta = 0
-            pastaButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            pastaButton.backgroundColor = UIColor.white
-        } else {
-            pastaButton.isSelected = true
+        if pasta == 0 {
+            pastaButton.setTitleColor(UIColor.white, for: .normal)
+            pastaButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             pasta = 1
-            pastaButton.setTitleColor(UIColor.white, for:.normal)
-            pastaButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            pastaButton.backgroundColor = UIColor.white
+            pastaButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            pasta = 0
         }
     }
     
     @IBAction func healthyButtonPressed(_ sender: Any) {
-        if healthyButton.isSelected {
-            healthyButton.isSelected = false
-            healthy = 0
-            healthyButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            healthyButton.backgroundColor = UIColor.white
-        } else {
-            healthyButton.isSelected = true
+        if healthy == 0 {
+            healthyButton.setTitleColor(UIColor.white, for: .normal)
+            healthyButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             healthy = 1
-            healthyButton.setTitleColor(UIColor.white, for:.normal)
-            healthyButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            healthyButton.backgroundColor = UIColor.white
+            healthyButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            healthy = 0
         }
     }
     
     @IBAction func veganButtonPressed(_ sender: Any) {
-        if veganButton.isSelected {
-            veganButton.isSelected = false
-            vegan = 0
-            veganButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            veganButton.backgroundColor = UIColor.white
-        } else {
-            veganButton.isSelected = true
+        if vegan == 0 {
+            veganButton.setTitleColor(UIColor.white, for: .normal)
+            veganButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             vegan = 1
-            veganButton.setTitleColor(UIColor.white, for:.normal)
-            veganButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            veganButton.backgroundColor = UIColor.white
+            veganButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            vegan = 0
         }
     }
     
     @IBAction func seafoodButtonPressed(_ sender: Any) {
-        if seafoodButton.isSelected {
-            seafoodButton.isSelected = false
-            seafood = 0
-            seafoodButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            seafoodButton.backgroundColor = UIColor.white
-        } else {
-            seafoodButton.isSelected = true
+        if seafood == 0 {
+            seafoodButton.setTitleColor(UIColor.white, for: .normal)
+            seafoodButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             seafood = 1
-            seafoodButton.setTitleColor(UIColor.white, for:.normal)
-            seafoodButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            seafoodButton.backgroundColor = UIColor.white
+            seafoodButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            seafood = 0
         }
     }
     
     @IBAction func workoutButtonPressed(_ sender: Any) {
-        if workoutButton.isSelected {
-            workoutButton.isSelected = false
-            workout = 0
-            workoutButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-            workoutButton.backgroundColor = UIColor.white
-        } else {
-            workoutButton.isSelected = true
+        if workout == 0 {
+            workoutButton.setTitleColor(UIColor.white, for: .normal)
+            workoutButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             workout = 1
-            workoutButton.setTitleColor(UIColor.white, for:.normal)
-            workoutButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        } else {
+            workoutButton.backgroundColor = UIColor.white
+            workoutButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            workout = 0
         }
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        let data: [String: Any] = ["local" : local, "region" : region, "nation" : nation, "city" : city.text, "state" : state.text, "burger" : burger, "creative" : creative, "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "healthy" : healthy, "vegan" : vegan, "seafood" : seafood, "workout" : workout, "surpriseMe" : surpriseMe]
+        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(documentId).updateData(data)
+        self.performSegue(withIdentifier: "filterToUserTabSegue", sender: self)
         
-        if fullName.text == "" {
-            self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
-        } else if userName.text == "" || "\(userName.text)".contains(" ") == true {
-            self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
-        } else if email.text == "" || !isValidEmail(email.text!) {
-            self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
-        } else if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
-            self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
-        } else if local == 1 && (city.text == "" || state.text == "")  {
-            self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
-        } else if region == 1 && state.text == "" {
-            self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
-        } else  {
-        
-        if newOrEdit != "edit" {
-            let storageRef = storage.reference()
-            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
-              
-                if error == nil {
-                    if self.userImage1 != nil {
-                        storageRef.child("users//\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
-                    }
-                    let data: [String: Any] = ["fullName" : self.fullName.text, "userName" : self.userName.text, "email": self.email.text,  "city" : self.city.text, "state" : self.state.text, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
-                    let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
-                    let data2: [String: Any] = ["chefOrUser" : "User"]
-                    self.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
-                    self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
-                    self.db.collection("User").document(authResult!.user.uid).setData(data2)
-                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = self.userName.text
-                    changeRequest?.commitChanges { error in
-                      // ...
-                    }
-                    self.performSegue(withIdentifier: "UserPreferencesToHome", sender: self)
-                } else {
-                    self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
-                }
-            }
-        } else {
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        }
         
     }
-    
-    func showToast(message : String, font: UIFont) {
-        
-        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
-        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
-        toastLabel.textColor = UIColor.white
-        toastLabel.font = font
-        toastLabel.textAlignment = .center;
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.numberOfLines = 4
-        toastLabel.layer.cornerRadius = 1;
-        toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 5.0, delay: 0.1, options: .curveEaseOut, animations: {
-             toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
-    }
-}
-
-extension UserPersonalViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-            return
-        }
-        
-        self.userImage.image = image
-        self.userImage1 = image
-        self.userImageData = image.pngData()
-        
-        picker.dismiss(animated: true, completion: nil)
-        
-    }
-    
     
 }

@@ -41,3 +41,21 @@ struct FeedMenuItems {
     let lowCal: Int
     let lowCarb: Int
 }
+
+struct Filter{
+    let local: Int
+    let region: Int
+    let nation: Int
+    let city: String
+    let state: String
+    let burger: Int
+    let creative: Int
+    let lowCal: Int
+    let lowCarb: Int
+    let pasta: Int
+    let healthy: Int
+    let vegan: Int
+    let seafood: Int
+    let workout: Int
+    let surpriseMe: Int
+}

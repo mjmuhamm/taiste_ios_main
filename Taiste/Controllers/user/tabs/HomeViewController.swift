@@ -36,6 +36,7 @@ class HomeViewController: UIViewController {
     
     private var cart : [String] = []
     private var totalPrice = 0.0
+    private var filter: Filter?
     
     private var toggle = "Cater Items"
     
@@ -50,7 +51,7 @@ class HomeViewController: UIViewController {
         
 
         loadCart()
-        loadItems()
+        loadFilter()
         // Do any additional setup after loading the view.
     }
     
@@ -90,8 +91,27 @@ class HomeViewController: UIViewController {
     }
     
     
+    private func loadFilter() {
+        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+            if error == nil {
+                for doc in documents!.documents {
+                    let data = doc.data()
+                    
+                    if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
+                        
+                        self.filter = Filter(local: local, region: region, nation: nation, city: city, state: state, burger: burger, creative: creative, lowCal: lowCal, lowCarb: lowCarb, pasta: pasta, healthy: healthy, vegan: vegan, seafood: seafood, workout: workout, surpriseMe: surpriseMe)
+                        
+                        self.loadItems(filter: self.filter!)
+                        
+                        
+                    }
+                    
+                }
+            }
+        }
+    }
     
-    private func loadItems() {
+    private func loadItems(filter: Filter) {
         let storageRef = storage.reference()
         if !items.isEmpty {
             items.removeAll()
@@ -117,6 +137,47 @@ class HomeViewController: UIViewController {
                     
                     if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
                         
+                       var location = ""
+                        var preference = ""
+                        
+                        if filter.local == 1 {
+                            if filter.city == city || filter.state == state {
+                                location = "go"
+                            }
+                        } else if filter.region == 1 {
+                            if filter.state == state {
+                                location = "go"
+                            }
+                        } else if filter.nation == 1 {
+                            location = "go"
+                        }
+                        
+                        
+                        if (filter.burger == 1 && burger == 1) {
+                            preference = "go"
+                        } else if (filter.creative == 1 && creative == 1) {
+                            preference = "go"
+                        } else if (filter.pasta == 1 && pasta == 1) {
+                            preference = "go"
+                        } else if (filter.healthy == 1 && healthy == 1) {
+                            preference = "go"
+                        } else if (filter.vegan == 1 && vegan == 1) {
+                            preference = "go"
+                        } else if (filter.lowCal == 1 && lowCal == 1) {
+                            preference = "go"
+                        } else if (filter.lowCarb == 1 && lowCarb == 1) {
+                            preference = "go"
+                        } else if (filter.seafood == 1 && seafood == 1) {
+                            preference = "go"
+                        } else if (filter.workout == 1 && workout == 1) {
+                            preference = "go"
+                        } else if (filter.surpriseMe == 1) {
+                            preference = "go"
+                        } else if (filter.burger == 0 && filter.creative == 0 && filter.lowCal == 0 && filter.lowCarb == 0 && filter.pasta == 0 && filter.healthy == 0 && filter.vegan == 0 && filter.workout == 0 && filter.seafood == 0) {
+                            preference = "go"
+                        }
+                        
+                        if location == "go" && preference == "go" {
                             
                         storageRef.child("chefs/\(chefEmail)/profileImage/\(profileImageId).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
                         
@@ -126,53 +187,54 @@ class HomeViewController: UIViewController {
                               let chefImage = UIImage(data: data!)!
                             
                             
-                        storageRef.child("chefs/\(chefEmail)/\(self.toggle)/\(menuItemId)0.png").getData(maxSize: 15 * 1024 * 1024) { data1, error in
-                            
-                               let image = UIImage(data: data1!)!
-                            
-                            
-                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: chefImage, menuItemId: menuItemId, itemImage: image, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
-                                        
-                                        if self.toggle == "Cater Items" {
-                                            if self.cateringItems.isEmpty {
-                                                self.cateringItems.append(newItem)
-                                                self.items = self.cateringItems
-                                                self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                            } else {
-                                                let index = self.cateringItems.firstIndex { $0.menuItemId == menuItemId }
-                                                if index == nil {
-                                                    self.cateringItems.append(newItem)
-                                                    self.items = self.cateringItems
-                                                    self.homeTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
-                                                }
-                                            }
-                                        } else if self.toggle == "Executive Items" {
-                                            if self.personalChefItems.isEmpty {
-                                                self.personalChefItems.append(newItem)
-                                                self.items = self.personalChefItems
-                                                self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                            } else {
-                                                let index = self.personalChefItems.firstIndex { $0.menuItemId == menuItemId }
-                                                if index == nil {
-                                                    self.personalChefItems.append(newItem)
-                                                    self.items = self.personalChefItems
-                                                    self.homeTableView.insertRows(at: [IndexPath(item: self.personalChefItems.count - 1, section: 0)], with: .fade)
-                                                }
-                                            }
-                                        } else if self.toggle == "MealKit Items" {
-                                            if self.mealKitItems.isEmpty {
-                                                self.mealKitItems.append(newItem)
-                                                self.items = self.mealKitItems
-                                                self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                            } else {
-                                                let index = self.mealKitItems.firstIndex { $0.menuItemId == menuItemId }
-                                                if index == nil {
-                                                    self.mealKitItems.append(newItem)
-                                                    self.items = self.mealKitItems
-                                                    self.homeTableView.insertRows(at: [IndexPath(item: self.mealKitItems.count - 1, section: 0)], with: .fade)
-                                                }
-                                            }
-                        }
+                            storageRef.child("chefs/\(chefEmail)/\(self.toggle)/\(menuItemId)0.png").getData(maxSize: 15 * 1024 * 1024) { data1, error in
+                                
+                                let image = UIImage(data: data1!)!
+                                
+                                
+                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: chefImage, menuItemId: menuItemId, itemImage: image, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
+                                
+                                if self.toggle == "Cater Items" {
+                                    if self.cateringItems.isEmpty {
+                                        self.cateringItems.append(newItem)
+                                        self.items = self.cateringItems
+                                        self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                    } else {
+                                        let index = self.cateringItems.firstIndex { $0.menuItemId == menuItemId }
+                                        if index == nil {
+                                            self.cateringItems.append(newItem)
+                                            self.items = self.cateringItems
+                                            self.homeTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
+                                        }
+                                    }
+                                } else if self.toggle == "Executive Items" {
+                                    if self.personalChefItems.isEmpty {
+                                        self.personalChefItems.append(newItem)
+                                        self.items = self.personalChefItems
+                                        self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                    } else {
+                                        let index = self.personalChefItems.firstIndex { $0.menuItemId == menuItemId }
+                                        if index == nil {
+                                            self.personalChefItems.append(newItem)
+                                            self.items = self.personalChefItems
+                                            self.homeTableView.insertRows(at: [IndexPath(item: self.personalChefItems.count - 1, section: 0)], with: .fade)
+                                        }
+                                    }
+                                } else if self.toggle == "MealKit Items" {
+                                    if self.mealKitItems.isEmpty {
+                                        self.mealKitItems.append(newItem)
+                                        self.items = self.mealKitItems
+                                        self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                    } else {
+                                        let index = self.mealKitItems.firstIndex { $0.menuItemId == menuItemId }
+                                        if index == nil {
+                                            self.mealKitItems.append(newItem)
+                                            self.items = self.mealKitItems
+                                            self.homeTableView.insertRows(at: [IndexPath(item: self.mealKitItems.count - 1, section: 0)], with: .fade)
+                                        }
+                                    }
+                                }
+                            }
                     }
                       }
                     }
@@ -198,7 +260,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func cateringButtonPressed(_ sender: MDCButton) {
         toggle = "Cater Items"
-        loadItems()
+        loadItems(filter: self.filter!)
         cateringButton.setTitleColor(UIColor.white, for: .normal)
         cateringButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         personalChefButton.backgroundColor = UIColor.white
@@ -212,7 +274,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func personalChefButtonPressed(_ sender: MDCButton) {
         toggle = "Executive Items"
-        loadItems()
+        loadItems(filter: self.filter!)
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.setTitleColor(UIColor.white, for: .normal)
@@ -224,7 +286,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func mealKitButtonPressed(_ sender: MDCButton) {
         toggle = "MealKit Items"
-        loadItems()
+        loadItems(filter: self.filter!)
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.backgroundColor = UIColor.white
@@ -236,6 +298,9 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func filterButtonPressed(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Filter") as? FilterViewController
+        self.present(vc!, animated: true, completion: nil)
+        
     }
     
     @IBAction func checkoutButtonPressed(_ sender: Any) {
