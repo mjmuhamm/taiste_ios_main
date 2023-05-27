@@ -64,7 +64,7 @@ class UserPersonalViewController: UIViewController {
     
     private var documentId = ""
     
-    private var newOrEdit = "new"
+    var newOrEdit = "new"
     
     private var userImage1 : UIImage?
     private var userImageData : Data?
@@ -124,10 +124,14 @@ class UserPersonalViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int, let fullName = data["fullName"] as? String, let username = data["userName"] as? String {
+                    if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int, let fullName = data["fullName"] as? String, let username = data["userName"] as? String, let email = data["email"] as? String {
                         
                         self.fullName.text = fullName
                         self.userName.text = username
+                        self.email.text = email
+                        self.password.text = "*********"
+                        self.confirmPassword.text = "*********"
+                        self.documentId = doc.documentID
                         
                         self.storage.reference().child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { imageUrl, error in
                             
@@ -203,14 +207,14 @@ class UserPersonalViewController: UIViewController {
                             self.regionButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             
                         }
-                        if surpriseMe == 0 {
+                        if surpriseMe == 1 {
                             self.surpriseMeButton.setTitleColor(UIColor.white, for: .normal)
                             self.surpriseMeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.surpriseMeButton.backgroundColor = UIColor.white
                             self.surpriseMeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if burger == 0 {
+                        if burger == 1 {
                                 self.burgerButton.setTitleColor(UIColor.white, for: .normal)
                                 self.burgerButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
@@ -218,56 +222,56 @@ class UserPersonalViewController: UIViewController {
                                 self.burgerButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             }
                         
-                        if creative == 0 {
+                        if creative == 1 {
                                 self.creativeButton.setTitleColor(UIColor.white, for: .normal)
                                 self.creativeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
                                 self.creativeButton.backgroundColor = UIColor.white
                                 self.creativeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if lowCal == 0 {
+                        if lowCal == 1 {
                                 self.lowCalButton.setTitleColor(UIColor.white, for: .normal)
                                 self.lowCalButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
                                 self.lowCalButton.backgroundColor = UIColor.white
                                 self.lowCalButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             }
-                        if lowCarb == 0 {
+                        if lowCarb == 1 {
                                 self.lowCarbButton.setTitleColor(UIColor.white, for: .normal)
                                 self.lowCarbButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
                                 self.lowCarbButton.backgroundColor = UIColor.white
                                 self.lowCarbButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             }
-                        if pasta == 0 {
+                        if pasta == 1 {
                             self.pastaButton.setTitleColor(UIColor.white, for: .normal)
                             self.pastaButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.pastaButton.backgroundColor = UIColor.white
                             self.pastaButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if healthy == 0 {
+                        if healthy == 1 {
                             self.healthyButton.setTitleColor(UIColor.white, for: .normal)
                             self.healthyButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.healthyButton.backgroundColor = UIColor.white
                             self.healthyButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if vegan == 0 {
+                        if vegan == 1 {
                             self.veganButton.setTitleColor(UIColor.white, for: .normal)
                             self.veganButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.veganButton.backgroundColor = UIColor.white
                             self.veganButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if seafood == 0 {
+                        if seafood == 1 {
                             self.seafoodButton.setTitleColor(UIColor.white, for: .normal)
                             self.seafoodButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.seafoodButton.backgroundColor = UIColor.white
                             self.seafoodButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if workout == 0 {
+                        if workout == 1 {
                             self.workoutButton.setTitleColor(UIColor.white, for: .normal)
                             self.workoutButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
@@ -303,7 +307,7 @@ class UserPersonalViewController: UIViewController {
         region = 1
         nation = 0
         
-        city.isHidden = false
+        city.isHidden = true
         state.isHidden = false
         stateConstant.constant = 10
         preferenceConstant.constant = 69.5
@@ -485,8 +489,6 @@ class UserPersonalViewController: UIViewController {
             self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
         } else if email.text == "" || !isValidEmail(email.text!) {
             self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
-        } else if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
-            self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
         } else if local == 1 && (city.text == "" || state.text == "")  {
             self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
         } else if region == 1 && state.text == "" {
@@ -494,30 +496,48 @@ class UserPersonalViewController: UIViewController {
         } else  {
         
         if newOrEdit != "edit" {
-            let storageRef = storage.reference()
-            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
-              
-                if error == nil {
-                    if self.userImage1 != nil {
-                        storageRef.child("users//\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
+            if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
+                self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
+                
+                let storageRef = storage.reference()
+                Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
+                    
+                    if error == nil {
+                        if self.userImage1 != nil {
+                            storageRef.child("users//\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
+                        }
+                        let data: [String: Any] = ["fullName" : self.fullName.text, "userName" : self.userName.text, "email": self.email.text,  "city" : self.city.text, "state" : self.state.text, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
+                        let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
+                        let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no"]
+                        self.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
+                        self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
+                        self.db.collection("User").document(authResult!.user.uid).setData(data2)
+                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.displayName = self.userName.text
+                        changeRequest?.commitChanges { error in
+                            // ...
+                        }
+                        self.performSegue(withIdentifier: "UserPreferencesToHome", sender: self)
+                    } else {
+                        self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
                     }
-                    let data: [String: Any] = ["fullName" : self.fullName.text, "userName" : self.userName.text, "email": self.email.text,  "city" : self.city.text, "state" : self.state.text, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
-                    let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
-                    let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no"]
-                    self.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
-                    self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
-                    self.db.collection("User").document(authResult!.user.uid).setData(data2)
-                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = self.userName.text
-                    changeRequest?.commitChanges { error in
-                      // ...
-                    }
-                    self.performSegue(withIdentifier: "UserPreferencesToHome", sender: self)
-                } else {
-                    self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
                 }
             }
         } else {
+            let data: [String: Any] = ["fullName" : self.fullName.text, "userName" : self.userName.text, "email": self.email.text,  "city" : self.city.text, "state" : self.state.text, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
+            let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
+            if self.password.text != "" && !(self.password.text?.contains("*"))! {
+                if !isPasswordValid(password: self.password.text!) {
+                    self.showToast(message: "Please enter a valid password to change your password.", font: .systemFont(ofSize: 12))
+                } else {
+                    Auth.auth().currentUser!.updatePassword(to: self.password.text!)
+                    self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(documentId).updateData(data)
+                    self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
+                    self.showToast(message: "Profile Updated.", font: .systemFont(ofSize: 12))
+                    
+                    
+                }
+            }
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -560,6 +580,11 @@ extension UserPersonalViewController: UIImagePickerControllerDelegate, UINavigat
         
         self.userImage.image = image
         self.userImage1 = image
+        if newOrEdit == "edit" {
+            let storageRef = storage.reference()
+            storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(image.pngData()!)
+            self.showToast(message: "Image Updated.", font: .systemFont(ofSize: 12))
+        }
         self.userImageData = image.pngData()
         
         picker.dismiss(animated: true, completion: nil)

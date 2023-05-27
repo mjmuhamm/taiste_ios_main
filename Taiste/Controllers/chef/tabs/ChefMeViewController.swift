@@ -112,7 +112,7 @@ class ChefMeViewController: UIViewController {
     
     private func loadChefInfo() {
         let storageRef = storage.reference()
-        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").addSnapshotListener { documents, error in
             if error == nil {
                 for doc in documents!.documents {
                     let data = doc.data()

@@ -72,6 +72,7 @@ class AccountSettingsViewController: UIViewController {
     }
     @IBAction func profileButtonPressed(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
+            vc.newOrEdit = "edit"
             self.present(vc, animated: true, completion: nil)
         }
     }

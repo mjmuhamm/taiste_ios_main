@@ -76,7 +76,7 @@ class MeViewController: UIViewController {
     private func loadPersonalInfo() {
         let storageRef = storage.reference()
         let image : UIImage?
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                         for doc in documents!.documents {
