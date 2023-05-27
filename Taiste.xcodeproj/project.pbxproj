@@ -12,6 +12,7 @@
 		F423AC0E2A1D136A009E9600 /* ExternalAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */; };
 		F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */; };
 		F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436E52F29F6FCFD00B2F38C /* Dashboard.swift */; };
+		F45366302A21883200E18D9B /* ReportAnIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */; };
 		F4599F4C2A1BDBEF00E4078D /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */; };
 		F4599F4D2A1BDBEF00E4078D /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */; };
 		F4599F502A1BDBFA00E4078D /* CommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4599F4E2A1BDBFA00E4078D /* CommentsTableViewCell.xib */; };
@@ -122,6 +123,7 @@
 		F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAccountViewController.swift; sourceTree = "<group>"; };
 		F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnersViewController.swift; sourceTree = "<group>"; };
 		F436E52F29F6FCFD00B2F38C /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dashboard.swift; path = Taiste/Controllers/user/Dashboard.swift; sourceTree = SOURCE_ROOT; };
+		F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAnIssueViewController.swift; sourceTree = "<group>"; };
 		F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewsTableViewCell.swift; path = ../../../../Reviews/ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReviewsTableViewCell.xib; path = ../../../../Reviews/ReviewsTableViewCell.xib; sourceTree = "<group>"; };
 		F4599F4E2A1BDBFA00E4078D /* CommentsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CommentsTableViewCell.xib; path = ../../../../Comments/CommentsTableViewCell.xib; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				F4A080C92A01AF6000895938 /* SearchViewController.swift */,
 				F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */,
 				F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */,
+				F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */,
 			);
 			path = both;
 			sourceTree = "<group>";
@@ -845,6 +848,7 @@
 				F4E44B1A27C96DEF007F6295 /* ChefItemTableViewCell.swift in Sources */,
 				F466D9D22A20186A000E6E38 /* FilterViewController.swift in Sources */,
 				F4B90DC627C709A9004B1FB1 /* SceneDelegate.swift in Sources */,
+				F45366302A21883200E18D9B /* ReportAnIssueViewController.swift in Sources */,
 				F46F205A2A1C0D2100A7C8C0 /* CommentsViewController.swift in Sources */,
 				F4FDB63027CE64940078E563 /* Profile.swift in Sources */,
 				F4A13EB827CD820700A63A00 /* Orders.swift in Sources */,

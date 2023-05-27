@@ -34,6 +34,7 @@ class ChefMeViewController: UIViewController {
     @IBOutlet weak var bankingButton: MDCButton!
     @IBOutlet weak var addContentButton: MDCButton!
     
+    @IBOutlet weak var comingSoon: UILabel!
     
     @IBOutlet weak var chefName: UILabel!
     @IBOutlet weak var chefImage: UIImageView!
@@ -527,7 +528,7 @@ class ChefMeViewController: UIViewController {
         contentCollectionView.isHidden = true
         meTableView.isHidden = false
         bankingView.isHidden = true
-    
+        comingSoon.isHidden = true
         cateringButton.setTitleColor(UIColor.white, for:.normal)
         cateringButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
         personalChefButton.backgroundColor = UIColor.white
@@ -546,7 +547,7 @@ class ChefMeViewController: UIViewController {
         contentCollectionView.isHidden = true
         meTableView.isHidden = false
         bankingView.isHidden = true
-        
+        comingSoon.isHidden = true
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255,green: 99/255, blue: 72/255, alpha: 1), for:.normal)
         personalChefButton.setTitleColor(UIColor.white,for: .normal)
@@ -561,7 +562,8 @@ class ChefMeViewController: UIViewController {
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
         toggle = "MealKit Items"
-        loadItems()
+//        loadItems()
+        comingSoon.isHidden = false
         contentCollectionView.isHidden = true
         meTableView.isHidden = false
         bankingView.isHidden = true
@@ -584,7 +586,7 @@ class ChefMeViewController: UIViewController {
         contentCollectionView.isHidden = false
         meTableView.isHidden = true
         bankingView.isHidden = true
-        
+        comingSoon.isHidden = true
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.backgroundColor = UIColor.white
@@ -603,6 +605,7 @@ class ChefMeViewController: UIViewController {
         contentCollectionView.isHidden = true
         meTableView.isHidden = true
         bankingView.isHidden = false
+        comingSoon.isHidden = true
         loadBankingInfo()
         
         cateringButton.backgroundColor = UIColor.white
@@ -619,7 +622,7 @@ class ChefMeViewController: UIViewController {
     }
     
     @IBAction func addContentButtonPressed(_ sender: MDCButton) {
-        if toggle != "Content" {
+        if toggle != "Content" && toggle != "MealKit Items" {
         performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
         } else {
             performSegue(withIdentifier: "ChefMeToContentSegue", sender: self)

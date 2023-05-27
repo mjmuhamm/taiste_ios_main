@@ -144,8 +144,8 @@ class UserPersonalViewController: UIViewController {
                             self.city.text = city
                             self.state.text = state
                             self.stateConstant.constant = 154
-                            preferenceConstant.constant = 69.5
-                            surpriseMeConstant.constant = 64.5
+                            self.preferenceConstant.constant = 69.5
+                            self.surpriseMeConstant.constant = 64.5
                             self.localButton.setTitleColor(UIColor.white, for: .normal)
                             self.localButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             self.regionButton.backgroundColor = UIColor.white
@@ -160,8 +160,8 @@ class UserPersonalViewController: UIViewController {
                             self.state.isHidden = false
                             self.state.text = state
                             self.stateConstant.constant = 22
-                            preferenceConstant.constant = 69.5
-                            surpriseMeConstant.constant = 64.5
+                            self.preferenceConstant.constant = 69.5
+                            self.surpriseMeConstant.constant = 64.5
                             self.regionButton.setTitleColor(UIColor.white, for: .normal)
                             self.regionButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             self.localButton.backgroundColor = UIColor.white
@@ -174,8 +174,8 @@ class UserPersonalViewController: UIViewController {
                             self.nation = 1
                             self.city.isHidden = true
                             self.state.isHidden = true
-                            preferenceConstant.constant = 29.5
-                            surpriseMeConstant.constant = 24.5
+                            self.preferenceConstant.constant = 29.5
+                            self.surpriseMeConstant.constant = 24.5
                             self.nationButton.setTitleColor(UIColor.white, for: .normal)
                             self.nationButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             self.localButton.backgroundColor = UIColor.white
