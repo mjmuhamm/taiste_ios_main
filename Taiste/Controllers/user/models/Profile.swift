@@ -13,7 +13,7 @@ struct UserOrders {
     
     let chefEmail: String
     let chefImageId: String
-    let chefImage: UIImage?
+    var chefImage: UIImage?
     let city: String
     let state: String
     let zipCode: String
@@ -41,7 +41,7 @@ struct UserChefs {
     
     let chefEmail: String
     let chefImageId: String
-    let chefImage: UIImage?
+    var chefImage: UIImage?
     let chefName: String
     let chefPassion: String
     var timesLiked: Int
@@ -55,7 +55,7 @@ struct UserLikes {
     
     let chefEmail: String
     let chefImageId: String
-    let chefImage: UIImage?
+    var chefImage: UIImage?
     let itemType: String
     let city: String
     let state: String

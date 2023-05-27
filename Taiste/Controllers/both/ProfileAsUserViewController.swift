@@ -111,7 +111,7 @@ class ProfileAsUserViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
 
-                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let vegan = data["vegan"] as? Int {
+                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let vegan = data["vegan"] as? Int, let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int {
 
                             storageRef.child("users/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
                                 
@@ -155,7 +155,13 @@ class ProfileAsUserViewController: UIViewController {
                                 self.educationText.text = "\(self.educationText.text!)  Workout"
                             }
                         self.userName.text = "@\(userName)"
-                        self.location.text = "Location: \(city), \(state)"
+                            if local == 1 {
+                                self.location.text = "Location: \(city), \(state)"
+                            } else if region == 1 {
+                                self.location.text = "Location: \(state)"
+                            } else {
+                                self.location.text = "Location: Nationwide"
+                            }
                         }
                         }
 
@@ -167,8 +173,6 @@ class ProfileAsUserViewController: UIViewController {
 
     private func loadUserOrders() {
         let storageRef = storage.reference()
-        var chefImage = UIImage()
-        var itemImage = UIImage()
 
         userOrders.removeAll()
         userChefs.removeAll()
@@ -192,7 +196,7 @@ class ProfileAsUserViewController: UIViewController {
 
                                     if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
 
-                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: chefImage, city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: itemImage, orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
+                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
 
                         if self.userOrders.isEmpty {
                             self.userOrders.append(newItem)
@@ -225,7 +229,6 @@ class ProfileAsUserViewController: UIViewController {
     }
 
     private func loadUserChefs() {
-        let storageRef = storage.reference()
         userOrders.removeAll()
         userChefs.removeAll()
         userLikes.removeAll()
@@ -283,7 +286,6 @@ class ProfileAsUserViewController: UIViewController {
     }
 
     private func loadUserLikes() {
-        let storageRef = storage.reference()
 //        var chefImage = UIImage()
 //        var itemImage = UIImage()
 
@@ -342,7 +344,6 @@ class ProfileAsUserViewController: UIViewController {
     }
 
     private func loadUserReviews() {
-        let storageRef = storage.reference()
         itemTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
 
         userOrders.removeAll()
@@ -392,11 +393,7 @@ class ProfileAsUserViewController: UIViewController {
     
     private func loadChefInfo() {
         
-        
-        var chefImage = UIImage()
-        
-       let storageRef = storage.reference()
-        
+        let storageRef = storage.reference()
         
         db.collection("Chef").document(user).collection("PersonalInfo").getDocuments { documents, error in
             if error == nil {
@@ -449,7 +446,6 @@ class ProfileAsUserViewController: UIViewController {
         
         
         var itemsI : [FeedMenuItems]
-        let storageRef = storage.reference()
         
         if toggle == "Cater Items" {
             itemsI = cateringItems
@@ -839,6 +835,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.itemImage.image = UIImage(data: imageData)!
+                            item.itemImage = UIImage(data: imageData)!
                         }
                     }.resume()
                 }
@@ -853,6 +850,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     vc.itemTitleI = item.itemTitle
                     vc.itemDescriptionI = item.itemDescription
                     vc.itemImage = item.itemImage
+                    vc.item = item
                     self.present(vc, animated: true, completion: nil)
                 }
             }
@@ -924,6 +922,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.userImage.image = UIImage(data: imageData)!
+                            order.chefImage = UIImage(data: imageData)!
                         }
                     }.resume()
                 }
@@ -937,6 +936,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.itemImage.image = UIImage(data: imageData)!
+                            order.itemImage = UIImage(data: imageData)!
                         }
                     }.resume()
             }
@@ -958,6 +958,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                                 vc.itemTitleI = order.itemTitle
                                 vc.itemDescriptionI = order.itemDescription
                                 vc.itemImage = order.itemImage
+                                vc.item = FeedMenuItems(chefEmail: order.chefEmail, chefPassion: "", chefUsername: order.chefEmail, chefImageId: order.chefImageId, menuItemId: order.menuItemId, itemTitle: order.itemTitle, itemDescription: order.itemDescription, itemPrice: order.itemPrice, liked: order.liked, itemOrders: order.itemOrders, itemRating: order.itemRating, date: order.orderDate, imageCount: order.imageCount, itemCalories: "\(order.itemCalories)", itemType: order.typeOfService, city: order.city, state: order.state, zipCode: order.zipCode, user: order.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
                                 self.present(vc, animated: true, completion: nil)
                                 
                             }}
@@ -971,7 +972,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
             var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserChefsReusableCell", for: indexPath) as! UserChefsTableViewCell
                 
-                let item = userChefs[indexPath.row]
+                var item = userChefs[indexPath.row]
                 
                 cell.chefPassion.text = item.chefPassion
                 cell.likeText.text = "\(item.chefLiked.count)"
@@ -988,6 +989,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.chefImage.image = UIImage(data: imageData)!
+                            item.chefImage = UIImage(data: imageData)!
                         }
                     }.resume()
                 }
@@ -1014,7 +1016,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
             var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
                 
-                let item = userLikes[indexPath.row]
+                var item = userLikes[indexPath.row]
                 
                 cell.itemTitle.text = item.itemTitle
                 cell.itemDescription.text = item.itemDescription
@@ -1023,6 +1025,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.orderText.text = "\(item.itemOrders)"
                 cell.ratingText.text = "\(item.itemRating)"
                 cell.userImage.image = item.chefImage
+                
                 cell.itemImage.image = item.itemImage
                 cell.likeImage.image = UIImage(systemName: "heart.fill")
                 let storageRef = storage.reference()
@@ -1037,6 +1040,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.userImage.image = UIImage(data: imageData)!
+                            item.chefImage = UIImage(data: imageData)!
                         }
                     }.resume()
                 }
@@ -1049,6 +1053,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.itemImage.image = UIImage(data: imageData)!
+                            item.itemImage = UIImage(data: imageData)!
                         }
                     }.resume()
                 }
@@ -1069,6 +1074,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         vc.itemTitleI = item.itemTitle
                         vc.itemDescriptionI = item.itemDescription
                         vc.itemImage = item.itemImage
+                        vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefEmail, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
                         self.present(vc, animated: true, completion: nil)
                     }
                 }

@@ -30,6 +30,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var itemDescription: UITextView!
     @IBOutlet weak var itemCalories: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
+    @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -88,6 +89,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         
         if newOrEdit == "edit" {
             loadEditedItem()
+            deleteButton.isHidden = false
         }
         
         titleLabel.text = typeOfitem
@@ -200,6 +202,25 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).delete()
+            self.db.collection(self.typeOfitem).document(self.menuItemId).delete()
+            let storageRef = self.storage.reference()
+            storageRef.child("chefs/\(Auth.auth().currentUser!.email)/\(self.typeOfitem)/\(self.menuItemId)").delete()
+            self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func cancelImageButtonPressed(_ sender: Any) {
