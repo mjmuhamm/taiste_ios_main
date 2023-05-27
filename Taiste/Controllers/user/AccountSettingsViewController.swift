@@ -7,6 +7,9 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseStorage
 import MaterialComponents.MaterialButtons
 import MaterialComponents.MaterialButtons_Theming
 import MaterialComponents.MaterialTextControls_FilledTextAreasTheming
@@ -16,12 +19,17 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 
 class AccountSettingsViewController: UIViewController {
 
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     @IBOutlet weak var logoutButton: MDCButton!
     @IBOutlet weak var deleteAccountButton: MDCButton!
     
+    @IBOutlet weak var privatizeYes: MDCButton!
+    @IBOutlet weak var privatizeNo: MDCButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadPrivatizeData()
 
         
         logoutButton.applyOutlinedTheme(withScheme: globalContainerScheme())
@@ -35,6 +43,30 @@ class AccountSettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    private func loadPrivatizeData() {
+        db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+            if error == nil {
+                let data = document!.data()
+                
+                if let privatizeData = data!["privatizeData"] as? String {
+                    
+                    if privatizeData == "yes" {
+                        self.privatizeYes.setTitleColor(UIColor.white, for: .normal)
+                        self.privatizeYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        self.privatizeNo.backgroundColor = UIColor.white
+                        self.privatizeNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    } else {
+                        self.privatizeNo.setTitleColor(UIColor.white, for: .normal)
+                        self.privatizeNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        self.privatizeYes.backgroundColor = UIColor.white
+                        self.privatizeYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                    }
+                }
+                
+            }
+        }
+    }
+    
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -44,6 +76,23 @@ class AccountSettingsViewController: UIViewController {
         }
     }
     
+    @IBAction func privatizeYesPressed(_ sender: Any) {
+        let data : [String: Any] = ["privatizeData" : "yes"]
+        db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
+        privatizeYes.setTitleColor(UIColor.white, for: .normal)
+        privatizeYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        privatizeNo.backgroundColor = UIColor.white
+        privatizeNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+    }
+    
+    @IBAction func privatizeNoPressed(_ sender: Any) {
+        let data : [String: Any] = ["privatizeData" : "no"]
+        db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
+        privatizeNo.setTitleColor(UIColor.white, for: .normal)
+        privatizeNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        privatizeYes.backgroundColor = UIColor.white
+        privatizeYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+    }
     
     @IBAction func dataPrivacyButtonPressed(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicy") as? PrivacyPolicyViewController  {
@@ -72,13 +121,29 @@ class AccountSettingsViewController: UIViewController {
     }
     
     @IBAction func deleteAccountButtonPressed(_ sender: MDCButton) {
-        Auth.auth().currentUser!.delete { error in
-            if error == nil {
-                self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
-            } else {
-                self.showToast(message: "Something went wrong. Please try again.", font: .systemFont(ofSize: 12))
+        let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+            Auth.auth().currentUser!.delete { error in
+                if error == nil {
+                    self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
+                    self.db.collection("User").document(Auth.auth().currentUser!.uid).delete()
+                    let storageRef = self.storage.reference()
+                    storageRef.child("users/\(Auth.auth().currentUser!.email!)").delete()
+                    self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
+                    
+                } else {
+                    self.showToast(message: "Something went wrong. Please try again.", font: .systemFont(ofSize: 12))
+                }
             }
-        }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+       
     }
     
     
@@ -119,9 +184,7 @@ class AccountSettingsViewController: UIViewController {
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
              toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Start") as? StartViewController  {
-                self.present(vc, animated: true, completion: nil)
-            }
+            self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
             toastLabel.removeFromSuperview()
         })
     }

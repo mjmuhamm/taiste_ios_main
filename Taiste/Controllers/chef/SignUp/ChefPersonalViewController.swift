@@ -24,11 +24,6 @@ class ChefPersonalViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var education: UITextField!
-    @IBOutlet weak var chefPassion: UITextField!
-    @IBOutlet weak var city: UITextField!
-    @IBOutlet weak var state: UITextField!
-    @IBOutlet weak var zipCode: UITextField!
-    
     @IBOutlet weak var saveButton: UIButton!
     
     var newOrEdit = "new"
@@ -65,7 +60,7 @@ class ChefPersonalViewController: UIViewController {
                     for doc in documents!.documents {
                         let data = doc.data()
                         
-                        if let chefName = data["chefName"] as? String, let chefPassion = data["chefPassion"] as? String, let city = data["city"] as? String, let education = data["education"] as? String, let email = data["email"] as? String, let fullName = data["fullName"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String {
+                        if let chefName = data["chefName"] as? String, let education = data["education"] as? String, let email = data["email"] as? String, let fullName = data["fullName"] as? String {
                             
                             storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
                                 if error == nil {
@@ -74,10 +69,6 @@ class ChefPersonalViewController: UIViewController {
                             }
                             
                             self.chefName.text = chefName
-                            self.chefPassion.text = chefPassion
-                            self.city.text = city
-                            self.state.text = state
-                            self.zipCode.text = zipCode
                             self.fullName.text = fullName
                             self.education.text = education
                             self.email.text = email
@@ -139,11 +130,7 @@ class ChefPersonalViewController: UIViewController {
             self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
         } else if education.text == "" {
             self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
-        } else if chefPassion.text == "" {
-            self.showToast(message: "Please enter chef passion.", font: .systemFont(ofSize: 12))
-        } else if city.text == "" || state.text == "" || zipCode.text == "" {
-            self.showToast(message: "Please enter your city, state, and zip code.", font: .systemFont(ofSize: 12))
-        } else  {
+        } else {
         
             let storageRef = storage.reference()
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
@@ -152,7 +139,7 @@ class ChefPersonalViewController: UIViewController {
                     if self.userImage1 != nil {
                         storageRef.child("chefs/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
                     }
-                    let data: [String: Any] = ["fullName" : self.fullName.text, "chefName" : self.chefName.text, "email": self.email.text, "education" : self.education.text, "chefPassion" : self.chefPassion.text, "city" : self.city.text, "state" : self.state.text, "zipCode" : self.zipCode.text]
+                    let data: [String: Any] = ["fullName" : self.fullName.text, "chefName" : self.chefName.text, "email": self.email.text, "education" : self.education.text, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
                     let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef"]
                     let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0]
                     self.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
@@ -178,11 +165,7 @@ class ChefPersonalViewController: UIViewController {
                 self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
             } else if education.text == "" {
                 self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
-            } else if chefPassion.text == "" {
-                self.showToast(message: "Please enter chef passion.", font: .systemFont(ofSize: 12))
-            } else if city.text == "" || state.text == "" || zipCode.text == "" {
-                self.showToast(message: "Please enter your city, state, and zip code.", font: .systemFont(ofSize: 12))
-            } else  {
+            } else {
                 
             if !password.text!.contains("*") {
                 if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
@@ -191,7 +174,7 @@ class ChefPersonalViewController: UIViewController {
                     Auth.auth().currentUser?.updatePassword(to: password.text!) { error in
                       // ...
                         if error == nil {
-                    let data: [String: Any] = ["fullName" : self.fullName.text, "chefName" : self.chefName.text, "email": self.email.text, "education" : self.education.text, "chefPassion" : self.chefPassion.text, "city" : self.city.text, "state" : self.state.text, "zipCode" : self.zipCode.text]
+                    let data: [String: Any] = ["fullName" : self.fullName.text, "chefName" : self.chefName.text, "email": self.email.text, "education" : self.education.text]
                     let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef"]
                     
                             self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)

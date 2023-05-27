@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 import MaterialComponents.MaterialButtons
 import MaterialComponents.MaterialButtons_Theming
 import MaterialComponents.MaterialTextControls_FilledTextAreasTheming
@@ -16,6 +18,8 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 
 class AccountSettingsChefViewController: UIViewController {
 
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     @IBOutlet weak var logoutButton: MDCButton!
     @IBOutlet weak var deleteAccountButton: MDCButton!
@@ -91,13 +95,28 @@ class AccountSettingsChefViewController: UIViewController {
     }
     
     @IBAction func deleteAccountButtonPressed(_ sender: Any) {
-        Auth.auth().currentUser!.delete { error in
-            if error == nil {
-                self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
-            } else {
-                self.showToast(message: "Something went wrong. Please try again.", font: .systemFont(ofSize: 12))
+        let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+            Auth.auth().currentUser!.delete { error in
+                if error == nil {
+                    self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).delete()
+                    let storageRef = self.storage.reference()
+                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)").delete()
+                    self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
+                    
+                } else {
+                    self.showToast(message: "Something went wrong. Please try again.", font: .systemFont(ofSize: 12))
+                }
             }
-        }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -138,9 +157,7 @@ class AccountSettingsChefViewController: UIViewController {
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
              toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Start") as? StartViewController  {
-                self.present(vc, animated: true, completion: nil)
-            }
+            self.performSegue(withIdentifier: "ChefSettingsToHome", sender: self)
             toastLabel.removeFromSuperview()
         })
     }
