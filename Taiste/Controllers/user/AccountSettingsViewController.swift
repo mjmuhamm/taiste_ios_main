@@ -17,7 +17,6 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 class AccountSettingsViewController: UIViewController {
 
     @IBOutlet weak var logoutButton: MDCButton!
-    
     @IBOutlet weak var deleteAccountButton: MDCButton!
     
     
@@ -39,13 +38,28 @@ class AccountSettingsViewController: UIViewController {
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    @IBAction func profileButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
     @IBAction func dataPrivacyButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicy") as? PrivacyPolicyViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     @IBAction func termsOfServiceButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "TermsOfService") as? TermsOfServiceViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func reportAnIssueButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReportAnIssue") as? ReportAnIssueViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func logoutButtonPressed(_ sender: MDCButton) {

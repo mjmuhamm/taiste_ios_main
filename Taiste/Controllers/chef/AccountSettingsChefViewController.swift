@@ -77,6 +77,9 @@ class AccountSettingsChefViewController: UIViewController {
     }
     
     @IBAction func reportAnIssueButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReportAnIssue") as? ReportAnIssueViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {

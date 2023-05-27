@@ -178,21 +178,7 @@ class HomeViewController: UIViewController {
                         }
                         
                         if location == "go" && preference == "go" {
-                            
-                        storageRef.child("chefs/\(chefEmail)/profileImage/\(profileImageId).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
-                        
-                            if error != nil {
-                                print("error \(error)")
-                            }
-                              let chefImage = UIImage(data: data!)!
-                            
-                            
-                            storageRef.child("chefs/\(chefEmail)/\(self.toggle)/\(menuItemId)0.png").getData(maxSize: 15 * 1024 * 1024) { data1, error in
-                                
-                                let image = UIImage(data: data1!)!
-                                
-                                
-                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: chefImage, menuItemId: menuItemId, itemImage: image, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
+                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage:  UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
                                 
                                 if self.toggle == "Cater Items" {
                                     if self.cateringItems.isEmpty {
@@ -237,8 +223,7 @@ class HomeViewController: UIViewController {
                             }
                     }
                       }
-                    }
-                  }
+                    
                 }
         }
         } else {
@@ -341,36 +326,44 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             item = mealKitItems[indexPath.row]
         }
         
-        var chefImage = UIImage()
-        var itemImage = UIImage()
         let storageRef = storage.reference()
         let chefRef = storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png")
         let itemRef = storageRef.child("chefs/\(item.chefEmail)/\(item.itemType)/\(item.menuItemId)0.png")
         
-//        DispatchQueue.main.async {
-//        chefRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
-//          if let error = error {
-//              print("error \(error)")
-//            // Uh-oh, an error occurred!
-//          } else {
-//            print("occuring")
-//            chefImage = UIImage(data: data!)!
-//              cell.chefImage.image = UIImage(data: data!)
-//              itemRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
-//                if let error = error {
-//                  // Uh-oh, an error occurred!
-//                    print("error 2 \(error)")
-//                } else {
-//                  // Data for "images/island.jpg" is returned
-//                    print("occuring 2")
-//                  itemImage = UIImage(data: data!)!
-//                    cell.itemImage.image = UIImage(data: data!)
-//                }}}}}
+        
+        chefRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
             
+            
+            if error == nil {
+                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                    // Error handling...
+                    guard let imageData = data else { return }
+                    
+                    print("happening itemdata")
+                    DispatchQueue.main.async {
+                        cell.chefImage.image = UIImage(data: imageData)!
+                    }
+                }.resume()
+            }
+        }
+        
+        
+        itemRef.child("chefs/\(item.chefEmail)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { imageUrl, error in
+         
+            if error == nil {
+                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                    // Error handling...
+                    guard let imageData = data else { return }
+                    
+                    print("happening itemdata")
+                    DispatchQueue.main.async {
+                        cell.itemImage.image = UIImage(data: imageData)!
+                    }
+                }.resume()
+            }
+        }
         
 
-        cell.chefImage.image = item.chefImage
-        cell.itemImage.image = item.itemImage
         cell.itemTitle.text = item.itemTitle
         cell.itemPrice.text = "$\(item.itemPrice)"
         cell.itemDescription.text = item.itemDescription

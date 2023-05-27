@@ -78,6 +78,9 @@ class UserPersonalViewController: UIViewController {
         userImage.layer.borderColor = UIColor.white.cgColor
         userImage.layer.cornerRadius = userImage.frame.height/2
         userImage.clipsToBounds = true
+        if newOrEdit == "edit" {
+            loadPersonalInfo()
+        }
         
     }
     
@@ -121,7 +124,23 @@ class UserPersonalViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
+                    if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int, let fullName = data["fullName"] as? String, let username = data["userName"] as? String {
+                        
+                        self.fullName.text = fullName
+                        self.userName.text = username
+                        
+                        self.storage.reference().child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { imageUrl, error in
+                            
+                            URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                // Error handling...
+                                guard let imageData = data else { return }
+                                
+                                print("happening itemdata")
+                                DispatchQueue.main.async {
+                                    self.userImage.image = UIImage(data: imageData)!
+                                }
+                            }.resume()
+                        }
                         
                         self.local = local
                         self.region = region
