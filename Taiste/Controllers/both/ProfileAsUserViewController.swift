@@ -111,7 +111,7 @@ class ProfileAsUserViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
 
-                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let vegan = data["vegan"] as? Int, let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int {
+                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let vegan = data["vegan"] as? Int, let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
 
                             storageRef.child("users/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
                                 
@@ -125,34 +125,35 @@ class ProfileAsUserViewController: UIViewController {
                                     }
                                 }.resume()
                             }
-                            self.educationText.text = "Preferences:"
+                            self.educationText.text = ""
+                            self.chefPassion.text = "Preferences:"
                             
                             if (burger == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Burger"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Burger"
                             }
                             if (creative == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Creative"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Creative"
                             }
                             if (healthy == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Healthy"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Healthy"
                             }
                             if (lowCal == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Low Calorie"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Low Calorie"
                             }
                             if (lowCarb == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Low Carb"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Low Carb"
                             }
                             if (pasta == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Pasta"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Pasta"
                             }
                             if (seafood == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Seafood"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Seafood"
                             }
                             if (vegan == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Vegan"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Vegan"
                             }
                             if (workout == 1) {
-                                self.educationText.text = "\(self.educationText.text!)  Workout"
+                                self.chefPassion.text = "\(self.chefPassion.text!)  Workout"
                             }
                         self.userName.text = "@\(userName)"
                             if local == 1 {

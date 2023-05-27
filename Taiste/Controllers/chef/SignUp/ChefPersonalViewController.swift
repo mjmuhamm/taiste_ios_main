@@ -139,7 +139,7 @@ class ChefPersonalViewController: UIViewController {
                     if self.userImage1 != nil {
                         storageRef.child("chefs/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
                     }
-                    let data: [String: Any] = ["fullName" : self.fullName.text, "chefName" : self.chefName.text, "email": self.email.text, "education" : self.education.text, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
+                    let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
                     let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
                     let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0]
                     self.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
@@ -155,8 +155,7 @@ class ChefPersonalViewController: UIViewController {
                 } else {
                     self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
                 }
-            }
-        }} else {
+            }}} else {
             if fullName.text == "" {
                 self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
             } else if chefName.text == "" || "\(chefName.text)".contains(" ") == true {
@@ -174,7 +173,7 @@ class ChefPersonalViewController: UIViewController {
                     Auth.auth().currentUser?.updatePassword(to: password.text!) { error in
                       // ...
                         if error == nil {
-                    let data: [String: Any] = ["fullName" : self.fullName.text, "chefName" : self.chefName.text, "email": self.email.text, "education" : self.education.text]
+                    let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!]
                             let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
                     
                             self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)
@@ -185,7 +184,7 @@ class ChefPersonalViewController: UIViewController {
                     changeRequest?.commitChanges { error in
                       // ...
                     }
-                        self.dismiss(animated: true, completion: nil)
+                            self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
                         } else {
                             self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
                         }
@@ -194,6 +193,14 @@ class ChefPersonalViewController: UIViewController {
             }
                 }
         
+            } else {
+                let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!]
+                        let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
+                
+                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)
+                self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
+                self.showToast(message: "Info updated.", font: .systemFont(ofSize: 12))
+                self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
             }}}}
     func showToast(message : String, font: UIFont) {
         

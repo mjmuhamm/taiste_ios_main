@@ -109,6 +109,9 @@ extension ReviewsViewController :  UITableViewDelegate, UITableViewDataSource  {
             cell.recommendText.text = "No"
         }
         cell.likesText.text = "\(review.likes.count)"
+        if let index = review.likes.firstIndex(where: { $0 == Auth.auth().currentUser!.email! }) {
+            cell.likeImage.image = UIImage(systemName: "heart.fill")
+        }
         
         cell.userlikedTapped = {
             self.db.collection(self.item!.itemType).document(self.item!.menuItemId).collection("UserReviews").document(review.documentId).getDocument { document, error in
