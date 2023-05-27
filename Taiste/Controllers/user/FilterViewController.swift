@@ -140,14 +140,14 @@ class FilterViewController: UIViewController {
                             self.regionButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             
                         }
-                        if surpriseMe == 0 {
+                        if surpriseMe == 1 {
                             self.surpriseMeButton.setTitleColor(UIColor.white, for: .normal)
                             self.surpriseMeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.surpriseMeButton.backgroundColor = UIColor.white
                             self.surpriseMeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if burger == 0 {
+                        if burger == 1 {
                                 self.burgerButton.setTitleColor(UIColor.white, for: .normal)
                                 self.burgerButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
@@ -155,56 +155,56 @@ class FilterViewController: UIViewController {
                                 self.burgerButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             }
                         
-                        if creative == 0 {
+                        if creative == 1 {
                                 self.creativeButton.setTitleColor(UIColor.white, for: .normal)
                                 self.creativeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
                                 self.creativeButton.backgroundColor = UIColor.white
                                 self.creativeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if lowCal == 0 {
+                        if lowCal == 1 {
                                 self.lowCalButton.setTitleColor(UIColor.white, for: .normal)
                                 self.lowCalButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
                                 self.lowCalButton.backgroundColor = UIColor.white
                                 self.lowCalButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             }
-                        if lowCarb == 0 {
+                        if lowCarb == 1 {
                                 self.lowCarbButton.setTitleColor(UIColor.white, for: .normal)
                                 self.lowCarbButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                             } else {
                                 self.lowCarbButton.backgroundColor = UIColor.white
                                 self.lowCarbButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                             }
-                        if pasta == 0 {
+                        if pasta == 1 {
                             self.pastaButton.setTitleColor(UIColor.white, for: .normal)
                             self.pastaButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.pastaButton.backgroundColor = UIColor.white
                             self.pastaButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if healthy == 0 {
+                        if healthy == 1 {
                             self.healthyButton.setTitleColor(UIColor.white, for: .normal)
                             self.healthyButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.healthyButton.backgroundColor = UIColor.white
                             self.healthyButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if vegan == 0 {
+                        if vegan == 1 {
                             self.veganButton.setTitleColor(UIColor.white, for: .normal)
                             self.veganButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.veganButton.backgroundColor = UIColor.white
                             self.veganButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if seafood == 0 {
+                        if seafood == 1 {
                             self.seafoodButton.setTitleColor(UIColor.white, for: .normal)
                             self.seafoodButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
                             self.seafoodButton.backgroundColor = UIColor.white
                             self.seafoodButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
                         }
-                        if workout == 0 {
+                        if workout == 1 {
                             self.workoutButton.setTitleColor(UIColor.white, for: .normal)
                             self.workoutButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         } else {
@@ -401,11 +401,37 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        let data: [String: Any] = ["local" : local, "region" : region, "nation" : nation, "city" : city.text, "state" : state.text, "burger" : burger, "creative" : creative, "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "healthy" : healthy, "vegan" : vegan, "seafood" : seafood, "workout" : workout, "surpriseMe" : surpriseMe]
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(documentId).updateData(data)
-        self.performSegue(withIdentifier: "filterToUserTabSegue", sender: self)
+        if local == 1 && (city.text == "" || state.text == "") {
+            self.showToast(message: "Please enter a city and state.", font: .systemFont(ofSize: 12))
+        } else if region == 1 && state.text == "" {
+            self.showToast(message: "Please enter a state.", font: .systemFont(ofSize: 12))
+        } else {
+            let data: [String: Any] = ["local" : local, "region" : region, "nation" : nation, "city" : city.text, "state" : state.text, "burger" : burger, "creative" : creative, "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "healthy" : healthy, "vegan" : vegan, "seafood" : seafood, "workout" : workout, "surpriseMe" : surpriseMe]
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(documentId).updateData(data)
+            self.performSegue(withIdentifier: "filterToUserTabSegue", sender: self)
+        }
         
         
+    }
+    
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
     }
     
 }

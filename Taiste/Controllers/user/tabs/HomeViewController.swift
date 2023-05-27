@@ -101,7 +101,7 @@ class HomeViewController: UIViewController {
                         
                         self.filter = Filter(local: local, region: region, nation: nation, city: city, state: state, burger: burger, creative: creative, lowCal: lowCal, lowCarb: lowCarb, pasta: pasta, healthy: healthy, vegan: vegan, seafood: seafood, workout: workout, surpriseMe: surpriseMe)
                         
-                        self.loadItems(filter: self.filter!)
+                        self.loadItems(filter: self.filter!, go: "")
                         
                         
                     }
@@ -111,7 +111,11 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func loadItems(filter: Filter) {
+    private func loadItems(filter: Filter, go: String) {
+        print("go \(go) 111")
+        if go == "Yes" {
+            showToast(message: "No items matching your filter.", font: .systemFont(ofSize: 12))
+        }
         let storageRef = storage.reference()
         if !items.isEmpty {
             items.removeAll()
@@ -177,7 +181,8 @@ class HomeViewController: UIViewController {
                             preference = "go"
                         }
                         
-                        if location == "go" && preference == "go" {
+                        if (location == "go" && preference == "go") || go == "Yes" {
+                            
                                 let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage:  UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
                                 
                                 if self.toggle == "Cater Items" {
@@ -220,7 +225,9 @@ class HomeViewController: UIViewController {
                                         }
                                     }
                                 }
-                            }
+                        } else {
+                            self.loadItems(filter: filter, go: "Yes")
+                        }
                     }
                       }
                     
@@ -245,7 +252,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func cateringButtonPressed(_ sender: MDCButton) {
         toggle = "Cater Items"
-        loadItems(filter: self.filter!)
+        loadItems(filter: self.filter!, go: "")
         cateringButton.setTitleColor(UIColor.white, for: .normal)
         cateringButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         personalChefButton.backgroundColor = UIColor.white
@@ -259,7 +266,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func personalChefButtonPressed(_ sender: MDCButton) {
         toggle = "Executive Items"
-        loadItems(filter: self.filter!)
+        loadItems(filter: self.filter!, go: "")
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.setTitleColor(UIColor.white, for: .normal)
@@ -271,7 +278,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func mealKitButtonPressed(_ sender: MDCButton) {
         toggle = "MealKit Items"
-        loadItems(filter: self.filter!)
+        loadItems(filter: self.filter!, go: "")
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.backgroundColor = UIColor.white
@@ -308,6 +315,27 @@ class HomeViewController: UIViewController {
         }
     }
     
+    
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+    
 }
 
 extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
@@ -326,15 +354,13 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             item = mealKitItems[indexPath.row]
         }
         
-        let storageRef = storage.reference()
-        let chefRef = storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png")
-        let itemRef = storageRef.child("chefs/\(item.chefEmail)/\(item.itemType)/\(item.menuItemId)0.png")
+        let chefRef = storage.reference()
+        let itemRef = storage.reference()
         
         
         chefRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
             
             
-            if error == nil {
                 URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
                     // Error handling...
                     guard let imageData = data else { return }
@@ -342,15 +368,15 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                     print("happening itemdata")
                     DispatchQueue.main.async {
                         cell.chefImage.image = UIImage(data: imageData)!
+                        
                     }
                 }.resume()
-            }
+            
         }
         
         
         itemRef.child("chefs/\(item.chefEmail)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { imageUrl, error in
          
-            if error == nil {
                 URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
                     // Error handling...
                     guard let imageData = data else { return }
@@ -358,9 +384,10 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                     print("happening itemdata")
                     DispatchQueue.main.async {
                         cell.itemImage.image = UIImage(data: imageData)!
+                        item.itemImage = UIImage(data: imageData)!
                     }
                 }.resume()
-            }
+            
         }
         
 

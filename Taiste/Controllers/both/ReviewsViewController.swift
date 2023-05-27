@@ -116,15 +116,15 @@ extension ReviewsViewController :  UITableViewDelegate, UITableViewDataSource  {
                     if document != nil {
                         let data = document!.data()
                         
-                        let likes = data!["likes"] as? [String]
+                        let likes = data!["liked"] as? [String]
                         if !likes!.contains(Auth.auth().currentUser!.email!) {
                             cell.likeImage.image = UIImage(systemName: "heart.fill")
                             cell.likesText.text = "\(Int(cell.likesText.text!)! + 1)"
-                            self.db.collection(self.item!.itemType).document(self.item!.menuItemId).collection("UserReviews").document(review.documentId).updateData(["likes" : FieldValue.arrayUnion(["\(Auth.auth().currentUser!.email!)"])])
+                            self.db.collection(self.item!.itemType).document(self.item!.menuItemId).collection("UserReviews").document(review.documentId).updateData(["liked" : FieldValue.arrayUnion(["\(Auth.auth().currentUser!.email!)"])])
                         } else {
                             cell.likeImage.image = UIImage(systemName: "heart")
                             cell.likesText.text = "\(Int(cell.likesText.text!)! - 1)"
-                            self.db.collection(self.item!.itemType).document(self.item!.menuItemId).collection("UserReviews").document(review.documentId).updateData(["likes" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
+                            self.db.collection(self.item!.itemType).document(self.item!.menuItemId).collection("UserReviews").document(review.documentId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                         }
                     }
                 }

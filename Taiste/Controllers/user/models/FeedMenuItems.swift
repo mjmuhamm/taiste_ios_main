@@ -16,7 +16,7 @@ struct FeedMenuItems {
     let chefImageId: String
     let chefImage: UIImage?
     let menuItemId: String
-    let itemImage: UIImage?
+    var itemImage: UIImage?
     let itemTitle: String
     let itemDescription: String
     let itemPrice: String

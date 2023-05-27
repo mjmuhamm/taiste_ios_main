@@ -18,7 +18,7 @@ import MaterialComponents.MaterialTextControls_FilledTextFieldsTheming
 import MaterialComponents.MaterialTextControls_OutlinedTextAreasTheming
 import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 
-class OrderDetailsViewController: UIViewController {
+class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var itemTitle: UILabel!
     @IBOutlet weak var itemDescription: UILabel!
@@ -76,6 +76,7 @@ class OrderDetailsViewController: UIViewController {
     var item : FeedMenuItems?
     override func viewDidLoad() {
         super.viewDidLoad()
+            quantityOfEventText.addTarget(self, action: #selector(OrderDetailsViewController.textFieldDidChange(_:)), for: .editingChanged)
         typeOfEventDropDown.dataSource = ["Corporate", "Social", "Celebration", "Birthday", "Other"]
         if item!.itemType == "Cater Items" {
             quantityOfEventDropDown.dataSource = ["1-10", "11-25", "26-40","41-55", "56-70", "71-90"]
@@ -206,30 +207,7 @@ class OrderDetailsViewController: UIViewController {
             days = 1.0
         }
         
-        if !self.quantityOfEventText.text!.isEmpty && eventDays.count > 0 {
-        if (self.quantityOfEventText.text == "1-10") {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * 7.0 * days)
-            self.eventTotalText.text = "$\(a)"
-        } else if self.quantityOfEventText.text == "11-25" {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * 21.0 * days)
-            self.eventTotalText.text = "$\(a)"
-        } else if self.quantityOfEventText.text == "26-40" {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * 33.0 * days)
-            self.eventTotalText.text = "$\(a)"
-        } else if self.quantityOfEventText.text == "41-55" {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * 51.0 * days)
-            self.eventTotalText.text = "$\(a)"
-        } else if self.quantityOfEventText.text == "56-70" {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * 63.0 * days)
-            self.eventTotalText.text = "$\(a)"
-        } else if self.quantityOfEventText.text == "71-90" {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * 82.0 * days)
-            self.eventTotalText.text = "$\(a)"
-        } else {
-            let a = String(format: "%.2f", Double(self.item!.itemPrice)! * Double(self.quantityOfEventText.text!)! * days)
-            self.eventTotalText.text = "$\(a)"
-        }
-        }
+       
         dateOfEventText.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
         
             clearDatesButton.isHidden = false
@@ -237,6 +215,21 @@ class OrderDetailsViewController: UIViewController {
         
         datesOfEventView.isHidden = true
         
+    }
+    
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        var days = Double(self.eventDays.count)
+        if days == 0 {
+            days = 1.0
+        }
+        if quantityOfEventText.text != "" {
+            if Int(quantityOfEventText.text!)! >= 10 {
+                let a = String(format: "%.2f", Double(self.item!.itemPrice)! * Double(self.quantityOfEventText.text!)! * days)
+                self.eventTotalText.text = "$\(a)"
+            }
+            print("happeneing \(quantityOfEventText.text)")
+        }
     }
     
     @IBAction func addDateViewButtonPressed(_ sender: Any) {
