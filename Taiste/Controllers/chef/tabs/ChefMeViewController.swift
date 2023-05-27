@@ -176,7 +176,7 @@ class ChefMeViewController: UIViewController {
                     
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
+                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
                         
                             var image = UIImage()
                         
@@ -190,7 +190,7 @@ class ChefMeViewController: UIViewController {
                                 print("error \(error)")
                             }
                                         
-                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: image, menuItemId: menuItemId, itemImage: image, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
+                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: image, menuItemId: menuItemId, itemImage: image, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
                                         
                                         if self.toggle == "Cater Items" {
                                             if self.cateringItems.isEmpty {
@@ -563,21 +563,24 @@ class ChefMeViewController: UIViewController {
     @IBAction func mealKitButtonPressed(_ sender: Any) {
         toggle = "MealKit Items"
 //        loadItems()
-        comingSoon.isHidden = false
-        contentCollectionView.isHidden = true
-        meTableView.isHidden = false
-        bankingView.isHidden = true
-        
-        cateringButton.backgroundColor = UIColor.white
-        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        personalChefButton.backgroundColor = UIColor.white
-        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        mealKitButton.setTitleColor(UIColor.white, for: .normal)
-        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-        contentButton.backgroundColor = UIColor.white
-        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        bankingButton.backgroundColor = UIColor.white
-        bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+        if toggle != "MealKit Items" {
+            comingSoon.isHidden = true
+            contentCollectionView.isHidden = true
+            meTableView.isHidden = false
+            bankingView.isHidden = true
+            
+            cateringButton.backgroundColor = UIColor.white
+            cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            personalChefButton.backgroundColor = UIColor.white
+            personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            mealKitButton.setTitleColor(UIColor.white, for: .normal)
+            mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+            contentButton.backgroundColor = UIColor.white
+            contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            bankingButton.backgroundColor = UIColor.white
+            bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        }
     }
     
     @IBAction func contentButtonPressed(_ sender: Any) {
@@ -651,6 +654,25 @@ class ChefMeViewController: UIViewController {
         }
     }
     
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
     
     
     
@@ -700,7 +722,14 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
         cell.itemPrice.text = "$\(item.itemPrice)"
         cell.likeText.text = "\(item.liked.count)"
         cell.orderText.text = "\(item.itemOrders)"
-        cell.ratingText.text = "\(item.itemRating)"
+        var num = 0.0
+        for i in 0..<item.itemRating.count {
+            num += item.itemRating[i]
+            if i == item.itemRating.count - 1 {
+                num = num / Double(item.itemRating.count)
+            }
+        }
+        cell.ratingText.text = "\(num)"
         cell.editImage.isHidden = false
         
         cell.itemImageButtonTapped = {

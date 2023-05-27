@@ -22,7 +22,7 @@ struct FeedMenuItems {
     let itemPrice: String
     let liked: [String]
     let itemOrders: Int
-    let itemRating: Double
+    let itemRating: [Double]
     let date: String
     let imageCount: Int
     let itemCalories: String

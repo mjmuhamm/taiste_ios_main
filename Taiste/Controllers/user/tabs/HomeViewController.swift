@@ -139,7 +139,7 @@ class HomeViewController: UIViewController {
                     
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
+                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
                         
                        var location = ""
                         var preference = ""
@@ -180,10 +180,9 @@ class HomeViewController: UIViewController {
                         } else if (filter.burger == 0 && filter.creative == 0 && filter.lowCal == 0 && filter.lowCarb == 0 && filter.pasta == 0 && filter.healthy == 0 && filter.vegan == 0 && filter.workout == 0 && filter.seafood == 0) {
                             preference = "go"
                         }
-                        
                         if (location == "go" && preference == "go") || go == "Yes" {
                             
-                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage:  UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
+                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage:  UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
                                 
                                 if self.toggle == "Cater Items" {
                                     if self.cateringItems.isEmpty {
@@ -278,13 +277,16 @@ class HomeViewController: UIViewController {
     
     @IBAction func mealKitButtonPressed(_ sender: MDCButton) {
         toggle = "MealKit Items"
-        loadItems(filter: self.filter!, go: "")
-        cateringButton.backgroundColor = UIColor.white
-        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        personalChefButton.backgroundColor = UIColor.white
-        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        mealKitButton.setTitleColor(UIColor.white, for: .normal)
-        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+        if toggle != "MealKit Items" {
+            loadItems(filter: self.filter!, go: "")
+            cateringButton.backgroundColor = UIColor.white
+            cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            personalChefButton.backgroundColor = UIColor.white
+            personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            mealKitButton.setTitleColor(UIColor.white, for: .normal)
+            mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        }
     
     }
     
@@ -396,7 +398,14 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
         cell.itemDescription.text = item.itemDescription
         cell.likeText.text = "\(item.liked.count)"
         cell.orderText.text = "\(item.itemOrders)"
-        cell.ratingText.text = "\(item.itemRating)"
+        var num = 0.0
+        for i in 0..<item.itemRating.count {
+            num += item.itemRating[i]
+            if i == item.itemRating.count - 1 {
+                num = num / Double(item.itemRating.count)
+            }
+        }
+        cell.ratingText.text = "\(num)"
         if item.liked.firstIndex(of: Auth.auth().currentUser!.email!) != nil {
             cell.likeImage.image = UIImage(systemName: "heart.fill")
         } else {

@@ -37,6 +37,7 @@ class ProfileAsUserViewController: UIViewController {
     @IBOutlet weak var likesButton: MDCButton!
     @IBOutlet weak var reviewsButton: MDCButton!
     
+    @IBOutlet weak var comingSoon: UILabel!
     
     var toggle = "Cater Items"
     
@@ -110,7 +111,7 @@ class ProfileAsUserViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
 
-                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int {
+                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let vegan = data["vegan"] as? Int {
 
                             storageRef.child("users/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
                                 
@@ -124,7 +125,35 @@ class ProfileAsUserViewController: UIViewController {
                                     }
                                 }.resume()
                             }
-
+                            self.educationText.text = "Preferences:"
+                            
+                            if (burger == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Burger"
+                            }
+                            if (creative == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Creative"
+                            }
+                            if (healthy == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Healthy"
+                            }
+                            if (lowCal == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Low Calorie"
+                            }
+                            if (lowCarb == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Low Carb"
+                            }
+                            if (pasta == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Pasta"
+                            }
+                            if (seafood == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Seafood"
+                            }
+                            if (vegan == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Vegan"
+                            }
+                            if (workout == 1) {
+                                self.educationText.text = "\(self.educationText.text!)  Workout"
+                            }
                         self.userName.text = "@\(userName)"
                         self.location.text = "Location: \(city), \(state)"
                         }
@@ -154,16 +183,16 @@ class ProfileAsUserViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
 
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String{
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String {
 
                         self.db.collection("\(typeOfService)").document(menuItemId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
                                     let data1 = document!.data()
 
-                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] {
+                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
 
-                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: chefImage, city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: itemImage, orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: 0.0, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
+                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: chefImage, city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: itemImage, orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
 
                         if self.userOrders.isEmpty {
                             self.userOrders.append(newItem)
@@ -210,32 +239,40 @@ class ProfileAsUserViewController: UIViewController {
             if error == nil {
                 for doc in documents!.documents {
                     let data = doc.data()
-
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String{
-
+                    
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
+                        
                         print("chefs happening")
-
-
-                        let liked : [String] = []
-                        let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: 0, chefRating: 0)
-
-                        if self.userChefs.isEmpty {
-                            self.userChefs.append(newItem)
-                            self.chefs = self.userChefs
-                            self.itemTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                        if let index = self.chefs.firstIndex(where: { $0.chefEmail == chefEmail }) {
+                            for i in 0..<liked.count {
+                                self.chefs[index].chefLiked.append(liked[i])
+                            }
+                            self.chefs[index].chefOrders += itemOrders
+                            for i in 0..<itemRating.count {
+                                self.chefs[index].chefRating.append(itemRating[i])
+                            }
+                            self.chefs[index].timesLiked += 1
+                            self.itemTableView.reloadData()
                         } else {
-                            let index = self.userChefs.firstIndex { $0.chefEmail == chefEmail }
-                            if index == nil {
+                            let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: 0, chefRating: itemRating)
+                            
+                            if self.userChefs.isEmpty {
                                 self.userChefs.append(newItem)
                                 self.chefs = self.userChefs
-                                self.itemTableView.insertRows(at: [IndexPath(item: self.chefs.count - 1, section: 0)], with: .fade)
+                                self.itemTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
                             } else {
-                                self.userChefs[index!].timesLiked = self.userChefs[index!].timesLiked + 1
+                                let index = self.userChefs.firstIndex { $0.chefEmail == chefEmail }
+                                if index == nil {
+                                    self.userChefs.append(newItem)
+                                    self.chefs = self.userChefs
+                                    self.itemTableView.insertRows(at: [IndexPath(item: self.chefs.count - 1, section: 0)], with: .fade)
+                                } else {
+                                    self.userChefs[index!].timesLiked = self.userChefs[index!].timesLiked + 1
+                                }
                             }
+                            
                         }
-                        
-                    }
-                }
+                    }}
             }
         }
         } else {
@@ -266,11 +303,6 @@ class ProfileAsUserViewController: UIViewController {
                     if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String {
                         print("likes happening")
 
-                        var liked : [String] = []
-                        var itemOrders = 0
-                        var itemRating = 0.0
-
-
 
 
                         self.db.collection(itemType).document(doc.documentID).getDocument { document, error in
@@ -278,9 +310,7 @@ class ProfileAsUserViewController: UIViewController {
                                 if document!.exists {
                                     let data1 = document?.data()
 
-                                    if let likedI = data1!["liked"] as? [String], let itemOrdersI = data1!["itemOrders"] as? Int, let itemRating1 = data1!["itemRating"] as? Int {
-                                        liked = likedI
-                                        itemOrders = itemOrdersI
+                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
 
 
                                         let newItem = UserLikes(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID)
@@ -445,10 +475,10 @@ class ProfileAsUserViewController: UIViewController {
                                 if document != nil {
                                     let data = document!.data()
                                     
-                                    if let liked = data!["liked"] as? [String], let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] {
+                                    if let liked = data!["liked"] as? [String], let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double] {
                               
                               
-                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: 0.0, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
+                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
                                         
                                         if self.toggle == "Cater Items" {
                                             if self.cateringItems.isEmpty {
@@ -615,6 +645,7 @@ class ProfileAsUserViewController: UIViewController {
         loadChefItems()
         contentCollectionView.isHidden = true
         itemTableView.isHidden = false
+        comingSoon.isHidden = true
         cateringButton.setTitleColor(UIColor.white, for: .normal)
         cateringButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         personalChefButton.backgroundColor = UIColor.white
@@ -630,6 +661,7 @@ class ProfileAsUserViewController: UIViewController {
         loadChefItems()
         contentCollectionView.isHidden = true
         itemTableView.isHidden = false
+        comingSoon.isHidden = true
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.setTitleColor(UIColor.white, for: .normal)
@@ -642,23 +674,28 @@ class ProfileAsUserViewController: UIViewController {
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
         toggle = "MealKit Items"
-        loadChefItems()
-        contentCollectionView.isHidden = true
-        itemTableView.isHidden = false
-        cateringButton.backgroundColor = UIColor.white
-        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        personalChefButton.backgroundColor = UIColor.white
-        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        mealKitButton.setTitleColor(UIColor.white, for: .normal)
-        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-        contentButton.backgroundColor = UIColor.white
-        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+//        loadChefItems()
+        if toggle != "MealKit Items" {
+            contentCollectionView.isHidden = true
+            itemTableView.isHidden = false
+            comingSoon.isHidden = true
+            cateringButton.backgroundColor = UIColor.white
+            cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            personalChefButton.backgroundColor = UIColor.white
+            personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            mealKitButton.setTitleColor(UIColor.white, for: .normal)
+            mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+            contentButton.backgroundColor = UIColor.white
+            contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        }
     }
     
     @IBAction func contentButtonPressed(_ sender: Any) {
         loadContent()
         contentCollectionView.isHidden = false
         itemTableView.isHidden = true
+        comingSoon.isHidden = true
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.backgroundColor = UIColor.white
@@ -723,6 +760,27 @@ class ProfileAsUserViewController: UIViewController {
     }
     
     
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+    
+    
 }
 
 extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSource  {
@@ -756,7 +814,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
             cell.itemPrice.text = "$\(item.itemPrice)"
             cell.likeText.text = "\(item.liked.count)"
             cell.orderText.text = "\(item.itemOrders)"
-            cell.ratingText.text = "\(item.itemRating)"
+            var num = 0.0
+            for i in 0..<item.itemRating.count {
+                num += item.itemRating[i]
+                if i == item.itemRating.count - 1 {
+                    num = num / Double(item.itemRating.count)
+                }
+            }
+            cell.ratingText.text = "\(num)"
             if item.liked.firstIndex(of: Auth.auth().currentUser!.email!) != nil {
                 cell.likeImage.image = UIImage(systemName: "heart.fill")
             } else {
@@ -837,7 +902,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.likeText.text = "\(order.liked.count)"
                 cell.orderText.text = "\(order.itemOrders)"
                 cell.itemPrice.text = "$\(order.itemPrice)"
-                cell.ratingText.text = "\(order.itemRating)"
+                var num = 0.0
+                for i in 0..<order.itemRating.count {
+                    num += order.itemRating[i]
+                    if i == order.itemRating.count - 1 {
+                        num = num / Double(order.itemRating.count)
+                    }
+                }
+                cell.ratingText.text = "\(num)"
                 cell.userImage.image = order.chefImage
                 cell.itemImage.image = order.itemImage
                 let storageRef = storage.reference()

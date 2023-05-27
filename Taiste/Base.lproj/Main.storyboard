@@ -2224,6 +2224,12 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUN-I6-JBI">
+                                <rect key="frame" x="166.5" y="440" width="81.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dwj-i0-u3D"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2249,7 +2255,9 @@
                             <constraint firstItem="9iJ-Lx-mki" firstAttribute="centerY" secondItem="Dem-9X-PlB" secondAttribute="centerY" id="hXf-WT-bij"/>
                             <constraint firstItem="hJb-Cb-ZWZ" firstAttribute="top" secondItem="Dzy-RX-K4o" secondAttribute="bottom" constant="11.5" id="mFi-M6-gCZ"/>
                             <constraint firstItem="Dem-9X-PlB" firstAttribute="centerX" secondItem="erO-Uj-3Py" secondAttribute="centerX" id="nA4-cI-EI9"/>
+                            <constraint firstItem="XUN-I6-JBI" firstAttribute="centerX" secondItem="erO-Uj-3Py" secondAttribute="centerX" id="oZv-lH-A17"/>
                             <constraint firstItem="dwj-i0-u3D" firstAttribute="bottom" secondItem="RSt-t0-t3L" secondAttribute="bottom" id="sxO-bF-kuK"/>
+                            <constraint firstItem="XUN-I6-JBI" firstAttribute="centerY" secondItem="erO-Uj-3Py" secondAttribute="centerY" id="t5H-qn-gyB"/>
                             <constraint firstItem="VKp-KE-8g5" firstAttribute="leading" secondItem="dwj-i0-u3D" secondAttribute="leading" id="uDs-px-ZPu"/>
                             <constraint firstItem="xiW-Ch-eo6" firstAttribute="leading" secondItem="hJb-Cb-ZWZ" secondAttribute="trailing" constant="8" symbolic="YES" id="v5j-PA-IoX"/>
                             <constraint firstItem="dwj-i0-u3D" firstAttribute="trailing" secondItem="xiW-Ch-eo6" secondAttribute="trailing" constant="5" id="x7d-Fu-5Tr"/>
@@ -2264,6 +2272,7 @@
                         <outlet property="chefPassion" destination="Q8r-zc-Xum" id="c92-f4-oyx"/>
                         <outlet property="chefToggleStack" destination="Dem-9X-PlB" id="M7f-LM-Sna"/>
                         <outlet property="chefsButton" destination="Y79-Jc-oOx" id="2To-4s-y9X"/>
+                        <outlet property="comingSoon" destination="XUN-I6-JBI" id="sw8-cg-Chz"/>
                         <outlet property="contentButton" destination="6Ee-8u-zlB" id="JxX-t3-l1l"/>
                         <outlet property="contentCollectionView" destination="RSt-t0-t3L" id="Apz-rZ-ebt"/>
                         <outlet property="educationText" destination="Xkc-aW-qPC" id="2ks-Al-hWd"/>

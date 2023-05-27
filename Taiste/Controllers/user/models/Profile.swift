@@ -31,7 +31,7 @@ struct UserOrders {
     let imageCount: Int
     let liked: [String]
     let itemOrders: Int
-    let itemRating: Double
+    let itemRating: [Double]
     let itemCalories: Int
     let documentId: String
 
@@ -45,9 +45,9 @@ struct UserChefs {
     let chefName: String
     let chefPassion: String
     var timesLiked: Int
-    let chefLiked: [String]
-    let chefOrders: Int
-    let chefRating: Double
+    var chefLiked: [String]
+    var chefOrders: Int
+    var chefRating: [Double]
     
 }
 
@@ -67,7 +67,7 @@ struct UserLikes {
     let imageCount: Int
     let liked: [String]
     let itemOrders: Int
-    let itemRating: Double
+    let itemRating: [Double]
     let itemCalories: Int
     let documentId: String
     

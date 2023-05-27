@@ -160,18 +160,18 @@ class MeViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String{
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String {
                         
                         self.db.collection("\(typeOfService)").document(menuItemId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
                                     let data1 = document!.data()
                                     
-                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] {
+                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
                         
                             
                             
-                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: 0.0, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
+                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
                         
                         if self.userOrders.isEmpty {
                             self.userOrders.append(newItem)
@@ -221,14 +221,21 @@ class MeViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String{
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
                         
-                        print("chefs happening")
                         
-                            
-                            
-                        let liked : [String] = []
-                        let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: 0, chefRating: 0)
+                        if let index = self.chefs.firstIndex(where: { $0.chefEmail == chefEmail }) {
+                            for i in 0..<liked.count {
+                                self.chefs[index].chefLiked.append(liked[i])
+                            }
+                            self.chefs[index].chefOrders += itemOrders
+                            for i in 0..<itemRating.count {
+                                self.chefs[index].chefRating.append(itemRating[i])
+                            }
+                            self.chefs[index].timesLiked += 1
+                            self.meTableView.reloadData()
+                        } else {
+                            let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: itemOrders, chefRating: itemRating)
                         
                         if self.userChefs.isEmpty {
                             self.userChefs.append(newItem)
@@ -243,7 +250,7 @@ class MeViewController: UIViewController {
                             } else {
                                 self.userChefs[index!].timesLiked = self.userChefs[index!].timesLiked + 1
                             }
-                        
+                        }
                         }
                     }
                 }
@@ -277,10 +284,6 @@ class MeViewController: UIViewController {
                     if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String {
                         print("likes happening")
                         
-                        var liked : [String] = []
-                        var itemOrders = 0
-                        var itemRating = 0.0
-                        
                             
                         
                         self.db.collection(itemType).document(doc.documentID).getDocument { document, error in
@@ -288,10 +291,7 @@ class MeViewController: UIViewController {
                                 if document!.exists {
                                     let data1 = document?.data()
                                     
-                                    if let likedI = data1!["liked"] as? [String], let itemOrdersI = data1!["itemOrders"] as? Int, let itemRating1 = data1!["itemRating"] as? Int {
-                                        liked = likedI
-                                        itemOrders = itemOrdersI
-                                    
+                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
                                     
                                         let newItem = UserLikes(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID)
                                     
@@ -462,7 +462,14 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
             cell.likeText.text = "\(order.liked.count)"
             cell.orderText.text = "\(order.itemOrders)"
             cell.itemPrice.text = "$\(order.itemPrice)"
-            cell.ratingText.text = "\(order.itemRating)"
+            var num = 0.0
+            for i in 0..<order.itemRating.count {
+                num += order.itemRating[i]
+                if i == order.itemRating.count - 1 {
+                    num = num / Double(order.itemRating.count)
+                }
+            }
+            cell.ratingText.text = "\(num)"
             cell.userImage.image = order.chefImage
             cell.itemImage.image = order.itemImage
             let storageRef = storage.reference()
@@ -490,6 +497,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                     print("happening itemdata")
                     DispatchQueue.main.async {
                         cell.itemImage.image = UIImage(data: imageData)!
+                        order.itemImage = UIImage(data: imageData)!
                     }
                 }.resume()
         }
@@ -529,7 +537,14 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
             cell.chefPassion.text = item.chefPassion
             cell.likeText.text = "\(item.chefLiked.count)"
             cell.orderText.text = "\(item.chefOrders)"
-            cell.ratingText.text = "\(item.chefRating)"
+            var num = 0.0
+            for i in 0..<item.chefRating.count {
+                num += item.chefRating[i]
+                if i == item.chefRating.count - 1 {
+                    num = num / Double(item.chefRating.count)
+                }
+            }
+            cell.ratingText.text = "\(num)"
             cell.chefImage.image = item.chefImage
             let storageRef = storage.reference()
             storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
@@ -567,16 +582,21 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
             
         var cell = meTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
             
-            let item = userLikes[indexPath.row]
+            var item = userLikes[indexPath.row]
             
             cell.itemTitle.text = item.itemTitle
             cell.itemDescription.text = item.itemDescription
             cell.itemPrice.text = "$\(item.itemPrice)"
             cell.likeText.text = "\(item.liked.count)"
             cell.orderText.text = "\(item.itemOrders)"
-            cell.ratingText.text = "\(item.itemRating)"
-            cell.userImage.image = item.chefImage
-            cell.itemImage.image = item.itemImage
+            var num = 0.0
+            for i in 0..<item.itemRating.count {
+                num += item.itemRating[i]
+                if i == item.itemRating.count - 1 {
+                    num = num / Double(item.itemRating.count)
+                }
+            }
+            cell.ratingText.text = "\(num)"
             cell.likeImage.image = UIImage(systemName: "heart.fill")
             let storageRef = storage.reference()
             let itemRef = storage.reference()
@@ -602,6 +622,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                     print("happening itemdata")
                     DispatchQueue.main.async {
                         cell.itemImage.image = UIImage(data: imageData)!
+                        item.itemImage = UIImage(data: imageData)!
                     }
                 }.resume()
             }

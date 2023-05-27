@@ -73,7 +73,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     var zipCode = ""
     var itemLikes = 0
     var itemOrders = 0
-    var itemRating = 0
+    var itemRating : [Double] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +102,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                 if document != nil {
                     let data = document!.data()
                     
-                    if let itemTitle = data!["itemTitle"] as? String, let imageCount = data!["imageCount"] as? Int, let itemDescription = data!["itemDescription"] as? String, let itemLikes = data!["itemLikes"] as? Int, let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? Int, let itemCalories = data!["itemCalories"] as? String, let itemPrice = data!["itemPrice"] as? String, let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int {
+                    if let itemTitle = data!["itemTitle"] as? String, let imageCount = data!["imageCount"] as? Int, let itemDescription = data!["itemDescription"] as? String, let itemLikes = data!["itemLikes"] as? Int, let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let itemPrice = data!["itemPrice"] as? String, let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int {
                         
                         for i in 0..<imageCount {
                             storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png").getData(maxSize: 15 * 1024 * 1024) { data, error in

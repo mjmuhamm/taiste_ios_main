@@ -38,7 +38,7 @@ struct CheckoutItems {
     let imageCount : Int
     let liked: [String]
     let itemOrders: Int
-    let itemRating: Double
+    let itemRating: [Double]
     let itemCalories: Int
     
 }
