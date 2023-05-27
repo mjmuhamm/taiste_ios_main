@@ -1014,10 +1014,10 @@
             </objects>
             <point key="canvasLocation" x="3699" y="1541"/>
         </scene>
-        <!--UserPersonal-->
+        <!--User Personal View Controller-->
         <scene sceneID="0NF-OJ-97E">
             <objects>
-                <viewController title="UserPersonal" id="pa7-mr-3DM" customClass="UserPersonalViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserPersonal" id="pa7-mr-3DM" customClass="UserPersonalViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fwO-2V-Rxs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4813,7 +4813,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YT-gh-1Yb" customClass="MDCButton">
                                 <rect key="frame" x="36" y="208" width="70" height="35"/>
-                                <color key="backgroundColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="2Qy-nn-BxW"/>
                                     <constraint firstAttribute="width" constant="70" id="twv-ED-XnP"/>
@@ -9172,7 +9172,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <segue reference="QE2-o5-q5i"/>
         <segue reference="VD0-qR-l0Z"/>
         <segue reference="BS6-oY-CaB"/>
-        <segue reference="sVL-o3-tul"/>
+        <segue reference="VRh-YA-qPz"/>
         <segue reference="tTE-cs-Wrc"/>
     </inferredMetricsTieBreakers>
     <resources>

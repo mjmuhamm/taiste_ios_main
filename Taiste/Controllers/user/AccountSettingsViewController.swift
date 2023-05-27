@@ -52,14 +52,14 @@ class AccountSettingsViewController: UIViewController {
                     
                     if privatizeData == "yes" {
                         self.privatizeYes.setTitleColor(UIColor.white, for: .normal)
-                        self.privatizeYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        self.privatizeYes.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         self.privatizeNo.backgroundColor = UIColor.white
-                        self.privatizeNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        self.privatizeNo.setTitleColor(UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
                     } else {
                         self.privatizeNo.setTitleColor(UIColor.white, for: .normal)
-                        self.privatizeNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                        self.privatizeNo.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
                         self.privatizeYes.backgroundColor = UIColor.white
-                        self.privatizeYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                        self.privatizeYes.setTitleColor(UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
                     }
                 }
                 
@@ -80,18 +80,18 @@ class AccountSettingsViewController: UIViewController {
         let data : [String: Any] = ["privatizeData" : "yes"]
         db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
         privatizeYes.setTitleColor(UIColor.white, for: .normal)
-        privatizeYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        privatizeYes.backgroundColor =  UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         privatizeNo.backgroundColor = UIColor.white
-        privatizeNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        privatizeNo.setTitleColor( UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
     }
     
     @IBAction func privatizeNoPressed(_ sender: Any) {
         let data : [String: Any] = ["privatizeData" : "no"]
         db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
         privatizeNo.setTitleColor(UIColor.white, for: .normal)
-        privatizeNo.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        privatizeNo.backgroundColor =  UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         privatizeYes.backgroundColor = UIColor.white
-        privatizeYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        privatizeYes.setTitleColor( UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
     }
     
     @IBAction func dataPrivacyButtonPressed(_ sender: Any) {
