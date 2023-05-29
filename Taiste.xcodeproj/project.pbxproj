@@ -169,7 +169,7 @@
 		F4B3D76E27CAB64100AA5544 /* CheckoutItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutItems.swift; sourceTree = "<group>"; };
 		F4B3D77327CAB7F700AA5544 /* CheckoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutTableViewCell.swift; sourceTree = "<group>"; };
 		F4B3D77427CAB7F700AA5544 /* CheckoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckoutTableViewCell.xib; sourceTree = "<group>"; };
-		F4B90DC027C709A9004B1FB1 /* Taiste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taiste.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4B90DC027C709A9004B1FB1 /* Taïste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Taïste.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B90DC327C709A9004B1FB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B90DC527C709A9004B1FB1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F4B90DC727C709A9004B1FB1 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 		F4B90DC127C709A9004B1FB1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F4B90DC027C709A9004B1FB1 /* Taiste.app */,
+				F4B90DC027C709A9004B1FB1 /* Taïste.app */,
 				F4B90DD627C709AB004B1FB1 /* TaisteTests.xctest */,
 				F4B90DE027C709AB004B1FB1 /* TaisteUITests.xctest */,
 			);
@@ -621,7 +621,7 @@
 			);
 			name = Taiste;
 			productName = Taiste;
-			productReference = F4B90DC027C709A9004B1FB1 /* Taiste.app */;
+			productReference = F4B90DC027C709A9004B1FB1 /* Taïste.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F4B90DD527C709AB004B1FB1 /* TaisteTests */ = {
@@ -1055,7 +1055,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruh.ai.Taiste;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Taïste";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1085,7 +1085,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruh.ai.Taiste;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Taïste";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
