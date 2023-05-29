@@ -115,8 +115,9 @@ class ChefBusinessViewController: UIViewController {
             }
             db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BusinessInfo").document(self.documentId).updateData(data)
             showToast(message: "Business info saved.", font: .systemFont(ofSize: 12))
-            }
             self.dismiss(animated: true, completion: nil)
+            }
+            
         }
             
         }

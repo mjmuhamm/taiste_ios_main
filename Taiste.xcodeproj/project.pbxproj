@@ -11,6 +11,8 @@
 		F415572D27CAB0C2000C8DE5 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F415572C27CAB0C2000C8DE5 /* CheckoutViewController.swift */; };
 		F423AC0E2A1D136A009E9600 /* ExternalAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */; };
 		F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */; };
+		F429F0D42A24D3B100D22271 /* DisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */; };
+		F429F0D62A24E8C000D22271 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429F0D52A24E8C000D22271 /* MenuItem.swift */; };
 		F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436E52F29F6FCFD00B2F38C /* Dashboard.swift */; };
 		F45366302A21883200E18D9B /* ReportAnIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */; };
 		F4599F4C2A1BDBEF00E4078D /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */; };
@@ -122,6 +124,8 @@
 		F415572C27CAB0C2000C8DE5 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAccountViewController.swift; sourceTree = "<group>"; };
 		F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnersViewController.swift; sourceTree = "<group>"; };
+		F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerViewController.swift; sourceTree = "<group>"; };
+		F429F0D52A24E8C000D22271 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuItem.swift; path = Taiste/Controllers/chef/MenuItem.swift; sourceTree = SOURCE_ROOT; };
 		F436E52F29F6FCFD00B2F38C /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dashboard.swift; path = Taiste/Controllers/user/Dashboard.swift; sourceTree = SOURCE_ROOT; };
 		F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAnIssueViewController.swift; sourceTree = "<group>"; };
 		F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewsTableViewCell.swift; path = ../../../../Reviews/ReviewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 				F482BA6D29FB1379007965C9 /* MenuItemViewController.swift */,
 				F4A080AE29FD6B6500895938 /* AddContentViewController.swift */,
 				F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */,
+				F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */,
 			);
 			path = chef;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 			children = (
 				F436E52F29F6FCFD00B2F38C /* Dashboard.swift */,
 				F4A080BE2A002A9E00895938 /* Banking.swift */,
+				F429F0D52A24E8C000D22271 /* MenuItem.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -786,6 +792,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F429F0D62A24E8C000D22271 /* MenuItem.swift in Sources */,
 				F4FDB63427CE83720078E563 /* UserOrdersAndLikesTableViewCell.swift in Sources */,
 				F4A080C52A01A11600895938 /* MessagesTableViewCell.swift in Sources */,
 				F481948A27C817D0002BB9D3 /* LoginViewController.swift in Sources */,
@@ -799,6 +806,7 @@
 				F4B90E0327C70B5A004B1FB1 /* SearcViewController.swift in Sources */,
 				F4B90E1027C70B90004B1FB1 /* MeViewController.swift in Sources */,
 				F4B3D76F27CAB64100AA5544 /* CheckoutItems.swift in Sources */,
+				F429F0D42A24D3B100D22271 /* DisclaimerViewController.swift in Sources */,
 				F4599F542A1BDC4900E4078D /* Reviews.swift in Sources */,
 				F4A080D32A02843900895938 /* Search.swift in Sources */,
 				F4FDB63F27CEAD110078E563 /* VideoModel.swift in Sources */,

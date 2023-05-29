@@ -89,7 +89,7 @@ class AddPersonViewController: UIViewController {
             personLabel.text = "Owner"
         }
         if representativeOrOwner == "representative" {
-            if businessBankingInfo!.representative!.isPersonAnOwner == "1" {
+            if businessBankingInfo!.representative?.isPersonAnOwner == "1" {
             isPersonAnOwnerYes.setTitleColor(UIColor.white, for: .normal)
             isPersonAnOwnerYes.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
             isPersonAnOwnerNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
@@ -484,6 +484,17 @@ class AddPersonViewController: UIViewController {
                 } else {
                     
                     var rep = Representative(isPersonAnOwner: self.isPersonAnOwner, isPersonAnExectutive: self.isPersonAnExectutive, firstName: self.firstName.text!, lastName: self.lastName.text!, month: self.month.text!, day: self.day.text!, year: self.year.text!, streetAddress: self.streetAddress.text!, city: self.city.text!, state: self.state.text!, zipCode: self.zipCode.text!, emailAddress: self.emailAddress.text!, phoneNumber: self.phoneNumber.text!, last4OfSSN: self.last4OfSSN.text!, id: "")
+                    if self.isPersonAnOwner == "Yes" {
+                        if self.businessBankingInfo?.owner1 == nil || self.businessBankingInfo?.owner1?.firstName == "" || "\(self.businessBankingInfo!.owner4!.firstName) \(self.businessBankingInfo!.owner4!.lastName)" == "\(self.firstName.text!) \(self.lastName.text!)" || self.businessBankingInfo?.representative != nil && "\(self.businessBankingInfo!.representative!.firstName) \(self.businessBankingInfo!.representative!.lastName)" == "\(self.businessBankingInfo!.owner1!.firstName) \(self.businessBankingInfo!.owner1!.lastName)" {
+                            self.businessBankingInfo?.owner1 = rep
+                        } else if self.businessBankingInfo?.owner2 == nil || self.businessBankingInfo?.owner2?.firstName == "" || "\(self.businessBankingInfo!.owner4!.firstName) \(self.businessBankingInfo!.owner4!.lastName)" == "\(self.firstName.text!) \(self.lastName.text!)" || self.businessBankingInfo?.representative != nil && "\(self.businessBankingInfo!.representative!.firstName) \(self.businessBankingInfo!.representative!.lastName)" == "\(self.businessBankingInfo!.owner2!.firstName) \(self.businessBankingInfo!.owner2!.lastName)" {
+                            self.businessBankingInfo?.owner2 = rep
+                        } else if self.businessBankingInfo?.owner3 == nil || self.businessBankingInfo?.owner3?.firstName == "" || "\(self.businessBankingInfo!.owner4!.firstName) \(self.businessBankingInfo!.owner4!.lastName)" == "\(self.firstName.text!) \(self.lastName.text!)" || self.businessBankingInfo?.representative != nil && "\(self.businessBankingInfo!.representative!.firstName) \(self.businessBankingInfo!.representative!.lastName)" == "\(self.businessBankingInfo!.owner3!.firstName) \(self.businessBankingInfo!.owner3!.lastName)" {
+                            self.businessBankingInfo?.owner3 = rep
+                        } else if self.businessBankingInfo?.owner4 == nil || self.businessBankingInfo?.owner4?.firstName == "" || "\(self.businessBankingInfo!.owner4!.firstName) \(self.businessBankingInfo!.owner4!.lastName)" == "\(self.firstName.text!) \(self.lastName.text!)" || self.businessBankingInfo?.representative != nil && "\(self.businessBankingInfo!.representative!.firstName) \(self.businessBankingInfo!.representative!.lastName)" == "\(self.businessBankingInfo!.owner4!.firstName) \(self.businessBankingInfo!.owner4!.lastName)" {
+                            self.businessBankingInfo?.owner4 = rep
+                        }
+                    }
                     if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
                         self.businessBankingInfo!.representative = rep
                         vc.newAccountOrEditedAccount = "new"

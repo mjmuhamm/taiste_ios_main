@@ -670,6 +670,7 @@ class ProfileAsUserViewController: UIViewController {
     }
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
+        var abc = toggle
         toggle = "MealKit Items"
         self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
 //        loadChefItems()
@@ -685,6 +686,8 @@ class ProfileAsUserViewController: UIViewController {
             mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
             contentButton.backgroundColor = UIColor.white
             contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+            toggle = abc
         }
     }
     
@@ -978,7 +981,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.chefPassion.text = item.chefPassion
                 cell.likeText.text = "\(item.chefLiked.count)"
                 cell.orderText.text = "\(item.chefOrders)"
-                cell.ratingText.text = "\(item.chefRating)"
+                var num = 0.0
+                for i in 0..<item.chefRating.count {
+                    num += item.chefRating[i]
+                    if i == item.chefRating.count - 1 {
+                        num = num / Double(item.chefRating.count)
+                    }
+                }
+                cell.ratingText.text = "\(num)"
                 cell.chefImage.image = item.chefImage
                 let storageRef = storage.reference()
                 storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
@@ -1024,7 +1034,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.itemPrice.text = "$\(item.itemPrice)"
                 cell.likeText.text = "\(item.liked.count)"
                 cell.orderText.text = "\(item.itemOrders)"
-                cell.ratingText.text = "\(item.itemRating)"
+                var num = 0.0
+                for i in 0..<item.itemRating.count {
+                    num += item.itemRating[i]
+                    if i == item.itemRating.count - 1 {
+                        num = num / Double(item.itemRating.count)
+                    }
+                }
+                cell.ratingText.text = "\(num)"
                 cell.userImage.image = item.chefImage
                 
                 cell.itemImage.image = item.itemImage

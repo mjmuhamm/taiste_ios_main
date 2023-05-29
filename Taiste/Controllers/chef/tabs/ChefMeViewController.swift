@@ -93,7 +93,7 @@ class ChefMeViewController: UIViewController {
         meTableView.register(UINib(nibName: "ChefItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefItemReusableCell")
         meTableView.delegate = self
         meTableView.dataSource = self
-        
+       
         
         contentCollectionView.register(UINib(nibName: "ChefContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ChefContentCollectionViewReusableCell")
         contentCollectionView.delegate = self
@@ -561,6 +561,7 @@ class ChefMeViewController: UIViewController {
     }
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
+        var abc = toggle
         toggle = "MealKit Items"
 //        loadItems()
         self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
@@ -580,7 +581,10 @@ class ChefMeViewController: UIViewController {
             contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
             bankingButton.backgroundColor = UIColor.white
             bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+            toggle = abc
         }
+        
     }
     
     @IBAction func contentButtonPressed(_ sender: Any) {
@@ -705,16 +709,17 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
         if toggle != "Content" {
             let storageRef = storage.reference()
             storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(vari)/\(item.menuItemId)0.png").downloadURL { itemUrl, error in
-                
-                URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                    // Error handling...
-                    guard let imageData = data else { return }
-                    
-                    print("happening itemdata")
-                    DispatchQueue.main.async {
-                        cell.itemImage.image = UIImage(data: imageData)!
-                    }
-                }.resume()
+                if itemUrl != nil {
+                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
+                        
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            cell.itemImage.image = UIImage(data: imageData)!
+                        }
+                    }.resume()
+                }
             }
         }
         cell.itemTitle.text = item.itemTitle

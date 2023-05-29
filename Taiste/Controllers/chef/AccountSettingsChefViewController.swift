@@ -75,7 +75,15 @@ class AccountSettingsChefViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
     }
-    @IBAction func termsOfServiceButtonPressed(_ sender: Any) { if let vc = self.storyboard?.instantiateViewController(withIdentifier: "TermsOfService") as? TermsOfServiceViewController {
+    @IBAction func termsOfServiceButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "TermsOfService") as? TermsOfServiceViewController {
+        self.present(vc, animated: true, completion: nil)
+    }
+    }
+    
+    @IBAction func regulationAgreementPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController {
+            vc.newOrEdit = "edit"
         self.present(vc, animated: true, completion: nil)
     }
     }

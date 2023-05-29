@@ -107,6 +107,7 @@ class ChefBankingViewController: UIViewController {
                 if individualBankingInfo!.termsOfServiceAcceptance == "Yes" {
                     iAcceptButton.isEnabled = true
                     iAcceptCircle.image = UIImage(systemName: "circle.fill")
+                    termsOfServiceAccept = "Yes"
                 }
                 mccCode.text = individualBankingInfo!.mccCode
                 businessUrl.text = individualBankingInfo!.businessUrl
@@ -136,6 +137,7 @@ class ChefBankingViewController: UIViewController {
                 self.individualButton.backgroundColor = UIColor.white
                 if businessBankingInfo!.termsOfServiceAcceptance == "Yes" {
                     bIAcceptButton.isEnabled = true
+                    termsOfServiceAccept = "Yes"
                     bIAcceptCircle.image = UIImage(systemName: "circle.fill")
                 }
                 
@@ -812,10 +814,8 @@ class ChefBankingViewController: UIViewController {
     @IBAction func externalAccountButtonPressed(_ sender: Any) {
         if newAccountOrEditedAccount == "new" {
             
-            var termsOfServiceAcceptance = ""
-            if iAcceptCircle.image == UIImage(systemName: "circle") { termsOfServiceAcceptance = "Yes" } else { termsOfServiceAcceptance = "No" }
             
-            individualBankingInfo = IndividualBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAcceptance, mccCode: mccCode.text!, businessUrl: businessUrl.text!, firstName: firstName.text!, lastName: lastName.text!, month: month.text!, day: day.text!, year: year.text!, phoneNumber: phoneNumber.text!, email: email.text!, streetAddress: streetAddress.text!, city: city.text!, state: state.text!, zipCode: zipCode.text!, last4ofSSN: last4ofSSN.text!, externalAccount: individualBankingInfo?.externalAccount)
+            individualBankingInfo = IndividualBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAccept, mccCode: mccCode.text!, businessUrl: businessUrl.text!, firstName: firstName.text!, lastName: lastName.text!, month: month.text!, day: day.text!, year: year.text!, phoneNumber: phoneNumber.text!, email: email.text!, streetAddress: streetAddress.text!, city: city.text!, state: state.text!, zipCode: zipCode.text!, last4ofSSN: last4ofSSN.text!, externalAccount: individualBankingInfo?.externalAccount)
             
         }
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExternalAccount") as? ExternalAccountViewController  {
@@ -858,8 +858,8 @@ class ChefBankingViewController: UIViewController {
             self.showToast(message: "Please enter your ssn.", font: .systemFont(ofSize: 12))
         } else {
             if newAccountOrEditedAccount == "new" {
-//            saveIndividualAccountInfo()
-                print("individual banking info \(individualBankingInfo)")
+            saveIndividualAccountInfo()
+//                print("individual banking info \(individualBankingInfo)")
             } else {
                 updateIndividualAccount()
             }
@@ -890,10 +890,9 @@ class ChefBankingViewController: UIViewController {
     
     @IBAction func externalAccountButtonBusinessPresseed(_ sender: Any) {
         if newAccountOrEditedAccount == "new" {
-            var termsOfServiceAcceptance = ""
-            if bIAcceptCircle.image == UIImage(systemName: "circle.fill") { termsOfServiceAcceptance = "Yes" } else { termsOfServiceAcceptance = "No" }
             
-            businessBankingInfo = BusinessBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAcceptance, mccCode: bMCCCode.text!, businessUrl: bBusinessURL.text!, companyName: companyName.text!, companyPhone: companyPhone.text!, streetAddress: bStreetAddress.text!, city: bCity.text!, state: bState.text!, zipCode: bZipCode.text!, companyTaxId: companyTaxId.text!, externalAccount: businessBankingInfo?.externalAccount, bankingInfoDocumentId: "")
+            
+            businessBankingInfo = BusinessBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAccept, mccCode: bMCCCode.text!, businessUrl: bBusinessURL.text!, companyName: companyName.text!, companyPhone: companyPhone.text!, streetAddress: bStreetAddress.text!, city: bCity.text!, state: bState.text!, zipCode: bZipCode.text!, companyTaxId: companyTaxId.text!, externalAccount: businessBankingInfo?.externalAccount, bankingInfoDocumentId: "")
             
         }
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ExternalAccount") as? ExternalAccountViewController  {
@@ -915,15 +914,9 @@ class ChefBankingViewController: UIViewController {
         
         var rep = Representative(isPersonAnOwner: "", isPersonAnExectutive: "", firstName: "", lastName: "", month: "", day: "", year: "", streetAddress: "", city: "", state: "", zipCode: "", emailAddress: "", phoneNumber: "", last4OfSSN: "", id: "")
         
-//        if newAccountOrEditedAccount == "new" && businessBankingInfo?.representative == nil {
-//            
-//            businessBankingInfo = BusinessBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAcceptance, mccCode: bMCCCode.text!, businessUrl: bBusinessURL.text!, companyName: companyName.text!, companyPhone: companyPhone.text!, streetAddress: bStreetAddress.text!, city: bCity.text!, state: bState.text!, zipCode: bZipCode.text!, companyTaxId: companyTaxId.text!, externalAccount: businessBankingInfo?.externalAccount, representative: rep, bankingInfoDocumentId: "")
-//        } else {
-//            
-//            businessBankingInfo = BusinessBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAcceptance, mccCode: bMCCCode.text!, businessUrl: bBusinessURL.text!, companyName: companyName.text!, companyPhone: companyPhone.text!, streetAddress: bStreetAddress.text!, city: bCity.text!, state: bState.text!, zipCode: bZipCode.text!, companyTaxId: companyTaxId.text!, externalAccount: businessBankingInfo?.externalAccount, representative: businessBankingInfo?.representative, bankingInfoDocumentId: "")
-//        }
+//
         
-        businessBankingInfo = BusinessBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAcceptance, mccCode: bMCCCode.text!, businessUrl: bBusinessURL.text!, companyName: companyName.text!, companyPhone: companyPhone.text!, streetAddress: bStreetAddress.text!, city: bCity.text!, state: bState.text!, zipCode: bZipCode.text!, companyTaxId: companyTaxId.text!, externalAccount: businessBankingInfo?.externalAccount, representative: businessBankingInfo?.representative, owner1: businessBankingInfo?.owner1, owner2: businessBankingInfo?.owner2, owner3: businessBankingInfo?.owner3, owner4: businessBankingInfo?.owner4, bankingInfoDocumentId: "")
+        businessBankingInfo = BusinessBankingInfo(stripeAccountId: "", termsOfServiceAcceptance: termsOfServiceAcceptance, mccCode: bMCCCode.text!, businessUrl: bBusinessURL.text!, companyName: companyName.text!, companyPhone: companyPhone.text!, streetAddress: bStreetAddress.text!, city: bCity.text!, state: bState.text!, zipCode: bZipCode.text!, companyTaxId: companyTaxId.text!, externalAccount: businessBankingInfo?.externalAccount, representative: rep, owner1: businessBankingInfo?.owner1, owner2: businessBankingInfo?.owner2, owner3: businessBankingInfo?.owner3, owner4: businessBankingInfo?.owner4, bankingInfoDocumentId: "")
         
         
         if newAccountOrEditedAccount == "new" && businessBankingInfo?.externalAccount == nil {

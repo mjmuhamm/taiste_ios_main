@@ -94,7 +94,7 @@ class ChefLoginViewController: UIViewController {
     }
 
     @IBAction func signUpButtonPressed(_ sender: MDCButton) {
-       performSegue(withIdentifier: "ChefLoginToChefPersonalSegue", sender: self)
+       performSegue(withIdentifier: "ChefLoginToChefDisclaimerSegue", sender: self)
     }
     
     func showToast(message : String, font: UIFont) {

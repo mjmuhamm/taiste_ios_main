@@ -493,6 +493,8 @@ class UserPersonalViewController: UIViewController {
             self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
         } else if region == 1 && state.text == "" {
             self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
+        } else if userImageData == nil {
+            self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
         } else  {
         
         if newOrEdit != "edit" {

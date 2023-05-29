@@ -130,6 +130,8 @@ class ChefPersonalViewController: UIViewController {
             self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
         } else if education.text == "" {
             self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
+        } else if userImageData == nil {
+            self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
         } else {
         
             let storageRef = storage.reference()
@@ -146,7 +148,7 @@ class ChefPersonalViewController: UIViewController {
                     self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
                     self.db.collection("Chef").document(authResult!.user.uid).setData(data2)
                     let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = self.chefName.text
+                    changeRequest?.displayName = "Chef"
                     
                     changeRequest?.commitChanges { error in
                       // ...

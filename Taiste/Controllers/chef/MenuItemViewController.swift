@@ -45,7 +45,8 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var seafoodButton: MDCButton!
     @IBOutlet weak var workoutButton: MDCButton!
     
-    private var imgArr : [UIImage] = []
+    @IBOutlet weak var cancelImageButton: MDCButton!
+    private var imgArr : [MenuItemImage] = []
     private var imgArrData : [Data] = []
     
     var currentIndex = 0
@@ -59,7 +60,6 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     private var vegan = 0
     private var seafood = 0
     private var workout = 0
-    
     
     var newOrEdit = "new"
     var typeOfitem = ""
@@ -107,14 +107,30 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                     if let itemTitle = data!["itemTitle"] as? String, let imageCount = data!["imageCount"] as? Int, let itemDescription = data!["itemDescription"] as? String, let itemLikes = data!["itemLikes"] as? Int, let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let itemPrice = data!["itemPrice"] as? String, let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int {
                         
                         for i in 0..<imageCount {
-                            storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
+                            var path = "chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png"
+                            storageRef.child(path).downloadURL { imageUrl, error in
                                 
-                                if error == nil {
-                                    self.imgArrData.append(data!)
-                                    self.imgArr.append(UIImage(data: data!)!)
-                                    self.pageControl.numberOfPages = self.imgArr.count
-                                    self.sliderCollectionView.reloadData()
-                                }
+                                
+                                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                        // Error handling...
+                                        guard let imageData = data else { return }
+                                        
+                                        print("happening itemdata")
+                                        let indexPath = IndexPath(item: self.imgArr.count, section: 0)
+                                        var indexPaths: [IndexPath] = [indexPath]
+                                        DispatchQueue.main.async {
+
+                                            if error == nil {
+                                                self.imgArrData.append(imageData)
+                                                self.imgArr.append(MenuItemImage(img: UIImage(data: imageData)!, imgPath: path))
+                                                self.pageControl.numberOfPages = self.imgArr.count
+                                                self.sliderCollectionView.insertItems(at: indexPaths)
+                                            }
+                                            
+                                            
+                                        }
+                                    }.resume()
+                                
                             }
                         }
                         
@@ -225,20 +241,34 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func cancelImageButtonPressed(_ sender: Any) {
         if newOrEdit == "edit" {
+            print("index \(self.currentIndex)")
+            print("img \(self.imgArr)")
             let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
                 let storageRef = self.storage.reference()
-                storageRef.child("chefs/\(Auth.auth().currentUser!.email)/\(self.typeOfitem)/\(self.menuItemId)\(self.currentIndex).png").delete { error in
-                    if error == nil {
-                        self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
-                        
-                        self.imgArr.remove(at: self.currentIndex)
-                        self.imgArrData.remove(at: self.currentIndex)
-                        self.pageControl.numberOfPages = self.imgArr.count
-                        self.sliderCollectionView.reloadData()
-                    }
+                let renewRef = self.storage.reference()
+                var path = self.imgArr[self.currentIndex].imgPath
+                
+                for i in 0..<self.imgArr.count {
+                    storageRef.child(self.imgArr[i].imgPath).delete()
                 }
+                self.imgArr.remove(at: self.currentIndex)
+                self.imgArrData.remove(at: self.currentIndex)
+                if self.imgArr.count == 0 {
+                    self.cancelImageButton.isHidden = true
+                }
+                self.pageControl.numberOfPages = self.imgArr.count
+                self.sliderCollectionView.reloadData()
+                
+                for i in 0..<self.imgArr.count {
+                    renewRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png").putData(self.imgArrData[i])
+                }
+                let data: [String: Any] = ["imageCount" : self.imgArr.count]
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+                self.db.collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+                self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
+                
             }))
             
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
@@ -250,39 +280,43 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         } else {
         imgArr.remove(at: currentIndex)
         imgArrData.remove(at: currentIndex)
+            if self.imgArr.count == 0 {
+                self.cancelImageButton.isHidden = true
+            }
         self.pageControl.numberOfPages = imgArr.count
         self.sliderCollectionView.reloadData()
         }
     }
     
     @IBAction func addImageButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (handler) in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                let image = UIImagePickerController()
-                image.allowsEditing = true
-                image.sourceType = .camera
-                image.delegate = self
-//                image.mediaTypes = [UTType.image.identifier]
-                self.present(image, animated: true, completion: nil)
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (handler) in
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                let image = UIImagePickerController()
-                image.allowsEditing = true
-                image.delegate = self
-                self.present(image, animated: true, completion: nil)
-                
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (handler) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
+
+            let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (handler) in
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    let image = UIImagePickerController()
+                    image.allowsEditing = true
+                    image.sourceType = .camera
+                    image.delegate = self
+                    //                image.mediaTypes = [UTType.image.identifier]
+                    self.present(image, animated: true, completion: nil)
+                }
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (handler) in
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                    let image = UIImagePickerController()
+                    image.allowsEditing = true
+                    image.delegate = self
+                    self.present(image, animated: true, completion: nil)
+                    
+                }
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (handler) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            present(alert, animated: true, completion: nil)
         
         
     }
@@ -428,7 +462,6 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         let storageRef = storage.reference()
         
         
-        
         let data: [String: Any] = ["available" : "Yes", "burger" : burger, "chefEmail" : Auth.auth().currentUser!.email!, "chefPassion" : chefPassion, "chefUsername" : chefUsername, "city" : city, "creative" : creative, "date" : Date(), "healthy" : healthy, "imageCount" : imgArr.count, "itemCalories" : itemCalories.text!, "itemDescription" : itemDescription.text!, "itemLikes" : self.itemLikes, "itemOrders" : self.itemOrders, "itemPrice" : itemPrice.text!, "itemRating" : self.itemRating, "itemTitle" : itemTitle.text!, "itemType" : typeOfitem, "liked" : [], "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "profileImageId" : profileImageId, "quantityLimit" : "No Limit", "randomVariable" : menuItemId, "seafood" : seafood, "state" : state, "typeOfService" : typeOfitem, "user" : Auth.auth().currentUser!.email!, "vegan" : vegan, "workout" : workout, "zipCode" : zipCode]
         
         if newOrEdit == "new" {
@@ -447,16 +480,8 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             }
         } else {
             db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(typeOfitem).document(menuItemId).updateData(data)
-            for i in 0..<imgArr.count {
-                storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(typeOfitem)/\(menuItemId)\(i).png").putData(imgArrData[i], metadata: nil) { data, error in
-                    if error == nil {
-                        
-                        if i == self.imgArr.count-1 {
-                            self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
-                        }
-                    }
-                }
-            }
+            db.collection("\(self.typeOfitem)").document(menuItemId).updateData(data)
+            self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
         }
         
         
@@ -518,9 +543,20 @@ extension MenuItemViewController: UIImagePickerControllerDelegate, UINavigationC
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
-        self.imgArr.append(image)
+        self.imgArr.append(MenuItemImage(img: image, imgPath: ""))
         self.imgArrData.append(image.pngData()!)
+        self.cancelImageButton.isHidden = false
         self.pageControl.numberOfPages = self.imgArr.count
+        var path = "chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(self.imgArr.count - 1).png"
+        if newOrEdit == "edit" {
+            let storageRef = self.storage.reference()
+            storageRef.child(path).putData(image.pngData()!)
+            
+            let data: [String: Any] = ["imageCount" : self.imgArr.count]
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+            self.db.collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+            self.showToast(message: "Image Added.", font: .systemFont(ofSize: 12))
+        }
         self.sliderCollectionView.reloadData()
 //        imageView.image = image
         print("image arr count\(self.imgArr.count)")
@@ -539,7 +575,7 @@ extension MenuItemViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = sliderCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if let vc = cell.viewWithTag(111) as? UIImageView {
-            vc.image = imgArr[indexPath.row]
+            vc.image = imgArr[indexPath.row].img
             
         }
        
