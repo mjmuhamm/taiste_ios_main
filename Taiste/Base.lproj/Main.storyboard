@@ -14,7 +14,7 @@
         <!--Start View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="Start" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="StartViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Start" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="StartViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -144,7 +144,7 @@
         <!--UserTab-->
         <scene sceneID="CyB-7F-9ew">
             <objects>
-                <tabBarController title="UserTab" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="kr3-rW-0mV" customClass="UserTabViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="UserTab" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="kr3-rW-0mV" customClass="UserTabViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="44Y-6y-Fyl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -168,7 +168,7 @@
         <!--Home View Controller-->
         <scene sceneID="FNg-iy-LYy">
             <objects>
-                <viewController id="g6N-EO-dG3" customClass="HomeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="g6N-EO-dG3" customClass="HomeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iN3-Zg-BLm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -407,7 +407,7 @@
         <!--Me View Controller-->
         <scene sceneID="9RL-2d-x6M">
             <objects>
-                <viewController id="72S-Af-iag" customClass="MeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="72S-Af-iag" customClass="MeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ad-FS-bID">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -600,7 +600,7 @@
         <!--Orders View Controller-->
         <scene sceneID="A9U-7P-67V">
             <objects>
-                <viewController id="MQz-cP-RTd" customClass="OrdersViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MQz-cP-RTd" customClass="OrdersViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CAi-hP-6dL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -731,7 +731,7 @@
         <!--Feed View Controller-->
         <scene sceneID="Eci-jP-MHp">
             <objects>
-                <viewController id="xQU-Ts-FXV" customClass="FeedViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xQU-Ts-FXV" customClass="FeedViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cWT-10-IxQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -779,7 +779,7 @@
         <!--Chef Tab View Controller-->
         <scene sceneID="BdF-HO-M9k">
             <objects>
-                <tabBarController id="qkw-nc-3h8" customClass="ChefTabViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="qkw-nc-3h8" customClass="ChefTabViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yy5-rS-Z8R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -894,7 +894,7 @@
         <!--Login View Controller-->
         <scene sceneID="jqS-Xo-CoA">
             <objects>
-                <viewController id="V7j-3n-LfI" customClass="LoginViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V7j-3n-LfI" customClass="LoginViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tNS-Xl-sas">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1017,7 +1017,7 @@
         <!--User Personal View Controller-->
         <scene sceneID="0NF-OJ-97E">
             <objects>
-                <viewController storyboardIdentifier="UserPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="pa7-mr-3DM" customClass="UserPersonalViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="pa7-mr-3DM" customClass="UserPersonalViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fwO-2V-Rxs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1536,7 +1536,7 @@
         <!--Chef Login View Controller-->
         <scene sceneID="vC0-Rs-bLJ">
             <objects>
-                <viewController id="WS4-dx-SX0" customClass="ChefLoginViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WS4-dx-SX0" customClass="ChefLoginViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JRP-ld-o7k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1663,7 +1663,7 @@
         <!--Item Detail View Controller-->
         <scene sceneID="emI-lD-yQw">
             <objects>
-                <viewController storyboardIdentifier="ItemDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Acn-ce-GKd" customClass="ItemDetailViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Acn-ce-GKd" customClass="ItemDetailViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8q5-Qj-1yu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1983,7 +1983,7 @@
         <!--Profile As User View Controller-->
         <scene sceneID="F1a-qR-1AQ">
             <objects>
-                <viewController storyboardIdentifier="ProfileAsUser" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7X-fF-rpK" customClass="ProfileAsUserViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileAsUser" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7X-fF-rpK" customClass="ProfileAsUserViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="erO-Uj-3Py">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2297,7 +2297,7 @@
         <!--Order Details View Controller-->
         <scene sceneID="AVu-7W-6QO">
             <objects>
-                <viewController id="BEi-mZ-8p3" customClass="OrderDetailsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BEi-mZ-8p3" customClass="OrderDetailsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aOb-5N-0nf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2786,7 +2786,7 @@
         <!--Checkout View Controller-->
         <scene sceneID="Uka-Wm-bfJ">
             <objects>
-                <viewController id="gYL-KL-7m2" customClass="CheckoutViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gYL-KL-7m2" customClass="CheckoutViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PMU-pw-2ub">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2943,7 +2943,7 @@
         <!--Dashboard View Controller-->
         <scene sceneID="Q1k-l5-ejY">
             <objects>
-                <viewController id="ISg-SE-8Fx" customClass="DashboardViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ISg-SE-8Fx" customClass="DashboardViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KuJ-Q5-dqa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3144,7 +3144,7 @@
         <!--Chef Me View Controller-->
         <scene sceneID="UHx-fv-5vE">
             <objects>
-                <viewController id="0gC-7J-coo" customClass="ChefMeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0gC-7J-coo" customClass="ChefMeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RWP-U5-Tgk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3623,7 +3623,7 @@
         <!--Messages View Controller-->
         <scene sceneID="bkH-vp-1nR">
             <objects>
-                <viewController storyboardIdentifier="Messages" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="WFT-2O-fuq" customClass="MessagesViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Messages" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="WFT-2O-fuq" customClass="MessagesViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qzw-8a-iHJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3777,7 +3777,7 @@
         <!--Travel Fee View Controller-->
         <scene sceneID="DbN-o2-tmN">
             <objects>
-                <viewController id="QD4-c3-dg6" customClass="TravelFeeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QD4-c3-dg6" customClass="TravelFeeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sua-Nd-34M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3877,7 +3877,7 @@
         <!--Search View Controller-->
         <scene sceneID="bZH-Ee-zZo">
             <objects>
-                <viewController id="3D4-TS-tEq" customClass="SearchViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3D4-TS-tEq" customClass="SearchViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Aj-ew-LQS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3908,7 +3908,7 @@
         <!--Menu Item View Controller-->
         <scene sceneID="3AA-oY-YQ2">
             <objects>
-                <viewController storyboardIdentifier="MenuItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="FNM-ZN-2tz" customClass="MenuItemViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="FNM-ZN-2tz" customClass="MenuItemViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwk-l7-fpK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4323,7 +4323,7 @@
         <!--Chef Orders View Controller-->
         <scene sceneID="dG7-Iw-9eH">
             <objects>
-                <viewController id="mMG-Qo-Op4" customClass="ChefOrdersViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mMG-Qo-Op4" customClass="ChefOrdersViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K6d-47-Gf1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4451,7 +4451,7 @@
         <!--Account Settings Chef View Controller-->
         <scene sceneID="jNC-lF-fcD">
             <objects>
-                <viewController id="UHJ-6K-3na" customClass="AccountSettingsChefViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UHJ-6K-3na" customClass="AccountSettingsChefViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DrC-3U-ZIY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4682,7 +4682,7 @@
         <!--Account Settings View Controller-->
         <scene sceneID="0Wa-3K-2Ad">
             <objects>
-                <viewController id="3gr-eD-A3r" customClass="AccountSettingsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3gr-eD-A3r" customClass="AccountSettingsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="akG-QW-sXN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4907,7 +4907,7 @@
         <!--User Review View Controller-->
         <scene sceneID="csa-4l-sQr">
             <objects>
-                <viewController storyboardIdentifier="UserReviews" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="QFC-Bo-Waa" customClass="UserReviewViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserReviews" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="QFC-Bo-Waa" customClass="UserReviewViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ut-PZ-fIi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5459,7 +5459,7 @@
         <!--Add Content View Controller-->
         <scene sceneID="P9f-Vx-x6y">
             <objects>
-                <viewController storyboardIdentifier="ContentItem" id="jCI-5A-Tfa" customClass="AddContentViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentItem" id="jCI-5A-Tfa" customClass="AddContentViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmE-tV-oUa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5617,7 +5617,7 @@
         <!--Chef Personal View Controller-->
         <scene sceneID="tG8-YT-4dE">
             <objects>
-                <viewController storyboardIdentifier="ChefPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="tZA-tA-HQx" customClass="ChefPersonalViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChefPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="tZA-tA-HQx" customClass="ChefPersonalViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fKJ-bl-rN5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5865,7 +5865,7 @@
         <!--Chef Business View Controller-->
         <scene sceneID="Aqu-rZ-GCK">
             <objects>
-                <viewController storyboardIdentifier="ChefBusiness" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="sDp-aM-7fJ" customClass="ChefBusinessViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChefBusiness" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="sDp-aM-7fJ" customClass="ChefBusinessViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sDz-vt-PB5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6000,7 +6000,7 @@
         <!--Chef Banking View Controller-->
         <scene sceneID="yQC-4o-ISX">
             <objects>
-                <viewController storyboardIdentifier="ChefBanking" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gVL-LH-Wan" customClass="ChefBankingViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChefBanking" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gVL-LH-Wan" customClass="ChefBankingViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gs3-2f-N0p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7054,7 +7054,7 @@
         <!--Add Person View Controller-->
         <scene sceneID="GC5-Ko-zUk">
             <objects>
-                <viewController storyboardIdentifier="AddPerson" id="MJQ-a4-EBI" customClass="AddPersonViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPerson" id="MJQ-a4-EBI" customClass="AddPersonViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8LD-oe-rrA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7535,7 +7535,7 @@
         <!--Stripe Terms Of Service View Controller-->
         <scene sceneID="8v6-yx-dmA">
             <objects>
-                <viewController id="YI4-zN-pyN" customClass="StripeTermsOfServiceViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YI4-zN-pyN" customClass="StripeTermsOfServiceViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G3C-FM-Hlu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7600,7 +7600,7 @@
         <!--Terms Of Service View Controller-->
         <scene sceneID="zfr-dQ-LYz">
             <objects>
-                <viewController storyboardIdentifier="TermsOfService" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="NI0-sP-0QP" customClass="TermsOfServiceViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TermsOfService" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="NI0-sP-0QP" customClass="TermsOfServiceViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G9e-bQ-HBu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7871,7 +7871,7 @@ b. Any dispute arising out of or relating to this Agreement shall be subject to 
         <!--Privacy Policy View Controller-->
         <scene sceneID="xXb-go-9eB">
             <objects>
-                <viewController storyboardIdentifier="PrivacyPolicy" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7K-rY-C65" customClass="PrivacyPolicyViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivacyPolicy" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7K-rY-C65" customClass="PrivacyPolicyViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5lw-aM-Tlk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8093,7 +8093,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Comments View Controller-->
         <scene sceneID="Hsf-iI-Ov1">
             <objects>
-                <viewController id="h3p-CT-G4S" customClass="CommentsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="h3p-CT-G4S" customClass="CommentsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iew-LI-qwo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8194,7 +8194,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Reviews View Controller-->
         <scene sceneID="8Lt-vS-ZJR">
             <objects>
-                <viewController storyboardIdentifier="Reviews" id="cA5-tP-6jc" customClass="ReviewsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Reviews" id="cA5-tP-6jc" customClass="ReviewsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hv1-9g-fIV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8266,7 +8266,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--External Account View Controller-->
         <scene sceneID="Umm-8x-w3i">
             <objects>
-                <viewController storyboardIdentifier="ExternalAccount" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="xCJ-kp-5xe" customClass="ExternalAccountViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExternalAccount" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="xCJ-kp-5xe" customClass="ExternalAccountViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Aig-On-bij">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8411,7 +8411,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Owners View Controller-->
         <scene sceneID="PRb-zb-7aR">
             <objects>
-                <viewController storyboardIdentifier="Owners" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Jpv-ei-aRT" customClass="OwnersViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Owners" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Jpv-ei-aRT" customClass="OwnersViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GV5-Yp-8Nw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8585,7 +8585,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Filter View Controller-->
         <scene sceneID="ogY-gn-lDL">
             <objects>
-                <viewController storyboardIdentifier="Filter" id="GRx-fP-qwI" customClass="FilterViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Filter" id="GRx-fP-qwI" customClass="FilterViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gcl-RP-s9X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8965,7 +8965,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Report An Issue View Controller-->
         <scene sceneID="gKC-1p-w4a">
             <objects>
-                <viewController storyboardIdentifier="ReportAnIssue" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="rsN-le-tdd" customClass="ReportAnIssueViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReportAnIssue" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="rsN-le-tdd" customClass="ReportAnIssueViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kG1-47-5aB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9188,7 +9188,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Disclaimer View Controller-->
         <scene sceneID="9Y2-qd-hIe">
             <objects>
-                <viewController storyboardIdentifier="Disclaimer" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DiS-K0-uwX" customClass="DisclaimerViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Disclaimer" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DiS-K0-uwX" customClass="DisclaimerViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j8L-4v-6ep">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9271,7 +9271,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <segue reference="QE2-o5-q5i"/>
         <segue reference="jEP-Gm-UqI"/>
         <segue reference="BS6-oY-CaB"/>
-        <segue reference="VRh-YA-qPz"/>
+        <segue reference="sVL-o3-tul"/>
         <segue reference="KUI-PT-pbS"/>
     </inferredMetricsTieBreakers>
     <resources>
