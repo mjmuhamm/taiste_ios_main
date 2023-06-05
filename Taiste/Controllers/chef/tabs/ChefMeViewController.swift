@@ -264,7 +264,7 @@ class ChefMeViewController: UIViewController {
                                 if months == 0 {
                                     availability = "\(availability)  Months"
                                 }
-                                self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/ExecutiveChef/signature0.png").downloadURL { imageUrl, error in
+                                self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/Executive Item/signature0.png").downloadURL { imageUrl, error in
                                     if error == nil {
                                         URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
                                             // Error handling...
@@ -675,13 +675,15 @@ class ChefMeViewController: UIViewController {
     @IBAction func addContentButtonPressed(_ sender: MDCButton) {
         if toggle == "Cater Items" {
         performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
-        } else if toggle == "Executive items" {
+        } else if toggle == "Executive Items" {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChef") as? PersonalChefViewController  {
                 vc.chefImageI = self.chefImage.image
                 vc.chefName = self.chefName.text!
                 vc.city = self.city
                 vc.state = self.state
-                vc.personalChefItem = self.personalChefItem!
+                if self.personalChefItem != nil {
+                    vc.personalChefItem = self.personalChefItem!
+                }
                 self.present(vc, animated: true, completion: nil)
             }
         }
@@ -739,7 +741,11 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
         if toggle == "Cater Items" {
             return items.count
         } else if toggle == "Executive Items" {
-            return 1
+            if personalChefItem == nil {
+                return 0
+            } else {
+                return 1
+            }
         } else {
             return items.count
         }
@@ -829,6 +835,7 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
             
             return cell
         } else {
+            meTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
             let cell = meTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
             
             if personalChefItem != nil {

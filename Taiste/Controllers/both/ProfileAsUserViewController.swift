@@ -188,7 +188,7 @@ class ProfileAsUserViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
 
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String {
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let chefUsername = data["chefUsername"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int {
 
                         self.db.collection("\(typeOfService)").document(menuItemId).getDocument { document, error in
                             if error == nil {
@@ -197,7 +197,7 @@ class ProfileAsUserViewController: UIViewController {
 
                                     if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
 
-                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
+                                        let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality)
 
                         if self.userOrders.isEmpty {
                             self.userOrders.append(newItem)
@@ -303,7 +303,7 @@ class ProfileAsUserViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
 
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String {
+                    if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int {
                         print("likes happening")
 
 
@@ -316,7 +316,7 @@ class ProfileAsUserViewController: UIViewController {
                                     if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
 
 
-                                        let newItem = UserLikes(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID)
+                                        let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality)
 
                                     if self.userLikes.isEmpty {
                                         self.userLikes.append(newItem)
@@ -896,7 +896,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                                 let data = document!.data()
                                 
                                 let liked = data!["liked"] as? [String]
-                                let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "profileImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb]
+                                let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "profileImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb, "expectations" : 0, "chefRating" : 0, "quality" : 0]
                                 if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                     self.db.collection("\(item.itemType)").document(item.menuItemId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                     self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.menuItemId).delete()
@@ -918,7 +918,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
                 return cell
             } else {
-                
+                itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
                 let cell = itemTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
                 var item = personalChefItem!
                 
@@ -926,6 +926,40 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.chefName.text = item.chefName
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
+                
+                let storageRef = self.storage.reference()
+                let itemRef = self.storage.reference()
+                
+                storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
+                    
+                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
+                        
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            cell.chefImage.image = UIImage(data: imageData)!
+                            item.chefImage = UIImage(data: imageData)!
+                        }
+                    }.resume()
+                    
+                }
+                
+                
+                itemRef.child("chefs/\(item.chefEmail)/Executive Items/signature0.png").downloadURL { imageUrl, error in
+                    
+                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
+                        
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            cell.signatureImage.image = UIImage(data: imageData)!
+                            item.signatureDishImage = UIImage(data: imageData)!
+                        }
+                    }.resume()
+                    
+                }
                 
                 if item.expectations > 4 {
                     cell.expectations1.image = UIImage(systemName: "star.fill")
@@ -1062,84 +1096,288 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
             }
         } else {
             if toggle == "Orders" {
-                
-            var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
-            
-            var order = userOrders[indexPath.row]
-                
-                cell.itemTitle.text = order.itemTitle
-                cell.itemDescription.text = order.itemDescription
-                cell.likeText.text = "\(order.liked.count)"
-                cell.orderText.text = "\(order.itemOrders)"
-                cell.itemPrice.text = "$\(order.itemPrice)"
-                var num = 0.0
-                for i in 0..<order.itemRating.count {
-                    num += order.itemRating[i]
-                    if i == order.itemRating.count - 1 {
-                        num = num / Double(order.itemRating.count)
+                if userOrders[indexPath.row].typeOfService == "Cater Items" {
+                    var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
+                    
+                    var order = userOrders[indexPath.row]
+                    
+                    cell.itemTitle.text = order.itemTitle
+                    cell.itemDescription.text = order.itemDescription
+                    cell.likeText.text = "\(order.liked.count)"
+                    cell.orderText.text = "\(order.itemOrders)"
+                    cell.itemPrice.text = "$\(order.itemPrice)"
+                    var num = 0.0
+                    for i in 0..<order.itemRating.count {
+                        num += order.itemRating[i]
+                        if i == order.itemRating.count - 1 {
+                            num = num / Double(order.itemRating.count)
+                        }
                     }
-                }
-                cell.ratingText.text = "\(num)"
-                cell.userImage.image = order.chefImage
-                cell.itemImage.image = order.itemImage
-                let storageRef = storage.reference()
-                let itemRef = storage.reference()
-                
-                storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.chefImageId).png").downloadURL { itemUrl, error in
+                    cell.ratingText.text = "\(num)"
+                    cell.userImage.image = order.chefImage
+                    cell.itemImage.image = order.itemImage
+                    let storageRef = storage.reference()
+                    let itemRef = storage.reference()
                     
-                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                        // Error handling...
-                        guard let imageData = data else { return }
+                    storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.chefImageId).png").downloadURL { itemUrl, error in
                         
-                        print("happening itemdata")
-                        DispatchQueue.main.async {
-                            cell.userImage.image = UIImage(data: imageData)!
-                            order.chefImage = UIImage(data: imageData)!
-                        }
-                    }.resume()
-                }
-                    
-                itemRef.child("chefs/\(order.chefEmail)/\(order.typeOfService)/\(order.menuItemId)0.png").downloadURL { itemUrl, error in
-                    
-                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                        // Error handling...
-                        guard let imageData = data else { return }
-                        
-                        print("happening itemdata")
-                        DispatchQueue.main.async {
-                            cell.itemImage.image = UIImage(data: imageData)!
-                            order.itemImage = UIImage(data: imageData)!
-                        }
-                    }.resume()
-            }
-                        
-                        cell.chefImageButtonTapped = {
-                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
-                                vc.user = order.chefImageId
-                                vc.chefOrUser = "chef"
-                                self.present(vc, animated: true, completion: nil)
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.userImage.image = UIImage(data: imageData)!
+                                order.chefImage = UIImage(data: imageData)!
                             }
-                        }
-                        
-                        cell.itemImageButtonTapped = {
-                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
-                                vc.chefEmail = order.chefEmail
-                                vc.imageCount = order.imageCount
-                                vc.menuItemId = order.documentId
-                                vc.itemType = order.typeOfService
-                                vc.itemTitleI = order.itemTitle
-                                vc.itemDescriptionI = order.itemDescription
-                                vc.itemImage = order.itemImage
-                                vc.caterOrPersonal = "cater"
-                                vc.item = FeedMenuItems(chefEmail: order.chefEmail, chefPassion: "", chefUsername: order.chefEmail, chefImageId: order.chefImageId, menuItemId: order.menuItemId, itemTitle: order.itemTitle, itemDescription: order.itemDescription, itemPrice: order.itemPrice, liked: order.liked, itemOrders: order.itemOrders, itemRating: order.itemRating, date: order.orderDate, imageCount: order.imageCount, itemCalories: "\(order.itemCalories)", itemType: order.typeOfService, city: order.city, state: order.state, zipCode: order.zipCode, user: order.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
-                                self.present(vc, animated: true, completion: nil)
-                                
-                            }}
-                        
+                        }.resume()
+                    }
                     
-                
-                
-            return cell
+                    itemRef.child("chefs/\(order.chefEmail)/\(order.typeOfService)/\(order.menuItemId)0.png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.itemImage.image = UIImage(data: imageData)!
+                                order.itemImage = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
+                    
+                    cell.orderButtonTapped = {
+                        let item = order
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
+                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            self.present(vc, animated: true, completion: nil)
+                        }}
+                    
+                    cell.chefImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
+                            vc.user = order.chefImageId
+                            vc.chefOrUser = "chef"
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.itemImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
+                            vc.chefEmail = order.chefEmail
+                            vc.imageCount = order.imageCount
+                            vc.menuItemId = order.documentId
+                            vc.itemType = order.typeOfService
+                            vc.itemTitleI = order.itemTitle
+                            vc.itemDescriptionI = order.itemDescription
+                            vc.itemImage = order.itemImage
+                            vc.caterOrPersonal = "cater"
+                            vc.item = FeedMenuItems(chefEmail: order.chefEmail, chefPassion: "", chefUsername: order.chefEmail, chefImageId: order.chefImageId, menuItemId: order.menuItemId, itemTitle: order.itemTitle, itemDescription: order.itemDescription, itemPrice: order.itemPrice, liked: order.liked, itemOrders: order.itemOrders, itemRating: order.itemRating, date: order.orderDate, imageCount: order.imageCount, itemCalories: "\(order.itemCalories)", itemType: order.typeOfService, city: order.city, state: order.state, zipCode: order.zipCode, user: order.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }}
+                    
+                    
+                    
+                    
+                    return cell
+                } else {
+                    itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+                    var cell = itemTableView.dequeueReusableCell(withIdentifier: "PersonalChefTableViewCell", for: indexPath) as! PersonalChefTableViewCell
+                    
+                    var order = userOrders[indexPath.row]
+                    
+                    cell.chefName.text = order.chefName
+                    cell.briefIntro.text = order.itemDescription
+                    if order.expectations > 4 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star.fill")
+                        cell.expectations4.image = UIImage(systemName: "star.fill")
+                        cell.expectations5.image = UIImage(systemName: "star.fill")
+                    } else if order.expectations > 3 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star.fill")
+                        cell.expectations4.image = UIImage(systemName: "star.fill")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else if order.expectations > 2 && order.expectations < 4 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star.fill")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else if order.expectations > 1 && order.expectations < 3 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else if order.expectations > 0 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star")
+                        cell.expectations3.image = UIImage(systemName: "star")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else {
+                        cell.expectations1.image = UIImage(systemName: "star")
+                        cell.expectations2.image = UIImage(systemName: "star")
+                        cell.expectations3.image = UIImage(systemName: "star")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    }
+                    
+                    if order.chefRating > 4 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star.fill")
+                        cell.chefRating4.image = UIImage(systemName: "star.fill")
+                        cell.chefRating5.image = UIImage(systemName: "star.fill")
+                    } else if order.chefRating > 3 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star.fill")
+                        cell.chefRating4.image = UIImage(systemName: "star.fill")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else if order.chefRating > 2 && order.chefRating < 4 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star.fill")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else if order.chefRating > 1 && order.chefRating < 3 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else if order.chefRating > 0 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star")
+                        cell.chefRating3.image = UIImage(systemName: "star")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else {
+                        cell.chefRating1.image = UIImage(systemName: "star")
+                        cell.chefRating2.image = UIImage(systemName: "star")
+                        cell.chefRating3.image = UIImage(systemName: "star")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    }
+                    
+                    if order.quality > 4 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star.fill")
+                        cell.quality4.image = UIImage(systemName: "star.fill")
+                        cell.quality5.image = UIImage(systemName: "star.fill")
+                    } else if order.quality > 3 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star.fill")
+                        cell.quality4.image = UIImage(systemName: "star.fill")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else if order.quality > 2 && order.quality < 4 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star.fill")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else if order.quality > 1 && order.quality < 3 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else if order.quality > 0 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star")
+                        cell.quality3.image = UIImage(systemName: "star")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else {
+                        cell.quality1.image = UIImage(systemName: "star")
+                        cell.quality2.image = UIImage(systemName: "star")
+                        cell.quality3.image = UIImage(systemName: "star")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    }
+                    
+                    cell.chefLikes.text = "\(order.liked.count)"
+                    cell.chefOrders.text = "\(order.itemOrders)"
+                    cell.servicePrice.text = "$\(order.itemPrice)"
+                    var num = 0.0
+                    for i in 0..<order.itemRating.count {
+                        num += order.itemRating[i]
+                        if i == order.itemRating.count - 1 {
+                            num = num / Double(order.itemRating.count)
+                        }
+                    }
+                    cell.chefRating.text = "\(num)"
+                    let storageRef = storage.reference()
+                    let itemRef = storage.reference()
+                    
+                    storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.chefImageId).png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.chefImage.image = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
+                    
+                    itemRef.child("chefs/\(order.chefEmail)/\(order.typeOfService)/\(order.menuItemId)0.png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.signatureImage.image = UIImage(data: imageData)!
+                                order.itemImage = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
+                    cell.orderButtonTapped = {
+                        let item = order
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            self.present(vc, animated: true, completion: nil)
+                        }}
+                    
+                    
+                    cell.chefImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
+                            vc.user = order.chefImageId
+                            vc.chefOrUser = "chef"
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.itemImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
+                            vc.chefEmail = order.chefEmail
+                            vc.imageCount = order.imageCount
+                            vc.menuItemId = order.documentId
+                            vc.itemType = order.typeOfService
+                            vc.itemTitleI = order.itemTitle
+                            vc.itemDescriptionI = order.itemDescription
+                            vc.itemImage = order.itemImage
+                            vc.caterOrPersonal = "cater"
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }}
+                    
+                    
+                    
+                    
+                    return cell
+                }
                 
             } else if toggle == "Chefs" {
                 
@@ -1181,6 +1419,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.chefImage.clipsToBounds = true
                 
                 
+                
                 cell.chefImageButtonTapped = {
                     if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
                         vc.user = item.chefImageId
@@ -1193,90 +1432,300 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
             return cell
                 
             } else if toggle == "Likes" {
-                
-            var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
-                
-                var item = userLikes[indexPath.row]
-                
-                cell.itemTitle.text = item.itemTitle
-                cell.itemDescription.text = item.itemDescription
-                cell.itemPrice.text = "$\(item.itemPrice)"
-                cell.likeText.text = "\(item.liked.count)"
-                cell.orderText.text = "\(item.itemOrders)"
-                var num = 0.0
-                for i in 0..<item.itemRating.count {
-                    num += item.itemRating[i]
-                    if i == item.itemRating.count - 1 {
-                        num = num / Double(item.itemRating.count)
-                    }
-                }
-                cell.ratingText.text = "\(num)"
-                cell.userImage.image = item.chefImage
-                
-                cell.itemImage.image = item.itemImage
-                cell.likeImage.image = UIImage(systemName: "heart.fill")
-                let storageRef = storage.reference()
-                let itemRef = storage.reference()
-                
-                storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
+                if userLikes[indexPath.row].itemType == "Cater Items" {
+                    itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+                    var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
                     
-                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                        // Error handling...
-                        guard let imageData = data else { return }
-                        
-                        print("happening itemdata")
-                        DispatchQueue.main.async {
-                            cell.userImage.image = UIImage(data: imageData)!
-                            item.chefImage = UIImage(data: imageData)!
-                        }
-                    }.resume()
-                }
-                itemRef.child("chefs/\(item.chefEmail)/\(item.itemType)/\(item.documentId)0.png").downloadURL { itemUrl, error in
+                    var item = userLikes[indexPath.row]
                     
-                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                        // Error handling...
-                        guard let imageData = data else { return }
-                        
-                        print("happening itemdata")
-                        DispatchQueue.main.async {
-                            cell.itemImage.image = UIImage(data: imageData)!
-                            item.itemImage = UIImage(data: imageData)!
+                    cell.itemTitle.text = item.itemTitle
+                    cell.itemDescription.text = item.itemDescription
+                    cell.itemPrice.text = "$\(item.itemPrice)"
+                    cell.likeText.text = "\(item.liked.count)"
+                    cell.orderText.text = "\(item.itemOrders)"
+                    var num = 0.0
+                    for i in 0..<item.itemRating.count {
+                        num += item.itemRating[i]
+                        if i == item.itemRating.count - 1 {
+                            num = num / Double(item.itemRating.count)
                         }
-                    }.resume()
-                }
-                cell.chefImageButtonTapped = {
-                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
-                        vc.user = item.chefImageId
-                        vc.chefOrUser = "chef"
-                        self.present(vc, animated: true, completion: nil)
                     }
-                }
-                
-                cell.itemImageButtonTapped = {
-                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
-                        vc.chefEmail = item.chefEmail
-                        vc.imageCount = item.imageCount
-                        vc.menuItemId = item.documentId
-                        vc.itemType = item.itemType
-                        vc.itemTitleI = item.itemTitle
-                        vc.itemDescriptionI = item.itemDescription
-                        vc.itemImage = item.itemImage
-                        vc.caterOrPersonal = "cater"
-                        vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefEmail, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
-                        self.present(vc, animated: true, completion: nil)
+                    cell.ratingText.text = "\(num)"
+                    cell.userImage.image = item.chefImage
+                    
+                    cell.itemImage.image = item.itemImage
+                    cell.likeImage.image = UIImage(systemName: "heart.fill")
+                    let storageRef = storage.reference()
+                    let itemRef = storage.reference()
+                    
+                    storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.userImage.image = UIImage(data: imageData)!
+                                item.chefImage = UIImage(data: imageData)!
+                            }
+                        }.resume()
                     }
+                    itemRef.child("chefs/\(item.chefEmail)/\(item.itemType)/\(item.documentId)0.png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.itemImage.image = UIImage(data: imageData)!
+                                item.itemImage = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
+                    cell.orderButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
+                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.chefImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
+                            vc.user = item.chefImageId
+                            vc.chefOrUser = "chef"
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.itemImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
+                            vc.chefEmail = item.chefEmail
+                            vc.imageCount = item.imageCount
+                            vc.menuItemId = item.documentId
+                            vc.itemType = item.itemType
+                            vc.itemTitleI = item.itemTitle
+                            vc.itemDescriptionI = item.itemDescription
+                            vc.itemImage = item.itemImage
+                            vc.caterOrPersonal = "cater"
+                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefEmail, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    //                cell.likeImageButtonTapped = {
+                    //                    if let index = self.userLikes.firstIndex(where: { $0.documentId == item.documentId }) {
+                    //                        self.userLikes.remove(at: index)
+                    //                        self.itemTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
+                    //                        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
+                    //                    }
+                    //                }
+                    
+                    
+                    return cell
+                } else {
+                    itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+                    var cell = itemTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
+                    
+                    var item = userLikes[indexPath.row]
+                    
+                    cell.chefName.text = item.chefName
+                    cell.briefIntro.text = item.itemDescription
+                    if item.expectations > 4 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star.fill")
+                        cell.expectations4.image = UIImage(systemName: "star.fill")
+                        cell.expectations5.image = UIImage(systemName: "star.fill")
+                    } else if item.expectations > 3 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star.fill")
+                        cell.expectations4.image = UIImage(systemName: "star.fill")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else if item.expectations > 2 && item.expectations < 4 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star.fill")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else if item.expectations > 1 && item.expectations < 3 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star.fill")
+                        cell.expectations3.image = UIImage(systemName: "star")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else if item.expectations > 0 {
+                        cell.expectations1.image = UIImage(systemName: "star.fill")
+                        cell.expectations2.image = UIImage(systemName: "star")
+                        cell.expectations3.image = UIImage(systemName: "star")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    } else {
+                        cell.expectations1.image = UIImage(systemName: "star")
+                        cell.expectations2.image = UIImage(systemName: "star")
+                        cell.expectations3.image = UIImage(systemName: "star")
+                        cell.expectations4.image = UIImage(systemName: "star")
+                        cell.expectations5.image = UIImage(systemName: "star")
+                    }
+                    
+                    if item.chefRating > 4 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star.fill")
+                        cell.chefRating4.image = UIImage(systemName: "star.fill")
+                        cell.chefRating5.image = UIImage(systemName: "star.fill")
+                    } else if item.chefRating > 3 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star.fill")
+                        cell.chefRating4.image = UIImage(systemName: "star.fill")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else if item.chefRating > 2 && item.chefRating < 4 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star.fill")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else if item.chefRating > 1 && item.chefRating < 3 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star.fill")
+                        cell.chefRating3.image = UIImage(systemName: "star")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else if item.chefRating > 0 {
+                        cell.chefRating1.image = UIImage(systemName: "star.fill")
+                        cell.chefRating2.image = UIImage(systemName: "star")
+                        cell.chefRating3.image = UIImage(systemName: "star")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    } else {
+                        cell.chefRating1.image = UIImage(systemName: "star")
+                        cell.chefRating2.image = UIImage(systemName: "star")
+                        cell.chefRating3.image = UIImage(systemName: "star")
+                        cell.chefRating4.image = UIImage(systemName: "star")
+                        cell.chefRating5.image = UIImage(systemName: "star")
+                    }
+                    
+                    if item.quality > 4 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star.fill")
+                        cell.quality4.image = UIImage(systemName: "star.fill")
+                        cell.quality5.image = UIImage(systemName: "star.fill")
+                    } else if item.quality > 3 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star.fill")
+                        cell.quality4.image = UIImage(systemName: "star.fill")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else if item.quality > 2 && item.quality < 4 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star.fill")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else if item.quality > 1 && item.quality < 3 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star.fill")
+                        cell.quality3.image = UIImage(systemName: "star")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else if item.quality > 0 {
+                        cell.quality1.image = UIImage(systemName: "star.fill")
+                        cell.quality2.image = UIImage(systemName: "star")
+                        cell.quality3.image = UIImage(systemName: "star")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    } else {
+                        cell.quality1.image = UIImage(systemName: "star")
+                        cell.quality2.image = UIImage(systemName: "star")
+                        cell.quality3.image = UIImage(systemName: "star")
+                        cell.quality4.image = UIImage(systemName: "star")
+                        cell.quality5.image = UIImage(systemName: "star")
+                    }
+                    var num = 0.0
+                    for i in 0..<item.itemRating.count {
+                        num += item.itemRating[i]
+                        if i == item.itemRating.count - 1 {
+                            num = num / Double(item.itemRating.count)
+                        }
+                    }
+                    cell.chefLikes.text = "\(item.liked.count)"
+                    cell.chefOrders.text = "\(item.itemOrders)"
+                    cell.servicePrice.text = "$\(item.itemPrice)"
+                    cell.chefRating.text = "\(num)"
+                    cell.likeImage.image = UIImage(systemName: "heart.fill")
+                    let storageRef = storage.reference()
+                    let itemRef = storage.reference()
+                    
+                    storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.chefImage.image = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
+                    itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.documentId)0.png").downloadURL { itemUrl, error in
+                        
+                        URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.signatureImage.image = UIImage(data: imageData)!
+                                item.itemImage = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
+                    
+                    cell.orderButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                            vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, signatureDishImage: item.itemImage!, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: 0.0, expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId)
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.chefImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
+                            vc.user = item.chefImageId
+                            vc.chefOrUser = "chef"
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.itemImageButtonTapped = {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
+                            vc.chefEmail = item.chefEmail
+                            vc.imageCount = item.imageCount
+                            vc.menuItemId = item.documentId
+                            vc.itemType = item.itemType
+                            vc.itemTitleI = item.itemTitle
+                            vc.itemDescriptionI = item.itemDescription
+                            vc.itemImage = item.itemImage
+                            vc.caterOrPersonal = "cater"
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    cell.likeButtonTapped = {
+                        if let index = self.userLikes.firstIndex(where: { $0.documentId == item.documentId }) {
+                            self.userLikes.remove(at: index)
+                            self.itemTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
+                            self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
+                        }
+                    }
+                    
+                    
+                    return cell
                 }
-                
-//                cell.likeImageButtonTapped = {
-//                    if let index = self.userLikes.firstIndex(where: { $0.documentId == item.documentId }) {
-//                        self.userLikes.remove(at: index)
-//                        self.itemTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
-//                        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
-//                    }
-//                }
-                
-                
-            return cell
                 
             } else {
                 

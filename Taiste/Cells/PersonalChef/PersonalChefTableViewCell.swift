@@ -47,6 +47,7 @@ class PersonalChefTableViewCell: UITableViewCell {
     
     @IBOutlet weak var servicePrice: UILabel!
     @IBOutlet weak var orderButton: UIButton!
+    @IBOutlet weak var likeImage: UIImageView!
     
     
     var chefImageButtonTapped : (() -> ()) = {}
@@ -58,6 +59,8 @@ class PersonalChefTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        chefImage.layer.cornerRadius = 6
+        signatureImage.layer.cornerRadius = 6
     }
     
     

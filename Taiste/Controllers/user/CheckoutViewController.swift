@@ -306,7 +306,7 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
             cell.chefImage.layer.cornerRadius = cell.chefImage.frame.height/2
             cell.chefImage.clipsToBounds = true
             cell.itemTitle.text = item.itemTitle
-        if item.typeOfService == "Cater Item" {
+        if item.typeOfService == "Cater Items" {
             cell.allergies.isHidden = true
             cell.additionalRequests.isHidden = true
             cell.noteConstant.constant = 4.5
@@ -378,7 +378,7 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
             }
         
         cell.orderDetailButtonTapped = {
-            if item.typeOfService == "Cater Item" {
+            if item.typeOfService == "Cater Items" {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
                     vc.newOrEdit = "edit"
                     vc.documentId = item.documentId

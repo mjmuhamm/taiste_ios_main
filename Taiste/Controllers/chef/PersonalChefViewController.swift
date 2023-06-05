@@ -74,6 +74,8 @@ class PersonalChefViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        chefImage.layer.cornerRadius = 6
+        specialDishImage.layer.cornerRadius = 6
         self.chefImage.image = self.chefImageI!
         if personalChefItem != nil {
             insertInfo()

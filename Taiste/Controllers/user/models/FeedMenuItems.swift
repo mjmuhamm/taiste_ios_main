@@ -47,7 +47,7 @@ struct PersonalChefInfo {
     let chefName: String
     let chefEmail: String
     let chefImageId: String
-    let chefImage: UIImage
+    var chefImage: UIImage
     let city: String
     let state: String
     var signatureDishImage: UIImage

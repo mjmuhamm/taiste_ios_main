@@ -297,7 +297,7 @@ class HomeViewController: UIViewController {
     @IBAction func personalChefButtonPressed(_ sender: MDCButton) {
         homeTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         toggle = "Executive Items"
-        loadItems(filter: self.filter!, go: "")
+        loadExecutiveItems()
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.setTitleColor(UIColor.white, for: .normal)
@@ -477,7 +477,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                             let data = document!.data()
                             
                             let liked = data!["liked"] as? [String]
-                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "profileImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb]
+                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "profileImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb, "expectations" : 0, "chefRating" : 0, "quality" : 0]
                             if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                 self.db.collection("\(item.itemType)").document(item.menuItemId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                 self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.menuItemId).delete()
@@ -501,11 +501,45 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
         } else {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
             
-            let item = personalChefItems[indexPath.row]
+            var item = personalChefItems[indexPath.row]
                 cell.chefImage.image = item.chefImage
                 cell.chefName.text = item.chefName
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
+            
+            let storageRef = self.storage.reference()
+            let itemRef = self.storage.reference()
+            
+            storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
+                
+                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                    // Error handling...
+                    guard let imageData = data else { return }
+                    
+                    print("happening itemdata")
+                    DispatchQueue.main.async {
+                        cell.chefImage.image = UIImage(data: imageData)!
+                        item.chefImage = UIImage(data: imageData)!
+                    }
+                }.resume()
+                
+            }
+            
+            
+            itemRef.child("chefs/\(item.chefEmail)/Executive Items/signature0.png").downloadURL { imageUrl, error in
+                
+                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                    // Error handling...
+                    guard let imageData = data else { return }
+                    
+                    print("happening itemdata")
+                    DispatchQueue.main.async {
+                        cell.signatureImage.image = UIImage(data: imageData)!
+                        item.signatureDishImage = UIImage(data: imageData)!
+                    }
+                }.resume()
+                
+            }
                 
                 if item.expectations > 4 {
                     cell.expectations1.image = UIImage(systemName: "star.fill")
@@ -637,6 +671,41 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                     vc.personalChefInfo = item
                     self.present(vc, animated: true, completion: nil)
                 }
+            }
+            
+            cell.orderButtonTapped = {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+                    vc.personalChefInfo = item
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+            
+            cell.likeButtonTapped = {
+                self.db.collection("Executive Items").document(item.documentId).getDocument(completion: { document, error in
+                    if error == nil {
+                        if document != nil {
+                            let data = document!.data()
+                            
+                            let liked = data!["liked"] as? [String]
+                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.briefIntroduction, "chefUsername" : item.chefName, "profileImageId" : item.chefImageId, "menuItemId" : item.documentId, "itemTitle" : "Executive Chef", "itemDescription" : item.briefIntroduction, "itemPrice" : item.servicePrice, "liked" : liked!, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : 0, "itemType" : "Executive Item", "city" : item.city, "state" : item.state, "user" : item.chefImageId, "healthy" : 0, "creative" : 0, "vegan" : 0, "burger" : 0, "seafood" : 0, "pasta" : 0, "workout" : 0, "lowCal" : 0, "lowCarb" : 0, "expectations" : item.expectations, "chefRating" : item.chefRating, "quality" : item.quality]
+                            if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
+                                self.db.collection("Executive Items").document(item.documentId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
+                                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
+                                
+                                cell.likeImage.image = UIImage(systemName: "heart")
+                                cell.chefLikes.text = "\(Int(cell.chefLikes.text!)! - 1)"
+                            } else {
+                                self.db.collection("Executive Items").document(item.documentId).updateData(["liked" : FieldValue.arrayUnion(["\(Auth.auth().currentUser!.email!)"])])
+                                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).setData(data1)
+                                
+                                cell.likeImage.image = UIImage(systemName: "heart.fill")
+                                cell.chefLikes.text = "\(Int(cell.chefLikes.text!)! - 1)"
+                            }
+                            
+                        }
+                    }
+                })
+                
             }
                 
             

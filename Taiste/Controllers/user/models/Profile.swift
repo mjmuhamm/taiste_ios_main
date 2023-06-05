@@ -11,6 +11,7 @@ import UIKit
 
 struct UserOrders {
     
+    let chefName: String
     let chefEmail: String
     let chefImageId: String
     var chefImage: UIImage?
@@ -34,6 +35,9 @@ struct UserOrders {
     let itemRating: [Double]
     let itemCalories: Int
     let documentId: String
+    let expectations: Int
+    let chefRating: Int
+    let quality: Int
 
 }
 
@@ -53,6 +57,7 @@ struct UserChefs {
 
 struct UserLikes {
     
+    let chefName: String
     let chefEmail: String
     let chefImageId: String
     var chefImage: UIImage?
@@ -70,6 +75,9 @@ struct UserLikes {
     let itemRating: [Double]
     let itemCalories: Int
     let documentId: String
+    let expectations: Int
+    let chefRating: Int
+    let quality: Int
     
 }
 
