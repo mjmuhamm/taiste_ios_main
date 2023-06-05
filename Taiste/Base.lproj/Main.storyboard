@@ -10050,10 +10050,9 @@ Taïste may contain links to third-party websites or services that are not contr
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMb-rf-Miz" customClass="MDCButton">
-                                <rect key="frame" x="69" y="810" width="51" height="38"/>
+                                <rect key="frame" x="69" y="810" width="35" height="38"/>
                                 <color key="backgroundColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="51" id="6Gv-Bl-rPm"/>
                                     <constraint firstAttribute="height" constant="38" id="Xsu-o8-EhL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -10071,10 +10070,9 @@ Taïste may contain links to third-party websites or services that are not contr
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-Hd-yuy" customClass="MDCButton">
-                                <rect key="frame" x="128" y="810" width="80" height="38"/>
+                                <rect key="frame" x="112" y="810" width="62" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="DOO-zY-pqI"/>
                                     <constraint firstAttribute="height" constant="38" id="L5b-6d-7oI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -10098,7 +10096,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HOy-78-MSU">
-                                <rect key="frame" x="211" y="810" width="85" height="38"/>
+                                <rect key="frame" x="177" y="810" width="85" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="Oom-1b-Qv3"/>
                                     <constraint firstAttribute="height" constant="38" id="g9Q-TD-dDa"/>
