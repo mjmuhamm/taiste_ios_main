@@ -19,7 +19,10 @@
 @interface MDCButton (Subclassing)
 
 /** Access to the ink view layer. Mainly used for subclasses to override ink properties. */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @property(nonatomic, readonly, strong, nonnull) MDCInkView *inkView;
+#pragma clang diagnostic pop
 
 /** Whether the background color should be opaque. */
 - (BOOL)shouldHaveOpaqueBackground;
@@ -36,5 +39,19 @@
 
 /** The bounding path of the button. The shadow will follow that path. */
 - (nonnull UIBezierPath *)boundingPath;
+
+@end
+
+@interface MDCButton ()
+
+/**
+ A collection of MDCShadow instances each assigned an elevation (in dp).
+
+ To create your own MDCShadowsCollection, please use the provided MDCShadowsCollectionBuilder and
+ populate it with MDCShadow instances using the provided MDCShadowBuilder.
+
+ Defaults to MDCShadowsCollectionDefault().
+ */
+@property(nonatomic, strong, null_resettable) MDCShadowsCollection *shadowsCollection;
 
 @end

@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import StripePaymentSheet
 import FirebaseStorage
 import Stripe
 
@@ -192,8 +193,9 @@ class MessagesViewController: UIViewController {
     }
     
     private func loadTravelFeeMessages() {
+        
         let storageRef = storage.reference()
-        db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(order!.documentId).collection(order!.itemTitle).addSnapshotListener { documents, error in
+        db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(order!.documentId).collection(order!.orderDate).addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                     for doc in documents!.documents {
@@ -394,8 +396,8 @@ class MessagesViewController: UIViewController {
         } else {
             travelFeeVari = "Messages"
         }
-        self.db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(order!.documentId).collection(order!.itemTitle).document(documentId).setData(data)
-        self.db.collection(otherUser).document(otherImageId).collection(travelFeeVari).document(order!.documentId).collection(order!.itemTitle).document(documentId).setData(data)
+        self.db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(order!.documentId).collection(order!.orderDate).document(documentId).setData(data)
+        self.db.collection(otherUser).document(otherImageId).collection(travelFeeVari).document(order!.documentId).collection(order!.orderDate).document(documentId).setData(data)
         
        
         self.showToast(message: "Message Sent", font: .systemFont(ofSize: 12))

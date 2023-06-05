@@ -42,6 +42,40 @@ struct FeedMenuItems {
     let lowCarb: Int
 }
 
+struct PersonalChefInfo {
+    
+    let chefName: String
+    let chefEmail: String
+    let chefImageId: String
+    let chefImage: UIImage
+    let city: String
+    let state: String
+    var signatureDishImage: UIImage
+    var option1Title: String
+    var option2Title: String
+    var option3Title: String
+    var option4Title: String
+    let briefIntroduction: String
+    var howLongBeenAChef: String
+    var specialty: String
+    var whatHelpesYouExcel: String
+    var mostPrizedAccomplishment: String
+    var availabilty: String
+    let hourlyOrPerSession: String
+    let servicePrice: String
+    let trialRun: Int
+    let weeks: Int
+    let months: Int
+    let liked: [String]
+    let itemOrders: Int
+    let itemRating: Double
+    let expectations: Int
+    let chefRating: Int
+    let quality: Int
+    let documentId: String
+}
+
+
 struct Filter{
     let local: Int
     let region: Int

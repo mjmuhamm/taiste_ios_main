@@ -19,7 +19,7 @@
 #include <utility>
 
 #include "Firestore/core/src/local/target_data.h"
-#include "Firestore/core/src/model/no_document.h"
+#include "Firestore/core/src/util/testing_hooks.h"
 
 namespace firebase {
 namespace firestore {
@@ -31,11 +31,11 @@ using local::QueryPurpose;
 using local::TargetData;
 using model::DocumentKey;
 using model::DocumentKeySet;
-using model::MaybeDocument;
-using model::NoDocument;
+using model::MutableDocument;
 using model::SnapshotVersion;
 using model::TargetId;
 using nanopb::ByteString;
+using util::TestingHooks;
 
 // TargetChange
 
@@ -125,7 +125,7 @@ void WatchChangeAggregator::HandleDocumentChange(
     const DocumentWatchChange& document_change) {
   for (TargetId target_id : document_change.updated_target_ids()) {
     const auto& new_doc = document_change.new_document();
-    if (new_doc && new_doc->is_document()) {
+    if (new_doc && new_doc->is_found_document()) {
       AddDocumentToTarget(target_id, *new_doc);
     } else if (new_doc && new_doc->is_no_document()) {
       RemoveDocumentFromTarget(target_id, document_change.document_key(),
@@ -228,8 +228,7 @@ void WatchChangeAggregator::HandleExistenceFilter(
         DocumentKey key{target.path()};
         RemoveDocumentFromTarget(
             target_id, key,
-            NoDocument(key, SnapshotVersion::None(),
-                       /* has_committed_mutations= */ false));
+            MutableDocument::NoDocument(key, SnapshotVersion::None()));
       } else {
         HARD_ASSERT(expected_count == 1,
                     "Single document existence filter with count: %s",
@@ -242,6 +241,8 @@ void WatchChangeAggregator::HandleExistenceFilter(
         // snapshot with `isFromCache:true`.
         ResetTarget(target_id);
         pending_target_resets_.insert(target_id);
+        TestingHooks::GetInstance().NotifyOnExistenceFilterMismatch(
+            {current_size, expected_count});
       }
     }
   }
@@ -270,8 +271,7 @@ RemoteEvent WatchChangeAggregator::CreateRemoteEvent(
             !TargetContainsDocument(target_id, key)) {
           RemoveDocumentFromTarget(
               target_id, key,
-              NoDocument(key, snapshot_version,
-                         /* has_committed_mutations= */ false));
+              MutableDocument::NoDocument(key, snapshot_version));
         }
       }
 
@@ -320,8 +320,8 @@ RemoteEvent WatchChangeAggregator::CreateRemoteEvent(
   return remote_event;
 }
 
-void WatchChangeAggregator::AddDocumentToTarget(TargetId target_id,
-                                                const MaybeDocument& document) {
+void WatchChangeAggregator::AddDocumentToTarget(
+    TargetId target_id, const MutableDocument& document) {
   if (!IsActiveTarget(target_id)) {
     return;
   }
@@ -341,7 +341,7 @@ void WatchChangeAggregator::AddDocumentToTarget(TargetId target_id,
 void WatchChangeAggregator::RemoveDocumentFromTarget(
     TargetId target_id,
     const DocumentKey& key,
-    const absl::optional<MaybeDocument>& updated_document) {
+    const absl::optional<MutableDocument>& updated_document) {
   if (!IsActiveTarget(target_id)) {
     return;
   }

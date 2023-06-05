@@ -71,6 +71,7 @@ import Foundation
     }
 
     public func chained<T>(
+        on queue: DispatchQueue? = nil,
         using closure: @escaping (Value) throws -> Future<T>
     ) -> Future<T> {
         // We'll start by constructing a "wrapper" promise that will be
@@ -78,7 +79,7 @@ import Foundation
         let promise = Promise<T>()
 
         // Observe the current future:
-        observe { result in
+        observe(on: queue) { result in
             switch result {
             case .success(let value):
                 do {
@@ -113,12 +114,21 @@ import Foundation
         super.init()
     }
 
-    public convenience init(value: Value) {
+    public convenience init(
+        value: Value
+    ) {
         self.init()
 
         // If the value was already known at the time the promise
         // was constructed, we can report it directly:
         result = .success(value)
+    }
+
+    public convenience init(
+        error: Error
+    ) {
+        self.init()
+        result = .failure(error)
     }
 
     public func resolve(with value: Value) {

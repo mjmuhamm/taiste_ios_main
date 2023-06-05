@@ -106,12 +106,16 @@ class AccountSettingsChefViewController: UIViewController {
         let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+           
+            
             Auth.auth().currentUser!.delete { error in
                 if error == nil {
                     self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).delete()
-                    let storageRef = self.storage.reference()
-                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)").delete()
+                    
+                    Task {
+                        try? await self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)").delete()
+                    }
                     self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
                     
                 } else {

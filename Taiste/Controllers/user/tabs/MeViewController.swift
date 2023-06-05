@@ -162,38 +162,40 @@ class MeViewController: UIViewController {
                     
                     if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String {
                         
-                        self.db.collection("\(typeOfService)").document(menuItemId).getDocument { document, error in
-                            if error == nil {
-                                if document != nil {
-                                    let data1 = document!.data()
-                                    
-                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
-                        
-                            
-                            
-                                let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
-                        
-                        if self.userOrders.isEmpty {
-                            self.userOrders.append(newItem)
-                            self.orders = self.userOrders
-                            self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                        } else {
-                            let index = self.userOrders.firstIndex { $0.documentId == doc.documentID
-                            }
-                            if index == nil {
-                                self.userOrders.append(newItem)
-                                self.orders = self.userOrders
-                                self.meTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
-                            }
-                        }
-                    }
-                        }
-                    }
+                        let index = self.userOrders.firstIndex(where: { $0.menuItemId == menuItemId })
+                        if index == nil {
+                            self.db.collection("\(typeOfService)").document(menuItemId).getDocument { document, error in
+                                if error == nil {
+                                    if document != nil {
+                                        let data1 = document!.data()
+                                        
+                                        if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
+                                            
+                                            
+                                            
+                                            let newItem = UserOrders(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID)
+                                            
+                                            if self.userOrders.isEmpty {
+                                                self.userOrders.append(newItem)
+                                                self.orders = self.userOrders
+                                                self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                            } else {
+                                                let index = self.userOrders.firstIndex { $0.documentId == doc.documentID
+                                                }
+                                                if index == nil {
+                                                    self.userOrders.append(newItem)
+                                                    self.orders = self.userOrders
+                                                    self.meTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                        }
                         
-                    
-                    
+                        
+                    }
                 
             }
             }
@@ -300,9 +302,12 @@ class MeViewController: UIViewController {
                                         self.likes = self.userLikes
                                         self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
                                     } else {
-                                        let index = self.userLikes.append(newItem)
-                                        self.likes = self.userLikes
-                                        self.meTableView.insertRows(at: [IndexPath(item: self.likes.count - 1, section: 0)], with: .fade)
+                                        let index = self.userLikes.firstIndex { $0.documentId == doc.documentID }
+                                        if index == nil {
+                                            self.userLikes.append(newItem)
+                                            self.likes = self.userLikes
+                                            self.meTableView.insertRows(at: [IndexPath(item: self.likes.count - 1, section: 0)], with: .fade)
+                                        }
                                     }
                                     
                                 
@@ -519,6 +524,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                             vc.itemTitleI = order.itemTitle
                             vc.itemDescriptionI = order.itemDescription
                             vc.itemImage = order.itemImage
+                            vc.caterOrPersonal = "cater"
                             self.present(vc, animated: true, completion: nil)
                             
                         }}
@@ -643,6 +649,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                     vc.itemTitleI = item.itemTitle
                     vc.itemDescriptionI = item.itemDescription
                     vc.itemImage = item.itemImage
+                    vc.caterOrPersonal = "cater"
                     self.present(vc, animated: true, completion: nil)
                 }
             }

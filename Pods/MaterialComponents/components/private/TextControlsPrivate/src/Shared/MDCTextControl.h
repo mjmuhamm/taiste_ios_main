@@ -21,7 +21,7 @@
 #import "MDCTextControlColorViewModel.h"
 #import "MDCTextControlHorizontalPositioningReference.h"
 #import "MDCTextControlLabelAnimation.h"
-#import "MDCTextControlLabelPosition.h"
+#import "MDCTextControlLabelSupport.h"
 #import "MDCTextControlVerticalPositioningReference.h"
 
 UIFont *_Nonnull MDCTextControlDefaultUITextFieldFont(void);
@@ -63,6 +63,26 @@ FOUNDATION_EXTERN const CGFloat kMDCTextControlDefaultAnimationDuration;
  Describes the behavior of the label when the view begins editing.
  */
 @property(nonatomic, assign, readonly) MDCTextControlLabelBehavior labelBehavior;
+
+/**
+ This is an RTL-aware version of UITextField's leftView/rightView properties.
+ */
+@property(strong, nonatomic, nullable) UIView *leadingView;
+
+/**
+ This is an RTL-aware version of UITextField's leftView/rightView properties.
+ */
+@property(strong, nonatomic, nullable) UIView *trailingView;
+
+/**
+ This is an RTL-aware version of UITextField's leftViewMode/rightViewMode properties.
+ */
+@property(nonatomic, assign) UITextFieldViewMode leadingViewMode;
+
+/**
+ This is an RTL-aware version of UITextField's leftViewMode/rightViewMode properties.
+ */
+@property(nonatomic, assign) UITextFieldViewMode trailingViewMode;
 
 /**
  The @c label is a label that occupies the text area in a resting state with no text and that either

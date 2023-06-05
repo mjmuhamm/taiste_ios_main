@@ -27,9 +27,44 @@ covered by @c UITextFieldDelegate.
 /**
  This method is called at the end of @c MDCBaseTextField's implementation of @c -deleteBackward.
 
- @param textField The MDCBaseTextField calling @c -deleteBackward.
+ @param textField The @c MDCBaseTextField calling @c -deleteBackward.
  */
 - (void)baseTextFieldDidDeleteBackward:(MDCBaseTextField *)textField;
-;
+
+/**
+ This method is called at the beginning of @c -deleteBackward. If it returns @c NO, the superclass
+ (@c UITextField) implementation of @c -deleteBackward will not be called. If it is not implemented,
+ the superclass implementation of @c -deleteBackward will always be called.
+
+ @param textField The @c MDCBaseTextField calling @c -deleteBackward.
+ */
+- (BOOL)baseTextFieldShouldDeleteBackward:(MDCBaseTextField *)textField;
+
+/**
+ This method is called from @c MDCBaseTextField's implementation of the @c UIResponder method @c
+ -canPerformAction:withSender:. Implementing this method can allow you to do things like preventing
+ the user from pasting into the text field, for example.
+
+ @param textField The MDCBaseTextField.
+ @param action The action.
+ @param sender The sender.
+ @param canPerformAction This is the value that the superclass implementation of @c
+ -canPerformAction:withSender: returns.
+ */
+- (BOOL)baseTextField:(MDCBaseTextField *)textField
+    shouldPerformAction:(SEL)action
+             withSender:(id)sender
+       canPerformAction:(BOOL)canPerformAction;
+
+/**
+ At the end of every layout pass @c MDCBaseTextField checks to see if the intrinsic height it
+ calculates has changed. If it has, it calls this method. Setting assistive label text is an example
+ of something that results in this method getting called. If you have a height constraint set on the
+ text field, this method is a good place to update that constraint's constant.
+
+ @param textField The MDCBaseTextField.
+ @param height The newly calculated height.
+ */
+- (void)baseTextField:(MDCBaseTextField *)textField didUpdateIntrinsicHeight:(CGFloat)height;
 
 @end

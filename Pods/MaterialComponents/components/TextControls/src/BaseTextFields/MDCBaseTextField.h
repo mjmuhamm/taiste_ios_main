@@ -26,7 +26,7 @@
 
 /**
  The @c label is a label that occupies the area the text usually occupies when there is no
- text. It is distinct from the placeholder in that it can move above the text area or disappear to
+ text. It is distinct from the placeholder in that it can move above the text region or disappear to
  reveal the placeholder when editing begins.
  */
 @property(strong, nonatomic, readonly, nonnull) UILabel *label;
@@ -50,29 +50,33 @@
 @property(strong, nonatomic, readonly, nonnull) UILabel *trailingAssistiveLabel;
 
 /**
- This is an RTL-aware wrapper around UITextField's leftView/rightView class.
+ This is an RTL-aware alternative to UITextField's leftView/rightView properties. Use this property
+ instead of @c UITextField's @c rightView and @c leftView.
  */
 @property(strong, nonatomic, nullable) UIView *leadingView;
 
 /**
- This is an RTL-aware wrapper around UITextField's leftView/rightView class.
+ This is an RTL-aware alternative to UITextField's leftView/rightView properties. Use this property
+ instead of @c UITextField's @c rightView and @c leftView.
  */
 @property(strong, nonatomic, nullable) UIView *trailingView;
 
 /**
- This is an RTL-aware wrapper around UITextField's leftViewMode/rightViewMode class.
+ This is an RTL-aware alternative to UITextField's leftView/rightView properties. Use this property
+ instead of @c UITextField's @c rightViewMode and @c leftViewMode.
  */
 @property(nonatomic, assign) UITextFieldViewMode leadingViewMode;
 
 /**
- This is an RTL-aware wrapper around UITextField's leftViewMode/rightViewMode class.
+ This is an RTL-aware alternative to UITextField's leftView/rightView properties. Use this property
+ instead of @c UITextField's @c rightViewMode and @c leftViewMode.
  */
 @property(nonatomic, assign) UITextFieldViewMode trailingViewMode;
 
 /**
  Sets the floating label color for a given state.
  Floating label color refers to the color of the label when it's in its "floating position," i.e.
- when it's above the text area.
+ when it's above the text region.
  @param floatingLabelColor The UIColor for the given state.
  @param state The MDCTextControlState.
  */
@@ -83,7 +87,7 @@
 /**
  Returns the floating label color for a given state.
  Floating label color refers to the color of the label when it's in its "floating position," i.e.
- when it's above the text area.
+ when it's above the text field.
  @param state The MDCTextControlState.
  */
 - (nonnull UIColor *)floatingLabelColorForState:(MDCTextControlState)state;
@@ -168,6 +172,14 @@
 @property(nullable, nonatomic, strong) NSNumber *trailingEdgePaddingOverride;
 
 /**
+ When this property is set, the text field will convert it to a @c CGFloat and use that as the
+ horizontal distance between things like the text field's text region, the leading/trailing views,
+ and the clear button. When this property is @c nil, the text field will use a default value that is
+ specific to its style. This property is @c nil by default.
+ */
+@property(nullable, nonatomic, strong) NSNumber *horizontalInterItemSpacingOverride;
+
+/**
  This property allows the user to override the default height of the container. The container is the
  region above the the assistive labels within the text field. If there is no assistive label text,
  the container's frame will be equal to the frame of the text field itself.
@@ -181,6 +193,25 @@
  This delegate receives text field related updates not covered by @c UITextFieldDelegate.
  */
 @property(nonatomic, weak, nullable) id<MDCBaseTextFieldDelegate> baseTextFieldDelegate;
+
+/**
+ This property determines the corner radius of the container, when applicable. Setting this property
+ is a no-op for MDCBaseTextField and any subclasses with invisible containers. For subclasses with
+ visible containers it will apply the radius to a combination of the four corners that is
+ approrpriate for the given style.
+
+ @note If the value of this property is sufficiently large you may need to set @c
+ leadingEdgePaddingOverride or @c trailingEdgePaddingOverride.
+ */
+@property(nonatomic, assign) CGFloat containerRadius;
+
+/**
+ This property influences how much vertical space there is between the various elements contained in
+ the text field. When it's 0 (the default) there is maximal vertical space between elements. When it
+ is 1, there is minimal vertical space between elements. Values less than 0 and greater than 1 will
+ be clamped.
+ */
+@property(nonatomic, assign) CGFloat verticalDensity;
 
 @end
 

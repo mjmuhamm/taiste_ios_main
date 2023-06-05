@@ -18,9 +18,15 @@ class CheckoutTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dates: UILabel!
     
+    //4.5
+    //41
+    
+    @IBOutlet weak var noteConstant: NSLayoutConstraint!
     @IBOutlet weak var noteToChef: UILabel!
     @IBOutlet weak var eventCost: UILabel!
     
+    @IBOutlet weak var allergies: UILabel!
+    @IBOutlet weak var additionalRequests: UILabel!
     var chefImageButtonTapped : (() -> ()) = {}
     var cancelButtonTapped : (() -> ()) = {}
     var orderDetailButtonTapped : (() -> ()) = {}
@@ -35,6 +41,9 @@ class CheckoutTableViewCell: UITableViewCell {
 
     }
     
+    @IBAction func clickHere(_ sender: Any) {
+        orderDetailButtonTapped()
+    }
     @IBAction func orderDeailPressed(_ sender: Any) {
         orderDetailButtonTapped()
     }

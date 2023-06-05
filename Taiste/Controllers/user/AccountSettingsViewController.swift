@@ -130,7 +130,10 @@ class AccountSettingsViewController: UIViewController {
                     self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
                     self.db.collection("User").document(Auth.auth().currentUser!.uid).delete()
                     let storageRef = self.storage.reference()
-                    storageRef.child("users/\(Auth.auth().currentUser!.email!)").delete()
+                    Task {
+                    try? await storageRef.child("users/\(Auth.auth().currentUser!.email!)").delete()
+                    }
+                    
                     self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
                     
                 } else {

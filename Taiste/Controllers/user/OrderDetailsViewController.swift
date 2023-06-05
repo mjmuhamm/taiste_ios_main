@@ -74,16 +74,22 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
     private var distance = ""
     
     var item : FeedMenuItems?
+    var personalChefInfo : PersonalChefInfo?
+    var newOrEdit = ""
+    var documentId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        if newOrEdit == "edit" {
+            loadInfo()
+        }
             quantityOfEventText.addTarget(self, action: #selector(OrderDetailsViewController.textFieldDidChange(_:)), for: .editingChanged)
         typeOfEventDropDown.dataSource = ["Corporate", "Social", "Celebration", "Birthday", "Other"]
-        if item!.itemType == "Cater Items" {
-            quantityOfEventDropDown.dataSource = ["1-10", "11-25", "26-40","41-55", "56-70", "71-90"]
-        } else if item!.itemType == "Executive Items" {
-            quantityOfEventDropDown.dataSource = ["1", "5", "10", "15", "20"]
-        } else if item!.itemType == "MealKit Items" {
-            quantityOfEventDropDown.dataSource = ["1", "2", "3", "4", "5"]
+        if item != nil {
+            if item!.itemType == "Cater Items" {
+                quantityOfEventDropDown.dataSource = ["1-10", "11-25", "26-40","41-55", "56-70", "71-90"]
+            } else if item!.itemType == "MealKit Items" {
+                quantityOfEventDropDown.dataSource = ["1", "2", "3", "4", "5"]
+            }
         }
         
         typeOfEventDropDown.selectionAction = { index, item in
@@ -141,9 +147,10 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         locationOkButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         locationOkButton.layer.cornerRadius = 2
         
-        itemTitle.text = item!.itemTitle
-        itemDescription.text = item!.itemDescription
-        
+        if item != nil {
+            itemTitle.text = item!.itemTitle
+            itemDescription.text = item!.itemDescription
+        }
         addDateViewButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         okDateViewButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         addDateViewButton.layer.cornerRadius = 2
@@ -182,6 +189,55 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         
         datePicker.minimumDate = Date()
         // Do any additional setup after loading the view.
+    }
+    
+    private func loadInfo() {
+        
+        addEventButton.setTitle("Cancel", for: .normal)
+        addEventButton.titleLabel?.font = .systemFont(ofSize: 15)
+        addEventButton.setTitleColor(UIColor.red, for: .normal)
+        addEventButton.isUppercaseTitle = false
+        quantityOfEventText.isEnabled = false
+        dateOfEventButton.isEnabled = false
+        notesToChefText.isEnabled = false
+        clearDatesButton.isEnabled = false
+        db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).getDocument { document, error in
+            if error == nil {
+                if document != nil {
+                    let data = document!.data()
+                    
+                    if let chefEmail = data!["chefEmail"] as? String, let chefImageId = data!["chefImageId"] as? String, let chefUsername = data!["chefUsername"] as? String, let menuItemId = data!["menuItemId"] as? String, let itemDescription = data!["itemDescription"] as? String, let itemTitle = data!["itemTitle"] as? String, let datesOfEvent = data!["datesOfEvent"] as? [String], let timesForDatesOfEvent = data!["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data!["travelExpenseOption"] as? String, let totalCostOfEvent = data!["totalCostOfEvent"] as? Double, let priceToChef = data!["priceToChef"] as? Double, let quantityOfEvent = data!["quantityOfEvent"] as? String, let unitPrice = data!["unitPrice"] as? String, let distance = data!["distance"] as? String, let location = data!["location"] as? String, let latitudeOfEvent = data!["latitudeOfEvent"] as? String, let longitudeOfEvent = data!["longitudeOfEvent"] as? String, let notesToChef = data!["notesToChef"] as? String, let typeOfService = data!["typeOfService"] as? String, let typeOfEvent = data!["typeOfEvent"] as? String, let city = data!["city"] as? String, let state = data!["state"] as? String, let user = data!["user"] as? String, let imageCount = data!["imageCount"] as? Int, let liked = data!["liked"] as? [String], let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let allergies = data!["allergies"] as? String, let additionalMenuItems = data!["additionalMenuItems"] as? String {
+                        
+                        self.itemTitle.text = "Executive Chef"
+                        self.itemDescription.text = itemDescription
+                        self.typeOfEventText.text = typeOfEvent
+                        self.quantityOfEventText.text = quantityOfEvent
+                        self.documentId = document!.documentID
+                        for i in 0..<datesOfEvent.count {
+                            if i == 0 {
+                                self.dateOfEventText.text = "\(datesOfEvent[i]) \(timesForDatesOfEvent[i])"
+                            } else {
+                                if i < 2 {
+                                    self.dateOfEventText.text = "\(self.dateOfEventText.text!), \(datesOfEvent[i]) \(timesForDatesOfEvent[i])"
+                                    self.seeAllDatesText.text = self.dateOfEventText.text
+                                    
+                                } else {
+                                    self.seeAllDatesText.text = "\(self.seeAllDatesText.text!), \(datesOfEvent[i]) \(timesForDatesOfEvent[i])"
+                                    self.seeAllDatesButton.isHidden = false
+                                }
+                            }
+                            
+                        }
+                        self.locationOfEventText.text = location
+                        self.notesToChefText.text = notesToChef
+                        let a = String(format: "%.2f", totalCostOfEvent)
+                        self.eventTotalText.text = "$\(a)"
+                        
+                        
+                    }
+                }
+            }
+        }
     }
     
 
@@ -263,9 +319,9 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         
         var newHour = ""
         if hour! >= 10 {
-            newHour = "\(hour!)"
+            newHour = "\(hour! + 1)"
         } else {
-            newHour = "0\(hour!)"
+            newHour = "0\(hour! + 1)"
         }
         
         let newDay = "\(month)-\(day)-\(year)"
@@ -328,6 +384,9 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         seeAllDatesText.text = ""
         dateOfEventText.text = " Select a date for your event here."
         dateOfEventViewText.text = "Date(s) of Event"
+        eventTotalText.text = ""
+        clearDatesButton.isHidden = true
+        seeAllDatesButton.isHidden = true
         addDateViewButton.setTitle("Add", for: .normal)
         addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
         addDateViewButton.isUppercaseTitle = false
@@ -349,10 +408,12 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func locationOfEventButtonPressed(_ sender: Any) {
-        locationView.isHidden = false
-        quantityOfEventText.isHidden = true
-        clearDatesButton.isHidden = true
-        seeAllDatesButton.isHidden = true
+        if newOrEdit != "edit" {
+            locationView.isHidden = false
+            quantityOfEventText.isHidden = true
+            clearDatesButton.isHidden = true
+            seeAllDatesButton.isHidden = true
+        }
         
 
     }
@@ -465,6 +526,7 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addEventButtonPressed(_ sender: MDCButton) {
+        if newOrEdit != "edit" {
         if typeOfEventText.text!.isEmpty {
             showToast(message: "Please select the type of your event above.", font: .systemFont(ofSize: 12))
         } else if quantityOfEventText.text!.isEmpty {
@@ -474,17 +536,22 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         } else if locationOfEventText.text == "Select a location for your event here." {
             showToast(message: "Please select the location of your event above.", font: .systemFont(ofSize: 12))
         } else {
-        let priceToChef = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))! * 0.07
-        let totalCostOfEVent = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))!
-        
-        let documentId = UUID().uuidString
-        
-            let data : [String: Any] = ["chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "chefUsername" : item!.chefUsername, "city" : item!.city, "state" : item!.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item!.itemDescription, "itemTitle" : item!.itemTitle, "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item!.menuItemId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityOfEventText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : item!.itemType, "unitPrice" : item!.itemPrice, "user" : user, "imageCount" : item!.imageCount, "liked" : item!.liked, "itemOrders" : item!.itemOrders, "itemRating" : item!.itemRating, "itemCalories" : item!.itemCalories, "documentId" : documentId]
-        
-            db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
-        
-        self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
-        }
+            
+                let priceToChef = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))! * 0.07
+                let totalCostOfEVent = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))!
+                
+                let documentId = UUID().uuidString
+                
+                let data : [String: Any] = ["chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "chefUsername" : item!.chefUsername, "city" : item!.city, "state" : item!.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item!.itemDescription, "itemTitle" : item!.itemTitle, "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item!.menuItemId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityOfEventText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : item!.itemType, "unitPrice" : item!.itemPrice, "user" : user, "imageCount" : item!.imageCount, "liked" : item!.liked, "itemOrders" : item!.itemOrders, "itemRating" : item!.itemRating, "itemCalories" : item!.itemCalories, "documentId" : documentId, "allergies" : "", "additionalMenuItems" : ""]
+                
+                db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
+                
+                self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+            }
+        } else {
+            db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).delete()
+            self.showToastCompletion(message: "Item Cancelled.", font: .systemFont(ofSize: 12))
+    }
         
     }
     

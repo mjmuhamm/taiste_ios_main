@@ -40,10 +40,35 @@ class ItemDetailViewController: UIViewController {
     @IBOutlet weak var chefRating4: UIImageView!
     @IBOutlet weak var chefRating5: UIImageView!
     
+    @IBOutlet weak var reviewButton: UIButton!
     @IBOutlet weak var itemCalories: UILabel!
     
     private var imgArr : [UIImage] = []
-
+    
+    @IBOutlet weak var personalChefView: UIView!
+    @IBOutlet weak var chefName: UILabel!
+    @IBOutlet weak var chefImage: UIImageView!
+    @IBOutlet weak var signatureTitle: UILabel!
+    @IBOutlet weak var signatureImage: UIImageView!
+    
+    @IBOutlet weak var option1Text: UILabel!
+    @IBOutlet weak var option2Button: UIButton!
+    @IBOutlet weak var option2Text: UILabel!
+    @IBOutlet weak var option3Button: UIButton!
+    @IBOutlet weak var option3Text: UILabel!
+    @IBOutlet weak var option4Button: UIButton!
+    @IBOutlet weak var option4Text: UILabel!
+    @IBOutlet weak var briefIntroduction: UILabel!
+    
+    @IBOutlet weak var howLongBeenAChef: UILabel!
+    @IBOutlet weak var specialty: UILabel!
+    @IBOutlet weak var whatHelpsYouExcel: UILabel!
+    @IBOutlet weak var mostPrizedAccomplishment: UILabel!
+    @IBOutlet weak var availableText: UILabel!
+    @IBOutlet weak var payStack: UIStackView!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var payButton: UIButton!
+    
     private var started = "Yes"
     var item : FeedMenuItems?
     
@@ -63,17 +88,60 @@ class ItemDetailViewController: UIViewController {
     private var qualityData = 0
     private var chefRatingData = 0
     
+    var personalChefInfo : PersonalChefInfo?
+    var caterOrPersonal = ""
+    var chefImageI : UIImage?
+    var chefNameI = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if item != nil {
-            itemTitle.text = item!.itemTitle
-            itemDescription.text = item!.itemDescription
-            imgArr.append(item!.itemImage!)
-        } else {
-            itemTitle.text = itemTitleI
-            itemDescription.text = itemDescriptionI
-            imgArr.append(itemImage!)
+        if  caterOrPersonal == "cater" {
+            self.personalChefView.isHidden = true
+            self.payStack.isHidden = true
+            self.payButton.isHidden = true
+            self.itemCalories.isHidden = false
+            if item != nil {
+                itemTitle.text = item!.itemTitle
+                itemDescription.text = item!.itemDescription
+                imgArr.append(item!.itemImage!)
+            } else {
+                itemTitle.text = itemTitleI
+                itemDescription.text = itemDescriptionI
+                imgArr.append(itemImage!)
+            }
+            
+            loadImages()
+            loadReviews()
+        } else if caterOrPersonal == "personal" {
+            self.personalChefView.isHidden = false
+            self.payStack.isHidden = false
+            self.payButton.isHidden = false
+            self.itemCalories.isHidden = true
+            self.chefImage.image = personalChefInfo!.chefImage
+            self.chefName.text = personalChefInfo!.chefName
+            self.briefIntroduction.text = personalChefInfo!.briefIntroduction
+            
+        } else if caterOrPersonal == "dish" {
+            self.reviewButton.isHidden = true
+            self.personalChefView.isHidden = true
+            self.payStack.isHidden = true
+            self.payButton.isHidden = true
+            self.itemCalories.isHidden = false
+            
+            if item != nil {
+                itemTitle.text = item!.itemTitle
+                itemDescription.text = item!.itemDescription
+                imgArr.append(item!.itemImage!)
+            } else {
+                itemTitle.text = itemTitleI
+                itemDescription.text = itemDescriptionI
+                imgArr.append(itemImage!)
+            }
+            
+            loadImages()
+            loadReviews()
         }
         
         
@@ -81,9 +149,8 @@ class ItemDetailViewController: UIViewController {
         self.pageControl.currentPage = 0
         sliderCollectionView.reloadData()
         print("item \(item)")
+        self.itemCalories.text = "Calories: \(item!.itemCalories)"
         
-        loadImages()
-        loadReviews()
 
         
         // Do any additional setup after loading the view.
@@ -234,6 +301,37 @@ class ItemDetailViewController: UIViewController {
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func chefImageButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func signatureDishButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func option1ButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func option2ButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func option3ButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func option4ButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func payButtonPressed(_ sender: Any) {
+        
+    }
+    
+    
+    
     
     @IBAction func reviewsButtonPressed(_ sender: UIButton) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Reviews") as? ReviewsViewController {

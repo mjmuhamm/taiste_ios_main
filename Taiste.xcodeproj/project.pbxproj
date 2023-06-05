@@ -14,17 +14,23 @@
 		F429F0D42A24D3B100D22271 /* DisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */; };
 		F429F0D62A24E8C000D22271 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429F0D52A24E8C000D22271 /* MenuItem.swift */; };
 		F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436E52F29F6FCFD00B2F38C /* Dashboard.swift */; };
+		F43D90F02A261FA700AE248E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D90EE2A261FA700AE248E /* ReviewsTableViewCell.swift */; };
+		F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */; };
+		F43D90F42A261FBC00AE248E /* CommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90F22A261FBC00AE248E /* CommentsTableViewCell.xib */; };
+		F43D90F52A261FBC00AE248E /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D90F32A261FBC00AE248E /* CommentsTableViewCell.swift */; };
+		F43D90F72A261FC600AE248E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F43D90F62A261FC600AE248E /* GoogleService-Info.plist */; };
+		F43D90FE2A26209500AE248E /* ChefOrdersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90FC2A26209400AE248E /* ChefOrdersTableViewCell.xib */; };
+		F43D90FF2A26209500AE248E /* ChefOrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D90FD2A26209500AE248E /* ChefOrdersTableViewCell.swift */; };
+		F43D91012A2621CC00AE248E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D91002A2621CC00AE248E /* Reviews.swift */; };
+		F43D91032A26225700AE248E /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D91022A26225700AE248E /* Comments.swift */; };
 		F45366302A21883200E18D9B /* ReportAnIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */; };
-		F4599F4C2A1BDBEF00E4078D /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */; };
-		F4599F4D2A1BDBEF00E4078D /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */; };
-		F4599F502A1BDBFA00E4078D /* CommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4599F4E2A1BDBFA00E4078D /* CommentsTableViewCell.xib */; };
-		F4599F512A1BDBFA00E4078D /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F4F2A1BDBFA00E4078D /* CommentsTableViewCell.swift */; };
-		F4599F542A1BDC4900E4078D /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F522A1BDC4900E4078D /* Reviews.swift */; };
-		F4599F552A1BDC4900E4078D /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4599F532A1BDC4900E4078D /* Comments.swift */; };
+		F4572EE82A2D2AB100EAC393 /* PersonalChefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4572EE72A2D2AB100EAC393 /* PersonalChefViewController.swift */; };
+		F4572EED2A2D32A600EAC393 /* PersonalChefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4572EEB2A2D32A600EAC393 /* PersonalChefTableViewCell.swift */; };
+		F4572EEE2A2D32A600EAC393 /* PersonalChefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4572EEC2A2D32A600EAC393 /* PersonalChefTableViewCell.xib */; };
+		F4572EF02A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4572EEF2A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift */; };
 		F466D9D22A20186A000E6E38 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F466D9D12A20186A000E6E38 /* FilterViewController.swift */; };
 		F46F205A2A1C0D2100A7C8C0 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */; };
 		F46F205C2A1C0D7E00A7C8C0 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */; };
-		F47031C329F5ADE300981048 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F47031C229F5ADE300981048 /* GoogleService-Info.plist */; };
 		F481948327C80252002BB9D3 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481948127C80252002BB9D3 /* HomeTableViewCell.swift */; };
 		F481948427C80252002BB9D3 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F481948227C80252002BB9D3 /* HomeTableViewCell.xib */; };
 		F481948627C80A95002BB9D3 /* FeedMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481948527C80A95002BB9D3 /* FeedMenuItems.swift */; };
@@ -85,8 +91,10 @@
 		F4E44B1A27C96DEF007F6295 /* ChefItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1827C96DEF007F6295 /* ChefItemTableViewCell.swift */; };
 		F4E44B1B27C96DEF007F6295 /* ChefItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E44B1927C96DEF007F6295 /* ChefItemTableViewCell.xib */; };
 		F4E44B1D27C9773F007F6295 /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1C27C9773F007F6295 /* OrderDetailsViewController.swift */; };
-		F4F8D9FB29C7BC8100D6831C /* ChefOrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8D9F929C7BC8000D6831C /* ChefOrdersTableViewCell.swift */; };
-		F4F8D9FC29C7BC8100D6831C /* ChefOrdersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F8D9FA29C7BC8100D6831C /* ChefOrdersTableViewCell.xib */; };
+		F4ED0D5F2A27E975000B166B /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ED0D5E2A27E975000B166B /* NotificationsViewController.swift */; };
+		F4ED0D632A27EA2A000B166B /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ED0D612A27EA2A000B166B /* NotificationsTableViewCell.swift */; };
+		F4ED0D642A27EA2A000B166B /* NotificationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4ED0D622A27EA2A000B166B /* NotificationsTableViewCell.xib */; };
+		F4ED0D662A27ECBB000B166B /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ED0D652A27ECBB000B166B /* Notifications.swift */; };
 		F4F8DA0029CFCAA200D6831C /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8D9FF29CFCAA200D6831C /* AccountSettingsViewController.swift */; };
 		F4FDB63027CE64940078E563 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FDB62F27CE64940078E563 /* Profile.swift */; };
 		F4FDB63427CE83720078E563 /* UserOrdersAndLikesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FDB63227CE83720078E563 /* UserOrdersAndLikesTableViewCell.swift */; };
@@ -127,17 +135,23 @@
 		F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerViewController.swift; sourceTree = "<group>"; };
 		F429F0D52A24E8C000D22271 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuItem.swift; path = Taiste/Controllers/chef/MenuItem.swift; sourceTree = SOURCE_ROOT; };
 		F436E52F29F6FCFD00B2F38C /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dashboard.swift; path = Taiste/Controllers/user/Dashboard.swift; sourceTree = SOURCE_ROOT; };
+		F43D90EE2A261FA700AE248E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
+		F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
+		F43D90F22A261FBC00AE248E /* CommentsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTableViewCell.xib; sourceTree = "<group>"; };
+		F43D90F32A261FBC00AE248E /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
+		F43D90F62A261FC600AE248E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F43D90FC2A26209400AE248E /* ChefOrdersTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChefOrdersTableViewCell.xib; sourceTree = "<group>"; };
+		F43D90FD2A26209500AE248E /* ChefOrdersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChefOrdersTableViewCell.swift; sourceTree = "<group>"; };
+		F43D91002A2621CC00AE248E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
+		F43D91022A26225700AE248E /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAnIssueViewController.swift; sourceTree = "<group>"; };
-		F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewsTableViewCell.swift; path = ../../../../Reviews/ReviewsTableViewCell.swift; sourceTree = "<group>"; };
-		F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReviewsTableViewCell.xib; path = ../../../../Reviews/ReviewsTableViewCell.xib; sourceTree = "<group>"; };
-		F4599F4E2A1BDBFA00E4078D /* CommentsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CommentsTableViewCell.xib; path = ../../../../Comments/CommentsTableViewCell.xib; sourceTree = "<group>"; };
-		F4599F4F2A1BDBFA00E4078D /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsTableViewCell.swift; path = ../../../../Comments/CommentsTableViewCell.swift; sourceTree = "<group>"; };
-		F4599F522A1BDC4900E4078D /* Reviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reviews.swift; path = ../../../../../Reviews.swift; sourceTree = "<group>"; };
-		F4599F532A1BDC4900E4078D /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comments.swift; path = ../../../../../Comments.swift; sourceTree = "<group>"; };
+		F4572EE72A2D2AB100EAC393 /* PersonalChefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChefViewController.swift; sourceTree = "<group>"; };
+		F4572EEB2A2D32A600EAC393 /* PersonalChefTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChefTableViewCell.swift; sourceTree = "<group>"; };
+		F4572EEC2A2D32A600EAC393 /* PersonalChefTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalChefTableViewCell.xib; sourceTree = "<group>"; };
+		F4572EEF2A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChefOrderDetailViewController.swift; sourceTree = "<group>"; };
 		F466D9D12A20186A000E6E38 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
-		F47031C229F5ADE300981048 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F481948127C80252002BB9D3 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		F481948227C80252002BB9D3 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		F481948527C80A95002BB9D3 /* FeedMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMenuItems.swift; sourceTree = "<group>"; };
@@ -202,8 +216,10 @@
 		F4E44B1827C96DEF007F6295 /* ChefItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefItemTableViewCell.swift; sourceTree = "<group>"; };
 		F4E44B1927C96DEF007F6295 /* ChefItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChefItemTableViewCell.xib; sourceTree = "<group>"; };
 		F4E44B1C27C9773F007F6295 /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
-		F4F8D9F929C7BC8000D6831C /* ChefOrdersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChefOrdersTableViewCell.swift; path = ../../../../../Desktop/Taiste/Taiste/Cells/Orders/ChefOrdersTableViewCell.swift; sourceTree = "<group>"; };
-		F4F8D9FA29C7BC8100D6831C /* ChefOrdersTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChefOrdersTableViewCell.xib; path = ../../../../../Desktop/Taiste/Taiste/Cells/Orders/ChefOrdersTableViewCell.xib; sourceTree = "<group>"; };
+		F4ED0D5E2A27E975000B166B /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		F4ED0D612A27EA2A000B166B /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
+		F4ED0D622A27EA2A000B166B /* NotificationsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationsTableViewCell.xib; sourceTree = "<group>"; };
+		F4ED0D652A27ECBB000B166B /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F4F8D9FF29CFCAA200D6831C /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		F4FDB62F27CE64940078E563 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		F4FDB63227CE83720078E563 /* UserOrdersAndLikesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrdersAndLikesTableViewCell.swift; sourceTree = "<group>"; };
@@ -260,9 +276,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F4572EEA2A2D328300EAC393 /* PersonalChef */ = {
+			isa = PBXGroup;
+			children = (
+				F4572EEB2A2D32A600EAC393 /* PersonalChefTableViewCell.swift */,
+				F4572EEC2A2D32A600EAC393 /* PersonalChefTableViewCell.xib */,
+			);
+			path = PersonalChef;
+			sourceTree = "<group>";
+		};
 		F481948027C8022C002BB9D3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				F4572EEA2A2D328300EAC393 /* PersonalChef */,
+				F4ED0D602A27EA16000B166B /* Notifications */,
 				F4C5E8012A1ACB4E0063A5E1 /* Reviews */,
 				F4C5E7FC2A1ACB3E0063A5E1 /* Comments */,
 				F4A080CB2A0281CC00895938 /* Search */,
@@ -329,12 +356,13 @@
 		F4A13EB627CD81FD00A63A00 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				F4599F532A1BDC4900E4078D /* Comments.swift */,
-				F4599F522A1BDC4900E4078D /* Reviews.swift */,
 				F4A13EB727CD820700A63A00 /* Orders.swift */,
 				F4FDB63E27CEAD110078E563 /* VideoModel.swift */,
 				F4A080C72A01A44800895938 /* Messages.swift */,
 				F4A080D22A02843900895938 /* Search.swift */,
+				F43D91002A2621CC00AE248E /* Reviews.swift */,
+				F43D91022A26225700AE248E /* Comments.swift */,
+				F4ED0D652A27ECBB000B166B /* Notifications.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -342,10 +370,10 @@
 		F4A13EB927CD881900A63A00 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				F43D90FD2A26209500AE248E /* ChefOrdersTableViewCell.swift */,
+				F43D90FC2A26209400AE248E /* ChefOrdersTableViewCell.xib */,
 				F4A13EBA27CD882F00A63A00 /* UserOrderPostTableViewCell.swift */,
 				F4A13EBB27CD882F00A63A00 /* UserOrderPostTableViewCell.xib */,
-				F4F8D9F929C7BC8000D6831C /* ChefOrdersTableViewCell.swift */,
-				F4F8D9FA29C7BC8100D6831C /* ChefOrdersTableViewCell.xib */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -413,7 +441,7 @@
 			children = (
 				F4B90DC927C709A9004B1FB1 /* Main.storyboard */,
 				F4B90DD127C709AB004B1FB1 /* Info.plist */,
-				F47031C229F5ADE300981048 /* GoogleService-Info.plist */,
+				F43D90F62A261FC600AE248E /* GoogleService-Info.plist */,
 				F4B90DF327C70A25004B1FB1 /* Resources */,
 				F481948027C8022C002BB9D3 /* Cells */,
 				F4B90DF627C70B0D004B1FB1 /* Controllers */,
@@ -474,6 +502,7 @@
 				F4F8D9FF29CFCAA200D6831C /* AccountSettingsViewController.swift */,
 				F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */,
 				F466D9D12A20186A000E6E38 /* FilterViewController.swift */,
+				F4572EEF2A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift */,
 			);
 			path = user;
 			sourceTree = "<group>";
@@ -491,6 +520,7 @@
 				F4A080AE29FD6B6500895938 /* AddContentViewController.swift */,
 				F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */,
 				F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */,
+				F4572EE72A2D2AB100EAC393 /* PersonalChefViewController.swift */,
 			);
 			path = chef;
 			sourceTree = "<group>";
@@ -507,6 +537,7 @@
 				F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */,
 				F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */,
 				F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */,
+				F4ED0D5E2A27E975000B166B /* NotificationsViewController.swift */,
 			);
 			path = both;
 			sourceTree = "<group>";
@@ -565,8 +596,8 @@
 		F4C5E7FC2A1ACB3E0063A5E1 /* Comments */ = {
 			isa = PBXGroup;
 			children = (
-				F4599F4F2A1BDBFA00E4078D /* CommentsTableViewCell.swift */,
-				F4599F4E2A1BDBFA00E4078D /* CommentsTableViewCell.xib */,
+				F43D90F32A261FBC00AE248E /* CommentsTableViewCell.swift */,
+				F43D90F22A261FBC00AE248E /* CommentsTableViewCell.xib */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -574,10 +605,19 @@
 		F4C5E8012A1ACB4E0063A5E1 /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
-				F4599F4A2A1BDBEF00E4078D /* ReviewsTableViewCell.swift */,
-				F4599F4B2A1BDBEF00E4078D /* ReviewsTableViewCell.xib */,
+				F43D90EE2A261FA700AE248E /* ReviewsTableViewCell.swift */,
+				F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */,
 			);
 			path = Reviews;
+			sourceTree = "<group>";
+		};
+		F4ED0D602A27EA16000B166B /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				F4ED0D612A27EA2A000B166B /* NotificationsTableViewCell.swift */,
+				F4ED0D622A27EA2A000B166B /* NotificationsTableViewCell.xib */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		F4FDB63127CE83630078E563 /* UserProfile */ = {
@@ -709,22 +749,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B90DD027C709AB004B1FB1 /* LaunchScreen.storyboard in Resources */,
-				F4599F502A1BDBFA00E4078D /* CommentsTableViewCell.xib in Resources */,
+				F43D90F42A261FBC00AE248E /* CommentsTableViewCell.xib in Resources */,
 				F4A080CF2A0281EA00895938 /* SearchTableViewCell.xib in Resources */,
+				F4572EEE2A2D32A600EAC393 /* PersonalChefTableViewCell.xib in Resources */,
 				F4B90DCD27C709AB004B1FB1 /* Assets.xcassets in Resources */,
 				F4B3D77627CAB7F700AA5544 /* CheckoutTableViewCell.xib in Resources */,
 				F4A13EBD27CD882F00A63A00 /* UserOrderPostTableViewCell.xib in Resources */,
 				F4FDB63D27CE838C0078E563 /* UserReviewsTableViewCell.xib in Resources */,
 				F4FDB63927CE837F0078E563 /* UserChefsTableViewCell.xib in Resources */,
 				F4FDB63527CE83720078E563 /* UserOrdersAndLikesTableViewCell.xib in Resources */,
-				F4F8D9FC29C7BC8100D6831C /* ChefOrdersTableViewCell.xib in Resources */,
+				F4ED0D642A27EA2A000B166B /* NotificationsTableViewCell.xib in Resources */,
 				F4FDB64427CEAE5E0078E563 /* ChefContentCollectionViewCell.xib in Resources */,
+				F43D90F72A261FC600AE248E /* GoogleService-Info.plist in Resources */,
 				F481948427C80252002BB9D3 /* HomeTableViewCell.xib in Resources */,
+				F43D90FE2A26209500AE248E /* ChefOrdersTableViewCell.xib in Resources */,
 				F4AE2FEF27CF9B6700F529C5 /* FeedCollectionViewCell.xib in Resources */,
 				F4E44B1B27C96DEF007F6295 /* ChefItemTableViewCell.xib in Resources */,
 				F4B90DCB27C709A9004B1FB1 /* Main.storyboard in Resources */,
-				F4599F4D2A1BDBEF00E4078D /* ReviewsTableViewCell.xib in Resources */,
-				F47031C329F5ADE300981048 /* GoogleService-Info.plist in Resources */,
+				F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */,
 				F4A080C62A01A11600895938 /* MessagesTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -795,19 +837,20 @@
 				F429F0D62A24E8C000D22271 /* MenuItem.swift in Sources */,
 				F4FDB63427CE83720078E563 /* UserOrdersAndLikesTableViewCell.swift in Sources */,
 				F4A080C52A01A11600895938 /* MessagesTableViewCell.swift in Sources */,
+				F4ED0D632A27EA2A000B166B /* NotificationsTableViewCell.swift in Sources */,
 				F481948A27C817D0002BB9D3 /* LoginViewController.swift in Sources */,
-				F4F8D9FB29C7BC8100D6831C /* ChefOrdersTableViewCell.swift in Sources */,
 				F4AE2FEE27CF9B6700F529C5 /* FeedCollectionViewCell.swift in Sources */,
+				F4ED0D5F2A27E975000B166B /* NotificationsViewController.swift in Sources */,
 				F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */,
 				F4E44B1327C94100007F6295 /* ChefTabViewController.swift in Sources */,
 				F4A13EBC27CD882F00A63A00 /* UserOrderPostTableViewCell.swift in Sources */,
 				F481948C27C817DD002BB9D3 /* ChefLoginViewController.swift in Sources */,
 				F4A080BF2A002A9E00895938 /* Banking.swift in Sources */,
 				F4B90E0327C70B5A004B1FB1 /* SearcViewController.swift in Sources */,
+				F4572EF02A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift in Sources */,
 				F4B90E1027C70B90004B1FB1 /* MeViewController.swift in Sources */,
 				F4B3D76F27CAB64100AA5544 /* CheckoutItems.swift in Sources */,
 				F429F0D42A24D3B100D22271 /* DisclaimerViewController.swift in Sources */,
-				F4599F542A1BDC4900E4078D /* Reviews.swift in Sources */,
 				F4A080D32A02843900895938 /* Search.swift in Sources */,
 				F4FDB63F27CEAD110078E563 /* VideoModel.swift in Sources */,
 				F4F8DA0029CFCAA200D6831C /* AccountSettingsViewController.swift in Sources */,
@@ -821,29 +864,34 @@
 				F4A080B829FDA3D300895938 /* ChefBankingViewController.swift in Sources */,
 				F4A080B429FDA3BF00895938 /* ChefPersonalViewController.swift in Sources */,
 				F4A080BD2A00020900895938 /* StripeTermsOfServiceViewController.swift in Sources */,
-				F4599F4C2A1BDBEF00E4078D /* ReviewsTableViewCell.swift in Sources */,
 				F4C5E7EC2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift in Sources */,
-				F4599F552A1BDC4900E4078D /* Comments.swift in Sources */,
 				F481948327C80252002BB9D3 /* HomeTableViewCell.swift in Sources */,
 				F4B90E0E27C70B89004B1FB1 /* OrdersViewController.swift in Sources */,
 				F4E44B1D27C9773F007F6295 /* OrderDetailsViewController.swift in Sources */,
+				F4572EED2A2D32A600EAC393 /* PersonalChefTableViewCell.swift in Sources */,
 				F481948627C80A95002BB9D3 /* FeedMenuItems.swift in Sources */,
 				F4C5E7ED2A1ABB2F0063A5E1 /* PrivacyPolicyViewController.swift in Sources */,
+				F43D91032A26225700AE248E /* Comments.swift in Sources */,
 				F4DA73222A05AC8D004FE58F /* TravelFeeViewController.swift in Sources */,
 				F4E44B1127C940F3007F6295 /* UserTabViewController.swift in Sources */,
+				F4572EE82A2D2AB100EAC393 /* PersonalChefViewController.swift in Sources */,
 				F4B3D77527CAB7F700AA5544 /* CheckoutTableViewCell.swift in Sources */,
 				F4FDB63C27CE838C0078E563 /* UserReviewsTableViewCell.swift in Sources */,
 				F4A080AF29FD6B6500895938 /* AddContentViewController.swift in Sources */,
 				F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */,
+				F43D91012A2621CC00AE248E /* Reviews.swift in Sources */,
 				F4FDB64327CEAE5E0078E563 /* ChefContentCollectionViewCell.swift in Sources */,
 				F4A080B229FDA3B000895938 /* RegulationViewController.swift in Sources */,
 				F4B90E0C27C70B82004B1FB1 /* HomeViewController.swift in Sources */,
 				F4E44B1527C95160007F6295 /* ItemDetailViewController.swift in Sources */,
 				F415572D27CAB0C2000C8DE5 /* CheckoutViewController.swift in Sources */,
+				F4ED0D662A27ECBB000B166B /* Notifications.swift in Sources */,
 				F4A080C82A01A44900895938 /* Messages.swift in Sources */,
 				F4FDB63827CE837F0078E563 /* UserChefsTableViewCell.swift in Sources */,
 				F4A080CA2A01AF6100895938 /* SearchViewController.swift in Sources */,
+				F43D90F02A261FA700AE248E /* ReviewsTableViewCell.swift in Sources */,
 				F4A080BB29FFDE8000895938 /* AddPersonViewController.swift in Sources */,
+				F43D90FF2A26209500AE248E /* ChefOrdersTableViewCell.swift in Sources */,
 				F4B90DC427C709A9004B1FB1 /* AppDelegate.swift in Sources */,
 				F4E44B1727C965AC007F6295 /* ProfileAsUserViewController.swift in Sources */,
 				F4DA73202A056A66004FE58F /* UserReviewViewController.swift in Sources */,
@@ -859,8 +907,8 @@
 				F45366302A21883200E18D9B /* ReportAnIssueViewController.swift in Sources */,
 				F46F205A2A1C0D2100A7C8C0 /* CommentsViewController.swift in Sources */,
 				F4FDB63027CE64940078E563 /* Profile.swift in Sources */,
+				F43D90F52A261FBC00AE248E /* CommentsTableViewCell.swift in Sources */,
 				F4A13EB827CD820700A63A00 /* Orders.swift in Sources */,
-				F4599F512A1BDBFA00E4078D /* CommentsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,6 +1091,9 @@
 				DEVELOPMENT_TEAM = A8QVKKQPMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Taiste/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to media library for this item.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture for this item.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photo library for this item.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1073,6 +1124,9 @@
 				DEVELOPMENT_TEAM = A8QVKKQPMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Taiste/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to media library for this item.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture for this item.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photo library for this item.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -402,6 +402,7 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
             self.travelFeeOrMessage = "travelFee"
             self.orderTransfer = order
             self.otherUser = order.chefUsername
+            
             self.performSegue(withIdentifier: "UserOrdersToMessagesSegue", sender: self)
         }
         cell.messagesButtonTapped = {

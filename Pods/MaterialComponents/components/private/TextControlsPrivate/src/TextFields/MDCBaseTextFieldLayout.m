@@ -14,7 +14,8 @@
 
 #import "MDCBaseTextFieldLayout.h"
 
-#import "MaterialMath.h"
+#import "MaterialTextControlsPrivate+Shared.h"
+#import "MDCTextControlTextFieldSideViewAlignment.h"
 
 @interface MDCBaseTextFieldLayout ()
 @end
@@ -35,10 +36,10 @@
                         labelPosition:(MDCTextControlLabelPosition)labelPosition
                         labelBehavior:(MDCTextControlLabelBehavior)labelBehavior
                     sideViewAlignment:(MDCTextControlTextFieldSideViewAlignment)sideViewAlignment
-                             leftView:(UIView *)leftView
-                         leftViewMode:(UITextFieldViewMode)leftViewMode
-                            rightView:(UIView *)rightView
-                        rightViewMode:(UITextFieldViewMode)rightViewMode
+                          leadingView:(UIView *)leadingView
+                      leadingViewMode:(UITextFieldViewMode)leadingViewMode
+                         trailingView:(UIView *)trailingView
+                     trailingViewMode:(UITextFieldViewMode)trailingViewMode
                 clearButtonSideLength:(CGFloat)clearButtonSideLength
                       clearButtonMode:(UITextFieldViewMode)clearButtonMode
                 leadingAssistiveLabel:(nonnull UILabel *)leadingAssistiveLabel
@@ -60,10 +61,10 @@
                              labelPosition:labelPosition
                              labelBehavior:labelBehavior
                          sideViewAlignment:sideViewAlignment
-                                  leftView:leftView
-                              leftViewMode:leftViewMode
-                                 rightView:rightView
-                             rightViewMode:rightViewMode
+                               leadingView:leadingView
+                           leadingViewMode:leadingViewMode
+                              trailingView:trailingView
+                          trailingViewMode:trailingViewMode
                      clearButtonSideLength:clearButtonSideLength
                            clearButtonMode:clearButtonMode
                      leadingAssistiveLabel:leadingAssistiveLabel
@@ -91,10 +92,10 @@
                            labelPosition:(MDCTextControlLabelPosition)labelPosition
                            labelBehavior:(MDCTextControlLabelBehavior)labelBehavior
                        sideViewAlignment:(MDCTextControlTextFieldSideViewAlignment)sideViewAlignment
-                                leftView:(UIView *)leftView
-                            leftViewMode:(UITextFieldViewMode)leftViewMode
-                               rightView:(UIView *)rightView
-                           rightViewMode:(UITextFieldViewMode)rightViewMode
+                             leadingView:(UIView *)leadingView
+                         leadingViewMode:(UITextFieldViewMode)leadingViewMode
+                            trailingView:(UIView *)trailingView
+                        trailingViewMode:(UITextFieldViewMode)trailingViewMode
                    clearButtonSideLength:(CGFloat)clearButtonSideLength
                          clearButtonMode:(UITextFieldViewMode)clearButtonMode
                    leadingAssistiveLabel:(nonnull UILabel *)leadingAssistiveLabel
@@ -104,12 +105,15 @@
         customAssistiveLabelDrawPriority:(CGFloat)customAssistiveLabelDrawPriority
                                    isRTL:(BOOL)isRTL
                                isEditing:(BOOL)isEditing {
-  BOOL displaysLeftView = [self displaysSideView:leftView
-                                        viewMode:leftViewMode
-                                       isEditing:isEditing];
-  BOOL displaysRightView = [self displaysSideView:rightView
-                                         viewMode:rightViewMode
-                                        isEditing:isEditing];
+  UIView *leftView = isRTL ? trailingView : leadingView;
+  UIView *rightView = isRTL ? leadingView : trailingView;
+  UITextFieldViewMode leftViewMode = isRTL ? trailingViewMode : leadingViewMode;
+  UITextFieldViewMode rightViewMode = isRTL ? leadingViewMode : trailingViewMode;
+
+  BOOL displaysLeftView =
+      MDCTextControlShouldDisplaySideViewWithSideView(leftView, leftViewMode, isEditing);
+  BOOL displaysRightView =
+      MDCTextControlShouldDisplaySideViewWithSideView(rightView, rightViewMode, isEditing);
   BOOL displaysClearButton = [self shouldDisplayClearButtonWithViewMode:clearButtonMode
                                                               isEditing:isEditing
                                                                    text:text];
@@ -227,20 +231,31 @@
   CGRect clearButtonFrame =
       CGRectMake(clearButtonMinX, clearButtonMinY, clearButtonSideLength, clearButtonSideLength);
 
-  CGRect labelFrameNormal = [self labelFrameWithText:label.text
-                                       labelPosition:MDCTextControlLabelPositionNormal
-                                                font:font
-                                        floatingFont:floatingFont
-                                   floatingLabelMinY:floatingLabelMinY
-                                            textRect:textRectNormal
-                                               isRTL:isRTL];
-  CGRect labelFrameFloating = [self labelFrameWithText:label.text
-                                         labelPosition:MDCTextControlLabelPositionFloating
-                                                  font:font
-                                          floatingFont:floatingFont
-                                     floatingLabelMinY:floatingLabelMinY
-                                              textRect:textRectNormal
-                                                 isRTL:isRTL];
+  CGSize labelSizeNormal = MDCTextControlLabelSizeWith(label.text, textRectWidth, font);
+  CGSize labelSizeFloating = MDCTextControlLabelSizeWith(label.text, textRectWidth, floatingFont);
+  BOOL normalLabelWillTruncate = labelSizeNormal.height > font.lineHeight;
+  BOOL floatingLabelWillTruncate = labelSizeFloating.height > floatingFont.lineHeight;
+  if (normalLabelWillTruncate) {
+    labelSizeNormal.height = font.lineHeight;
+    labelSizeNormal.width = textRectWidth;
+  }
+  if (floatingLabelWillTruncate) {
+    labelSizeFloating.height = floatingFont.lineHeight;
+    labelSizeFloating.width = textRectWidth;
+  }
+  self.labelTruncationIsPresent = normalLabelWillTruncate || floatingLabelWillTruncate;
+
+  CGRect labelFrameNormal = [self labelFrameWithLabelSize:labelSizeNormal
+                                            labelPosition:MDCTextControlLabelPositionNormal
+                                        floatingLabelMinY:floatingLabelMinY
+                                                 textRect:textRectNormal
+                                                    isRTL:isRTL];
+
+  CGRect labelFrameFloating = [self labelFrameWithLabelSize:labelSizeFloating
+                                              labelPosition:MDCTextControlLabelPositionFloating
+                                          floatingLabelMinY:floatingLabelMinY
+                                                   textRect:textRectNormal
+                                                      isRTL:isRTL];
 
   self.assistiveLabelViewLayout = [[MDCTextControlAssistiveLabelViewLayout alloc]
                          initWithWidth:textFieldWidth
@@ -255,15 +270,15 @@
                                  isRTL:isRTL];
   self.assistiveLabelViewFrame = CGRectMake(0, containerHeight, textFieldWidth,
                                             self.assistiveLabelViewLayout.calculatedHeight);
-  self.leftViewFrame = leftViewFrame;
-  self.rightViewFrame = rightViewFrame;
+  self.leadingViewFrame = isRTL ? rightViewFrame : leftViewFrame;
+  self.trailingViewFrame = isRTL ? leftViewFrame : rightViewFrame;
+  self.displaysLeadingView = isRTL ? displaysRightView : displaysLeftView;
+  self.displaysTrailingView = isRTL ? displaysLeftView : displaysRightView;
   self.clearButtonFrame = clearButtonFrame;
   self.textRectFloating = textRectFloating;
   self.textRectNormal = textRectNormal;
   self.labelFrameFloating = labelFrameFloating;
   self.labelFrameNormal = labelFrameNormal;
-  self.leftViewHidden = !displaysLeftView;
-  self.rightViewHidden = !displaysRightView;
   self.containerHeight = containerHeight;
 }
 
@@ -288,31 +303,6 @@
   return (CGFloat)round((double)(centerY - ((CGFloat)0.5 * height)));
 }
 
-- (BOOL)displaysSideView:(UIView *)subview
-                viewMode:(UITextFieldViewMode)viewMode
-               isEditing:(BOOL)isEditing {
-  BOOL displaysSideView = NO;
-  if (subview && !CGSizeEqualToSize(CGSizeZero, subview.frame.size)) {
-    switch (viewMode) {
-      case UITextFieldViewModeWhileEditing:
-        displaysSideView = isEditing;
-        break;
-      case UITextFieldViewModeUnlessEditing:
-        displaysSideView = !isEditing;
-        break;
-      case UITextFieldViewModeAlways:
-        displaysSideView = YES;
-        break;
-      case UITextFieldViewModeNever:
-        displaysSideView = NO;
-        break;
-      default:
-        break;
-    }
-  }
-  return displaysSideView;
-}
-
 - (BOOL)shouldDisplayClearButtonWithViewMode:(UITextFieldViewMode)viewMode
                                    isEditing:(BOOL)isEditing
                                         text:(NSString *)text {
@@ -331,33 +321,14 @@
   }
 }
 
-- (CGSize)floatingLabelSizeWithText:(NSString *)placeholder
-                           maxWidth:(CGFloat)maxWidth
-                               font:(UIFont *)font {
-  if (!font) {
-    return CGSizeZero;
-  }
-  CGSize fittingSize = CGSizeMake(maxWidth, CGFLOAT_MAX);
-  NSDictionary *attributes = @{NSFontAttributeName : font};
-  CGRect rect = [placeholder boundingRectWithSize:fittingSize
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:attributes
-                                          context:nil];
-  rect.size.height = font.lineHeight;
-  return rect.size;
-}
-
-- (CGRect)labelFrameWithText:(NSString *)text
-               labelPosition:(MDCTextControlLabelPosition)labelPosition
-                        font:(UIFont *)font
-                floatingFont:(UIFont *)floatingFont
-           floatingLabelMinY:(CGFloat)floatingLabelMinY
-                    textRect:(CGRect)textRect
-                       isRTL:(BOOL)isRTL {
+- (CGRect)labelFrameWithLabelSize:(CGSize)size
+                    labelPosition:(MDCTextControlLabelPosition)labelPosition
+                floatingLabelMinY:(CGFloat)floatingLabelMinY
+                         textRect:(CGRect)textRect
+                            isRTL:(BOOL)isRTL {
   CGFloat labelMinX = CGRectGetMinX(textRect);
   CGFloat labelMaxX = CGRectGetMaxX(textRect);
-  CGFloat maxWidth = labelMaxX - labelMinX;
-  CGSize size = CGSizeZero;
+  CGFloat textRectMidY = CGRectGetMidY(textRect);
   CGRect rect = CGRectZero;
   CGFloat originX = 0;
   CGFloat originY = 0;
@@ -365,7 +336,6 @@
     case MDCTextControlLabelPositionNone:
       break;
     case MDCTextControlLabelPositionFloating:
-      size = [self floatingLabelSizeWithText:text maxWidth:maxWidth font:floatingFont];
       originY = floatingLabelMinY;
       if (isRTL) {
         originX = labelMaxX - size.width;
@@ -375,9 +345,7 @@
       rect = CGRectMake(originX, originY, size.width, size.height);
       break;
     case MDCTextControlLabelPositionNormal:
-      size = [self floatingLabelSizeWithText:text maxWidth:maxWidth font:font];
-      CGFloat textRectMidY = CGRectGetMidY(textRect);
-      originY = textRectMidY - ((CGFloat)0.5 * size.height);
+      originY = textRectMidY - (0.5f * size.height);
       if (isRTL) {
         originX = labelMaxX - size.width;
       } else {
@@ -401,7 +369,7 @@
   if (assistiveLabelViewMaxY > maxY) {
     maxY = assistiveLabelViewMaxY;
   }
-  return MDCCeil(maxY);
+  return ceil(maxY);
 }
 
 - (CGRect)labelFrameWithLabelPosition:(MDCTextControlLabelPosition)labelPosition {

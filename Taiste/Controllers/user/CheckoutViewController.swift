@@ -8,6 +8,8 @@
 import UIKit
 import Firebase
 import Stripe
+import StripePaymentsUI
+import StripePaymentSheet
 import FirebaseFirestore
 import MaterialComponents.MaterialButtons
 import MaterialComponents.MaterialButtons_Theming
@@ -120,9 +122,9 @@ class CheckoutViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let menuItemId = data["menuItemId"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let datesOfEvent = data["datesOfEvent"] as? [String], let timesForDatesOfEvent = data["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data["travelExpenseOption"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let priceToChef = data["priceToChef"] as? Double, let quantityOfEvent = data["quantityOfEvent"] as? String, let unitPrice = data["unitPrice"] as? String, let distance = data["distance"] as? String, let location = data["location"] as? String, let latitudeOfEvent = data["latitudeOfEvent"] as? String, let longitudeOfEvent = data["longitudeOfEvent"] as? String, let notesToChef = data["notesToChef"] as? String, let typeOfService = data["typeOfService"] as? String, let typeOfEvent = data["typeOfEvent"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let user = data["user"] as? String, let imageCount = data["imageCount"] as? Int, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String {
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let menuItemId = data["menuItemId"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let datesOfEvent = data["datesOfEvent"] as? [String], let timesForDatesOfEvent = data["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data["travelExpenseOption"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let priceToChef = data["priceToChef"] as? Double, let quantityOfEvent = data["quantityOfEvent"] as? String, let unitPrice = data["unitPrice"] as? String, let distance = data["distance"] as? String, let location = data["location"] as? String, let latitudeOfEvent = data["latitudeOfEvent"] as? String, let longitudeOfEvent = data["longitudeOfEvent"] as? String, let notesToChef = data["notesToChef"] as? String, let typeOfService = data["typeOfService"] as? String, let typeOfEvent = data["typeOfEvent"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let user = data["user"] as? String, let imageCount = data["imageCount"] as? Int, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String  {
                         
-                        let newItem = CheckoutItems(chefEmail: chefEmail, chefImageId: chefImageId, chefUsername: chefUsername, chefImage: chefImage, menuItemId: menuItemId, itemTitle: itemTitle, itemDescription: itemDescription, datesOfEvent: datesOfEvent, timesForDatesOfEvent: timesForDatesOfEvent, travelExpenseOption: travelExpenseOption, totalCostOfEvent: totalCostOfEvent, priceToChef: priceToChef, quantityOfEvent: quantityOfEvent, unitPrice: unitPrice, distance: distance, location: location, latitudeOfEvent: latitudeOfEvent, longitudeOfEvent: longitudeOfEvent, notesToChef: notesToChef, typeOfService: typeOfService, typeOfEvent: typeOfEvent, city: city, state: state, user: user, documentId: doc.documentID, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!)
+                        let newItem = CheckoutItems(chefEmail: chefEmail, chefImageId: chefImageId, chefUsername: chefUsername, chefImage: chefImage, menuItemId: menuItemId, itemTitle: itemTitle, itemDescription: itemDescription, datesOfEvent: datesOfEvent, timesForDatesOfEvent: timesForDatesOfEvent, travelExpenseOption: travelExpenseOption, totalCostOfEvent: totalCostOfEvent, priceToChef: priceToChef, quantityOfEvent: quantityOfEvent, unitPrice: unitPrice, distance: distance, location: location, latitudeOfEvent: latitudeOfEvent, longitudeOfEvent: longitudeOfEvent, notesToChef: notesToChef, typeOfService: typeOfService, typeOfEvent: typeOfEvent, city: city, state: state, user: user, documentId: doc.documentID, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, allergies: allergies, additionalMenuItems: additionalMenuItems)
                         
                         if self.checkoutItems.count == 0 {
                             self.checkoutItems.append(newItem)
@@ -289,80 +291,110 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = checkoutTableView.dequeueReusableCell(withIdentifier: "CheckoutReusableCell", for: indexPath) as! CheckoutTableViewCell
         
-        let item = checkoutItems[indexPath.row]
-        cell.chefImage.image = item.chefImage
-        cell.chefImage.layer.borderWidth = 1
-        cell.chefImage.layer.masksToBounds = false
-        cell.chefImage.layer.borderColor = UIColor.white.cgColor
-        cell.chefImage.layer.cornerRadius = cell.chefImage.frame.height/2
-        cell.chefImage.clipsToBounds = true
-        cell.itemTitle.text = item.itemTitle
         
-        cell.eventTypeAndQuantity.text = "Event Type: \(item.typeOfEvent)   Event Quantity: \(item.quantityOfEvent)"
-        cell.location.text = "Location: \(item.location)"
-        for i in 0..<item.datesOfEvent.count {
-            if i == 0 {
-                cell.dates.text = "Dates: \(item.datesOfEvent[i])"
-            } else {
-                if (i < 3) {
-                    cell.dates.text = "\(cell.dates.text!), \(item.datesOfEvent[i])"
-                    if i == 2 && item.datesOfEvent.count > 3 {
-                        cell.dates.text = "\(cell.dates.text!)..."
+            let cell = checkoutTableView.dequeueReusableCell(withIdentifier: "CheckoutReusableCell", for: indexPath) as! CheckoutTableViewCell
+            let item = checkoutItems[indexPath.row]
+        
+        
+            
+            
+            cell.chefImage.image = item.chefImage
+            cell.chefImage.layer.borderWidth = 1
+            cell.chefImage.layer.masksToBounds = false
+            cell.chefImage.layer.borderColor = UIColor.white.cgColor
+            cell.chefImage.layer.cornerRadius = cell.chefImage.frame.height/2
+            cell.chefImage.clipsToBounds = true
+            cell.itemTitle.text = item.itemTitle
+        if item.typeOfService == "Cater Item" {
+            cell.allergies.isHidden = true
+            cell.additionalRequests.isHidden = true
+            cell.noteConstant.constant = 4.5
+            cell.eventTypeAndQuantity.text = "Event Type: \(item.typeOfEvent)   Event Quantity: \(item.quantityOfEvent)"
+        } else {
+            cell.allergies.isHidden = false
+            cell.additionalRequests.isHidden = false
+            cell.noteConstant.constant = 43
+            cell.eventTypeAndQuantity.text = "Service Length: \(item.typeOfEvent)   Event Quantity: \(item.quantityOfEvent)"
+        }
+            cell.location.text = "Location: \(item.location)"
+            for i in 0..<item.datesOfEvent.count {
+                if i == 0 {
+                    cell.dates.text = "Dates: \(item.datesOfEvent[i])"
+                } else {
+                    if (i < 3) {
+                        cell.dates.text = "\(cell.dates.text!), \(item.datesOfEvent[i])"
+                        if i == 2 && item.datesOfEvent.count > 3 {
+                            cell.dates.text = "\(cell.dates.text!)..."
+                        }
                     }
                 }
             }
-        }
-        cell.noteToChef.text = item.notesToChef
-        let a = String(format: "%.2f", item.totalCostOfEvent)
-        cell.eventCost.text = "$\(a)"
-        let storageRef = storage.reference()
-        storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
-            
-            URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                // Error handling...
-                guard let imageData = data else { return }
+            cell.noteToChef.text = item.notesToChef
+            let a = String(format: "%.2f", item.totalCostOfEvent)
+            cell.eventCost.text = "$\(a)"
+            let storageRef = storage.reference()
+            storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
                 
-                print("happening itemdata")
-                DispatchQueue.main.async {
-                    cell.chefImage.image = UIImage(data: imageData)!
-                }
-            }.resume()
-        }
-        
-        cell.chefImageButtonTapped = {
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
-                vc.user = item.chefImageId
-                vc.chefOrUser = "chef"
-                self.present(vc, animated: true, completion: nil)
-            }
-        }
-        cell.cancelButtonTapped = {
-            let foodTotal = self.foodTotalText.text!.suffix(self.foodTotalText.text!.count - 1)
-            let newTotal = Double(foodTotal)! - item.totalCostOfEvent
-            let taxes = Double(newTotal) * 0.125
-            let newFinalTotal = Double(newTotal) + Double(
-                taxes)
-            
-            if let index = self.checkoutItems.firstIndex(where: { $0.menuItemId == item.menuItemId }) {
-                self.checkoutItems.remove(at: index)
-                self.checkoutTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
-                self.foodTotalText.text = "$\(String(format: "%.2f", newTotal))"
-                self.taxesAndFeesText.text = "$\(String(format: "%.2f", taxes))"
-                self.finalTotalText.text = "$\(String(format: "%.2f", newFinalTotal))"
-                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(item.documentId).delete()
-                self.fetchPaymentIntent(costOfEvent: newFinalTotal)
-                if newFinalTotal == 0 {
-                    self.payButton.isEnabled = false
-                }
+                URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                    // Error handling...
+                    guard let imageData = data else { return }
+                    
+                    print("happening itemdata")
+                    DispatchQueue.main.async {
+                        cell.chefImage.image = UIImage(data: imageData)!
+                    }
+                }.resume()
             }
             
-            
-        }
+            cell.chefImageButtonTapped = {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
+                    vc.user = item.chefImageId
+                    vc.chefOrUser = "chef"
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+            cell.cancelButtonTapped = {
+                let foodTotal = self.foodTotalText.text!.suffix(self.foodTotalText.text!.count - 1)
+                let newTotal = Double(foodTotal)! - item.totalCostOfEvent
+                let taxes = Double(newTotal) * 0.125
+                let newFinalTotal = Double(newTotal) + Double(
+                    taxes)
+                
+                if let index = self.checkoutItems.firstIndex(where: { $0.menuItemId == item.menuItemId }) {
+                    self.checkoutItems.remove(at: index)
+                    self.checkoutTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
+                    self.foodTotalText.text = "$\(String(format: "%.2f", newTotal))"
+                    self.taxesAndFeesText.text = "$\(String(format: "%.2f", taxes))"
+                    self.finalTotalText.text = "$\(String(format: "%.2f", newFinalTotal))"
+                    self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(item.documentId).delete()
+                    self.fetchPaymentIntent(costOfEvent: newFinalTotal)
+                    if newFinalTotal == 0 {
+                        self.payButton.isEnabled = false
+                    }
+                }
+                
+                
+            }
         
-        return cell
-    }
-    
-    
+        cell.orderDetailButtonTapped = {
+            if item.typeOfService == "Cater Item" {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
+                    vc.newOrEdit = "edit"
+                    vc.documentId = item.documentId
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                    vc.newOrEdit = "edit"
+                    vc.documentId = item.documentId
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+        }
+            
+        
+            
+            return cell
+        }
 }

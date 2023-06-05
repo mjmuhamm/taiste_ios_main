@@ -17,22 +17,23 @@
 
 @interface MDCBaseTextFieldLayout : NSObject
 
-@property(nonatomic, assign) BOOL leftViewHidden;
-@property(nonatomic, assign) BOOL rightViewHidden;
+@property(nonatomic, assign) BOOL displaysLeadingView;
+@property(nonatomic, assign) BOOL displaysTrailingView;
 
 @property(nonatomic, assign) CGRect clearButtonFrame;
 @property(nonatomic, assign) CGRect labelFrameFloating;
 @property(nonatomic, assign) CGRect labelFrameNormal;
 @property(nonatomic, assign) CGRect textRectNormal;
 @property(nonatomic, assign) CGRect textRectFloating;
-@property(nonatomic, assign) CGRect leftViewFrame;
-@property(nonatomic, assign) CGRect rightViewFrame;
+@property(nonatomic, assign) CGRect leadingViewFrame;
+@property(nonatomic, assign) CGRect trailingViewFrame;
 @property(nonatomic, assign) CGRect assistiveLabelViewFrame;
 @property(nonatomic, strong, nonnull)
     MDCTextControlAssistiveLabelViewLayout *assistiveLabelViewLayout;
 
 @property(nonatomic, readonly) CGFloat calculatedHeight;
 @property(nonatomic, assign) CGFloat containerHeight;
+@property(nonatomic, assign) BOOL labelTruncationIsPresent;
 
 /**
   Initializing an MDCBaseTextFieldLayout object with this initializer is tantamount to calculating a
@@ -55,10 +56,10 @@
                        labelPosition:(MDCTextControlLabelPosition)labelPosition
                        labelBehavior:(MDCTextControlLabelBehavior)labelBehavior
                    sideViewAlignment:(MDCTextControlTextFieldSideViewAlignment)sideViewAlignment
-                            leftView:(nullable UIView *)leftView
-                        leftViewMode:(UITextFieldViewMode)leftViewMode
-                           rightView:(nullable UIView *)rightView
-                       rightViewMode:(UITextFieldViewMode)rightViewMode
+                         leadingView:(nullable UIView *)leadingView
+                     leadingViewMode:(UITextFieldViewMode)leadingViewMode
+                        trailingView:(nullable UIView *)trailingView
+                    trailingViewMode:(UITextFieldViewMode)trailingViewMode
                clearButtonSideLength:(CGFloat)clearButtonSideLength
                      clearButtonMode:(UITextFieldViewMode)clearButtonMode
                leadingAssistiveLabel:(nonnull UILabel *)leftAssistiveLabel

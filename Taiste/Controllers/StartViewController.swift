@@ -67,6 +67,8 @@ class StartViewController: UIViewController {
         let dateString = df.string(from: date)
         let year = dateString.prefix(4)
         let month = dateString.prefix(7).suffix(2)
+        
+        
 //        print("date \(year), \(month)")
     }
     

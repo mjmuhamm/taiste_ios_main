@@ -40,5 +40,7 @@ struct CheckoutItems {
     let itemOrders: Int
     let itemRating: [Double]
     let itemCalories: Int
+    let allergies: String
+    let additionalMenuItems: String
     
 }

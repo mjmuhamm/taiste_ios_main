@@ -1,99 +1,121 @@
-/* The label of a text field that is optional. For example, 'Email (optional)' or 'Name (optional) */
 "%@ (optional)" = "%@ (valikuline)";
 
-/* Caption for Address field on address form */
+"Account number" = "Kontonumber";
+
 "Address" = "Aadress";
 
-/* Address line 1 placeholder for billing address form. */
 "Address line 1" = "Aadressirida 1";
 
-/* Label for input requesting address line 2, used for international addresses */
 "Address line 2" = "Aadressirida 2";
 
-/* Label of an address field in hk */
 "Area" = "Piirkond";
 
-/* Caption for City field on address form */
+"BSB number" = "BSB-number";
+
+"Billing address is same as shipping" = "Arveldusaadress on sama mis tarneaadress";
+
+"Cancel" = "Tühista";
+
 "City" = "Linn";
 
-/* Caption for Country field on address form */
+"Code field" = "Koodi väli";
+
+"Company" = "Ettevõte";
+
+"Continue" = "Jätka";
+
 "Country" = "Riik";
 
-/* Country selector and postal code entry form header title */
 "Country or region" = "Riik või regioon";
 
-/* Caption for County field on address form (only countries that use county, like United Kingdom) */
 "County" = "Maakond";
 
-/* Label of an address field */
+"Date is empty." = "Kuupäev on tühi.";
+
 "Department" = "Departemang";
 
-/* Label for the district field on an address form */
 "District" = "Regioon";
 
-/* Label of an address field */
 "Do Si" = "Do Si";
 
-/* Done button title */
 "Done" = "Valmis";
 
-/* Label of an address field */
+"Double tap to edit" = "Redigeerimiseks topeltklõpsake";
+
+"Edit" = "Muutmine";
+
 "Eircode" = "Eircode";
 
-/* Caption for Email field on address form */
 "Email" = "Meiliaadress";
 
-/* Used to describe address in United Arab Emirates */
 "Emirate" = "Emiraat";
 
-/* Label for first (given) name field */
+"Error" = "Viga";
+
 "First" = "Esimene";
 
-/* Error description for incomplete phone number */
+"Full name" = "Täisnimi";
+
 "Incomplete phone number" = "Telefoninumber puudulik";
 
-/* Label of an address field */
+"Invalid UPI ID" = "Kehtetu UPI ID";
+
 "Island" = "Saar";
 
-/* Label for last (family) name field */
 "Last" = "Viimane";
 
-/* Caption for Name field on address form */
 "Name" = "Nimi";
 
-/* Label of an address field */
+"Name on account" = "Nimi kontol";
+
+"OK" = "OK";
+
 "Oblast" = "Oblast";
 
-/* Label of an address field */
+"Other" = "Muu";
+
 "Parish" = "Vald";
 
-/* Short string for postal code (text used in non-US countries) */
+"Phone" = "Telefon";
+
 "Postal code" = "Sihtnumber";
 
-/* Label of an address field */
 "Prefecture" = "Prefektuur";
 
-/* Caption for Province field on address form (only countries that use province, like Canada) */
 "Province" = "Maakond";
 
-/* Caption for State field on address form (only countries that use state , like United States) */
+"Remove" = "Eemalda";
+
+"Remove bank account" = "Eemaldage pangakonto";
+
+"Remove bank account ending in %@" = "Eemaldage pangakonto lõpuga %@";
+
+"Search" = "Otsing";
+
 "State" = "Osariik";
 
-/* Label of an address field */
 "Suburb" = "Eeslinn";
 
-/* Label of an address field */
 "Suburb or city" = "Eeslinn või linn";
 
-/* An error message. */
+"The BSB you entered is incomplete." = "Sisestatud BSB-number on puudulik.";
+
 "The ID number you entered is incomplete." = "Sisestatud isikukood on puudulik.";
 
-/* Label of an address field */
+"The account number you entered is incomplete." = "Sisestatud kontonumber on puudulik.";
+
 "Town or city" = "Linn";
 
-/* Error message when email is invalid */
+"UPI ID" = "UPI ID";
+
+"Unable to parse phone number" = "Telefoninumbri parsimine ebaõnnestus";
+
+"Use rotor to access links" = "Kasutage linkidele juurdepääsuks rootorit";
+
+"Your ZIP is incomplete." = "Teie sihtnumber on puudulik.";
+
 "Your email is invalid." = "Teie meiliaadress on kehtetu.";
 
-/* Short string for zip code (United States only) Please keep to 5 characters or less if possible. */
-"ZIP" = "Sihtnr";
+"Your postal code is incomplete." = "Sihtnumber on puudulik.";
 
+"ZIP" = "Sihtnr";

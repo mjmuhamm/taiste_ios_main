@@ -228,7 +228,10 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).delete()
             self.db.collection(self.typeOfitem).document(self.menuItemId).delete()
             let storageRef = self.storage.reference()
-            storageRef.child("chefs/\(Auth.auth().currentUser!.email)/\(self.typeOfitem)/\(self.menuItemId)").delete()
+            Task {
+               try? await storageRef.child("chefs/\(Auth.auth().currentUser!.email)/\(self.typeOfitem)/\(self.menuItemId)").delete()
+                
+            }
             self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
         }))
         
@@ -251,7 +254,10 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                 var path = self.imgArr[self.currentIndex].imgPath
                 
                 for i in 0..<self.imgArr.count {
-                    storageRef.child(self.imgArr[i].imgPath).delete()
+                    Task {
+                    try? await storageRef.child(self.imgArr[i].imgPath).delete()
+                    }
+                    
                 }
                 self.imgArr.remove(at: self.currentIndex)
                 self.imgArrData.remove(at: self.currentIndex)
