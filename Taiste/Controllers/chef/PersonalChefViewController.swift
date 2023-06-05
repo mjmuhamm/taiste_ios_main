@@ -241,19 +241,21 @@ class PersonalChefViewController: UIViewController {
     
     @IBAction func hourlyButtonPressed(_ sender: Any) {
         hourlyOrPerSession = "hourly"
-        hourlyButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-        hourlyButton.backgroundColor = UIColor.white
-        perSessionButton.setTitleColor(UIColor.white, for:.normal)
-        perSessionButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        
+        perSessionButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
+        perSessionButton.backgroundColor = UIColor.white
+        hourlyButton.setTitleColor(UIColor.white, for:.normal)
+        hourlyButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        
         
     }
     
     @IBAction func perSessionButtonPressed(_ sender: Any) {
         hourlyOrPerSession = "perSession"
-        perSessionButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-        perSessionButton.backgroundColor = UIColor.white
-        hourlyButton.setTitleColor(UIColor.white, for:.normal)
-        hourlyButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+        hourlyButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
+        hourlyButton.backgroundColor = UIColor.white
+        perSessionButton.setTitleColor(UIColor.white, for:.normal)
+        perSessionButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
         
     }
     
