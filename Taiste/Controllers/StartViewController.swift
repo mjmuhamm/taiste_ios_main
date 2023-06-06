@@ -21,6 +21,7 @@ class StartViewController: UIViewController {
     let date = Date()
     let df = DateFormatter()
     
+    
     @IBOutlet weak var termsOfSErviceText: UILabel!
     
     @IBOutlet weak var userButton: MDCButton!
@@ -61,9 +62,15 @@ class StartViewController: UIViewController {
         attributedString.append(thirdAttributedString)
         
         termsOfSErviceText.attributedText = attributedString
-        
+      
+        print("date \(Date().startOfWeek)")
+        print("date \(Date().getWeekDates().thisWeek)")
         print("date \(Int(Date().timeIntervalSince1970))")
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        df.dateFormat = "yyyy-MM-dd"
+        
+        let x = df.date(from: "2023-01-05")
+        print("datesss \(x!.getWeekDates().thisWeek)")
+        
         let dateString = df.string(from: date)
         let year = dateString.prefix(4)
         let month = dateString.prefix(7).suffix(2)

@@ -232,7 +232,10 @@ class HomeViewController: UIViewController {
     }
     
     private func loadExecutiveItems() {
-        
+        if !items.isEmpty {
+            items.removeAll()
+            homeTableView.reloadData()
+        }
         db.collection("Executive Items").getDocuments { documents, error in
             if error == nil {
                 if documents != nil {
@@ -240,7 +243,7 @@ class HomeViewController: UIViewController {
                         let data = doc.data()
                         
                             
-                        if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let chefImageId = data["chefImageId"] as? String, let chefEmail = data["chefEmail"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? Double {
+                        if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let chefImageId = data["chefImageId"] as? String, let chefEmail = data["chefEmail"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let signatureDishId = data["signatureDishId"] as? String, let zipCode = data["zipCode"] as? String {
                                 
                                 var availability = ""
                                 if trialRun == 0 {
@@ -253,8 +256,9 @@ class HomeViewController: UIViewController {
                                     availability = "\(availability)  Months"
                                 }
                                             print("happening itemdata")
+                            
                                     DispatchQueue.main.async {
-                                        let item = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: Auth.auth().currentUser!.uid, chefImage: UIImage(), city: city, state: state, signatureDishImage: UIImage(), option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID)
+                                        let item = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: zipCode, signatureDishImage: UIImage(), signatureDishId: signatureDishId, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID)
                                         
                                         if self.personalChefItems.isEmpty {
                                             self.personalChefItems.append(item)
@@ -509,24 +513,27 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             
             let storageRef = self.storage.reference()
             let itemRef = self.storage.reference()
-            
+            print("chefemail \(item.chefEmail)")
+            print("imageid \(item.chefImageId)")
             storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
                 
-                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                    // Error handling...
-                    guard let imageData = data else { return }
-                    
-                    print("happening itemdata")
-                    DispatchQueue.main.async {
-                        cell.chefImage.image = UIImage(data: imageData)!
-                        item.chefImage = UIImage(data: imageData)!
-                    }
-                }.resume()
+                if error == nil {
+                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
+                        
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            cell.chefImage.image = UIImage(data: imageData)!
+                            item.chefImage = UIImage(data: imageData)!
+                        }
+                    }.resume()
+                }
                 
             }
             
             
-            itemRef.child("chefs/\(item.chefEmail)/Executive Items/signature0.png").downloadURL { imageUrl, error in
+            itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.signatureDishId)0.png").downloadURL { imageUrl, error in
                 
                 URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
                     // Error handling...

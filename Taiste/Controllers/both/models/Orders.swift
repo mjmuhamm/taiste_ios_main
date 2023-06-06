@@ -46,4 +46,6 @@ struct Orders {
     let documentId: String
     let creditsApplied: String
     let creditIds: [String]
+    let allergies: String
+    let additionalMenuItems: String
 }

@@ -149,8 +149,9 @@ class ItemDetailViewController: UIViewController {
         self.pageControl.currentPage = 0
         sliderCollectionView.reloadData()
         print("item \(item)")
-        self.itemCalories.text = "Calories: \(item!.itemCalories)"
-        
+        if item != nil {
+            self.itemCalories.text = "Calories: \(item!.itemCalories)"
+        }
 
         
         // Do any additional setup after loading the view.

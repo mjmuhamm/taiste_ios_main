@@ -76,12 +76,16 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     var itemOrders = 0
     var itemRating : [Double] = []
     
+    var newPersonalOrEdit = ""
+    var documentId = UUID().uuidString
+    var personalChefItem : PersonalChefInfo?
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("menuitemid \(menuItemId)")
-        print("toggle \(typeOfitem)")
-        print("auth \(Auth.auth().currentUser!.uid)")
+        itemDescription.delegate = self
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
         self.sliderCollectionView.delegate = self
         self.sliderCollectionView.dataSource = self
         self.pageControl.currentPage = 0
@@ -89,10 +93,25 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         
         if newOrEdit == "edit" {
             loadEditedItem()
-            deleteButton.isHidden = false
+            titleLabel.text = typeOfitem
+        } else if newOrEdit == "signature" {
+            titleLabel.text = "Signature Dish"
+            loadEditedItem1()
+        } else if newOrEdit == "option1" {
+            titleLabel.text = "Option 1"
+            loadEditedItem1()
+        } else if newOrEdit == "option2" {
+            titleLabel.text = "Option 2"
+            loadEditedItem1()
+        } else if newOrEdit == "option3" {
+            titleLabel.text = "Option 3"
+            loadEditedItem1()
+        } else if newOrEdit == "option4" {
+            titleLabel.text = "Option 4"
+            loadEditedItem1()
         }
         
-        titleLabel.text = typeOfitem
+        
     }
     
     private func loadEditedItem() {
@@ -103,7 +122,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             if error == nil {
                 if document != nil {
                     let data = document!.data()
-                    
+                    self.deleteButton.isHidden = false
                     if let itemTitle = data!["itemTitle"] as? String, let imageCount = data!["imageCount"] as? Int, let itemDescription = data!["itemDescription"] as? String, let itemLikes = data!["itemLikes"] as? Int, let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let itemPrice = data!["itemPrice"] as? String, let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int {
                         
                         for i in 0..<imageCount {
@@ -202,8 +221,129 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    private func loadEditedItem1() {
+        self.itemPrice.isHidden = true
+        let storageRef = storage.reference()
+        
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").getDocuments { documents, error in
+            
+            if error == nil {
+                if documents != nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        if data != nil {
+                            let typeOfService = data["typeOfService"] as? String
+                            if typeOfService == self.typeOfitem {
+                                if let itemTitle = data["itemTitle"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemLikes = data["itemLikes"] as? Int, let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let itemPrice = data["itemPrice"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int {
+                                    
+                                    
+                                    for i in 0..<imageCount {
+                                        var path = "chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(doc.documentID)\(i).png"
+                                        storageRef.child(path).downloadURL { imageUrl, error in
+                                            
+                                            
+                                            URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                                // Error handling...
+                                                guard let imageData = data else { return }
+                                                
+                                                print("happening itemdata")
+                                                let indexPath = IndexPath(item: self.imgArr.count, section: 0)
+                                                var indexPaths: [IndexPath] = [indexPath]
+                                                DispatchQueue.main.async {
+                                                    
+                                                    if error == nil {
+                                                        self.imgArrData.append(imageData)
+                                                        self.imgArr.append(MenuItemImage(img: UIImage(data: imageData)!, imgPath: path))
+                                                        self.pageControl.numberOfPages = self.imgArr.count
+                                                        self.sliderCollectionView.insertItems(at: indexPaths)
+                                                    }
+                                                    
+                                                    
+                                                }
+                                            }.resume()
+                                            
+                                        }
+                                    }
+                                    
+                                    self.itemTitle.text = itemTitle
+                                    self.itemDescription.text = itemDescription
+                                    self.itemCalories.text = itemCalories
+                                    self.itemPrice.text = itemPrice
+                                    self.itemLikes = itemLikes
+                                    self.itemOrders = itemOrders
+                                    self.itemRating = itemRating
+                                    
+                                    if burger == 1 {
+                                        self.burgerButton.isSelected = true
+                                        self.burger = 1
+                                        self.burgerButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.burgerButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if creative == 1 {
+                                        self.creativeButton.isSelected = true
+                                        self.creative = 1
+                                        self.creativeButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.creativeButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if lowCal == 1 {
+                                        self.lowCalButton.isSelected = true
+                                        self.lowCal = 1
+                                        self.lowCalButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.lowCalButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if lowCarb == 1 {
+                                        self.lowCarbButton.isSelected = true
+                                        self.lowCarb = 1
+                                        self.lowCarbButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.lowCarbButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if pasta == 1 {
+                                        self.pastaButton.isSelected = true
+                                        self.pasta = 1
+                                        self.pastaButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.pastaButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if healthy == 1 {
+                                        self.healthyButton.isSelected = true
+                                        self.healthy = 1
+                                        self.healthyButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.healthyButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if vegan == 1 {
+                                        self.veganButton.isSelected = true
+                                        self.vegan = 1
+                                        self.veganButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.veganButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if seafood == 1 {
+                                        self.seafoodButton.isSelected = true
+                                        self.seafood = 1
+                                        self.seafoodButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.seafoodButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                    if workout == 1 {
+                                        self.workoutButton.isSelected = true
+                                        self.workout = 1
+                                        self.workoutButton.setTitleColor(UIColor.white, for:.normal)
+                                        self.workoutButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    }
+                                }
+                                self.newPersonalOrEdit = "edit"
+                                self.documentId = doc.documentID
+                            } else {
+                                self.newPersonalOrEdit = "new"
+                                self.deleteButton.isHidden = true
+                                self.showToast(message: "This is happening.", font: .systemFont(ofSize: 12))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if itemDescription.textColor == UIColor.lightGray {
+        if itemDescription.textColor != UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1) {
             itemDescription.text = nil
             itemDescription.textColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
         }
@@ -274,15 +414,46 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).updateData(data)
                 self.db.collection(self.typeOfitem).document(self.menuItemId).updateData(data)
                 self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
-                
             }))
             
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
                 alert.dismiss(animated: true, completion: nil)
             }))
-            
             present(alert, animated: true, completion: nil)
-       
+        } else if newPersonalOrEdit == "edit" {
+            let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                let storageRef = self.storage.reference()
+                let renewRef = self.storage.reference()
+                
+                for i in 0..<self.imgArr.count {
+                    Task {
+                    try? await storageRef.child(self.imgArr[i].imgPath).delete()
+                    }
+                    
+                }
+                self.imgArr.remove(at: self.currentIndex)
+                self.imgArrData.remove(at: self.currentIndex)
+                if self.imgArr.count == 0 {
+                    self.cancelImageButton.isHidden = true
+                }
+                self.pageControl.numberOfPages = self.imgArr.count
+                self.sliderCollectionView.reloadData()
+                
+                for i in 0..<self.imgArr.count {
+                    renewRef.child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(self.documentId)\(i).png").putData(self.imgArrData[i])
+                }
+                let data: [String: Any] = ["imageCount" : self.imgArr.count]
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(self.documentId).updateData(data)
+                self.db.collection("Executive Items").document(self.documentId).updateData(data)
+                self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
+            }))
+            
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            present(alert, animated: true, completion: nil)
         } else {
         imgArr.remove(at: currentIndex)
         imgArrData.remove(at: currentIndex)
@@ -453,7 +624,29 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MenuItemToPersonalChefViewControllerSegue" {
+            if self.personalChefItem != nil {
+                if self.typeOfitem == "Signature Dish" {
+                    self.personalChefItem!.signatureDishImage = imgArr[0].img
+                } else if self.typeOfitem == "Option 1" {
+                    self.personalChefItem!.option1Title = self.itemTitle.text!
+                } else if self.typeOfitem == "Option 2" {
+                    self.personalChefItem!.option2Title = self.itemTitle.text!
+                } else if self.typeOfitem == "Option 3" {
+                    self.personalChefItem!.option3Title = self.itemTitle.text!
+                } else if self.typeOfitem == "Option 4" {
+                    self.personalChefItem!.option4Title = self.itemTitle.text!
+                }
+            }
+            let info = segue.destination as! PersonalChefViewController
+            info.personalChefItem = self.personalChefItem
+        }
+    }
+    
     @IBAction func saveButtonPressed(_ sender: Any) {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         if itemTitle.text == "" {
             self.showToast(message: "Please enter an item title.", font: .systemFont(ofSize: 12))
         } else if imgArr.count == 0 {
@@ -462,16 +655,15 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             self.showToast(message: "Please enter an item description.", font: .systemFont(ofSize: 12))
         } else if itemCalories.text == "" {
             self.showToast(message: "Please enter a number for calories", font: .systemFont(ofSize: 12))
-        } else if itemPrice.text == "" {
+        } else if (self.newOrEdit == "new" || self.newOrEdit == "edit") && itemPrice.text == "" {
             self.showToast(message: "Please enter a price.", font: .systemFont(ofSize: 12))
         } else {
         let storageRef = storage.reference()
         
         
-        let data: [String: Any] = ["available" : "Yes", "burger" : burger, "chefEmail" : Auth.auth().currentUser!.email!, "chefPassion" : chefPassion, "chefUsername" : chefUsername, "city" : city, "creative" : creative, "date" : Date(), "healthy" : healthy, "imageCount" : imgArr.count, "itemCalories" : itemCalories.text!, "itemDescription" : itemDescription.text!, "itemLikes" : self.itemLikes, "itemOrders" : self.itemOrders, "itemPrice" : itemPrice.text!, "itemRating" : self.itemRating, "itemTitle" : itemTitle.text!, "itemType" : typeOfitem, "liked" : [], "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "profileImageId" : profileImageId, "quantityLimit" : "No Limit", "randomVariable" : menuItemId, "seafood" : seafood, "state" : state, "typeOfService" : typeOfitem, "user" : Auth.auth().currentUser!.email!, "vegan" : vegan, "workout" : workout, "zipCode" : zipCode]
+            let data: [String: Any] = ["available" : "Yes", "burger" : burger, "chefEmail" : Auth.auth().currentUser!.email!, "chefPassion" : chefPassion, "chefUsername" : chefUsername, "city" : city, "creative" : creative, "date" : Date(), "healthy" : healthy, "imageCount" : imgArr.count, "itemCalories" : itemCalories.text!, "itemDescription" : itemDescription.text!, "itemLikes" : self.itemLikes, "itemOrders" : self.itemOrders, "itemPrice" : itemPrice.text!, "itemRating" : self.itemRating, "itemTitle" : itemTitle.text!, "itemType" : typeOfitem, "liked" : [], "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "profileImageId" : Auth.auth().currentUser!.uid, "quantityLimit" : "No Limit", "randomVariable" : menuItemId, "seafood" : seafood, "state" : state, "typeOfService" : typeOfitem, "user" : Auth.auth().currentUser!.email!, "vegan" : vegan, "workout" : workout, "zipCode" : zipCode]
         
         if newOrEdit == "new" {
-            
             db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(typeOfitem).document(menuItemId).setData(data)
             db.collection("\(self.typeOfitem)").document(menuItemId).setData(data)
             for i in 0..<imgArr.count {
@@ -484,10 +676,36 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                     }
                 }
             }
-        } else {
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        } else if newOrEdit == "edit" {
             db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(typeOfitem).document(menuItemId).updateData(data)
             db.collection("\(self.typeOfitem)").document(menuItemId).updateData(data)
             self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+        } else {
+            if newPersonalOrEdit == "new" {
+                if typeOfitem == "Signature Dish" {
+                    let data1: [String: Any] = ["signatureDishId" : documentId]
+                    db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(documentId).updateData(data1)
+                    db.collection("Executive Items").document(documentId).updateData(data1)
+                }
+                db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(documentId).setData(data)
+                for i in 0..<imgArr.count {
+                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(documentId)\(i).png").putData(imgArrData[i], metadata: nil) { data, error in
+                        if error == nil {
+                            if i == self.imgArr.count-1 {
+                                self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+                            }
+                        }
+                    }
+                }
+            } else {
+                db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(documentId).updateData(data)
+                self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+            }
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+            
         }
         
         
@@ -512,7 +730,11 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
              toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
-            self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
+            if self.newOrEdit == "new" || self.newOrEdit == "edit" {
+                self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
+            } else {
+                self.performSegue(withIdentifier: "MenuItemToPersonalChefViewControllerSegue", sender: self)
+            }
             toastLabel.removeFromSuperview()
         })
     }
@@ -561,6 +783,15 @@ extension MenuItemViewController: UIImagePickerControllerDelegate, UINavigationC
             let data: [String: Any] = ["imageCount" : self.imgArr.count]
             self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).updateData(data)
             self.db.collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+            self.showToast(message: "Image Added.", font: .systemFont(ofSize: 12))
+        }
+        if newPersonalOrEdit == "edit" {
+            let storageRef = self.storage.reference()
+            storageRef.child(path).putData(image.pngData()!)
+            
+            let data: [String: Any] = ["imageCount" : self.imgArr.count]
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(self.documentId).updateData(data)
+            self.db.collection("Executive Items").document(self.documentId).updateData(data)
             self.showToast(message: "Image Added.", font: .systemFont(ofSize: 12))
         }
         self.sliderCollectionView.reloadData()

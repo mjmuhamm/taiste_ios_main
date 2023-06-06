@@ -240,19 +240,25 @@ class ChefMeViewController: UIViewController {
         }
     }
     private func loadPersonalChefInfo() {
+        if !items.isEmpty {
+            items.removeAll()
+            meTableView.reloadData()
+        }
             meTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         
-        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Item").getDocuments { documents, error in
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").getDocuments { documents, error in
             if error == nil {
                 if documents != nil {
                     for doc in documents!.documents {
                         let data = doc.data()
                         
-                        let typeOfInfo = data["typeOfInfo"] as? String
+                        let typeOfInfo = data["typeOfService"] as? String
+                        let complete = data["complete"] as? String
                         
-                        if typeOfInfo == "info" {
-                            
-                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? Double {
+                        
+                        if typeOfInfo == "info" && complete == "yes" {
+                            print("happening personal chef")
+                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
                 
                                 var availability = ""
                                 if trialRun == 0 {
@@ -264,33 +270,33 @@ class ChefMeViewController: UIViewController {
                                 if months == 0 {
                                     availability = "\(availability)  Months"
                                 }
-                                self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/Executive Item/signature0.png").downloadURL { imageUrl, error in
-                                    if error == nil {
-                                        URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                                            // Error handling...
-                                            guard let imageData = data else { return }
-                                            
-                                            print("happening itemdata")
-                                            DispatchQueue.main.async {
-                                                self.personalChefItem = PersonalChefInfo(chefName: chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImage.image!, city: self.city, state: self.state, signatureDishImage: UIImage(data: imageData)!, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID)
+                                
+                                    self.personalChefItem = PersonalChefInfo(chefName: chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImage.image!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID)
+                              
+                                
+                            }
+                            
+                        }
+                        if typeOfInfo == "Signature Dish" {
+                            print("happening personal chef 2")
+                                    self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(doc.documentID)0.png").downloadURL { imageUrl, error in
+                                        if error == nil {
+                                            URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                                // Error handling...
+                                                guard let imageData = data else { return }
                                                 
-                                            }
-                                        }.resume()
+                                                print("happening itemdata")
+                                                DispatchQueue.main.async {
+                                                    if self.personalChefItem != nil {
+                                                        self.personalChefItem!.signatureDishImage = UIImage(data: imageData)!
+                                                        self.meTableView.reloadData()
+                                                    }
+                                                }
+                                            }.resume()
+                                        }
                                     }
                                 }
-                            }} else if typeOfInfo == "option1" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option1Title = itemTitle
-                            } else if typeOfInfo == "option2" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option2Title = itemTitle
-                            } else if typeOfInfo == "option3" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option3Title = itemTitle
-                            } else if typeOfInfo == "option4" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option4Title = itemTitle
-                            }
+                            
                         
                     }
                         }
@@ -587,7 +593,7 @@ class ChefMeViewController: UIViewController {
     
     @IBAction func personalChefButtonPressed(_ sender: Any) {
         toggle = "Executive Items"
-        loadItems()
+        loadPersonalChefInfo()
         contentCollectionView.isHidden = true
         meTableView.isHidden = false
         bankingView.isHidden = true
@@ -681,9 +687,11 @@ class ChefMeViewController: UIViewController {
                 vc.chefName = self.chefName.text!
                 vc.city = self.city
                 vc.state = self.state
+                vc.zipCode = self.zipCode
                 if self.personalChefItem != nil {
                     vc.personalChefItem = self.personalChefItem!
                 }
+                
                 self.present(vc, animated: true, completion: nil)
             }
         }
@@ -841,6 +849,7 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
             if personalChefItem != nil {
                 let item = personalChefItem!
                 cell.chefImage.image = item.chefImage
+                cell.signatureImage.image = item.signatureDishImage
                 cell.chefName.text = item.chefName
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"

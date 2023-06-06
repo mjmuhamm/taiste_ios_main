@@ -16,7 +16,6 @@ class PersonalChefTableViewCell: UITableViewCell {
     
     @IBOutlet weak var signatureImage: UIImageView!
     @IBOutlet weak var briefIntro: UILabel!
-    @IBOutlet weak var specialDishText: UILabel!
     @IBOutlet weak var itemDetailButton2: UIButton!
     
     @IBOutlet weak var expectations1: UIImageView!
@@ -59,8 +58,15 @@ class PersonalChefTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        chefImage.layer.cornerRadius = 6
+        signatureImage.alpha = 0.5
         signatureImage.layer.cornerRadius = 6
+        
+        chefImage.layer.borderWidth = 1
+        chefImage.layer.masksToBounds = false
+        chefImage.layer.borderColor = UIColor.white.cgColor
+        chefImage.layer.cornerRadius = chefImage.frame.height/2
+        chefImage.clipsToBounds = true
+        
     }
     
     

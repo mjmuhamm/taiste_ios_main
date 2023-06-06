@@ -23,6 +23,7 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var itemTitle: UILabel!
     @IBOutlet weak var itemDescription: UILabel!
     @IBOutlet weak var typeOfEventText: MDCOutlinedTextField!
+    @IBOutlet weak var typeOfEventButton: UIButton!
     
     private let db = Firestore.firestore()
     private let user = "malik@testing.com"
@@ -201,6 +202,8 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         dateOfEventButton.isEnabled = false
         notesToChefText.isEnabled = false
         clearDatesButton.isEnabled = false
+        typeOfEventButton.isEnabled = false
+        typeOfEventText.isEnabled = false
         db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).getDocument { document, error in
             if error == nil {
                 if document != nil {

@@ -24,6 +24,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     @IBOutlet weak var itemDescription: UILabel!
     @IBOutlet weak var typeOfEventText: MDCOutlinedTextField!
     
+    @IBOutlet weak var typeOfEventButton: UIButton!
     private let db = Firestore.firestore()
     private let user = "malik@testing.com"
     
@@ -87,6 +88,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("personal chef info \(personalChefInfo)")
         if newOrEdit == "edit" {
             loadInfo()
         }
@@ -99,6 +101,13 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         
         typeOfEventDropDown.selectionAction = { index, item in
             self.typeOfEventText.text = item
+            self.quantityText.text = ""
+            self.eventDays.removeAll()
+            self.eventTimes.removeAll()
+            self.clearDatesButton.isHidden = true
+            self.seeAllDatesButton.isHidden = true
+            self.dateOfEventText.textColor = UIColor.systemGray2
+            self.dateOfEventText.text = " Select the date(s) for your service here."
         }
         
         
@@ -147,6 +156,20 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         typeOfEventText.setNormalLabelColor(UIColor.systemGray4, for: .normal)
         typeOfEventText.setFloatingLabelColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .editing)
         
+        quantityText.setOutlineColor(UIColor.lightGray, for: .normal)
+        quantityText.setOutlineColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .editing)
+        quantityText.setTextColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        quantityText.setTextColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .editing)
+        
+        quantityText.setNormalLabelColor(UIColor.systemGray4, for: .normal)
+        quantityText.setFloatingLabelColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .editing)
+        
+        
+        quantityText.label.text = "# of Guest Being Serviced"
+        quantityText.placeholder = "# of Guest Being Serviced"
+        
+        quantityText.setNormalLabelColor(UIColor.systemGray4, for: .normal)
+        quantityText.setFloatingLabelColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .editing)
         datePicker.minimumDate = Date()
         // Do any additional setup after loading the view.
     }
@@ -161,6 +184,8 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         dateOfEventButton.isEnabled = false
         notesToChefText.isEnabled = false
         clearDatesButton.isEnabled = false
+        typeOfEventButton.isEnabled = false
+        typeOfEventText.isEnabled = false
         db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).getDocument { document, error in
             if error == nil {
                 if document != nil {
@@ -205,16 +230,12 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     @IBAction func okDateViewButtonPressed(_ sender: Any) {
         for i in 0..<eventDays.count {
             if i == 0 {
-                dateOfEventText.text = "\(eventDays[i]) \(eventTimes[i])"
+                dateOfEventText.text = "\(i+1). \(eventDays[i]) \(eventTimes[i])"
+                seeAllDatesText.text = dateOfEventText.text!
             } else {
-                if i < 2 {
-                    dateOfEventText.text = "\(dateOfEventText.text!), \(eventDays[i]) \(eventTimes[i])"
-                    seeAllDatesText.text = dateOfEventText.text
-                    
-                } else {
-                    seeAllDatesText.text = "\(seeAllDatesText.text!), \(eventDays[i]) \(eventTimes[i])"
-                    seeAllDatesButton.isHidden = false
-                }
+                seeAllDatesText.text = "\(seeAllDatesText.text!) | \(i+1). \(eventDays[i]) \(eventTimes[i])"
+                seeAllDatesButton.isHidden = false
+                
             }
             
         }
@@ -227,9 +248,15 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
        
         dateOfEventText.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
         
-        clearDatesButton.isHidden = false
+        if eventDays.count > 0 {
+            clearDatesButton.isHidden = false
+        }
         typeOfEventText.isHidden = false
-        
+        allergies.isHidden = false
+        allergiesLabel.isHidden = false
+        additionalMenuItems.isHidden = false
+        quantityText.isHidden = false
+        additionalMenuItemsLabel.isHidden = false
         datesOfEventView.isHidden = true
         
     }
@@ -323,84 +350,84 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 if Int(self.quantityText.text!)! < 3 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * Double(quantityText.text!)! * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * days))
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * Double(quantityText.text!)! * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * days) * 0.90)
                     }
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 5 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 3 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 3 * days) * 0.80)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 3 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 3 * days) * 0.80)
                     } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 6 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 6 * days) * 0.80)
                     } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 8 * days) * 0.80)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 10 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 8.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 8.0 * days) * 0.78)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 15 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 12.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 12.0 * days) * 0.78)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 20 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 17.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 17.0 * days) * 0.78)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 25 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 22.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 22.0 * days) * 0.78)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 40 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 33.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 33.0 * days) * 0.78)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
                 } else if Int(self.quantityText.text!)! < 55 {
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 45.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 45.0 * days) * 0.78)
                     }
                     self.eventTotalText.text = "$\(a)"
                 } else {
                     quantityText.text = "55"
                     var a = ""
                     if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.85)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 50.0 * days) * 0.85)
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.78)
+                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 50.0 * days) * 0.78)
                     }
                     
                     self.eventTotalText.text = "$\(a)"
@@ -416,7 +443,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
             
             
             if eventDays.count == 5 {
-                
+                self.showToast(message: "To Service more weeks, Please select the months time period.", font: .systemFont(ofSize: 12))
             } else {
                 
                 let date = "\(datePicker.date)"
@@ -425,8 +452,8 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 let year = date.prefix(4)
                 
                 var arrWeekDates = Date().getWeekDates()
-                var startOfWeek = Date().startOfWeek
-                var endOfWeek = arrWeekDates.thisWeek[arrWeekDates.thisWeek.count - 2].toDate(format: "MM-dd-yyyy")
+                
+//                var endOfWeek = arrWeekDates.thisWeek[arrWeekDates.thisWeek.count - 2].toDate(format: "MM-dd-yyyy")
                 
                 var hour = Int(date.prefix(16).suffix(5).prefix(2))
                 let minute = date.prefix(16).suffix(2)
@@ -458,110 +485,47 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                     newHour = "0\(hour! + 1)"
                 }
                 
-                let newWeek = "\(startOfWeek) - \(endOfWeek)"
-                let newTime = "\(newHour):\(minute) \(amOrPm)"
+                var startOfWeek = "\(datePicker.date.getWeekDates().thisWeek[0])".prefix(10)
+                var endOfWeek = "\(datePicker.date.getWeekDates().thisWeek[6])".prefix(10)
                 
-                let item = "\(newWeek) \(newTime)"
+                
+                print("these are the dates \(startOfWeek) through \(endOfWeek)")
+                let df = DateFormatter()
+                
+                df.dateFormat = "yyyy-MM-dd"
+                
+                let x = df.date(from: "2023-01-05")
+                print("datesss \(x!.getWeekDates().thisWeek)")
+                
+                let newTime = "\(newHour):\(minute) \(amOrPm)"
+                let newWeek = "\(startOfWeek) \(newTime) through \(endOfWeek) \(newTime)"
+                
                 
                 if (!eventDays.contains(where: { $0 == newWeek })) {
                     if eventDays.isEmpty {
-                        dateOfEventViewText.text = item
+                        dateOfEventViewText.text = newWeek
                     } else {
-                        dateOfEventViewText.text = "\(dateOfEventViewText.text!), \(item)"
+                        dateOfEventViewText.text = "\(dateOfEventViewText.text!), \(newWeek)"
                     }
                     
                     eventDays.append(newWeek)
                     eventTimes.append(newTime)
                     
-                    let days = Double(exactly: eventDays.count)! * 5
+                    let days = Double(exactly: eventDays.count)!
                     
-                    if Int(self.quantityText.text!)! < 3 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * Double(quantityText.text!)! * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * Double(quantityText.text!)! * days) * 0.78)
-                        }
+                    if days >= 1 && days < 3 {
+                        let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * 7) * 0.85)
                         self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 5 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 3 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 3 * days) * 0.78)
-                        } else if days <= 8 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 6 * days) * 0.78)
-                        } else {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8 * days) * 0.78)
-                        }
-                        
+                    } else if days <= 5 {
+                        let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * 7) * 0.78)
                         self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 10 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.78)
-                        }
-                        
-                        self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 15 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.78)
-                        }
-                        
-                        self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 20 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.78)
-                        }
-                        
-                        self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 25 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.78)
-                        }
-                        
-                        self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 40 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.78)
-                        }
-                        
-                        self.eventTotalText.text = "$\(a)"
-                    } else if Int(self.quantityText.text!)! < 55 {
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.78)
-                        }
-                        self.eventTotalText.text = "$\(a)"
-                    } else {
-                        quantityText.text = "55"
-                        var a = ""
-                        if days > 1 && days < 3 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.85)
-                        } else if days <= 5 {
-                            a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.78)
-                        }
-                        
-                        self.eventTotalText.text = "$\(a)"
-                        self.showToast(message: "Please order this item again with the remaining quantity amount.", font: .systemFont(ofSize: 12))
-                        
                     }
+                        
+                    
+                      
+                        
+                        
+                    
                 } else {
                     self.showToast(message: "This week has already been selected.", font: .systemFont(ofSize: 12))
                 }
@@ -570,7 +534,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         } else if typeOfEventText.text == "Months" {
             
             if eventDays.count == 12 {
-                self.showToast(message: "To service more months, please select the 'Extended Period' option in the 'Time Period of Service' Tab.", font: .systemFont(ofSize: 12))
+                self.showToast(message: "To service more months, please order this item again.", font: .systemFont(ofSize: 12))
             } else {
                 let date = "\(datePicker.date)"
                 let month = date.prefix(7).suffix(2)
@@ -608,13 +572,13 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 let newMonth = "\(month)"
                 let newTime = "\(newHour):\(minute) \(amOrPm)"
                 
-                let item = "\(newMonth) \(newTime)"
+                let item = "\(newMonth), \(newTime)"
                 
                 if (!eventDays.contains(where: { $0 == newMonth })) {
                     if eventDays.isEmpty {
                         dateOfEventViewText.text = item
                     } else {
-                        dateOfEventViewText.text = "\(dateOfEventViewText.text!), \(item)"
+                        dateOfEventViewText.text = "\(dateOfEventViewText.text!) | \(item)"
                     }
                     
                     eventDays.append(newMonth)
@@ -626,121 +590,24 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
                 addDateViewButton.isUppercaseTitle = false
                 
-                let days = Double(exactly: eventDays.count)! * 23
+                let days = Double(exactly: eventDays.count)!
                 
-                if Int(self.quantityText.text!)! < 3 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * Double(quantityText.text!)! * days) * 0.85)
+                    if days >= 1 && days < 3 {
+                        let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.85)
+                        self.eventTotalText.text = "$\(a)"
                     } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * Double(quantityText.text!)! * days) * 0.78)
-                    }
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 5 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 3 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 3 * days) * 0.78)
+                       let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.78)
+                        self.eventTotalText.text = "$\(a)"
                     } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 6.0 * days) * 0.72)
+                       let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.72)
+                        self.eventTotalText.text = "$\(a)"
                     } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.67)
-                    }
+                       let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.67)
+                        self.eventTotalText.text = "$\(a)"
+            
                     
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 10 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 8.0 * days) * 0.67)
-                    }
                     
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 15 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 12.0 * days) * 0.67)
-                    }
                     
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 20 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 17.0 * days) * 0.67)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 25 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 22.0 * days) * 0.67)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 40 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 33.0 * days) * 0.67)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 55 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 45.0 * days) * 0.67)
-                    }
-                    self.eventTotalText.text = "$\(a)"
-                } else {
-                    quantityText.text = "55"
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.78)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.72)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.item!.itemPrice)! * 50.0 * days) * 0.67)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                    self.showToast(message: "Please order this item again with the remaining quantity amount.", font: .systemFont(ofSize: 12))
                     
                 }
                 } else {
@@ -762,6 +629,11 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         } else {
             datesOfEventView.isHidden = false
             typeOfEventText.isHidden = true
+            allergiesLabel.isHidden = true
+            allergies.isHidden = true
+            additionalMenuItems.isHidden = true
+            additionalMenuItemsLabel.isHidden = true
+            quantityText.isHidden = true
             if (clearDatesButton.isHidden == false) {
                 clearDatesButton.isHidden = true
             }
@@ -800,19 +672,27 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         seeAllDatesView.isHidden = false
         clearDatesButton.isHidden = true
         seeAllDatesButton.isHidden = true
+        allergiesLabel.isHidden = true
+        allergies.isHidden = true
+        additionalMenuItems.isHidden = true
+        additionalMenuItemsLabel.isHidden = true
     }
     
     @IBAction func seeAllDatesOkButtonPressed(_ sender: Any) {
         seeAllDatesView.isHidden = true
         clearDatesButton.isHidden = false
         seeAllDatesButton.isHidden = false
+        allergiesLabel.isHidden = false
+        allergies.isHidden = false
+        additionalMenuItems.isHidden = false
+        additionalMenuItemsLabel.isHidden = false
+        
         
     }
     
     @IBAction func locationOfEventButtonPressed(_ sender: Any) {
         if newOrEdit != "edit" {
             locationView.isHidden = false
-            quantityLabel.isHidden = true
             quantityText.isHidden = true
             allergies.isHidden = true
             allergiesLabel.isHidden = true
@@ -839,7 +719,6 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
             self.clearDatesButton.isHidden = false
         }
         self.locationView.isHidden = true
-        quantityLabel.isHidden = false
         quantityText.isHidden = false
         allergies.isHidden = false
         allergiesLabel.isHidden = false
@@ -867,7 +746,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
             locationI = "\(streetAddressText.text!) \(streetAddressText2.text!) \(cityText.text!), \(stateText.text!) \(zipCode.text!)"
         }
             let geoCoder1 = CLGeocoder()
-            let location2 = "\(self.item!.city) \(self.item!.state) \(self.item!.zipCode)"
+            let location2 = "\(self.personalChefInfo!.city) \(self.personalChefInfo!.state) \(self.personalChefInfo!.zipCode)"
             var latitude1 : CLLocationDegrees?
             var longitude1 : CLLocationDegrees?
             
@@ -933,7 +812,6 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                    self.clearDatesButton.isHidden = false
                }
                self.locationView.isHidden = true
-               self.quantityLabel.isHidden = false
                self.quantityText.isHidden = false
                self.allergies.isHidden = false
                self.allergiesLabel.isHidden = false
@@ -968,7 +846,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 
                 let documentId = UUID().uuidString
                 let item = personalChefInfo!
-                let data : [String: Any] = ["chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : "", "city" : item.city, "state" : item.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item.briefIntroduction, "itemTitle" : "Executive Chef", "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item.documentId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : "Executive Item", "unitPrice" : item.servicePrice, "user" : item.chefImageId, "imageCount" : 1, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "", "documentId" : item.documentId, "allergies" : allergies.text!, "additionalMenuItems" : additionalMenuItems.text!]
+                let data : [String: Any] = ["chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefName, "city" : item.city, "state" : item.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item.briefIntroduction, "itemTitle" : "Executive Chef", "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item.documentId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : "Executive Item", "unitPrice" : item.servicePrice, "user" : item.chefImageId, "imageCount" : 1, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "0", "documentId" : item.documentId, "allergies" : allergies.text!, "additionalMenuItems" : additionalMenuItems.text!]
                 
                 db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
                 

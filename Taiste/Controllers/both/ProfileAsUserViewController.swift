@@ -465,7 +465,7 @@ class ProfileAsUserViewController: UIViewController {
                         
                         
                         
-                        self.db.collection("\(itemType)").document(menuItemId).getDocument { document, error in
+                        self.db.collection("Cater Items").document(menuItemId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
                                     let data = document!.data()
@@ -523,33 +523,63 @@ class ProfileAsUserViewController: UIViewController {
     }
     
     private func loadPersonalChefInfo() {
+        if !items.isEmpty {
+            items.removeAll()
+            itemTableView.reloadData()
+        }
             itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         
-        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Item").getDocuments { documents, error in
+        db.collection("Chef").document(user).collection("Executive Items").getDocuments { documents, error in
             if error == nil {
                 if documents != nil {
                     for doc in documents!.documents {
                         let data = doc.data()
                         
-                        let typeOfInfo = data["typeOfInfo"] as? String
+                        let typeOfInfo = data["typeOfService"] as? String
+                        let complete = data["complete"] as? String
                         
-                        if typeOfInfo == "option1" {
-                                let itemTitle = data["itemTitle"] as! String
-                            self.personalChefItem!.option1Title = itemTitle
-                            self.itemTableView.reloadData()
-                            } else if typeOfInfo == "option2" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option2Title = itemTitle
-                                self.itemTableView.reloadData()
-                            } else if typeOfInfo == "option3" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option3Title = itemTitle
-                                self.itemTableView.reloadData()
-                            } else if typeOfInfo == "option4" {
-                                let itemTitle = data["itemTitle"] as! String
-                                self.personalChefItem!.option4Title = itemTitle
-                                self.itemTableView.reloadData()
+                        if typeOfInfo == "info" && complete == "yes" {
+                            
+                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let city = data["city"] as? String, let state = data["state"] as? String, let chefEmail = data["chefEmail"] as? String, let signatureDishId = data["signatureDishId"] as? String, let zipCode = data["zipCode"] as? String {
+                                print("happening personal chef")
+                                var availability = ""
+                                if trialRun == 0 {
+                                    availability = "Trial Run"
+                                }
+                                if weeks == 0 {
+                                    availability = "\(availability)  Weeks"
+                                }
+                                if months == 0 {
+                                    availability = "\(availability)  Months"
+                                }
+                                
+                                self.personalChefItem = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: self.user, chefImage: self.chefImage.image!, city: city, state: state, zipCode: zipCode, signatureDishImage: UIImage(), signatureDishId: signatureDishId, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID)
+                              
+                                
                             }
+                            
+                        }
+                        if typeOfInfo == "Signature Dish" {
+                            let chefEmail = data["chefEmail"] as! String
+                            print("happening personal chef 2")
+                                    self.storage.reference().child("chefs/\(chefEmail)/Executive Items/\(doc.documentID)0.png").downloadURL { imageUrl, error in
+                                        if error == nil {
+                                            URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                                // Error handling...
+                                                guard let imageData = data else { return }
+                                                
+                                                print("happening itemdata")
+                                                DispatchQueue.main.async {
+                                                    if self.personalChefItem != nil {
+                                                        self.personalChefItem!.signatureDishImage = UIImage(data: imageData)!
+                                                        self.itemTableView.reloadData()
+                                                    }
+                                                }
+                                            }.resume()
+                                        }
+                                    }
+                                }
+                            
                         
                     }
                         }
@@ -674,7 +704,7 @@ class ProfileAsUserViewController: UIViewController {
     
     @IBAction func personalChefButtonPressed(_ sender: Any) {
         toggle = "Executive Items"
-        loadChefItems()
+        loadPersonalChefInfo()
         contentCollectionView.isHidden = true
         itemTableView.isHidden = false
         comingSoon.isHidden = true
@@ -808,7 +838,11 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
             if toggle == "Cater Items" {
                 return items.count
             } else {
-                return 1
+                if personalChefItem != nil {
+                    return 1
+                } else {
+                    return 0
+                }
             }
         } else {
             if self.toggle == "Orders" {
@@ -946,19 +980,20 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 }
                 
                 
-                itemRef.child("chefs/\(item.chefEmail)/Executive Items/signature0.png").downloadURL { imageUrl, error in
+                itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.signatureDishId)0.png").downloadURL { imageUrl, error in
                     
-                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                        // Error handling...
-                        guard let imageData = data else { return }
-                        
-                        print("happening itemdata")
-                        DispatchQueue.main.async {
-                            cell.signatureImage.image = UIImage(data: imageData)!
-                            item.signatureDishImage = UIImage(data: imageData)!
-                        }
-                    }.resume()
-                    
+                    if error == nil {
+                        URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                            // Error handling...
+                            guard let imageData = data else { return }
+                            
+                            print("happening itemdata")
+                            DispatchQueue.main.async {
+                                cell.signatureImage.image = UIImage(data: imageData)!
+                                item.signatureDishImage = UIImage(data: imageData)!
+                            }
+                        }.resume()
+                    }
                 }
                 
                 if item.expectations > 4 {
@@ -1087,11 +1122,12 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     }
                 }
                 
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
-                    vc.caterOrPersonal = "personal"
-                    vc.personalChefInfo = item
-                    self.present(vc, animated: true, completion: nil)
-                }
+                
+//                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+//                    vc.caterOrPersonal = "personal"
+//                    vc.personalChefInfo = item
+//                    self.present(vc, animated: true, completion: nil)
+//                }
                 return cell
             }
         } else {
@@ -1688,7 +1724,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     
                     cell.orderButtonTapped = {
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
-                            vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, signatureDishImage: item.itemImage!, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: 0.0, expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId)
+                            vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, zipCode: item.zipCode, signatureDishImage: item.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: [0.0], expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId)
                             self.present(vc, animated: true, completion: nil)
                         }
                     }

@@ -50,7 +50,9 @@ struct PersonalChefInfo {
     var chefImage: UIImage
     let city: String
     let state: String
+    let zipCode: String
     var signatureDishImage: UIImage
+    let signatureDishId: String
     var option1Title: String
     var option2Title: String
     var option3Title: String
@@ -68,7 +70,7 @@ struct PersonalChefInfo {
     let months: Int
     let liked: [String]
     let itemOrders: Int
-    let itemRating: Double
+    let itemRating: [Double]
     let expectations: Int
     let chefRating: Int
     let quality: Int
