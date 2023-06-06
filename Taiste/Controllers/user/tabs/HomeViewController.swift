@@ -510,6 +510,9 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                 cell.chefName.text = item.chefName
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
+            cell.chefLikes.text = "\(item.liked.count)"
+            cell.chefOrders.text = "\(item.itemOrders)"
+            cell.chefRating.text = "\(item.chefRating)"
             
             let storageRef = self.storage.reference()
             let itemRef = self.storage.reference()

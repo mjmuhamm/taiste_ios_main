@@ -10106,15 +10106,13 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HOy-78-MSU">
-                                <rect key="frame" x="177" y="844" width="85" height="38"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nei-bm-HqT">
+                                <rect key="frame" x="175" y="844" width="72" height="38"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="85" id="Oom-1b-Qv3"/>
-                                    <constraint firstAttribute="height" constant="38" id="g9Q-TD-dDa"/>
+                                    <constraint firstAttribute="height" constant="38" id="gqI-gp-rTN"/>
                                 </constraints>
-                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GMI-Wa-OBa"/>
@@ -10135,6 +10133,7 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="Gcv-fq-4k1" firstAttribute="top" secondItem="tvZ-az-bEE" secondAttribute="bottom" constant="14" id="E2e-1z-l9w"/>
                             <constraint firstItem="hYj-cY-r36" firstAttribute="leading" secondItem="8LL-gH-MG1" secondAttribute="trailing" constant="24.5" id="FMj-HP-mnb"/>
                             <constraint firstItem="bkv-hG-uqs" firstAttribute="leading" secondItem="GMI-Wa-OBa" secondAttribute="leading" constant="13" id="Fb2-fa-GXE"/>
+                            <constraint firstItem="nei-bm-HqT" firstAttribute="top" secondItem="tvZ-az-bEE" secondAttribute="bottom" constant="14" id="G3V-UH-pyY"/>
                             <constraint firstItem="peL-Uu-4jZ" firstAttribute="leading" secondItem="GMI-Wa-OBa" secondAttribute="leading" constant="12" id="Izk-4l-A34"/>
                             <constraint firstItem="K0i-J0-nyk" firstAttribute="top" secondItem="eHo-CM-v8F" secondAttribute="bottom" constant="9" id="KLu-oi-3ER"/>
                             <constraint firstItem="GMI-Wa-OBa" firstAttribute="trailing" secondItem="NSi-Tk-fd5" secondAttribute="trailing" constant="17" id="L5g-Au-oFr"/>
@@ -10142,7 +10141,6 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="eHo-CM-v8F" firstAttribute="top" secondItem="pe9-Df-dBL" secondAttribute="bottom" constant="22" id="Mgz-Pr-6E9"/>
                             <constraint firstItem="xk2-Hd-yuy" firstAttribute="leading" secondItem="SMb-rf-Miz" secondAttribute="trailing" constant="8" symbolic="YES" id="O83-yK-VyR"/>
                             <constraint firstItem="IQS-ZX-JpW" firstAttribute="top" secondItem="djI-7y-b0K" secondAttribute="bottom" constant="11" id="Omf-If-meC"/>
-                            <constraint firstItem="HOy-78-MSU" firstAttribute="top" secondItem="tvZ-az-bEE" secondAttribute="bottom" constant="14" id="PdP-mV-Ufz"/>
                             <constraint firstItem="tvZ-az-bEE" firstAttribute="top" secondItem="NSi-Tk-fd5" secondAttribute="bottom" constant="2" id="QTL-zh-UpM"/>
                             <constraint firstItem="pXv-PO-VW5" firstAttribute="leading" secondItem="GMI-Wa-OBa" secondAttribute="leading" constant="20" id="RFp-yy-GZv"/>
                             <constraint firstItem="pe9-Df-dBL" firstAttribute="leading" secondItem="GMI-Wa-OBa" secondAttribute="leading" constant="20" id="Ron-7V-MFE"/>
@@ -10163,11 +10161,11 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="bap-rj-3CE" firstAttribute="top" secondItem="8LL-gH-MG1" secondAttribute="bottom" constant="23" id="jP9-pq-fPR"/>
                             <constraint firstItem="djI-7y-b0K" firstAttribute="top" secondItem="bkv-hG-uqs" secondAttribute="bottom" constant="12" id="l56-Zg-Gmu"/>
                             <constraint firstItem="tvZ-az-bEE" firstAttribute="leading" secondItem="GMI-Wa-OBa" secondAttribute="leading" id="lOy-Jx-9eV"/>
+                            <constraint firstItem="nei-bm-HqT" firstAttribute="leading" secondItem="xk2-Hd-yuy" secondAttribute="trailing" constant="1" id="mtD-oO-lPz"/>
                             <constraint firstItem="hYj-cY-r36" firstAttribute="leading" secondItem="XUs-CQ-dxF" secondAttribute="trailing" constant="24.5" id="nFq-tQ-CLc"/>
                             <constraint firstItem="tvZ-az-bEE" firstAttribute="trailing" secondItem="GMI-Wa-OBa" secondAttribute="trailing" id="nio-44-I71"/>
                             <constraint firstItem="vLS-Yz-zGe" firstAttribute="top" secondItem="pe9-Df-dBL" secondAttribute="bottom" constant="30" id="pD2-7K-mur"/>
                             <constraint firstItem="hYj-cY-r36" firstAttribute="top" secondItem="vaq-M3-mH5" secondAttribute="bottom" constant="6" id="pUe-Cv-Hlm"/>
-                            <constraint firstItem="HOy-78-MSU" firstAttribute="leading" secondItem="xk2-Hd-yuy" secondAttribute="trailing" constant="3" id="sqa-sO-Vu7"/>
                             <constraint firstItem="GMI-Wa-OBa" firstAttribute="bottom" secondItem="Gcv-fq-4k1" secondAttribute="bottom" constant="26" id="t7w-bW-a1r"/>
                             <constraint firstItem="4PD-xw-uC3" firstAttribute="top" secondItem="GMI-Wa-OBa" secondAttribute="top" constant="9" id="uXP-pz-Fzu"/>
                             <constraint firstItem="hYj-cY-r36" firstAttribute="top" secondItem="IQS-ZX-JpW" secondAttribute="bottom" constant="11" id="udG-NH-ERe"/>
@@ -10194,7 +10192,7 @@ Taïste may contain links to third-party websites or services that are not contr
                         <outlet property="option4Button" destination="OCA-2O-dXR" id="eHW-IN-QSm"/>
                         <outlet property="option4Text" destination="XUs-CQ-dxF" id="1Aq-Aa-8XI"/>
                         <outlet property="perSessionButton" destination="xk2-Hd-yuy" id="zbw-OQ-UWu"/>
-                        <outlet property="personalChefPrice" destination="HOy-78-MSU" id="ZNV-37-R4W"/>
+                        <outlet property="personalChefPrice" destination="nei-bm-HqT" id="yXT-Cn-cZv"/>
                         <outlet property="specialDishImage" destination="hYj-cY-r36" id="coL-S7-9eq"/>
                         <outlet property="specialty" destination="ARZ-bW-vHt" id="pfo-RD-ZoO"/>
                         <outlet property="trialRunButton" destination="pCR-oD-apW" id="X60-fr-1bK"/>
@@ -10205,7 +10203,7 @@ Taïste may contain links to third-party websites or services that are not contr
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Imt-uF-7oX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11199" y="415"/>
+            <point key="canvasLocation" x="11198.550724637682" y="414.50892857142856"/>
         </scene>
         <!--Personal Chef Order Detail View Controller-->
         <scene sceneID="Ko7-dW-vsJ">

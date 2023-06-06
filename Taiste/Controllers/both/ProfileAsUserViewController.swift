@@ -1568,6 +1568,10 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     
                     cell.chefName.text = item.chefName
                     cell.briefIntro.text = item.itemDescription
+                    cell.chefLikes.text = "\(item.liked.count)"
+                    cell.chefOrders.text = "\(item.itemOrders)"
+                    cell.chefRating.text = "\(item.chefRating)"
+                    
                     if item.expectations > 4 {
                         cell.expectations1.image = UIImage(systemName: "star.fill")
                         cell.expectations2.image = UIImage(systemName: "star.fill")

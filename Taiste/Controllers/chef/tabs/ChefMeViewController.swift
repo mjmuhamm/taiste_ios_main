@@ -258,8 +258,11 @@ class ChefMeViewController: UIViewController {
                         
                         if typeOfInfo == "info" && complete == "yes" {
                             print("happening personal chef")
-                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
+                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let complete = data["complete"] as? String {
                 
+                                if complete == "yes" {
+                                    self.addContentButton.isHidden = true
+                                }
                                 var availability = ""
                                 if trialRun == 0 {
                                     availability = "Trial Run"
@@ -853,6 +856,9 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
                 cell.chefName.text = item.chefName
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
+                cell.chefLikes.text = "\(item.liked.count)"
+                cell.chefOrders.text = "\(item.itemOrders)"
+                cell.chefRating.text = "\(item.chefRating)"
                 
                 if item.expectations > 4 {
                     cell.expectations1.image = UIImage(systemName: "star.fill")

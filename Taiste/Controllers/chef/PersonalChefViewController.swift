@@ -71,6 +71,8 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     var city = ""
     var state = ""
     var zipCode = ""
+    var signatureDishId = ""
+    var complete = ""
    
     
     
@@ -118,7 +120,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                     if documents!.count == 0 {
                         let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : "", "lengthOfPersonalChef" : "", "specialty" : "", "whatHelpsYouExcel" : "", "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : "", "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : "", "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "zipCode" : self.zipCode, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "complete" : "", "signatureDishId" : ""]
                         
-                        self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: "", howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: "", trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
+                        self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: "", howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: "", trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: [0.0], expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
                         
                         self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(self.documentId).setData(info)
                     }
@@ -128,7 +130,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                         
                         if typeOfService == "info" {
                             
-                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
+                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let complete = data["complete"] as? String {
                 
                                 self.briefIntroduction.text = briefIntroduction
                                 if briefIntroduction != "Brief Introduction, and why people should believe in your ability." {
@@ -143,8 +145,9 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                                 self.mostPrizedAccomplishments.text = mostPrizedAccomplishment
                                 self.specialty.text = specialty
                                 self.whatHelpsYouExcel.text = whatHelpsYouExcel
-                                
+                                self.complete = complete
                                 self.documentId = doc.documentID
+                                print("this is document id origin \(self.documentId)")
                                 var availability = ""
                                 if trialRun != 0 {
                                     availability = "Trial Run"
@@ -194,6 +197,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                         } else {
                             
                             if typeOfService == "Signature Dish" {
+                                self.signatureDishId = doc.documentID
                                 self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(doc.documentID)0.png").downloadURL { imageUrl, error in
                                     if error == nil {
                                         URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
@@ -337,7 +341,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func addSpecialDishImage(_ sender: Any) {
-        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : 0.0]
+        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0]]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
         
@@ -358,7 +362,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func option1ButtonPressed(_ sender: Any) {
         
-        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : 0.0]
+        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0]]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
         
@@ -377,7 +381,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func option2ButtonPressed(_ sender: Any) {
-        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : 0.0]
+        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0]]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
         
@@ -396,7 +400,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func option3ButtonPressed(_ sender: Any) {
-        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : 0.0]
+        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0]]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
         
@@ -415,7 +419,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func option4ButtonPressed(_ sender: Any) {
-        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : 0.0]
+        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0]]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId)
         
@@ -513,12 +517,19 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
         } else if specialty.text == "" {
             showToast(message: "Please enter your specialty.", font: .systemFont(ofSize: 12))
         } else {
-            let a = String(format: "%.2f", personalChefPrice.text!)
-            let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : trialRun, "weeks" : weeks, "months" : months, "hourlyOrPerSession" : hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : expectations, "chefRating" : chefRating, "quality" : quality, "chefName" : chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "zipCode" : self.zipCode, "liked" : liked, "itemOrders" : itemOrders, "itemRating" : itemRating, "complete" : "yes"]
+            let a = String(format: "%.2f", Double(personalChefPrice.text!)!)
+            let info1: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : trialRun, "weeks" : weeks, "months" : months, "hourlyOrPerSession" : hourlyOrPerSession, "servicePrice" : a, "expectations" : expectations, "chefRating" : chefRating, "quality" : quality, "chefName" : chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "zipCode" : self.zipCode, "liked" : liked, "itemOrders" : itemOrders, "itemRating" : itemRating, "complete" : "yes", "signatureDishId" : self.signatureDishId]
             
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(documentId).updateData(info)
-            db.collection("Executive Items").document(documentId).updateData(info)
-            self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(documentId).updateData(info1)
+            
+            if complete == "yes" {
+                self.db.collection("Executive Items").document(self.documentId).updateData(info1)
+                self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+            } else {
+                self.db.collection("Executive Items").document(self.documentId).setData(info1)
+                self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+            }
+            
         }
             
             
