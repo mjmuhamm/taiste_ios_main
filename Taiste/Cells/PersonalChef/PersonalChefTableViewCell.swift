@@ -50,7 +50,7 @@ class PersonalChefTableViewCell: UITableViewCell {
     
     
     var chefImageButtonTapped : (() -> ()) = {}
-    var itemImageButtonTapped : (() -> ()) = {}
+    var detailButtonTapped : (() -> ()) = {}
     var editInfoButtonTapped : (() -> ()) = {}
     var orderButtonTapped : (() -> ()) = {}
     var likeButtonTapped : (() -> ()) = {}
@@ -69,6 +69,9 @@ class PersonalChefTableViewCell: UITableViewCell {
         
     }
     
+    @IBAction func detailButtonPressed(_ sender: Any) {
+        detailButtonTapped()
+    }
     
     @IBAction func likeButtonPressed(_ sender: Any) {
         likeButtonTapped()
@@ -82,13 +85,6 @@ class PersonalChefTableViewCell: UITableViewCell {
         chefImageButtonTapped()
     }
     
-    @IBAction func itemDetailButtonPressed(_ sender: Any) {
-        itemImageButtonTapped()
-    }
-    
-    @IBAction func itemDetailButton2Pressed(_ sender: Any) {
-        itemImageButtonTapped()
-    }
     
     @IBAction func editInfoButtonPressed(_ sender: Any) {
         editInfoButtonTapped()

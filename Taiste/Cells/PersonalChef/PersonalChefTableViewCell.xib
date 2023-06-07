@@ -298,10 +298,33 @@
                         <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0f-SN-7AI">
+                        <rect key="frame" x="0.0" y="37" width="414" height="296"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="414" id="Rpp-HD-Xpf"/>
+                            <constraint firstAttribute="height" constant="296" id="XR9-72-e9E"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="detailButtonPressed:" destination="Qfl-2o-w41" eventType="touchUpInside" id="Gue-zG-4Qw"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrV-40-Lk4">
+                        <rect key="frame" x="135" y="140" width="146" height="177"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="146" id="bo7-lJ-2yF"/>
+                            <constraint firstAttribute="height" constant="177" id="hTf-bY-sKM"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="chefImageButtonPressed:" destination="Qfl-2o-w41" eventType="touchUpInside" id="8yR-2j-X4X"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="q4v-nc-MeK" firstAttribute="top" secondItem="Giu-ZT-pPi" secondAttribute="bottom" constant="15" id="0gj-iw-oWz"/>
                     <constraint firstAttribute="bottom" secondItem="Y5z-tJ-TRb" secondAttribute="bottom" constant="18" id="1k1-63-qq2"/>
+                    <constraint firstItem="Giu-ZT-pPi" firstAttribute="top" secondItem="DrV-40-Lk4" secondAttribute="bottom" constant="22" id="5Zy-v9-uwg"/>
                     <constraint firstItem="exA-EM-NCc" firstAttribute="top" secondItem="sr2-Pf-NGW" secondAttribute="top" constant="1" id="6PE-Xe-F27"/>
                     <constraint firstAttribute="trailing" secondItem="aud-f5-9XY" secondAttribute="trailing" id="6Qk-l8-Op9"/>
                     <constraint firstAttribute="trailing" secondItem="Giu-ZT-pPi" secondAttribute="trailing" constant="5" id="BRR-Py-Hcb"/>
@@ -315,7 +338,9 @@
                     <constraint firstItem="Giu-ZT-pPi" firstAttribute="leading" secondItem="sr2-Pf-NGW" secondAttribute="leading" constant="5" id="Np1-cC-hyP"/>
                     <constraint firstItem="Giu-ZT-pPi" firstAttribute="top" secondItem="wCj-xa-Auj" secondAttribute="bottom" constant="51" id="Nqc-ec-jV6"/>
                     <constraint firstItem="TYq-92-cyZ" firstAttribute="leading" secondItem="sr2-Pf-NGW" secondAttribute="leading" constant="21" id="PcF-WC-FbE"/>
+                    <constraint firstItem="Z0f-SN-7AI" firstAttribute="leading" secondItem="sr2-Pf-NGW" secondAttribute="leading" id="Pvo-2t-8kM"/>
                     <constraint firstAttribute="trailing" secondItem="exA-EM-NCc" secondAttribute="trailing" constant="1" id="R0u-ob-xcc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="DrV-40-Lk4" secondAttribute="trailing" constant="113" id="S4Z-fT-FNx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Y5z-tJ-TRb" secondAttribute="trailing" constant="-1" id="WJp-it-KSx"/>
                     <constraint firstItem="aud-f5-9XY" firstAttribute="top" secondItem="sr2-Pf-NGW" secondAttribute="top" id="an6-YP-675"/>
                     <constraint firstAttribute="bottom" secondItem="TYq-92-cyZ" secondAttribute="bottom" constant="12.333333333333314" id="eUt-is-7td"/>
@@ -327,10 +352,12 @@
                     <constraint firstItem="q4v-nc-MeK" firstAttribute="centerX" secondItem="sr2-Pf-NGW" secondAttribute="centerX" id="n7t-Xa-mCE"/>
                     <constraint firstAttribute="trailing" secondItem="F8q-yw-9D0" secondAttribute="trailing" constant="18.670000000000002" id="nj5-v5-vOW"/>
                     <constraint firstAttribute="bottom" secondItem="TYq-92-cyZ" secondAttribute="bottom" constant="12.333333333333314" id="qDl-eW-KTf"/>
+                    <constraint firstAttribute="trailing" secondItem="Z0f-SN-7AI" secondAttribute="trailing" id="r3O-ya-j24"/>
                     <constraint firstAttribute="bottom" secondItem="F8q-yw-9D0" secondAttribute="bottom" constant="19" id="rGE-dN-px8"/>
                     <constraint firstItem="Y5z-tJ-TRb" firstAttribute="top" secondItem="F8q-yw-9D0" secondAttribute="top" id="spE-Md-S1M"/>
                     <constraint firstAttribute="bottom" secondItem="Y5z-tJ-TRb" secondAttribute="bottom" constant="18" id="sxi-Rd-zFC"/>
                     <constraint firstItem="ZFD-5F-5dp" firstAttribute="top" secondItem="q4v-nc-MeK" secondAttribute="bottom" constant="10" id="xHI-0z-akN"/>
+                    <constraint firstItem="Z0f-SN-7AI" firstAttribute="top" secondItem="sr2-Pf-NGW" secondAttribute="top" constant="37" id="xJ3-u8-nux"/>
                     <constraint firstItem="2eL-gD-N9r" firstAttribute="top" secondItem="wCj-xa-Auj" secondAttribute="bottom" constant="10" id="yI9-n9-jIK"/>
                 </constraints>
             </tableViewCellContentView>
@@ -364,7 +391,7 @@
                 <outlet property="servicePrice" destination="Xlb-VP-oJT" id="bnC-Ps-CUx"/>
                 <outlet property="signatureImage" destination="aud-f5-9XY" id="1FV-wW-PXS"/>
             </connections>
-            <point key="canvasLocation" x="461" y="123"/>
+            <point key="canvasLocation" x="459.5419847328244" y="122.53521126760565"/>
         </tableViewCell>
     </objects>
     <resources>

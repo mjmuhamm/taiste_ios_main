@@ -705,16 +705,10 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                     }
                 }
                 
-                cell.itemImageButtonTapped = {
+                cell.detailButtonTapped = {
                     if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
-                        vc.chefEmail = order.chefEmail
-                        vc.imageCount = order.imageCount
-                        vc.menuItemId = order.documentId
-                        vc.itemType = order.typeOfService
-                        vc.itemTitleI = order.itemTitle
-                        vc.itemDescriptionI = order.itemDescription
-                        vc.itemImage = order.itemImage
-                        vc.caterOrPersonal = "cater"
+                        vc.caterOrPersonal = "personal"
+                        vc.personalChefInfo = PersonalChefInfo(chefName: order.chefName, chefEmail: order.chefEmail, chefImageId: order.chefImageId, chefImage: order.chefImage!, city: order.city, state: order.state, zipCode: order.zipCode, signatureDishImage: order.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: "", howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: "", trialRun: 0, weeks: 0, months: 0, liked: [], itemOrders: 0, itemRating: [0.0], expectations: 0, chefRating: 0, quality: 0, documentId: "", openToMenuRequests: "")
                         self.present(vc, animated: true, completion: nil)
                         
                     }}
@@ -1025,16 +1019,10 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                     }
                 }
                 
-                cell.itemImageButtonTapped = {
-                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
-                        vc.chefEmail = item.chefEmail
-                        vc.imageCount = item.imageCount
-                        vc.menuItemId = item.documentId
-                        vc.itemType = item.itemType
-                        vc.itemTitleI = item.itemTitle
-                        vc.itemDescriptionI = item.itemDescription
-                        vc.itemImage = item.itemImage
-                        vc.caterOrPersonal = "cater"
+                cell.detailButtonTapped = {
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+                        vc.caterOrPersonal = "personal"
+                        vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, zipCode: item.zipCode, signatureDishImage: item.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: "", howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: "", trialRun: 0, weeks: 0, months: 0, liked: [], itemOrders: 0, itemRating: [0.0], expectations: 0, chefRating: 0, quality: 0, documentId: "", openToMenuRequests: "")
                         self.present(vc, animated: true, completion: nil)
                     }
                 }

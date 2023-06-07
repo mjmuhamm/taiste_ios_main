@@ -75,6 +75,7 @@ struct PersonalChefInfo {
     let chefRating: Int
     let quality: Int
     let documentId: String
+    let openToMenuRequests: String
 }
 
 

@@ -46,11 +46,10 @@ class ItemDetailViewController: UIViewController {
     private var imgArr : [UIImage] = []
     
     @IBOutlet weak var personalChefView: UIView!
-    @IBOutlet weak var chefName: UILabel!
-    @IBOutlet weak var chefImage: UIImageView!
     @IBOutlet weak var signatureTitle: UILabel!
     @IBOutlet weak var signatureImage: UIImageView!
     
+    @IBOutlet weak var option1Button: UIButton!
     @IBOutlet weak var option1Text: UILabel!
     @IBOutlet weak var option2Button: UIButton!
     @IBOutlet weak var option2Text: UILabel!
@@ -65,6 +64,7 @@ class ItemDetailViewController: UIViewController {
     @IBOutlet weak var whatHelpsYouExcel: UILabel!
     @IBOutlet weak var mostPrizedAccomplishment: UILabel!
     @IBOutlet weak var availableText: UILabel!
+    @IBOutlet weak var openToMenuRequests: UILabel!
     @IBOutlet weak var payStack: UIStackView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
@@ -97,6 +97,7 @@ class ItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        signatureImage.layer.cornerRadius = 6
         if  caterOrPersonal == "cater" {
             self.personalChefView.isHidden = true
             self.payStack.isHidden = true
@@ -113,22 +114,19 @@ class ItemDetailViewController: UIViewController {
             }
             
             loadImages()
-            loadReviews()
+            loadReviews(itemType: item!.itemType, documentId: item!.menuItemId)
         } else if caterOrPersonal == "personal" {
-            self.personalChefView.isHidden = false
-            self.payStack.isHidden = false
-            self.payButton.isHidden = false
-            self.itemCalories.isHidden = true
-            self.chefImage.image = personalChefInfo!.chefImage
-            self.chefName.text = personalChefInfo!.chefName
-            self.briefIntroduction.text = personalChefInfo!.briefIntroduction
+            loadExecutiveItem()
             
-        } else if caterOrPersonal == "dish" {
+        } else {
             self.reviewButton.isHidden = true
             self.personalChefView.isHidden = true
             self.payStack.isHidden = true
             self.payButton.isHidden = true
             self.itemCalories.isHidden = false
+            self.itemTitle.isHidden = false
+            self.sliderCollectionView.isHidden = false
+            self.itemDescription.isHidden = false
             
             if item != nil {
                 itemTitle.text = item!.itemTitle
@@ -137,11 +135,10 @@ class ItemDetailViewController: UIViewController {
             } else {
                 itemTitle.text = itemTitleI
                 itemDescription.text = itemDescriptionI
-                imgArr.append(itemImage!)
+                
             }
             
-            loadImages()
-            loadReviews()
+            loadDish()
         }
         
         
@@ -157,10 +154,137 @@ class ItemDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    private func loadReviews() {
+    private func loadExecutiveItem() {
+        db.collection("Chef").document(personalChefInfo!.chefImageId).collection("Executive Items").getDocuments { documents, error in
+            if error == nil {
+                for doc in documents!.documents {
+                    let data = doc.data()
+                    
+                    let typeOfInfo = data["typeOfService"] as? String
+                    
+                    if typeOfInfo == "info" {
+                        if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let complete = data["complete"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let chefImageId = data["chefImageId"] as? String, let chefEmail = data["chefEmail"] as? String, let openToMenuRequests = data["openToMenuRequests"] as? String {
+                            
+                            var availability = ""
+                            if trialRun == 1 {
+                                availability = "Trial Run"
+                            }
+                            if weeks == 1 {
+                                availability = "\(availability)  Weeks"
+                            }
+                            if months == 1 {
+                                availability = "\(availability)  Months"
+                            }
+                            
+                            self.personalChefInfo = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: self.personalChefInfo!.chefImage, city: city, state: state, zipCode: zipCode, signatureDishImage: self.personalChefInfo!.signatureDishImage, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID, openToMenuRequests: openToMenuRequests)
+                            
+                            self.personalChefView.isHidden = false
+                            self.payStack.isHidden = false
+                            self.payButton.isHidden = false
+                            self.itemCalories.isHidden = true
+                            self.openToMenuRequests.text = openToMenuRequests
+                            
+                            
+                            self.signatureImage.image = self.personalChefInfo!.signatureDishImage
+                            self.signatureImage.layer.cornerRadius = 6
+                            
+                            self.briefIntroduction.text = self.personalChefInfo!.briefIntroduction
+                            self.howLongBeenAChef.text = lengthOfPersonalChef
+                            self.specialty.text = specialty
+                            self.whatHelpsYouExcel.text = whatHelpsYouExcel
+                            self.mostPrizedAccomplishment.text = mostPrizedAccomplishment
+                            self.availableText.text = availability
+                            self.openToMenuRequests.text = openToMenuRequests
+                            self.priceLabel.text = "$\(servicePrice)"
+                            self.loadReviews(itemType: "Executive Items", documentId: doc.documentID)
+                            
+                        }
+                    } else if typeOfInfo == "Signature Dish" {
+                        let itemTitle = data["itemTitle"] as! String
+                        self.signatureTitle.text = itemTitle
+                    } else if typeOfInfo == "Option 1" {
+                        let itemTitle = data["itemTitle"] as! String
+                        self.option1Text.text = itemTitle
+                        self.option1Button.isHidden = false
+                        self.option1Text.isHidden = false
+                        self.option1Text.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    } else if typeOfInfo == "Option 2" {
+                        let itemTitle = data["itemTitle"] as! String
+                        self.option2Text.text = itemTitle
+                        self.option2Text.isHidden = false
+                        self.option2Button.isHidden = false
+                        self.option2Text.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    } else if typeOfInfo == "Option 3" {
+                        let itemTitle = data["itemTitle"] as! String
+                        self.option3Text.text = itemTitle
+                        self.option3Text.isHidden = false
+                        self.option3Button.isHidden = false
+                        self.option3Text.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    } else if typeOfInfo == "Option 4" {
+                        let itemTitle = data["itemTitle"] as! String
+                        self.option4Text.text = itemTitle
+                        self.option4Text.isHidden = false
+                        self.option4Button.isHidden = false
+                        self.option4Text.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func loadDish() {
+        
+        db.collection("Chef").document(personalChefInfo!.chefImageId).collection("Executive Items").getDocuments { documents, error in
+            if error == nil {
+                for doc in documents!.documents {
+                    let data = doc.data()
+                    
+                    let typeOfInfo = data["typeOfService"] as! String
+                    print("typeofinfo \(typeOfInfo)")
+                    print("cater or personal \(self.caterOrPersonal)")
+                    if typeOfInfo == self.caterOrPersonal {
+                        print("type of info happening")
+                        if let itemTitle = data["itemTitle"] as? String, let imageCount = data["imageCount"] as? Int, let chefEmail = data["chefEmail"] as? String, let itemDescription = data["itemDescription"] as? String {
+                            
+                            self.itemTitle.text = itemTitle
+                            self.itemDescription.text = itemDescription
+                            self.reviewButton.isHidden = true
+                            self.payStack.isHidden = true
+                            
+                            for i in 0..<imageCount {
+                                self.storage.reference().child("chefs/\(chefEmail)/Executive Items/\(doc.documentID)\(i).png").downloadURL { imageUrl, error in
+                                    if error == nil {
+                                        URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                            // Error handling...
+                                            guard let imageData = data else { return }
+                                            
+                                            print("happening itemdata")
+                                            DispatchQueue.main.async {
+                                                self.imgArr.append(UIImage(data: imageData)!)
+                                                self.pageControl.numberOfPages = self.imgArr.count
+                                                self.sliderCollectionView.reloadData()
+                                            }
+                                        }.resume()
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    private func loadReviews(itemType: String, documentId: String) {
+        
+        
         let storageRef = storage.reference()
         
-        db.collection(item!.itemType).document(item!.menuItemId).collection("UserReviews").addSnapshotListener { documents, error in
+        db.collection(itemType).document(documentId).collection("UserReviews").addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                     for doc in documents!.documents {
@@ -266,6 +390,8 @@ class ItemDetailViewController: UIViewController {
             }
         }
     }
+    
+    
     private func loadImages() {
         if item != nil {
             itemType = item!.itemType
@@ -303,32 +429,54 @@ class ItemDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func chefImageButtonPressed(_ sender: Any) {
-        
-    }
+    
     
     @IBAction func signatureDishButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+            vc.caterOrPersonal = "Signature Dish"
+            vc.personalChefInfo = personalChefInfo!
+            self.present(vc, animated: true, completion: nil)
+        }
         
     }
     
     @IBAction func option1ButtonPressed(_ sender: Any) {
-        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+            vc.caterOrPersonal = "Option 1"
+            vc.personalChefInfo = personalChefInfo!
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func option2ButtonPressed(_ sender: Any) {
-        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+            vc.caterOrPersonal = "Option 2"
+            vc.personalChefInfo = personalChefInfo!
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func option3ButtonPressed(_ sender: Any) {
-        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+            vc.caterOrPersonal = "Option 3"
+            vc.personalChefInfo = personalChefInfo!
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func option4ButtonPressed(_ sender: Any) {
-        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+            vc.caterOrPersonal = "Option 4"
+            vc.personalChefInfo = personalChefInfo!
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func payButtonPressed(_ sender: Any) {
-        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+            vc.personalChefInfo = personalChefInfo
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     
