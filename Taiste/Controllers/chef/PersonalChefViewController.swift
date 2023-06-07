@@ -20,7 +20,6 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     let db = Firestore.firestore()
     let storage = Storage.storage()
 
-    @IBOutlet weak var chefImage: UIImageView!
     @IBOutlet weak var specialDishImage: UIImageView!
 
     @IBOutlet weak var briefIntroduction: UITextView!
@@ -84,9 +83,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         briefIntroduction.delegate = self
-        chefImage.layer.cornerRadius = 6
         specialDishImage.layer.cornerRadius = 6
-        self.chefImage.image = self.chefImageI
         loadPersonalChefInfo()
         print("color \(briefIntroduction.textColor)")
         
@@ -134,7 +131,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                         
                         if typeOfService == "info" {
                             
-                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let complete = data["complete"] as? String {
+                            if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let complete = data["complete"] as? String, let openToMenuRequests = data["openToMenuRequests"] as? String {
                 
                                 self.briefIntroduction.text = briefIntroduction
                                 if briefIntroduction != "Brief Introduction, and why people should believe in your ability." {
@@ -144,6 +141,9 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                                     self.briefIntroduction.text = "Brief Introduction, and why people should believe in your ability."
                                     self.briefIntroduction.textColor = UIColor.lightGray
                                 }
+                                self.expectations = expectations
+                                self.chefRating = chefRating
+                                self.quality = quality
                                 self.lengthOfPersonalChef.text = lengthOfPersonalChef
                                 self.personalChefPrice.text = servicePrice
                                 self.mostPrizedAccomplishments.text = mostPrizedAccomplishment
@@ -175,26 +175,26 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
                                     self.monthsButton.setTitleColor(UIColor.white, for:.normal)
                                     self.monthsButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
                                 }
+                                
+                                self.openToMenuRequests = openToMenuRequests
+                                if openToMenuRequests == "Yes" {
+                                    availability = "\(availability)  Months"
+                                    
+                                    self.menuRequestsYesButton.setTitleColor(UIColor.white, for:.normal)
+                                    self.menuRequestsYesButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    self.menuRequestsNoButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                                    self.menuRequestsNoButton.backgroundColor = UIColor.white
+                                } else {
+                                    self.menuRequestsNoButton.setTitleColor(UIColor.white, for:.normal)
+                                    self.menuRequestsNoButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
+                                    self.menuRequestsYesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                                    self.menuRequestsYesButton.backgroundColor = UIColor.white
+                                }
                                 let storageRef = self.storage.reference()
                                 let imageRef = self.storage.reference()
                                 
-                                self.personalChefItem = PersonalChefInfo(chefName: chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: UIImage(), city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID, openToMenuRequests: self.openToMenuRequests)
+                                self.personalChefItem = PersonalChefInfo(chefName: chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: UIImage(), city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID, openToMenuRequests: openToMenuRequests)
                                 
-                                storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { itemUrl, error in
-                                    
-                                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                                        // Error handling...
-                                        guard let imageData = data else { return }
-                                        
-                                        print("happening itemdata")
-                                        DispatchQueue.main.async {
-                                            self.chefImage.image = UIImage(data: imageData)!
-                                            if self.personalChefItem != nil {
-                                                self.personalChefItem!.chefImage = UIImage(data: imageData)!
-                                            }
-                                        }
-                                    }.resume()
-                                }
                                 
                             }
                             
@@ -261,91 +261,10 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    private func insertInfo() {
-          
-        self.briefIntroduction.text = self.personalChefItem!.briefIntroduction
-        self.lengthOfPersonalChef.text = self.personalChefItem!.howLongBeenAChef
-        self.specialty.text = self.personalChefItem!.specialty
-        self.whatHelpsYouExcel.text = self.personalChefItem!.whatHelpesYouExcel
-        self.hourlyOrPerSession = self.personalChefItem!.hourlyOrPerSession
-        self.personalChefPrice.text = self.personalChefItem!.servicePrice
-        self.documentId = self.personalChefItem!.documentId
-        self.expectations = self.personalChefItem!.expectations
-        self.chefRating = self.personalChefItem!.chefRating
-        self.quality = self.personalChefItem!.quality
-        self.liked = self.personalChefItem!.liked
-        self.itemOrders = self.personalChefItem!.itemOrders
-        self.itemRating = self.personalChefItem!.itemRating
-        self.specialDishImage.image = self.personalChefItem!.signatureDishImage
-        
-        if self.personalChefItem!.option1Title != "" {
-            self.option2Button.isHidden = false
-            self.option2Text.isHidden = false
-        }
-        if self.personalChefItem!.option2Title != "" {
-            self.option3Button.isHidden = false
-            self.option3Text.isHidden = false
-        }
-        if self.personalChefItem!.option3Title != "" {
-            self.option4Button.isHidden = false
-            self.option4Text.isHidden = false
-        }
-        
-                                
-        if self.personalChefItem!.weeks == 0 {
-                                    self.weeksButton.isSelected = false
-                                    self.weeks = 0
-                                    self.weeksButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-                                    self.weeksButton.backgroundColor = UIColor.white
-                                } else {
-                                    self.weeksButton.isSelected = true
-                                    self.weeks = 1
-                                    self.weeksButton.setTitleColor(UIColor.white, for:.normal)
-                                    self.weeksButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
-                                }
-        
-        if self.personalChefItem!.months == 0 {
-                                    self.monthsButton.isSelected = false
-                                    self.months = 0
-                                    self.monthsButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-                                    self.monthsButton.backgroundColor = UIColor.white
-                                } else {
-                                    self.monthsButton.isSelected = true
-                                    self.months = 1
-                                    self.monthsButton.setTitleColor(UIColor.white, for:.normal)
-                                    self.monthsButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
-                                }
-        
-        if self.personalChefItem!.trialRun == 0 {
-                                    self.trialRunButton.isSelected = false
-                                    self.trialRun = 0
-                                    self.trialRunButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-                                    self.trialRunButton.backgroundColor = UIColor.white
-                                } else {
-                                    self.trialRunButton.isSelected = true
-                                    self.trialRun = 1
-                                    self.trialRunButton.setTitleColor(UIColor.white, for:.normal)
-                                    self.trialRunButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
-                                }
-        
-        if self.personalChefItem!.hourlyOrPerSession == "hourly" {
-                                    self.hourlyButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-                                    self.hourlyButton.backgroundColor = UIColor.white
-                                    self.perSessionButton.setTitleColor(UIColor.white, for:.normal)
-                                    self.perSessionButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
-                                } else {
-                                    self.perSessionButton.setTitleColor(UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1), for: .normal)
-                                    self.perSessionButton.backgroundColor = UIColor.white
-                                    self.hourlyButton.setTitleColor(UIColor.white, for:.normal)
-                                    self.hourlyButton.backgroundColor = UIColor(red:160/255, green: 162/255, blue: 104/255,alpha: 1)
-                                }
-                                
-                        
-                    
-    }
+    
     
     @IBAction func addSpecialDishImage(_ sender: Any) {
-        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "openToMenuRequests" : self.openToMenuRequests]
+        let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : self.expectations, "chefRating" : self.chefRating, "quality" : self.quality, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "openToMenuRequests" : self.openToMenuRequests]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId, openToMenuRequests: self.openToMenuRequests)
         
@@ -528,7 +447,7 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
         } else if mostPrizedAccomplishments.text == "" {
             showToast(message: "Please list your most prized accomplishment.", font: .systemFont(ofSize: 12))
         } else if weeks == 0 && months == 0 && trialRun == 0 {
-            showToast(message: "Please select the times in which you are avalailable: Weeks, Months, or Extended Periods.", font: .systemFont(ofSize: 12))
+            showToast(message: "Please select the times in which you are willing to service consumers: Trial Runs, Weeks, or Months.", font: .systemFont(ofSize: 12))
         } else if personalChefPrice.text == "" {
             showToast(message: "Please enter your price for this service.", font: .systemFont(ofSize: 12))
         } else if specialty.text == "" {

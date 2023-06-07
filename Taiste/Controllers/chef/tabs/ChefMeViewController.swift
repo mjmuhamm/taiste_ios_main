@@ -260,17 +260,16 @@ class ChefMeViewController: UIViewController {
                             print("happening personal chef")
                             if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let complete = data["complete"] as? String, let openToMenuRequests = data["openToMenuRequests"] as? String {
                 
-                                if complete == "yes" {
                                     self.addContentButton.isHidden = true
-                                }
+                                
                                 var availability = ""
-                                if trialRun == 0 {
+                                if trialRun != 0 {
                                     availability = "Trial Run"
                                 }
-                                if weeks == 0 {
+                                if weeks != 0 {
                                     availability = "\(availability)  Weeks"
                                 }
-                                if months == 0 {
+                                if months != 0 {
                                     availability = "\(availability)  Months"
                                 }
                                 
