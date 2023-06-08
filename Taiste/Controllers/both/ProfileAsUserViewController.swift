@@ -181,7 +181,7 @@ class ProfileAsUserViewController: UIViewController {
         userReviews.removeAll()
         itemTableView.reloadData()
         itemTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
-
+        itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         if self.orders.isEmpty {
             db.collection("User").document(user).collection("Orders").getDocuments { documents, error in
             if documents != nil {
@@ -189,8 +189,15 @@ class ProfileAsUserViewController: UIViewController {
                     let data = doc.data()
 
                     if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let chefUsername = data["chefUsername"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int {
-
-                        self.db.collection("\(typeOfService)").document(menuItemId).getDocument { document, error in
+                        var a = ""
+                        if typeOfService == "Executive Item" {
+                            a = "Executive Items"
+                           
+                        } else {
+                            
+                            a = typeOfService
+                        }
+                        self.db.collection(a).document(menuItemId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
                                     let data1 = document!.data()
@@ -1218,7 +1225,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     
                     return cell
                 } else {
-                    itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+                   
                     var cell = itemTableView.dequeueReusableCell(withIdentifier: "PersonalChefTableViewCell", for: indexPath) as! PersonalChefTableViewCell
                     
                     var order = userOrders[indexPath.row]
