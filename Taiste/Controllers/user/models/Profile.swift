@@ -38,6 +38,7 @@ struct UserOrders {
     let expectations: Int
     let chefRating: Int
     let quality: Int
+    let signatureDishId: String
 
 }
 
@@ -78,6 +79,7 @@ struct UserLikes {
     let expectations: Int
     let chefRating: Int
     let quality: Int
+    let signatureDishId: String
     
 }
 

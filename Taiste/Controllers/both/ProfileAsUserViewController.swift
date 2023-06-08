@@ -80,6 +80,10 @@ class ProfileAsUserViewController: UIViewController {
         itemTableView.delegate = self
         itemTableView.dataSource = self
         contentCollectionView.register(UINib(nibName: "ChefContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ChefContentCollectionViewReusableCell")
+        itemTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
+        itemTableView.register(UINib(nibName: "PersonalChefReusableCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+        itemTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
+        itemTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
         
@@ -180,15 +184,14 @@ class ProfileAsUserViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         itemTableView.reloadData()
-        itemTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
-        itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+        
         if self.orders.isEmpty {
             db.collection("User").document(user).collection("Orders").getDocuments { documents, error in
             if documents != nil {
                 for doc in documents!.documents {
                     let data = doc.data()
 
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let chefUsername = data["chefUsername"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int {
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let chefUsername = data["chefUsername"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let signatureDishId = data["signatureDishId"] as? String {
                         var a = ""
                         if typeOfService == "Executive Item" {
                             a = "Executive Items"
@@ -204,7 +207,7 @@ class ProfileAsUserViewController: UIViewController {
 
                                     if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
 
-                                        let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality)
+                                        let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: signatureDishId)
 
                         if self.userOrders.isEmpty {
                             self.userOrders.append(newItem)
@@ -242,7 +245,6 @@ class ProfileAsUserViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         itemTableView.reloadData()
-        itemTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
 
         if self.chefs.isEmpty {
             db.collection("User").document(user).collection("UserLikes").getDocuments { documents, error in
@@ -302,7 +304,8 @@ class ProfileAsUserViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         itemTableView.reloadData()
-        itemTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
+        
+        
         if self.likes.isEmpty {
             db.collection("User").document(user).collection("UserLikes").getDocuments { documents, error in
             if error == nil {
@@ -310,7 +313,7 @@ class ProfileAsUserViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
 
-                    if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int {
+                    if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let signatureDishId = data["signatureDishId"] as? String {
                         print("likes happening")
 
 
@@ -323,7 +326,7 @@ class ProfileAsUserViewController: UIViewController {
                                     if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
 
 
-                                        let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality)
+                                        let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: signatureDishId)
 
                                     if self.userLikes.isEmpty {
                                         self.userLikes.append(newItem)
@@ -352,7 +355,7 @@ class ProfileAsUserViewController: UIViewController {
     }
 
     private func loadUserReviews() {
-        itemTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
+        
 
         userOrders.removeAll()
         userChefs.removeAll()
@@ -534,7 +537,7 @@ class ProfileAsUserViewController: UIViewController {
             items.removeAll()
             itemTableView.reloadData()
         }
-            itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+            
         
         db.collection("Chef").document(user).collection("Executive Items").getDocuments { documents, error in
             if error == nil {
@@ -959,7 +962,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
                 return cell
             } else {
-                itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+               
                 let cell = itemTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
                 var item = personalChefItem!
                 
@@ -1373,7 +1376,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         }.resume()
                     }
                     
-                    itemRef.child("chefs/\(order.chefEmail)/\(order.typeOfService)/\(order.menuItemId)0.png").downloadURL { itemUrl, error in
+                    itemRef.child("chefs/\(order.chefEmail)/Executive Items/\(order.signatureDishId)0.png").downloadURL { itemUrl, error in
                         
                         URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                             // Error handling...
@@ -1470,7 +1473,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
             } else if toggle == "Likes" {
                 if userLikes[indexPath.row].itemType == "Cater Items" {
-                    itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+                   
                     var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
                     
                     var item = userLikes[indexPath.row]
@@ -1562,7 +1565,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     
                     return cell
                 } else {
-                    itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+                    
                     var cell = itemTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
                     
                     var item = userLikes[indexPath.row]
@@ -1713,7 +1716,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                             }
                         }.resume()
                     }
-                    itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.documentId)0.png").downloadURL { itemUrl, error in
+                    itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.signatureDishId)0.png").downloadURL { itemUrl, error in
                         
                         URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                             // Error handling...

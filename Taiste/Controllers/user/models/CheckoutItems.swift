@@ -42,5 +42,6 @@ struct CheckoutItems {
     let itemCalories: Int
     let allergies: String
     let additionalMenuItems: String
+    let signatureDishId: String
     
 }

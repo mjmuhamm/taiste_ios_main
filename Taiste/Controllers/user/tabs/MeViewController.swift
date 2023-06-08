@@ -64,6 +64,10 @@ class MeViewController: UIViewController {
         
         meTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         meTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
+        meTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
+        meTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
+        meTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
+        
         loadPersonalInfo()
         loadOrders()
        
@@ -167,13 +171,11 @@ class MeViewController: UIViewController {
                     var a = ""
                     if typeOfService == "Executive Item" {
                         a = "Executive Items"
-                        self.meTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
-                    } else {
-                        
+                     } else {   
                         a = typeOfService
                     }
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String {
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let signatureDishId = data["signatureDishId"] as? String {
                         
                        
                         let index = self.userOrders.firstIndex(where: { $0.menuItemId == menuItemId })
@@ -189,7 +191,7 @@ class MeViewController: UIViewController {
                                             
                                             
                                             
-                                            let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: 0, chefRating: 0, quality: 0)
+                                            let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: 0, chefRating: 0, quality: 0, signatureDishId: signatureDishId)
                                             
                                             if self.userOrders.isEmpty {
                                                 self.userOrders.append(newItem)
@@ -230,7 +232,7 @@ class MeViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         meTableView.reloadData()
-        meTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
+        
         
         if self.chefs.isEmpty {
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
@@ -291,7 +293,6 @@ class MeViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         meTableView.reloadData()
-        meTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
         if self.likes.isEmpty {
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
             if error == nil {
@@ -299,7 +300,7 @@ class MeViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int  {
+                    if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let signatureDishId = data["signatureDishId"] as? String  {
                         print("likes happening")
                         
                             
@@ -311,7 +312,7 @@ class MeViewController: UIViewController {
                                     
                                     if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
                                     
-                                        let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality)
+                                        let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: signatureDishId)
                                     
                                     if self.userLikes.isEmpty {
                                         self.userLikes.append(newItem)
@@ -344,7 +345,6 @@ class MeViewController: UIViewController {
     
     private func loadReviews() {
         let storageRef = storage.reference()
-        meTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
         
         userOrders.removeAll()
         userChefs.removeAll()
@@ -475,7 +475,6 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
         if toggle == "Orders" {
             print("orders type of service \(userOrders[indexPath.row].typeOfService)")
             if userOrders[indexPath.row].typeOfService == "Cater Items" {
-                
                 var cell = meTableView.dequeueReusableCell(withIdentifier: "UserOrdersAndLikesReusableCell", for: indexPath) as! UserOrdersAndLikesTableViewCell
                 
                 var order = userOrders[indexPath.row]
@@ -552,7 +551,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
             } else {
-                var cell = meTableView.dequeueReusableCell(withIdentifier: "PersonalChefTableViewCell", for: indexPath) as! PersonalChefTableViewCell
+                var cell = meTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
                 
                 var order = userOrders[indexPath.row]
                 
@@ -686,7 +685,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 let storageRef = storage.reference()
                 let itemRef = storage.reference()
                 
-                storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.chefImageId).png").downloadURL { itemUrl, error in
+                storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.signatureDishId).png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
@@ -699,7 +698,8 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                     }.resume()
                 }
                 
-                itemRef.child("chefs/\(order.chefEmail)/\(order.typeOfService)/\(order.menuItemId)0.png").downloadURL { itemUrl, error in
+              
+                itemRef.child("chefs/\(order.chefEmail)/Executive Items/\(order)0.png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
@@ -821,7 +821,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                         }
                     }.resume()
                 }
-                itemRef.child("chefs/\(item.chefEmail)/\(item.itemType)/\(item.documentId)0.png").downloadURL { itemUrl, error in
+                itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.signatureDishId)0.png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
@@ -867,7 +867,6 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
             } else {
-                
                 var cell = meTableView.dequeueReusableCell(withIdentifier: "PersonalChefReusableCell", for: indexPath) as! PersonalChefTableViewCell
                 
                 var item = userLikes[indexPath.row]
@@ -1099,6 +1098,6 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
             
         return cell
         }
-        
     }
+    
 }
