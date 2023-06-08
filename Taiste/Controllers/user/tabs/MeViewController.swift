@@ -685,7 +685,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 let storageRef = storage.reference()
                 let itemRef = storage.reference()
                 
-                storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.signatureDishId).png").downloadURL { itemUrl, error in
+                storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.chefImageId).png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
@@ -699,7 +699,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 }
                 
               
-                itemRef.child("chefs/\(order.chefEmail)/Executive Items/\(order)0.png").downloadURL { itemUrl, error in
+                itemRef.child("chefs/\(order.chefEmail)/Executive Items/\(order.signatureDishId)0.png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
@@ -821,7 +821,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                         }
                     }.resume()
                 }
-                itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.signatureDishId)0.png").downloadURL { itemUrl, error in
+                itemRef.child("chefs/\(item.chefEmail)/\(item.itemType)/\(item.documentId)0.png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
@@ -1013,7 +1013,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                         }
                     }.resume()
                 }
-                itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.documentId)0.png").downloadURL { itemUrl, error in
+                itemRef.child("chefs/\(item.chefEmail)/Executive Items/\(item.signatureDishId)0.png").downloadURL { itemUrl, error in
                     
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
