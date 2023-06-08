@@ -343,7 +343,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
                 addDateViewButton.isUppercaseTitle = false
                 
-                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count)!)"
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count))"
                     self.showToast(message: "Please order this item again with the remaining quantity amount.", font: .systemFont(ofSize: 12))
                     
                 
@@ -421,7 +421,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                     eventDays.append(newWeek)
                     eventTimes.append(newTime)
                    
-                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count)! * 7)"
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * 7)"
                         
                 } else {
                     self.showToast(message: "This week has already been selected.", font: .systemFont(ofSize: 12))
@@ -489,7 +489,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
                 addDateViewButton.isUppercaseTitle = false
               
-                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count)! * 30)"
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * 30)"
                     
                     
                     
