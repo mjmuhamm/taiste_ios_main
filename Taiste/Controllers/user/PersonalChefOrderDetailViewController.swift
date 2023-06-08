@@ -286,9 +286,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     
     @IBAction func addDateViewButtonPressed(_ sender: Any) {
         if typeOfEventText.text == "Trial Run" {
-            if eventDays.count == 5 {
-                self.showToast(message: "To service more days, please select the 'Weeks' option in  'Time Period of Service' Tab.", font: .systemFont(ofSize: 12))
-            } else {
+           
                 let date = "\(datePicker.date)"
                 let month = date.prefix(7).suffix(2)
                 let day = date.prefix(10).suffix(2)
@@ -345,106 +343,18 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
                 addDateViewButton.isUppercaseTitle = false
                 
-                let days = Double(exactly: eventDays.count)!
-                
-                if Int(self.quantityText.text!)! < 3 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * days))
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * days) * 0.90)
-                    }
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 5 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 3 * days) * 0.80)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 3 * days) * 0.80)
-                    } else if days <= 8 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 6 * days) * 0.80)
-                    } else {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 8 * days) * 0.80)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 10 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 8.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 8.0 * days) * 0.78)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 15 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 12.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 12.0 * days) * 0.78)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 20 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 17.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 17.0 * days) * 0.78)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 25 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 22.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 22.0 * days) * 0.78)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 40 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 33.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 33.0 * days) * 0.78)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
-                } else if Int(self.quantityText.text!)! < 55 {
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 45.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 45.0 * days) * 0.78)
-                    }
-                    self.eventTotalText.text = "$\(a)"
-                } else {
-                    quantityText.text = "55"
-                    var a = ""
-                    if days > 1 && days < 3 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 50.0 * days) * 0.85)
-                    } else if days <= 5 {
-                        a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * 50.0 * days) * 0.78)
-                    }
-                    
-                    self.eventTotalText.text = "$\(a)"
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count)!)"
                     self.showToast(message: "Please order this item again with the remaining quantity amount.", font: .systemFont(ofSize: 12))
                     
-                }
+                
                 } else {
                     showToast(message: "This day has already been selected.", font: .systemFont(ofSize: 12))
                 }
-            }
+            
             
         } else if typeOfEventText.text == "Weeks" {
             
             
-            if eventDays.count == 5 {
-                self.showToast(message: "To Service more weeks, Please select the months time period.", font: .systemFont(ofSize: 12))
-            } else {
                 
                 let date = "\(datePicker.date)"
                 let month = date.prefix(7).suffix(2)
@@ -510,26 +420,13 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                     
                     eventDays.append(newWeek)
                     eventTimes.append(newTime)
-                    
-                    let days = Double(exactly: eventDays.count)!
-                    
-                    if days >= 1 && days < 3 {
-                        let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * 7) * 0.85)
-                        self.eventTotalText.text = "$\(a)"
-                    } else if days <= 5 {
-                        let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(quantityText.text!)! * 7) * 0.78)
-                        self.eventTotalText.text = "$\(a)"
-                    }
+                   
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count)! * 7)"
                         
-                    
-                      
-                        
-                        
-                    
                 } else {
                     self.showToast(message: "This week has already been selected.", font: .systemFont(ofSize: 12))
                 }
-            }
+            
             
         } else if typeOfEventText.text == "Months" {
             
@@ -569,7 +466,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                     newHour = "0\(hour! + 1)"
                 }
                 
-                let newMonth = "\(month)"
+                var newMonth = "\(month)"
                 let newTime = "\(newHour):\(minute) \(amOrPm)"
                 
                 let item = "\(newMonth), \(newTime)"
@@ -580,8 +477,10 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                     } else {
                         dateOfEventViewText.text = "\(dateOfEventViewText.text!) | \(item)"
                     }
+                    var a = ""
+                    if (month == "1") { a = "January" } else if (month == "2") { a = "February" } else if month == "3" { a = "March" } else if month == "4" { a = "April" } else if month == "5" { a = "May" } else if a == "6" { a = "June" } else if month == "7" { a = "July" } else if month == "8" { a = "August" } else if month == "9" { a = "September" } else if month == "10" { a = "October" } else if month == "11" { a = "November" } else if month == "12" { a == "December" }
                     
-                    eventDays.append(newMonth)
+                    eventDays.append(a)
                     eventTimes.append(newTime)
                     
                 
@@ -589,27 +488,12 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 addDateViewButton.setTitle("Add Another", for: .normal)
                 addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
                 addDateViewButton.isUppercaseTitle = false
+              
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count)! * 30)"
+                    
+                    
+                    
                 
-                let days = Double(exactly: eventDays.count)!
-                
-                    if days >= 1 && days < 3 {
-                        let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.85)
-                        self.eventTotalText.text = "$\(a)"
-                    } else if days <= 5 {
-                       let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.78)
-                        self.eventTotalText.text = "$\(a)"
-                    } else if days <= 8 {
-                       let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.72)
-                        self.eventTotalText.text = "$\(a)"
-                    } else {
-                       let a = String(format: "%.2f", (Double(self.personalChefInfo!.servicePrice)! * Double(self.quantityText.text!)! * 30) * 0.67)
-                        self.eventTotalText.text = "$\(a)"
-            
-                    
-                    
-                    
-                    
-                }
                 } else {
                     showToast(message: "This month has already been selected.", font: .systemFont(ofSize: 12))
                 }
