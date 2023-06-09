@@ -437,6 +437,8 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                 vc.otherUser = order.user
                 vc.chefOrUser = "Chef"
                 vc.order = order
+                vc.eventTypeAndQuantityText = "Event Type: \(order.typeOfService)   Event Quantity: \(order.eventQuantity)"
+                vc.locationText = "Location: \(order.location)"
                 vc.travelFeeOrMessage = "travelFee"
                 self.present(vc, animated: true, completion: nil)
             }
@@ -526,6 +528,8 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                 vc.otherUser = order.user
                 vc.chefOrUser = "Chef"
                 vc.order = order
+                vc.eventTypeAndQuantityText = "Event Type: \(order.typeOfService)   Event Quantity: \(order.eventQuantity)"
+                vc.locationText = "Location: \(order.location)"
                 vc.travelFeeOrMessage = "messages"
                 self.present(vc, animated: true, completion: nil)
             }

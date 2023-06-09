@@ -43,5 +43,7 @@ struct CheckoutItems {
     let allergies: String
     let additionalMenuItems: String
     let signatureDishId: String
+    let userNotification: String
+    let chefNotification: String
     
 }

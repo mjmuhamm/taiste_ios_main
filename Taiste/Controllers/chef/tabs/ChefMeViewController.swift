@@ -615,27 +615,22 @@ class ChefMeViewController: UIViewController {
     @IBAction func mealKitButtonPressed(_ sender: Any) {
         var abc = toggle
         toggle = "MealKit Items"
-//        loadItems()
-        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
-        if toggle != "MealKit Items" {
-            comingSoon.isHidden = true
-            contentCollectionView.isHidden = true
-            meTableView.isHidden = false
-            bankingView.isHidden = true
-            
-            cateringButton.backgroundColor = UIColor.white
-            cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            personalChefButton.backgroundColor = UIColor.white
-            personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            mealKitButton.setTitleColor(UIColor.white, for: .normal)
-            mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-            contentButton.backgroundColor = UIColor.white
-            contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            bankingButton.backgroundColor = UIColor.white
-            bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        } else {
-            toggle = abc
-        }
+        loadItems()
+        comingSoon.isHidden = true
+        contentCollectionView.isHidden = true
+        meTableView.isHidden = false
+        bankingView.isHidden = true
+        cateringButton.backgroundColor = UIColor.white
+        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        personalChefButton.backgroundColor = UIColor.white
+        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        mealKitButton.setTitleColor(UIColor.white, for: .normal)
+        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        contentButton.backgroundColor = UIColor.white
+        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        bankingButton.backgroundColor = UIColor.white
+        bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        
         
     }
     
@@ -681,7 +676,7 @@ class ChefMeViewController: UIViewController {
     }
     
     @IBAction func addContentButtonPressed(_ sender: MDCButton) {
-        if toggle == "Cater Items" {
+        if toggle == "Cater Items" || toggle == "MealKit Items" {
         performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
         } else if toggle == "Executive Items" {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChef") as? PersonalChefViewController  {
@@ -751,7 +746,7 @@ class ChefMeViewController: UIViewController {
 
 extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if toggle == "Cater Items" {
+        if toggle == "Cater Items" || toggle == "MealKit Items" {
             return items.count
         } else if toggle == "Executive Items" {
             if personalChefItem == nil {
@@ -766,7 +761,7 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if toggle == "Cater Items" {
+        if toggle == "Cater Items" || toggle == "MealKit Items" {
         var cell = meTableView.dequeueReusableCell(withIdentifier: "ChefItemReusableCell", for: indexPath) as! ChefItemTableViewCell
         var item = items[indexPath.row]
         cell.editImage.isHidden = true

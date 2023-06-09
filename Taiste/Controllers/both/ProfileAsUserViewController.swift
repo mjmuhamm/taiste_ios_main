@@ -729,25 +729,19 @@ class ProfileAsUserViewController: UIViewController {
     }
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
-        var abc = toggle
         toggle = "MealKit Items"
-        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
-//        loadChefItems()
-        if toggle != "MealKit Items" {
-            contentCollectionView.isHidden = true
-            itemTableView.isHidden = false
-            comingSoon.isHidden = true
-            cateringButton.backgroundColor = UIColor.white
-            cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            personalChefButton.backgroundColor = UIColor.white
-            personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            mealKitButton.setTitleColor(UIColor.white, for: .normal)
-            mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-            contentButton.backgroundColor = UIColor.white
-            contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        } else {
-            toggle = abc
-        }
+        loadChefItems()
+        contentCollectionView.isHidden = true
+        itemTableView.isHidden = false
+        comingSoon.isHidden = true
+        cateringButton.backgroundColor = UIColor.white
+        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        personalChefButton.backgroundColor = UIColor.white
+        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        mealKitButton.setTitleColor(UIColor.white, for: .normal)
+        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        contentButton.backgroundColor = UIColor.white
+        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
     }
     
     @IBAction func contentButtonPressed(_ sender: Any) {
@@ -845,7 +839,7 @@ class ProfileAsUserViewController: UIViewController {
 extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if chefOrUser == "chef" {
-            if toggle == "Cater Items" {
+            if toggle == "Cater Items" || toggle == "MealKit Items" {
                 return items.count
             } else {
                 if personalChefItem != nil {
@@ -870,7 +864,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if chefOrUser == "chef" {
-            if toggle == "Cater Items" {
+            if toggle == "Cater Items" || toggle == "MealKit Items" {
                 let cell = itemTableView.dequeueReusableCell(withIdentifier: "ChefItemReusableCell", for: indexPath) as! ChefItemTableViewCell
                 var item = items[indexPath.row]
                 cell.editImage.isHidden = true

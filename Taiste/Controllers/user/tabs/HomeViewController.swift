@@ -49,7 +49,8 @@ class HomeViewController: UIViewController {
         homeTableView.dataSource = self
         
         homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeReusableCell")
-        
+        homeTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+            
 
         loadCart()
         loadFilter()
@@ -284,7 +285,7 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func cateringButtonPressed(_ sender: MDCButton) {
-        homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeReusableCell")
+        
         toggle = "Cater Items"
         loadItems(filter: self.filter!, go: "")
         cateringButton.setTitleColor(UIColor.white, for: .normal)
@@ -299,7 +300,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func personalChefButtonPressed(_ sender: MDCButton) {
-        homeTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         toggle = "Executive Items"
         loadExecutiveItems()
         cateringButton.backgroundColor = UIColor.white
@@ -313,16 +313,14 @@ class HomeViewController: UIViewController {
     
     @IBAction func mealKitButtonPressed(_ sender: MDCButton) {
         toggle = "MealKit Items"
-        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
-        if toggle != "MealKit Items" {
-            loadItems(filter: self.filter!, go: "")
-            cateringButton.backgroundColor = UIColor.white
-            cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            personalChefButton.backgroundColor = UIColor.white
-            personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-            mealKitButton.setTitleColor(UIColor.white, for: .normal)
-            mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-        }
+        loadItems(filter: self.filter!, go: "")
+        cateringButton.backgroundColor = UIColor.white
+        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        personalChefButton.backgroundColor = UIColor.white
+        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        mealKitButton.setTitleColor(UIColor.white, for: .normal)
+        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        
     
     }
     
@@ -388,7 +386,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if toggle == "Cater Items" {
+        if toggle == "Cater Items" || toggle == "MealKit Items" {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "HomeReusableCell", for: indexPath) as! HomeTableViewCell
             var item = items[indexPath.row]
             if toggle == "Cater Items" {
@@ -720,7 +718,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                 
             
             return cell
-        }
+        } 
     }
     
 }

@@ -733,6 +733,29 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 let data : [String: Any] = ["chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefName, "city" : item.city, "state" : item.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item.briefIntroduction, "itemTitle" : "Executive Chef", "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item.documentId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : "Executive Item", "unitPrice" : item.servicePrice, "user" : item.chefImageId, "imageCount" : 1, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "0", "documentId" : item.documentId, "allergies" : allergies.text!, "additionalMenuItems" : additionalMenuItems.text!, "signatureDishId" : item.signatureDishId]
                 
                 db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
+                db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                    if error == nil {
+                        if document != nil {
+                            let data = document!.data()
+                            
+                            let userNotification = data!["notificationToken"] as! String
+                            let data1: [String: Any] = ["userNotificationToken" : userNotification]
+                            self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                        }
+                    }
+                }
+                
+                db.collection("Chef").document(personalChefInfo!.chefImageId).getDocument { document, error in
+                    if error == nil {
+                        if document != nil {
+                            let data = document!.data()
+                            
+                            let chefNotification = data!["notificationToken"] as! String
+                            let data1: [String: Any] = ["chefNotificationToken" : chefNotification]
+                            self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                        }
+                    }
+                }
                 
                 self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
             }

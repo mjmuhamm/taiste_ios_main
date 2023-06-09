@@ -265,6 +265,9 @@ class OrdersViewController: UIViewController {
     private var travelFeeOrMessage = ""
     private var orderTransfer : Orders?
     private var otherUser = ""
+    private var typeOfService = ""
+    private var eventQuantity = ""
+    private var locationText = ""
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UserOrdersToMessagesSegue" {
             let info = segue.destination as! MessagesViewController
@@ -272,6 +275,8 @@ class OrdersViewController: UIViewController {
             info.order = orderTransfer
             info.otherUser = otherUser
             info.chefOrUser = "User"
+            info.eventTypeAndQuantityText = "Event Type: \(typeOfService)   Event Quantity: \(eventQuantity)"
+            info.locationText = "Location: \(locationText)"
         }
     }
     
@@ -403,12 +408,15 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
             self.travelFeeOrMessage = "travelFee"
             self.orderTransfer = order
             self.otherUser = order.chefUsername
-            
+            self.typeOfService = order.typeOfService
+            self.eventQuantity = order.eventQuantity
+            self.locationText = order.location
             self.performSegue(withIdentifier: "UserOrdersToMessagesSegue", sender: self)
         }
         cell.messagesButtonTapped = {
             self.travelFeeOrMessage = "messages"
             self.orderTransfer = order
+            
             self.otherUser = order.chefUsername
             self.performSegue(withIdentifier: "UserOrdersToMessagesSegue", sender: self)
         }

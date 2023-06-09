@@ -122,9 +122,9 @@ class CheckoutViewController: UIViewController {
                 for doc in documents!.documents {
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let menuItemId = data["menuItemId"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let datesOfEvent = data["datesOfEvent"] as? [String], let timesForDatesOfEvent = data["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data["travelExpenseOption"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let priceToChef = data["priceToChef"] as? Double, let quantityOfEvent = data["quantityOfEvent"] as? String, let unitPrice = data["unitPrice"] as? String, let distance = data["distance"] as? String, let location = data["location"] as? String, let latitudeOfEvent = data["latitudeOfEvent"] as? String, let longitudeOfEvent = data["longitudeOfEvent"] as? String, let notesToChef = data["notesToChef"] as? String, let typeOfService = data["typeOfService"] as? String, let typeOfEvent = data["typeOfEvent"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let user = data["user"] as? String, let imageCount = data["imageCount"] as? Int, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let signatureDishId = data["signatureDishId"] as? String  {
+                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let menuItemId = data["menuItemId"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let datesOfEvent = data["datesOfEvent"] as? [String], let timesForDatesOfEvent = data["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data["travelExpenseOption"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let priceToChef = data["priceToChef"] as? Double, let quantityOfEvent = data["quantityOfEvent"] as? String, let unitPrice = data["unitPrice"] as? String, let distance = data["distance"] as? String, let location = data["location"] as? String, let latitudeOfEvent = data["latitudeOfEvent"] as? String, let longitudeOfEvent = data["longitudeOfEvent"] as? String, let notesToChef = data["notesToChef"] as? String, let typeOfService = data["typeOfService"] as? String, let typeOfEvent = data["typeOfEvent"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let user = data["user"] as? String, let imageCount = data["imageCount"] as? Int, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let signatureDishId = data["signatureDishId"] as? String, let userNotificationToken = data["userNotificationToken"] as? String, let chefNotificationToken = data["chefNotificationToken"] as? String  {
                         
-                        let newItem = CheckoutItems(chefEmail: chefEmail, chefImageId: chefImageId, chefUsername: chefUsername, chefImage: chefImage, menuItemId: menuItemId, itemTitle: itemTitle, itemDescription: itemDescription, datesOfEvent: datesOfEvent, timesForDatesOfEvent: timesForDatesOfEvent, travelExpenseOption: travelExpenseOption, totalCostOfEvent: totalCostOfEvent, priceToChef: priceToChef, quantityOfEvent: quantityOfEvent, unitPrice: unitPrice, distance: distance, location: location, latitudeOfEvent: latitudeOfEvent, longitudeOfEvent: longitudeOfEvent, notesToChef: notesToChef, typeOfService: typeOfService, typeOfEvent: typeOfEvent, city: city, state: state, user: user, documentId: doc.documentID, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, allergies: allergies, additionalMenuItems: additionalMenuItems, signatureDishId: signatureDishId)
+                        let newItem = CheckoutItems(chefEmail: chefEmail, chefImageId: chefImageId, chefUsername: chefUsername, chefImage: chefImage, menuItemId: menuItemId, itemTitle: itemTitle, itemDescription: itemDescription, datesOfEvent: datesOfEvent, timesForDatesOfEvent: timesForDatesOfEvent, travelExpenseOption: travelExpenseOption, totalCostOfEvent: totalCostOfEvent, priceToChef: priceToChef, quantityOfEvent: quantityOfEvent, unitPrice: unitPrice, distance: distance, location: location, latitudeOfEvent: latitudeOfEvent, longitudeOfEvent: longitudeOfEvent, notesToChef: notesToChef, typeOfService: typeOfService, typeOfEvent: typeOfEvent, city: city, state: state, user: user, documentId: doc.documentID, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, allergies: allergies, additionalMenuItems: additionalMenuItems, signatureDishId: signatureDishId, userNotification: userNotificationToken, chefNotification: chefNotificationToken)
                         
                         if self.checkoutItems.count == 0 {
                             self.checkoutItems.append(newItem)
@@ -166,15 +166,77 @@ class CheckoutViewController: UIViewController {
         }
     }
     
+    private func subscribeToTopic(userNotification: String, chefNotification: String, orderId: String, itemTitle: String) {
+        let json: [String: Any] = ["notificationToken1": userNotification, "notificationToken2" : chefNotification, "topic" : orderId]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "http://192.168.174.135:4242/subscribe-to-topic")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+               
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                  if error == nil {
+                      for doc in documents!.documents {
+                          let data = doc.data()
+                          let userName = data["userName"] as! String
+                          self.sendMessage(title: "New Order", notification: "@\(userName) has just ordered \(itemTitle); now awaiting response.", topic: orderId)
+                      }
+                  }
+              }
+              
+          }
+        })
+        task.resume()
+    }
+    
+    private func sendMessage(title: String, notification: String, topic: String) {
+        let json: [String: Any] = ["title": title, "notification" : notification, "topic" : topic]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "http://192.168.174.135:4242/send-message")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              
+          }
+        })
+        task.resume()
+    }
+    
+    
     private func saveInfo() {
         var date = sdf.string(from: Date())
         for i in 0..<checkoutItems.count {
             let item = checkoutItems[i]
             let orderId = UUID().uuidString
-            let data: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefNotificationToken" : "", "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle, "menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : item.totalCostOfEvent * 0.95, "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "userNotificationToken" : "", "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId]
+            let data: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle, "menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : item.totalCostOfEvent * 0.95, "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
             
             
-            let data1: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefNotificationToken" : "", "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle,"menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : (item.totalCostOfEvent * 0.95), "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "userNotificationToken" : "", "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "paymentIntent" : paymentId, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId]
+            let data1: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId,  "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle,"menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : (item.totalCostOfEvent * 0.95), "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "paymentIntent" : paymentId, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
             
             var numOfOrders = 0
             if item.quantityOfEvent == "1-10" {
@@ -200,6 +262,7 @@ class CheckoutViewController: UIViewController {
             db.collection("Orders").document(orderId).setData(data1)
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(item.documentId).delete()
             db.collection(item.typeOfService).document(item.menuItemId).updateData(data2)
+            subscribeToTopic(userNotification: item.userNotification, chefNotification: item.chefNotification, orderId: orderId, itemTitle: item.itemTitle)
             
             if (i == checkoutItems.count - 1) {
                 showToastCompletion(message: "Order Complete! Please check 'Orders' tab for an update on this order.", font: .systemFont(ofSize: 12))

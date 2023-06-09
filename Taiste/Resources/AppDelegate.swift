@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseCore
 import UserNotifications
 import FirebaseMessaging
 import Firebase
@@ -14,16 +13,15 @@ import Stripe
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
-    
-    override init() {
-        FirebaseApp.configure()
-    }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) async -> Bool {
-        // Override point for customization after application launch.
-        
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        print("launch happening")
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {success, _ in
+          print("error")
             guard success else {
                 return
             }
@@ -31,10 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         }
         application.registerForRemoteNotifications()
 
-        Stripe.setDefaultPublishableKey( "pk_test_51J1HegHO46FqqdfmVCS75Zl7XsGfbSCMa3KI2lNn3uc4MEvD4lC604d8Yy4NMrMy8feErjy9n24FlezeQtyFtbyM00N1x69Xuo")
+        StripeAPI.defaultPublishableKey =  "pk_test_51J1HegHO46FqqdfmVCS75Zl7XsGfbSCMa3KI2lNn3uc4MEvD4lC604d8Yy4NMrMy8feErjy9n24FlezeQtyFtbyM00N1x69Xuo"
         
         return true
     }
+
+  
 
     // MARK: UISceneSession Lifecycle
 

@@ -150,6 +150,7 @@
 		F4572EEC2A2D32A600EAC393 /* PersonalChefTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalChefTableViewCell.xib; sourceTree = "<group>"; };
 		F4572EEF2A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChefOrderDetailViewController.swift; sourceTree = "<group>"; };
 		F466D9D12A20186A000E6E38 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		F467B99E2A33499200336947 /* Taiste.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taiste.entitlements; sourceTree = "<group>"; };
 		F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		F481948127C80252002BB9D3 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -439,6 +440,7 @@
 		F4B90DC227C709A9004B1FB1 /* Taiste */ = {
 			isa = PBXGroup;
 			children = (
+				F467B99E2A33499200336947 /* Taiste.entitlements */,
 				F4B90DC927C709A9004B1FB1 /* Main.storyboard */,
 				F4B90DD127C709AB004B1FB1 /* Info.plist */,
 				F43D90F62A261FC600AE248E /* GoogleService-Info.plist */,
@@ -1086,6 +1088,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Taiste/Taiste.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = A8QVKKQPMX;
@@ -1119,6 +1122,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Taiste/Taiste.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = A8QVKKQPMX;

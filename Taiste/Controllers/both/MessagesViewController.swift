@@ -25,9 +25,9 @@ class MessagesViewController: UIViewController {
     
     @IBOutlet weak var username: UILabel!
     
-    @IBOutlet weak var travelFeeStack: UIStackView!
+    @IBOutlet weak var eventTypeAndQuantity: UILabel!
+    @IBOutlet weak var location: UILabel!
     @IBOutlet weak var travelFeeLabel: UILabel!
-    @IBOutlet weak var payButton: UIButton!
     
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var requestTravelFeeButton: UIButton!
@@ -44,12 +44,16 @@ class MessagesViewController: UIViewController {
     var documentId = ""
     private var paymentId = ""
     
+    var eventTypeAndQuantityText = ""
+    var locationText = ""
+    
     @IBOutlet weak var messageText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        payButton.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        self.eventTypeAndQuantity.text = eventTypeAndQuantityText
+        self.location.text = locationText
+        df.dateFormat = "MM-dd-yyyy hh:mm a"
         
         messageTableView.delegate = self
         messageTableView.dataSource = self
@@ -61,6 +65,7 @@ class MessagesViewController: UIViewController {
         if chefOrUser == "Chef" {
             requestTravelFeeButton.isHidden = false
         } else {
+            requestTravelFeeButton.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
             requestTravelFeeButton.isHidden = true
         }
 //        
@@ -114,8 +119,34 @@ class MessagesViewController: UIViewController {
            
 
           DispatchQueue.main.async {
-            self.payButton.isEnabled = true
+            self.requestTravelFeeButton.isEnabled = true
               self.paymentId = paymentId
+          }
+        })
+        task.resume()
+    }
+    
+    private func sendMessage(title: String, notification: String, topic: String) {
+        let json: [String: Any] = ["title": title, "notification" : notification, "topic" : topic]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "http://192.168.174.135:4242/send-message")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              
           }
         })
         task.resume()
@@ -133,9 +164,11 @@ class MessagesViewController: UIViewController {
         let data2: [String: Any] = ["orderUpdate" : "scheduled", "travelFee" : self.travelFeeLabel.text!]
         let data3: [String: Any] = ["totalPay" : (order!.totalCostOfEvent - (order!.totalCostOfEvent * 0.05))]
 //        let data4: [String: Any] = ["Total" : ]
+        
         self.db.collection("TravelFeePayments").document().setData(data)
-        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(order!.menuItemId).collection(order!.itemTitle).document("payment").setData(data)
-        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(order!.menuItemId).collection(order!.itemTitle).document("payment").setData(data)
+        
+        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection(travelFeeOrMessage).document(order!.documentId).collection(order!.itemTitle).document("payment").setData(data)
+        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(travelFeeOrMessage).document(order!.documentId).collection(order!.itemTitle).document("payment").setData(data)
         self.db.collection("User").document(order!.userImageId).collection("Orders").document(order!.documentId).updateData(data2)
         self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(order!.documentId).updateData(data2)
         self.db.collection("Orders").document(order!.menuItemId).updateData(data2)
@@ -217,9 +250,10 @@ class MessagesViewController: UIViewController {
                             } else {
                                 homeOrAway = "travel"
                                 if self.chefOrUser == "User" {
-                                self.travelFeeStack.isHidden = false
                                 self.travelFeeLabel.text = "$\(travelFee)"
-                                self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
+                                    if Double(travelFee) != nil {
+                                        self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
+                                    }
                                 }
                             }
                             self.travelFeePriceText = travelFee
@@ -227,10 +261,8 @@ class MessagesViewController: UIViewController {
                                 self.userImageId = user
                             }
                             
-                            print("vari \(vari)")
-                            print("homeoraway \(homeOrAway)")
-                            print("useremail \(userEmail)")
-                            print("user \(user)")
+                            print("date \(date)")
+                            print("date1 \(self.df.date(from: date))")
                             let date1 = self.df.date(from: date)
                             if homeOrAway != "travel" {
                             storageRef.child("\(vari)/\(userEmail)/profileImage/\(user).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
@@ -287,7 +319,6 @@ class MessagesViewController: UIViewController {
                                 homeOrAway = "away"
                             } else {
                                 homeOrAway = "travel"
-                                self.travelFeeStack.isHidden = false
                                 self.travelFeeLabel.text = "$\(travelFee)"
                                 self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
                             }
@@ -356,6 +387,7 @@ class MessagesViewController: UIViewController {
     }
     
     @IBAction func requestTravelFeeButtonPressed(_ sender: Any) {
+        
         self.performSegue(withIdentifier: "MessagesToTravelFeeSegue", sender: self)
     }
     
@@ -374,8 +406,8 @@ class MessagesViewController: UIViewController {
             self.messages.sort(by: { $0.date.compare($1.date) == .orderedAscending })
             self.messageTableView.reloadData()
             
-             self.messageText.text = ""
-        
+            self.messageText.text = ""
+            
         }
         
         let data : [String : Any] = ["chefOrUser" : chefOrUser, "user" : Auth.auth().currentUser!.uid, "message" : messageText.text, "date" : df.string(from: date), "userEmail": Auth.auth().currentUser!.email, "travelFee" : ""]
@@ -398,6 +430,28 @@ class MessagesViewController: UIViewController {
         }
         self.db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(order!.documentId).collection(order!.orderDate).document(documentId).setData(data)
         self.db.collection(otherUser).document(otherImageId).collection(travelFeeVari).document(order!.documentId).collection(order!.orderDate).document(documentId).setData(data)
+        
+        if chefOrUser == "Chef" {
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                if error == nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        let userName = data["chefName"] as! String
+                        self.sendMessage(title: travelFeeVari, notification: "New message from \(userName)", topic: self.order!.documentId)
+                    }
+                }
+            }
+        } else {
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                if error == nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        let userName = data["userName"] as! String
+                        self.sendMessage(title: travelFeeVari, notification: "New message from \(userName)", topic: self.order!.documentId)
+                    }
+                }
+            }
+        }
         
        
         self.showToast(message: "Message Sent", font: .systemFont(ofSize: 12))
