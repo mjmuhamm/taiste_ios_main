@@ -90,7 +90,7 @@ class MessagesViewController: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: backendCheckoutUrl)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/create-payment-intent")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
@@ -132,7 +132,7 @@ class MessagesViewController: UIViewController {
     
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "http://192.168.174.135:4242/send-message")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/send-message")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData

@@ -313,7 +313,7 @@ class ChefMeViewController: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh-video.herokuapp.com/get-videos")!)
+        var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/get-videos")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
@@ -437,7 +437,7 @@ class ChefMeViewController: UIViewController {
         
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/retrieve-individual-account")!)
+            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/retrieve-individual-account")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
@@ -494,7 +494,7 @@ class ChefMeViewController: UIViewController {
         
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/retrieve-business-account")!)
+            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/retrieve-business-account")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
@@ -554,7 +554,7 @@ class ChefMeViewController: UIViewController {
     
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/retrieve-external-account")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/retrieve-external-account")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData

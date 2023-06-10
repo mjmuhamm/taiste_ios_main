@@ -22,7 +22,7 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 class CheckoutViewController: UIViewController {
 
     var paymentSheet: PaymentSheet?
-    let backendCheckoutUrl = URL(string: "https://ruh.herokuapp.com/create-payment-intent")! // Your backend endpoint
+    let backendCheckoutUrl = URL(string: "https://taiste-payments.onrender.com/create-payment-intent")! // Your backend endpoint
 
     
     private let storage = Storage.storage()
@@ -72,7 +72,7 @@ class CheckoutViewController: UIViewController {
         let a = String(format: "%.0f", cost)
         
         let json: [String: Any] = ["amount": a]
-        
+        print("fetch payment happening")
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
@@ -93,6 +93,7 @@ class CheckoutViewController: UIViewController {
             return
           }
 
+            print("fetch payment succeeded")
             STPAPIClient.shared.publishableKey = publishableKey
           // MARK: Create a PaymentSheet instance
           var configuration = PaymentSheet.Configuration()
@@ -172,7 +173,7 @@ class CheckoutViewController: UIViewController {
     
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "http://192.168.174.135:4242/subscribe-to-topic")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/subscribe-to-topic")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
@@ -207,7 +208,7 @@ class CheckoutViewController: UIViewController {
     
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "http://192.168.174.135:4242/send-message")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/send-message")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData

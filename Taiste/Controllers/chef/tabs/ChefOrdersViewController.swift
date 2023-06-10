@@ -169,7 +169,7 @@ class ChefOrdersViewController: UIViewController {
                                 
                                 let jsonData = try? JSONSerialization.data(withJSONObject: json)
                                 // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-                                var request = URLRequest(url: URL(string: "http://ruh.herokuapp.com/transfer")!)
+                                var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/transfer")!)
                                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                                 request.httpMethod = "POST"
                                 request.httpBody = jsonData
@@ -209,7 +209,7 @@ class ChefOrdersViewController: UIViewController {
             
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "http://ruh.herokuapp.com/refund")!)
+            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/refund")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData

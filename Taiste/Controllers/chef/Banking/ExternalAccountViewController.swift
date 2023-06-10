@@ -61,7 +61,7 @@ class ExternalAccountViewController: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/create-bank-account")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/create-bank-account")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
@@ -87,7 +87,7 @@ class ExternalAccountViewController: UIViewController {
     
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/delete-bank-account")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/delete-bank-account")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData

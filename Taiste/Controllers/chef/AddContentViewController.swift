@@ -56,7 +56,7 @@ class AddContentViewController: UIViewController {
     
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh-video.herokuapp.com/upload-video")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/upload-video")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
