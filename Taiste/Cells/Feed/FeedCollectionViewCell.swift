@@ -7,6 +7,12 @@
 
 import UIKit
 import AVFoundation
+import MaterialComponents.MaterialButtons
+import MaterialComponents.MaterialButtons_Theming
+import MaterialComponents.MaterialTextControls_FilledTextAreasTheming
+import MaterialComponents.MaterialTextControls_FilledTextFieldsTheming
+import MaterialComponents.MaterialTextControls_OutlinedTextAreasTheming
+import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 
 class FeedCollectionViewCell: UICollectionViewCell {
 
@@ -20,6 +26,8 @@ class FeedCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var videoDescription: UILabel!
     @IBOutlet weak var playImage: UIImageView!
     
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     
     var player : AVQueuePlayer!
     var playerLooper: AVPlayerLooper!
@@ -33,10 +41,14 @@ class FeedCollectionViewCell: UICollectionViewCell {
     var commentButtonTapped: (() -> ()) = {}
     var shareButtonTapped: (() -> ()) = {}
     var playPauseButtonTapped: (() -> ()) = {}
+    var backButtonTapped: (() -> ()) = {}
+    var deleteButtonTapped: (() -> ()) = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        
     }
     
     public func configure(model: VideoModel) {
@@ -50,6 +62,13 @@ class FeedCollectionViewCell: UICollectionViewCell {
       
     }
 
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        deleteButtonTapped()
+    }
+    @IBAction func backButtonPressed(_ sender: Any) {
+        backButtonTapped()
+    }
+    
     @IBAction func likeButtonPressed(_ sender: UIButton) {
         likeButtonTapped()
     }

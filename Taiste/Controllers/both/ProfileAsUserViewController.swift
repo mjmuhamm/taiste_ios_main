@@ -81,7 +81,7 @@ class ProfileAsUserViewController: UIViewController {
         itemTableView.dataSource = self
         contentCollectionView.register(UINib(nibName: "ChefContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ChefContentCollectionViewReusableCell")
         itemTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
-        itemTableView.register(UINib(nibName: "PersonalChefReusableCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+        itemTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         itemTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
         itemTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
         contentCollectionView.delegate = self
@@ -923,8 +923,12 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 }
                 
                 cell.orderButtonTapped = {
-                    self.item = item
-                    self.performSegue(withIdentifier: "ProfileAsUserToOrderDetailsSegue", sender: self)
+                    if Auth.auth().currentUser!.displayName! != "Chef" {
+                        self.item = item
+                        self.performSegue(withIdentifier: "ProfileAsUserToOrderDetailsSegue", sender: self)
+                    } else {
+                        self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                    }
                 }
                 
                 cell.likeImageButtonTapped = {
@@ -1119,19 +1123,24 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
                 
                 cell.orderButtonTapped = {
-                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+                    if Auth.auth().currentUser!.displayName! == "Chef" {
+                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+                            vc.personalChefInfo = item
+                            
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    }  else {
+                        self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                }
+                }
+                
+                cell.detailButtonTapped = {
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+                        vc.caterOrPersonal = "personal"
                         vc.personalChefInfo = item
-                        
                         self.present(vc, animated: true, completion: nil)
                     }
                 }
-                
-                
-//                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
-//                    vc.caterOrPersonal = "personal"
-//                    vc.personalChefInfo = item
-//                    self.present(vc, animated: true, completion: nil)
-//                }
                 return cell
             }
         } else {
@@ -1384,11 +1393,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         }.resume()
                     }
                     cell.orderButtonTapped = {
-                        let item = order
-                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
-                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
-                            self.present(vc, animated: true, completion: nil)
-                        }}
+                        if Auth.auth().currentUser!.displayName! == "Chef" {
+                            let item = order
+                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                                self.present(vc, animated: true, completion: nil)
+                            }} else {
+                                self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                            }}
                     
                     
                     cell.chefImageButtonTapped = {
@@ -1519,11 +1531,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         }.resume()
                     }
                     cell.orderButtonTapped = {
-                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
-                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
-                            self.present(vc, animated: true, completion: nil)
-                        }
-                    }
+                        if Auth.auth().currentUser!.displayName! == "Chef" {
+                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
+                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                                self.present(vc, animated: true, completion: nil)
+                            }
+                        } else {
+                            self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                        }}
                     
                     cell.chefImageButtonTapped = {
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
@@ -1725,11 +1740,14 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     }
                     
                     cell.orderButtonTapped = {
-                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
-                            vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, zipCode: item.zipCode, signatureDishImage: item.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: [0.0], expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId, openToMenuRequests: "")
-                            self.present(vc, animated: true, completion: nil)
-                        }
-                    }
+                        if Auth.auth().currentUser!.displayName! == "Chef" {
+                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                                vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, zipCode: item.zipCode, signatureDishImage: item.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: [0.0], expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId, openToMenuRequests: "")
+                                self.present(vc, animated: true, completion: nil)
+                            }
+                        } else {
+                            self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                        }}
                     
                     cell.chefImageButtonTapped = {
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
@@ -1840,6 +1858,24 @@ extension ProfileAsUserViewController: UICollectionViewDelegate, UICollectionVie
 
         cell.viewText.text = "\(content.liked.count)"
             cell.configure(model: content)
+    
+        cell.videoViewButtonTapped = {
+            var cont : [VideoModel] = []
+            cont.append(content)
+            print("indexpath.row \(indexPath.row)")
+            for i in 0..<self.content.count {
+                if content.id != self.content[i].id {
+                    
+                    cont.append(self.content[i])
+                }
+            }
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Feed") as? FeedViewController  {
+                vc.chefOrFeed = "user"
+                vc.content = cont
+                vc.index = indexPath.row
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
         
         return cell
     }

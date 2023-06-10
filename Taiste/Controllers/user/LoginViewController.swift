@@ -22,6 +22,8 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
+    let db = Firestore.firestore()
+    
     @IBOutlet weak var emailText: MDCOutlinedTextField!
     @IBOutlet weak var passwordText: MDCOutlinedTextField!
     
@@ -66,6 +68,38 @@ class LoginViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func forgotPasswordButtonPressed(_ sender: Any) {
+        if !self.emailText.text!.isEmpty {
+            db.collection("Usernames").getDocuments { documents, error in
+                if error == nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        let email = data["email"] as! String
+                        let chefOrUser = data["chefOrUser"] as! String
+                        
+                        if self.emailText.text == email {
+                            if chefOrUser != "User" {
+                                self.showToast(message: "It looks like you have a Chef account. Please create a user account to continue.", font: .systemFont(ofSize: 12))
+                            } else {
+                                Auth.auth().sendPasswordReset(withEmail: email) { error in
+                                    if error != nil {
+                                        self.showToast(message: "An error has occured. Please try again later.", font: .systemFont(ofSize: 12))
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            self.showToast(message: "If you have an account with us, an email has been sent to the one provided.", font: .systemFont(ofSize: 12))
+        } else {
+            self.showToast(message: "Please enter your email address in the space above, and try again.", font: .systemFont(ofSize: 12))
+        }
+        
+    }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         if emailText.text!.isEmpty || passwordText.text!.isEmpty {

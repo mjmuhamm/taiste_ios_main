@@ -13,7 +13,9 @@ class FeedViewController: UIViewController {
     
     private let db = Firestore.firestore()
 
-    private var content : [VideoModel] = []
+    var content : [VideoModel] = []
+    var chefOrFeed = ""
+    var index = 0
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -22,7 +24,11 @@ class FeedViewController: UIViewController {
         collectionView.register(UINib(nibName: "FeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "FeedCollectionViewReusableCell")
         collectionView.dataSource = self
         collectionView.delegate = self
-        loadContent()
+        if chefOrFeed == "" {
+            loadContent()
+        } else {
+            collectionView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +127,52 @@ class FeedViewController: UIViewController {
         task.resume()
     }
     
+    private func deleteVideo(id: String) {
+        let json: [String: Any] = ["entryId": id]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/delete-video")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              self.showToastCompletion(message: "Item Deleted", font: .systemFont(ofSize: 12))
+              self.dismiss(animated: true)
+          }
+        })
+        task.resume()
+    }
+    
+    func showToastCompletion(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            self.dismiss(animated: true)
+            toastLabel.removeFromSuperview()
+        })
+    }
 
 }
 
@@ -140,6 +192,36 @@ extension FeedViewController : UICollectionViewDelegate, UICollectionViewDataSou
         cell.commentText.text = "\(model.comments)"
         cell.shareText.text = "\(model.shared)"
         
+        if chefOrFeed != "" {
+            cell.backButton.isHidden = false
+            if chefOrFeed == "chef" {
+                print("feed happening 212")
+                cell.deleteButton.isHidden = false
+            }
+        } else {
+            cell.backButton.isHidden = true
+            cell.deleteButton.isHidden = true
+        }
+        
+        
+        cell.backButtonTapped = {
+            self.dismiss(animated: true)
+        }
+        
+        cell.deleteButtonTapped = {
+            let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                self.deleteVideo(id: model.id)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
         cell.playPauseButtonTapped = {
             cell.playPauseButton.isSelected = !cell.playPauseButton.isSelected
             if (cell.playPauseButton.isSelected) {
@@ -157,6 +239,8 @@ extension FeedViewController : UICollectionViewDelegate, UICollectionViewDataSou
                 self.present(vc, animated: true, completion: nil)
             }
         }
+        
+        
         
         return cell
     }

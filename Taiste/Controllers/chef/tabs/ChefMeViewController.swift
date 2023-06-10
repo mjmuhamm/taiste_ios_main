@@ -1015,6 +1015,25 @@ extension ChefMeViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.viewText.text = "\(content.liked.count)"
             cell.configure(model: content)
         
+        cell.videoViewButtonTapped = {
+            var cont : [VideoModel] = []
+            cont.append(content)
+            print("indexpath.row \(indexPath.row)")
+            for i in 0..<self.content.count {
+                if content.id != self.content[i].id {
+                    
+                    cont.append(self.content[i])
+                }
+            }
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Feed") as? FeedViewController  {
+                vc.chefOrFeed = "chef"
+                vc.content = cont
+                vc.index = indexPath.row
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
+        
+        
         return cell
     }
     

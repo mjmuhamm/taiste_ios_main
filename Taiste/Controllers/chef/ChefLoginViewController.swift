@@ -61,6 +61,38 @@ class ChefLoginViewController: UIViewController {
         
     }
     
+    @IBAction func forgottonPasswordButtonPressed(_ sender: Any) {
+        if !self.emailText.text!.isEmpty {
+            db.collection("Usernames").getDocuments { documents, error in
+                if error == nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        let email = data["email"] as! String
+                        let chefOrUser = data["chefOrUser"] as! String
+                        
+                        if self.emailText.text == email {
+                            if chefOrUser != "Chef" {
+                                self.showToast(message: "It looks like you have a user account. Please create a chef account to continue.", font: .systemFont(ofSize: 12))
+                            } else {
+                                Auth.auth().sendPasswordReset(withEmail: email) { error in
+                                    if error != nil {
+                                        self.showToast(message: "An error has occured. Please try again later.", font: .systemFont(ofSize: 12))
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            self.showToast(message: "If you have an account with us, an email has been sent to your email.", font: .systemFont(ofSize: 12))
+        } else {
+            self.showToast(message: "Please enter your email address in the space above, and try again.", font: .systemFont(ofSize: 12))
+        }
+    }
+    
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -90,6 +122,26 @@ class ChefLoginViewController: UIViewController {
             }
             
         }
+        }
+        
+        func showToast(message : String, font: UIFont) {
+            
+            let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+            toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+            toastLabel.textColor = UIColor.white
+            toastLabel.font = font
+            toastLabel.textAlignment = .center;
+            toastLabel.text = message
+            toastLabel.alpha = 1.0
+            toastLabel.numberOfLines = 4
+            toastLabel.layer.cornerRadius = 1;
+            toastLabel.clipsToBounds  =  true
+            self.view.addSubview(toastLabel)
+            UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+                 toastLabel.alpha = 0.0
+            }, completion: {(isCompleted) in
+                toastLabel.removeFromSuperview()
+            })
         }
     }
 

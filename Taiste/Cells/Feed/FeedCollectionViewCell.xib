@@ -4,13 +4,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="FeedCollectionViewReusableCell" id="gTV-IL-0wX" customClass="FeedCollectionViewCell" customModule="Taiste" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="FeedCollectionViewReusableCell" id="gTV-IL-0wX" customClass="FeedCollectionViewCell" customModule="Taïste" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="576" height="874"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -182,6 +183,38 @@
                         </constraints>
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                     </imageView>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xr-fE-qhb">
+                        <rect key="frame" x="0.0" y="9" width="92" height="96"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="96" id="nXM-79-pvZ"/>
+                            <constraint firstAttribute="width" constant="92" id="v3P-jm-lHP"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal">
+                            <imageReference key="image" image="arrow.backward" catalog="system" symbolScale="large"/>
+                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24" scale="large"/>
+                        </state>
+                        <connections>
+                            <action selector="backButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="OBk-Q4-gc1"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUY-8V-g7N">
+                        <rect key="frame" x="509" y="-1" width="57" height="96"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="96" id="dwM-wP-NXe"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="Delete">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="nTY-Ym-emk"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -189,12 +222,16 @@
                 <constraint firstAttribute="bottom" secondItem="6Yk-HJ-7MP" secondAttribute="bottom" id="2BD-Nm-ALB"/>
                 <constraint firstAttribute="trailing" secondItem="oAw-rw-YDa" secondAttribute="trailing" constant="100" id="59a-Su-hU0"/>
                 <constraint firstItem="yzc-Lw-xsc" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="9c6-XM-YdA"/>
+                <constraint firstAttribute="trailing" secondItem="MUY-8V-g7N" secondAttribute="trailing" constant="10" id="GWF-hb-GmF"/>
                 <constraint firstItem="oAw-rw-YDa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="HUM-x3-0PA"/>
                 <constraint firstAttribute="trailing" secondItem="x7o-ap-j0h" secondAttribute="trailing" id="N3l-cj-kTr"/>
                 <constraint firstItem="6Yk-HJ-7MP" firstAttribute="top" secondItem="oAw-rw-YDa" secondAttribute="bottom" constant="17" id="Nbk-cU-EUm"/>
                 <constraint firstAttribute="trailing" secondItem="6Yk-HJ-7MP" secondAttribute="trailing" id="Nci-LM-Lw9"/>
                 <constraint firstItem="XrB-Dl-MB5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XeU-hL-Hc5"/>
+                <constraint firstItem="6Xr-fE-qhb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="9" id="aMH-NH-Ekp"/>
                 <constraint firstAttribute="bottom" secondItem="XrB-Dl-MB5" secondAttribute="bottom" id="agN-KC-2cR"/>
+                <constraint firstItem="6Xr-fE-qhb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cQC-gt-FwG"/>
+                <constraint firstItem="MUY-8V-g7N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-1" id="eJB-Nj-mh3"/>
                 <constraint firstAttribute="bottom" secondItem="x7o-ap-j0h" secondAttribute="bottom" id="hg7-jC-jPd"/>
                 <constraint firstItem="yzc-Lw-xsc" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="iAO-dc-zYU"/>
                 <constraint firstAttribute="trailing" secondItem="XrB-Dl-MB5" secondAttribute="trailing" id="jca-ld-22S"/>
@@ -204,7 +241,9 @@
             </constraints>
             <size key="customSize" width="576" height="874"/>
             <connections>
+                <outlet property="backButton" destination="6Xr-fE-qhb" id="oY2-IE-PWX"/>
                 <outlet property="commentText" destination="9b0-wq-Rtv" id="gHo-K9-znP"/>
+                <outlet property="deleteButton" destination="MUY-8V-g7N" id="1zt-ll-WJN"/>
                 <outlet property="likeImage" destination="22p-H7-EeS" id="mIJ-3S-GHZ"/>
                 <outlet property="likeText" destination="0Vx-bP-EGc" id="Lhi-sJ-eQv"/>
                 <outlet property="playImage" destination="yzc-Lw-xsc" id="zvk-IH-ppU"/>
@@ -218,6 +257,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="arrow.backward" catalog="system" width="128" height="95"/>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="104"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>

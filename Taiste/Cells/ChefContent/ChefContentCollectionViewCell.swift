@@ -14,10 +14,11 @@ class ChefContentCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var viewText: UILabel!
     
+    @IBOutlet weak var videoViewButton: UIButton!
     
     var player : AVPlayer!
     
-    
+    var videoViewButtonTapped : (() -> ()) = {}
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,6 +32,10 @@ class ChefContentCollectionViewCell: UICollectionViewCell {
         playerLayer.frame = contentView.bounds
         videoView.layer.addSublayer(playerLayer)
       
+    }
+    
+    @IBAction func videoViewButtonPressed(_ sender: Any) {
+        videoViewButtonTapped()
     }
     
 }

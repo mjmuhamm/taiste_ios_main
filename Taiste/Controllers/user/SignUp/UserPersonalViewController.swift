@@ -515,7 +515,7 @@ class UserPersonalViewController: UIViewController {
                         self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
                         self.db.collection("User").document(authResult!.user.uid).setData(data2)
                         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = self.userName.text
+                        changeRequest?.displayName = "User"
                         changeRequest?.commitChanges { error in
                             // ...
                         }

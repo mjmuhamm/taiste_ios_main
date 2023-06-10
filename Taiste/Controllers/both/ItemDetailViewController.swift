@@ -441,34 +441,42 @@ class ItemDetailViewController: UIViewController {
     }
     
     @IBAction func option1ButtonPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
-            vc.caterOrPersonal = "Option 1"
-            vc.personalChefInfo = personalChefInfo!
-            self.present(vc, animated: true, completion: nil)
+        if option1Text.text != "No Item" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+                vc.caterOrPersonal = "Option 1"
+                vc.personalChefInfo = personalChefInfo!
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
     @IBAction func option2ButtonPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
-            vc.caterOrPersonal = "Option 2"
-            vc.personalChefInfo = personalChefInfo!
-            self.present(vc, animated: true, completion: nil)
+        if option2Text.text != "No Item" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+                vc.caterOrPersonal = "Option 2"
+                vc.personalChefInfo = personalChefInfo!
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
     @IBAction func option3ButtonPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
-            vc.caterOrPersonal = "Option 3"
-            vc.personalChefInfo = personalChefInfo!
-            self.present(vc, animated: true, completion: nil)
+        if option3Text.text != "No Item" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+                vc.caterOrPersonal = "Option 3"
+                vc.personalChefInfo = personalChefInfo!
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
     @IBAction func option4ButtonPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
-            vc.caterOrPersonal = "Option 4"
-            vc.personalChefInfo = personalChefInfo!
-            self.present(vc, animated: true, completion: nil)
+        if option4Text.text != "No Item" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController {
+                vc.caterOrPersonal = "Option 4"
+                vc.personalChefInfo = personalChefInfo!
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     

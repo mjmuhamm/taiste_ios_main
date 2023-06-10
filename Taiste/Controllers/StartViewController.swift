@@ -82,20 +82,19 @@ class StartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let vc : UITabBarController = UserTabViewController()
-//        if Auth.auth().currentUser != nil {
-//            if Auth.auth().currentUser!.displayName! == "User" {
-//                 //your view controller
-//                self.performSegue(withIdentifier: "StartToUserTabSegue", sender: self)
-//            } else {
-//                let vc = ChefTabViewController() //your view controller
-//                self.present(vc, animated: true, completion: nil)
-//                self.performSegue(withIdentifier: "StartToChefTabSegue", sender: self)
-//
-//            }
-//        }
+        if Auth.auth().currentUser != nil {
+            
+            if Auth.auth().currentUser!.displayName! == "User" {
+                //your view controller
+                
+                self.performSegue(withIdentifier: "StartToUserTabSegue", sender: self)
+            } else {
+                
+                self.performSegue(withIdentifier: "StartToChefTabSegue", sender: self)
+                
+            }
+        }
     }
-    
-    
     
 }
 
