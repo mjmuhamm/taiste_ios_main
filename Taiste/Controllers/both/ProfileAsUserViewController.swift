@@ -991,8 +991,11 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                             }
                         }
                     })
-                    let date =  self.df.string(from: Date())
-                    let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (\(item.itemType))  \(item.itemTitle)", "date" : date]
+                    let date = Date()
+                    let df = DateFormatter()
+                    
+                    let date1 =  df.string(from: Date())
+                    let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (\(item.itemType))  \(item.itemTitle)", "date" : date1]
                     let data4: [String: Any] = ["notifications" : "yes"]
                     self.db.collection("Chef").document(item.chefImageId).collection("Notifications").document().setData(data3)
                     self.db.collection("Chef").document(item.chefImageId).updateData(data4)
