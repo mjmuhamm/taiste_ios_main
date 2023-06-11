@@ -684,8 +684,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orders" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esf-6X-dCD">
+                                <rect key="frame" x="180.5" y="14" width="53.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05O-WH-s4B">
-                                <rect key="frame" x="380.5" y="14.5" width="20" height="19.5"/>
+                                <rect key="frame" x="11" y="14.5" width="20" height="19.5"/>
                                 <color key="tintColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="bell.fill" catalog="system">
@@ -695,14 +701,8 @@
                                     <action selector="notificationsButtonPressed:" destination="MQz-cP-RTd" eventType="touchUpInside" id="Qir-F1-7TH"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orders" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esf-6X-dCD">
-                                <rect key="frame" x="180.5" y="14" width="53.5" height="19.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8cn-Db-vVM">
-                                <rect key="frame" x="393.5" y="5.5" width="11.5" height="11.5"/>
+                                <rect key="frame" x="24" y="5.5" width="11.5" height="11.5"/>
                                 <color key="tintColor" red="0.9375815783" green="0.34654789530000002" blue="0.35419432080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12" scale="small"/>
                             </imageView>
@@ -714,14 +714,14 @@
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="trailing" secondItem="wMT-1g-e4a" secondAttribute="trailing" id="38D-iQ-Zkc"/>
                             <constraint firstItem="8VU-31-tvP" firstAttribute="centerX" secondItem="CAi-hP-6dL" secondAttribute="centerX" id="3t7-Gc-UcN"/>
                             <constraint firstItem="esf-6X-dCD" firstAttribute="top" secondItem="wMT-1g-e4a" secondAttribute="top" constant="14" id="4vp-hE-O76"/>
+                            <constraint firstItem="8cn-Db-vVM" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" constant="24" id="ARj-Gl-q93"/>
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="top" secondItem="8VU-31-tvP" secondAttribute="bottom" constant="10" id="Anr-lY-gXM"/>
-                            <constraint firstItem="wMT-1g-e4a" firstAttribute="trailing" secondItem="05O-WH-s4B" secondAttribute="trailing" constant="13.5" id="E5J-fO-biD"/>
+                            <constraint firstItem="05O-WH-s4B" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" constant="11" id="IaV-JQ-aAc"/>
                             <constraint firstItem="QUD-0c-h8i" firstAttribute="top" secondItem="esf-6X-dCD" secondAttribute="bottom" constant="12.5" id="JcQ-eZ-JzN"/>
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="bottom" secondItem="wMT-1g-e4a" secondAttribute="bottom" id="P1T-SI-vjJ"/>
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" id="QD8-2Y-RYK"/>
                             <constraint firstItem="QUD-0c-h8i" firstAttribute="leading" secondItem="CAi-hP-6dL" secondAttribute="leading" id="WGc-w4-uan"/>
                             <constraint firstItem="8cn-Db-vVM" firstAttribute="top" secondItem="wMT-1g-e4a" secondAttribute="top" constant="4" id="X2N-hl-wOE"/>
-                            <constraint firstItem="wMT-1g-e4a" firstAttribute="trailing" secondItem="8cn-Db-vVM" secondAttribute="trailing" constant="9" id="cby-rF-Sw5"/>
                             <constraint firstAttribute="trailing" secondItem="QUD-0c-h8i" secondAttribute="trailing" id="hH4-KN-ahC"/>
                             <constraint firstItem="05O-WH-s4B" firstAttribute="top" secondItem="wMT-1g-e4a" secondAttribute="top" constant="14.5" id="mBo-bz-s5g"/>
                             <constraint firstItem="8VU-31-tvP" firstAttribute="top" secondItem="QUD-0c-h8i" secondAttribute="bottom" constant="13.5" id="mHF-DD-bf1"/>
@@ -2661,13 +2661,14 @@
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEo-Kh-lYM" customClass="MDCButton">
-                                <rect key="frame" x="332" y="9" width="62" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEo-Kh-lYM" customClass="MDCButton">
+                                <rect key="frame" x="365.5" y="7.5" width="28.5" height="24.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Message">
+                                <state key="normal" image="envelope.badge" catalog="system">
                                     <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                                 <state key="selected">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2704,7 +2705,7 @@
                             <constraint firstItem="hJb-Cb-ZWZ" firstAttribute="top" secondItem="Dzy-RX-K4o" secondAttribute="bottom" constant="11.5" id="mFi-M6-gCZ"/>
                             <constraint firstItem="Dem-9X-PlB" firstAttribute="centerX" secondItem="erO-Uj-3Py" secondAttribute="centerX" id="nA4-cI-EI9"/>
                             <constraint firstItem="XUN-I6-JBI" firstAttribute="centerX" secondItem="erO-Uj-3Py" secondAttribute="centerX" id="oZv-lH-A17"/>
-                            <constraint firstItem="Dzy-RX-K4o" firstAttribute="top" secondItem="HEo-Kh-lYM" secondAttribute="bottom" constant="5" id="pdq-1a-h6M"/>
+                            <constraint firstItem="Dzy-RX-K4o" firstAttribute="top" secondItem="HEo-Kh-lYM" secondAttribute="bottom" constant="12" id="pdq-1a-h6M"/>
                             <constraint firstItem="dwj-i0-u3D" firstAttribute="bottom" secondItem="RSt-t0-t3L" secondAttribute="bottom" id="sxO-bF-kuK"/>
                             <constraint firstItem="XUN-I6-JBI" firstAttribute="centerY" secondItem="erO-Uj-3Py" secondAttribute="centerY" id="t5H-qn-gyB"/>
                             <constraint firstItem="VKp-KE-8g5" firstAttribute="leading" secondItem="dwj-i0-u3D" secondAttribute="leading" id="uDs-px-ZPu"/>
@@ -3532,25 +3533,46 @@
                                 <rect key="frame" x="5" y="192.5" width="404" height="636.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwA-KZ-CV9">
+                                <rect key="frame" x="9" y="12" width="20" height="19.5"/>
+                                <color key="tintColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="bell.fill" catalog="system" symbolScale="medium"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
+                                </state>
+                                <connections>
+                                    <action selector="notificationsButtonPressed:" destination="ISg-SE-8Fx" eventType="touchUpInside" id="Fx3-MK-RiA"/>
+                                </connections>
+                            </button>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9c8-TO-1XC">
+                                <rect key="frame" x="25" y="4" width="11.5" height="11.5"/>
+                                <color key="tintColor" red="0.9375815783" green="0.34654789530000002" blue="0.35419432080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12" scale="small"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7B3-uC-DqN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="KH3-Ew-eZv" firstAttribute="top" secondItem="sj9-AK-ncM" secondAttribute="bottom" constant="19" id="01X-AL-481"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="bottom" secondItem="WSI-87-sWp" secondAttribute="bottom" constant="18" id="05M-o4-Yhx"/>
+                            <constraint firstItem="9c8-TO-1XC" firstAttribute="top" secondItem="7B3-uC-DqN" secondAttribute="top" constant="2.5" id="0eW-aM-NfI"/>
                             <constraint firstItem="sj9-AK-ncM" firstAttribute="top" secondItem="ZRC-Gz-nuF" secondAttribute="bottom" constant="9" id="3hm-CL-naV"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="trailing" secondItem="FF3-9N-Cgr" secondAttribute="trailing" constant="5" id="521-1l-r8A"/>
                             <constraint firstItem="HN3-W7-5Yg" firstAttribute="bottom" secondItem="7B3-uC-DqN" secondAttribute="bottom" constant="-18" id="7pp-ot-7zi"/>
                             <constraint firstItem="YCi-ec-omJ" firstAttribute="leading" secondItem="7B3-uC-DqN" secondAttribute="leading" constant="20" id="9Ui-ff-TKP"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="trailing" secondItem="WSI-87-sWp" secondAttribute="trailing" constant="5" id="AQM-W4-bkM"/>
+                            <constraint firstItem="9c8-TO-1XC" firstAttribute="leading" secondItem="7B3-uC-DqN" secondAttribute="leading" constant="25" id="Dxt-e9-Dmk"/>
                             <constraint firstItem="FF3-9N-Cgr" firstAttribute="leading" secondItem="7B3-uC-DqN" secondAttribute="leading" constant="5" id="Fjj-hW-jHQ"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="trailing" secondItem="YCi-ec-omJ" secondAttribute="trailing" constant="20" id="GfA-fn-55h"/>
                             <constraint firstItem="YCi-ec-omJ" firstAttribute="top" secondItem="sj9-AK-ncM" secondAttribute="bottom" constant="17.5" id="KPJ-C6-6pI"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="trailing" secondItem="HN3-W7-5Yg" secondAttribute="trailing" constant="5" id="Mmx-VL-CD3"/>
                             <constraint firstItem="WSI-87-sWp" firstAttribute="leading" secondItem="7B3-uC-DqN" secondAttribute="leading" constant="5" id="NyK-5G-lyL"/>
+                            <constraint firstItem="fwA-KZ-CV9" firstAttribute="top" secondItem="7B3-uC-DqN" secondAttribute="top" constant="12" id="Qpk-6T-KrS"/>
                             <constraint firstAttribute="trailing" secondItem="sj9-AK-ncM" secondAttribute="trailing" id="Sbk-9i-7aS"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="trailing" secondItem="KH3-Ew-eZv" secondAttribute="trailing" constant="20" id="UTk-Gz-weM"/>
                             <constraint firstItem="7B3-uC-DqN" firstAttribute="trailing" secondItem="xio-Jq-qt8" secondAttribute="trailing" constant="20" id="Vv0-eI-rsr"/>
+                            <constraint firstItem="fwA-KZ-CV9" firstAttribute="leading" secondItem="7B3-uC-DqN" secondAttribute="leading" constant="9" id="XEv-g4-Knu"/>
                             <constraint firstItem="FF3-9N-Cgr" firstAttribute="top" secondItem="kIb-YK-PmW" secondAttribute="bottom" constant="5" id="Z3q-zI-BfZ"/>
                             <constraint firstItem="kIb-YK-PmW" firstAttribute="top" secondItem="zho-ob-khY" secondAttribute="bottom" constant="13.5" id="ec2-hD-a21"/>
                             <constraint firstItem="kIb-YK-PmW" firstAttribute="centerX" secondItem="KuJ-Q5-dqa" secondAttribute="centerX" id="fnh-pi-Oun"/>
@@ -3579,6 +3601,7 @@
                         <outlet property="itemTypeText" destination="YCi-ec-omJ" id="7AH-wU-56n"/>
                         <outlet property="monthlyBarChart" destination="WSI-87-sWp" id="V5E-gv-tmJ"/>
                         <outlet property="monthlyButton" destination="jlj-1S-sbs" id="qbj-ll-Mkn"/>
+                        <outlet property="notificationsImage" destination="9c8-TO-1XC" id="V0P-f2-EVB"/>
                         <outlet property="pieChart" destination="HN3-W7-5Yg" id="lZ0-ZG-Gjt"/>
                         <outlet property="totalButton" destination="Lsk-KR-50k" id="w3W-In-Mjg"/>
                         <outlet property="weeklyBarChart" destination="FF3-9N-Cgr" id="Id3-6y-TMe"/>
@@ -4877,7 +4900,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sS-Cv-qFH">
-                                <rect key="frame" x="382" y="15" width="20" height="19.5"/>
+                                <rect key="frame" x="12" y="15" width="20" height="19.5"/>
                                 <color key="tintColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal">
@@ -4889,7 +4912,7 @@
                                 </connections>
                             </button>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="W5P-OZ-Uqt">
-                                <rect key="frame" x="398.5" y="7" width="11.5" height="11.5"/>
+                                <rect key="frame" x="28" y="7" width="11.5" height="11.5"/>
                                 <color key="tintColor" red="0.9375815783" green="0.34654789530000002" blue="0.35419432080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12" scale="small"/>
                             </imageView>
@@ -4898,15 +4921,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nwe-Jd-iTL" firstAttribute="top" secondItem="wRB-cO-0rd" secondAttribute="bottom" constant="15" id="0yt-rG-twe"/>
-                            <constraint firstItem="mVD-Ct-svM" firstAttribute="trailing" secondItem="2sS-Cv-qFH" secondAttribute="trailing" constant="12" id="1rN-yW-smo"/>
                             <constraint firstItem="W5P-OZ-Uqt" firstAttribute="top" secondItem="mVD-Ct-svM" secondAttribute="top" constant="5.5" id="AIH-Rf-66F"/>
                             <constraint firstItem="p56-gg-IrF" firstAttribute="centerX" secondItem="K6d-47-Gf1" secondAttribute="centerX" id="Gs2-Hr-wFh"/>
-                            <constraint firstItem="mVD-Ct-svM" firstAttribute="trailing" secondItem="W5P-OZ-Uqt" secondAttribute="trailing" constant="4" id="KGp-do-RQ6"/>
+                            <constraint firstItem="2sS-Cv-qFH" firstAttribute="leading" secondItem="mVD-Ct-svM" secondAttribute="leading" constant="12" id="IgJ-rc-Mrb"/>
                             <constraint firstItem="tCe-mJ-ef0" firstAttribute="leading" secondItem="K6d-47-Gf1" secondAttribute="leading" id="Pqu-aS-021"/>
                             <constraint firstItem="wRB-cO-0rd" firstAttribute="top" secondItem="tCe-mJ-ef0" secondAttribute="bottom" constant="15" id="WTp-Ba-hdv"/>
                             <constraint firstItem="p56-gg-IrF" firstAttribute="top" secondItem="mVD-Ct-svM" secondAttribute="top" constant="15" id="ZIi-GN-hGr"/>
                             <constraint firstItem="2sS-Cv-qFH" firstAttribute="top" secondItem="mVD-Ct-svM" secondAttribute="top" constant="15" id="aVX-Tx-GAp"/>
                             <constraint firstAttribute="trailing" secondItem="tCe-mJ-ef0" secondAttribute="trailing" id="ejG-2U-MXA"/>
+                            <constraint firstItem="W5P-OZ-Uqt" firstAttribute="leading" secondItem="mVD-Ct-svM" secondAttribute="leading" constant="28" id="fg3-gH-Hku"/>
                             <constraint firstAttribute="bottom" secondItem="nwe-Jd-iTL" secondAttribute="bottom" id="msf-6f-17X"/>
                             <constraint firstItem="nwe-Jd-iTL" firstAttribute="leading" secondItem="mVD-Ct-svM" secondAttribute="leading" id="rZd-H8-ECH"/>
                             <constraint firstItem="wRB-cO-0rd" firstAttribute="centerX" secondItem="K6d-47-Gf1" secondAttribute="centerX" id="uyv-sZ-4s9"/>
@@ -10959,7 +10982,7 @@ Taïste may contain links to third-party websites or services that are not contr
     <inferredMetricsTieBreakers>
         <segue reference="IKH-yz-VW2"/>
         <segue reference="nDc-ga-NWH"/>
-        <segue reference="o3x-XZ-YkT"/>
+        <segue reference="Dwe-Tp-kXr"/>
         <segue reference="tkP-ld-7rs"/>
         <segue reference="gmU-Hz-wfQ"/>
         <segue reference="ngW-4j-MLJ"/>
@@ -10984,6 +11007,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <image name="dashboard_filled" width="27.5" height="27.5"/>
         <image name="default_image" width="500" height="500"/>
         <image name="dollar" width="64" height="64"/>
+        <image name="envelope.badge" catalog="system" width="128" height="101"/>
         <image name="exclamationmark.triangle.fill" catalog="system" width="128" height="109"/>
         <image name="feed" width="31.5" height="31.5"/>
         <image name="feed_filled" width="31.5" height="31.5"/>

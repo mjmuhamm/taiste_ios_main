@@ -18,7 +18,6 @@ class HomeViewController: UIViewController {
 
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-    private let user = "malik@testing.com"
     
     let date = Date()
     let df = DateFormatter()
@@ -743,7 +742,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                                 self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
                                 
                                 let date =  self.df.string(from: Date())
-                                let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (Executive Item)", "date" : date]
+                                let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (Executive Chef)", "date" : date]
                                 let data4: [String: Any] = ["notifications" : "yes"]
                                 self.db.collection("Chef").document(item.chefImageId).collection("Notifications").document().setData(data3)
                                 self.db.collection("Chef").document(item.chefImageId).updateData(data4)

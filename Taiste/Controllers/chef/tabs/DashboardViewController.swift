@@ -40,6 +40,7 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var weeklyBarChart: BarChartView!
     @IBOutlet weak var monthlyBarChart: BarChartView!
     @IBOutlet weak var pieChart: PieChartView!
+    @IBOutlet weak var notificationsImage: UIImageView!
     
     private let db = Firestore.firestore()
     private var items : [FoodItems] = []
@@ -123,6 +124,9 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
         itemText.layer.cornerRadius = 2
         
 
+        if Auth.auth().currentUser != nil {
+            loadNotifications()
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -133,6 +137,33 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
         self.tabBarController?.tabBar.barTintColor = UIColor.white
     }
 
+    private func loadNotifications() {
+        if Auth.auth().currentUser != nil {
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        let notifications = data!["notifications"] as! String
+                        if notifications != "" {
+                            if notifications == "seen" {
+                                let data1 : [String: Any] = ["notifications" : ""]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                self.notificationsImage.isHidden = true
+                            } else {
+                                let data1 : [String: Any] = ["notifications" : "seen"]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                self.notificationsImage.isHidden = false
+                            }
+                        } else {
+                            self.notificationsImage.isHidden = true
+                        }
+                    }
+                }
+            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check connection.", font: .systemFont(ofSize: 12))
+        }
+    }
     
     private func loadFoodItems(itemType: String) {
         items.removeAll()
@@ -509,6 +540,14 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
         totalButton.setTitleColor(UIColor.white, for: .normal)
         totalButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
     }
+   
+    @IBAction func notificationsButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Notifications") as? NotificationsViewController {
+            vc.chefOrUser = "Chef"
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
     func showToast(message : String, font: UIFont) {
         
