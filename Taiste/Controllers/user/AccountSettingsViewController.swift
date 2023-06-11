@@ -44,26 +44,30 @@ class AccountSettingsViewController: UIViewController {
     }
     
     private func loadPrivatizeData() {
-        db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
-            if error == nil {
-                let data = document!.data()
-                
-                if let privatizeData = data!["privatizeData"] as? String {
+        if Auth.auth().currentUser != nil {
+            db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    let data = document!.data()
                     
-                    if privatizeData == "yes" {
-                        self.privatizeYes.setTitleColor(UIColor.white, for: .normal)
-                        self.privatizeYes.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-                        self.privatizeNo.backgroundColor = UIColor.white
-                        self.privatizeNo.setTitleColor(UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
-                    } else {
-                        self.privatizeNo.setTitleColor(UIColor.white, for: .normal)
-                        self.privatizeNo.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-                        self.privatizeYes.backgroundColor = UIColor.white
-                        self.privatizeYes.setTitleColor(UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
+                    if let privatizeData = data!["privatizeData"] as? String {
+                        
+                        if privatizeData == "yes" {
+                            self.privatizeYes.setTitleColor(UIColor.white, for: .normal)
+                            self.privatizeYes.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+                            self.privatizeNo.backgroundColor = UIColor.white
+                            self.privatizeNo.setTitleColor(UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
+                        } else {
+                            self.privatizeNo.setTitleColor(UIColor.white, for: .normal)
+                            self.privatizeNo.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+                            self.privatizeYes.backgroundColor = UIColor.white
+                            self.privatizeYes.setTitleColor(UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
+                        }
                     }
+                    
                 }
-                
             }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     
@@ -125,20 +129,24 @@ class AccountSettingsViewController: UIViewController {
         let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
-            Auth.auth().currentUser!.delete { error in
-                if error == nil {
-                    self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
-                    self.db.collection("User").document(Auth.auth().currentUser!.uid).delete()
-                    let storageRef = self.storage.reference()
-                    Task {
-                    try? await storageRef.child("users/\(Auth.auth().currentUser!.email!)").delete()
+            if Auth.auth().currentUser != nil {
+                Auth.auth().currentUser!.delete { error in
+                    if error == nil {
+                        self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
+                        self.db.collection("User").document(Auth.auth().currentUser!.uid).delete()
+                        let storageRef = self.storage.reference()
+                        Task {
+                            try? await storageRef.child("users/\(Auth.auth().currentUser!.email!)").delete()
+                        }
+                        
+                        self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
+                        
+                    } else {
+                        self.showToast(message: "Something went wrong. Please try again.", font: .systemFont(ofSize: 12))
                     }
-                    
-                    self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
-                    
-                } else {
-                    self.showToast(message: "Something went wrong. Please try again.", font: .systemFont(ofSize: 12))
                 }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         }))
         

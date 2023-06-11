@@ -171,49 +171,54 @@ class ChefBankingViewController: UIViewController {
     }
     
     private func loadBankingInfo() {
-        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
-            if error == nil {
-            if documents != nil {
-                for doc in documents!.documents {
-                    let data = doc.data()
-                    
-                    if let accountType = data["accountType"] as? String, let externalAccountId = data["externalAccountId"] as? String, let stripeAccountId = data["stripeAccountId"] as? String {
-                        
-                        self.externalAccountId = externalAccountId
-                        self.stripeAccountId = stripeAccountId
-                        self.deleteAccountButton.isHidden = false
-                        if accountType == "Individual" {
-                            self.termsOfServiceAccept = "Yes"
-                            self.individualView.isHidden = false
-                            self.businessView.isHidden = true
-                            self.iAcceptCircle.image = UIImage(systemName: "circle.fill")
-                            self.individualButton.setTitleColor(UIColor.white, for: .normal)
-                            self.individualButton.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
-                            self.businessButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-                            self.businessButton.backgroundColor = UIColor.white
-                            self.loadIndividualBankingInfo(stripeAccountId: stripeAccountId, externalAccountId: externalAccountId, individualOrBusiness: "Individual")
-                        } else {
-                            if let representativeId = data["representativeId"] as? String {
+        if Auth.auth().currentUser != nil {
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let accountType = data["accountType"] as? String, let externalAccountId = data["externalAccountId"] as? String, let stripeAccountId = data["stripeAccountId"] as? String {
                                 
-                            self.termsOfServiceAccept = "Yes"
-                            self.individualView.isHidden = true
-                            self.businessView.isHidden = false
-                            self.bIAcceptCircle.image = UIImage(systemName: "circle.fill")
-                            self.businessButton.setTitleColor(UIColor.white, for: .normal)
-                            self.businessButton.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
-                            self.individualButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-                            self.individualButton.backgroundColor = UIColor.white
-                                self.loadBusinessBankingInfo(stripeAccountId: stripeAccountId, externalAccountId: externalAccountId, representativeId: representativeId, documentId: doc.documentID)
+                                self.externalAccountId = externalAccountId
+                                self.stripeAccountId = stripeAccountId
+                                self.deleteAccountButton.isHidden = false
+                                if accountType == "Individual" {
+                                    self.termsOfServiceAccept = "Yes"
+                                    self.individualView.isHidden = false
+                                    self.businessView.isHidden = true
+                                    self.iAcceptCircle.image = UIImage(systemName: "circle.fill")
+                                    self.individualButton.setTitleColor(UIColor.white, for: .normal)
+                                    self.individualButton.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                                    self.businessButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                                    self.businessButton.backgroundColor = UIColor.white
+                                    self.loadIndividualBankingInfo(stripeAccountId: stripeAccountId, externalAccountId: externalAccountId, individualOrBusiness: "Individual")
+                                } else {
+                                    if let representativeId = data["representativeId"] as? String {
+                                        
+                                        self.termsOfServiceAccept = "Yes"
+                                        self.individualView.isHidden = true
+                                        self.businessView.isHidden = false
+                                        self.bIAcceptCircle.image = UIImage(systemName: "circle.fill")
+                                        self.businessButton.setTitleColor(UIColor.white, for: .normal)
+                                        self.businessButton.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+                                        self.individualButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+                                        self.individualButton.backgroundColor = UIColor.white
+                                        self.loadBusinessBankingInfo(stripeAccountId: stripeAccountId, externalAccountId: externalAccountId, representativeId: representativeId, documentId: doc.documentID)
+                                    }
+                                }
+                                
                             }
                         }
-                        
+                    } else {
+                        self.newAccountOrEditedAccount = "new"
+                        self.deleteAccountButton.isHidden = true
                     }
                 }
-            } else {
-                self.newAccountOrEditedAccount = "new"
-                self.deleteAccountButton.isHidden = true
             }
-            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+            
         }
     }
     
@@ -857,11 +862,15 @@ class ChefBankingViewController: UIViewController {
         } else if last4ofSSN.text == "" || last4ofSSN.text!.count != 9 {
             self.showToast(message: "Please enter your ssn.", font: .systemFont(ofSize: 12))
         } else {
-            if newAccountOrEditedAccount == "new" {
-            saveIndividualAccountInfo()
-//                print("individual banking info \(individualBankingInfo)")
+            if Auth.auth().currentUser != nil {
+                if newAccountOrEditedAccount == "new" {
+                    saveIndividualAccountInfo()
+                    //                print("individual banking info \(individualBankingInfo)")
+                } else {
+                    updateIndividualAccount()
+                }
             } else {
-                updateIndividualAccount()
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         }
         
@@ -1001,10 +1010,14 @@ class ChefBankingViewController: UIViewController {
         } else if owners.count < 1 {
             self.showToast(message: "Please add atleast 1 owner.", font: .systemFont(ofSize: 12))
         } else {
-            if newAccountOrEditedAccount == "new" {
-            saveBusinessAccountInfo()
+            if Auth.auth().currentUser != nil {
+                if newAccountOrEditedAccount == "new" {
+                    saveBusinessAccountInfo()
+                } else {
+                    updateBusinessAccount()
+                }
             } else {
-            updateBusinessAccount()
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         }
     }

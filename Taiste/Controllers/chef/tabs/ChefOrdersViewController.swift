@@ -56,116 +56,120 @@ class ChefOrdersViewController: UIViewController {
     }
 
     private func loadOrders() {
-        
-        if !orders.isEmpty {
-            orders.removeAll()
-            orderTableView.reloadData()
-        }
-        
-        var ordersI : [Orders]
-        if toggle == "Pending" {
-            ordersI = pendingOrders
-        } else if toggle == "Scheduled" {
-            ordersI = scheduledOrders
-        } else {
-            ordersI = completeOrders
-        }
-        if ordersI.isEmpty {
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").addSnapshotListener ({ documents, error in
+        if Auth.auth().currentUser != nil {
+            if !orders.isEmpty {
+                orders.removeAll()
+                orderTableView.reloadData()
+            }
             
-            if error == nil {
-                if (documents != nil) {
-                for doc in documents!.documents {
-                    let data = doc.data()
+            var ordersI : [Orders]
+            if toggle == "Pending" {
+                ordersI = pendingOrders
+            } else if toggle == "Scheduled" {
+                ordersI = scheduledOrders
+            } else {
+                ordersI = completeOrders
+            }
+            if ordersI.isEmpty {
+                db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").addSnapshotListener ({ documents, error in
                     
-                    print("orders happening 2")
-                    
-                    if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String, let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String {
-                        
-                        print("orders happening 3")
-                        let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems)
-                        print("happening 1")
-                        if orderUpdate == "pending" {
-                            print("happening")
-                            if self.pendingOrders.isEmpty  {
-                                self.pendingOrders.append(newOrder)
-                                if self.toggle == "Pending" {
-                                self.orders = self.pendingOrders
-                                self.orderTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                    if error == nil {
+                        if (documents != nil) {
+                            for doc in documents!.documents {
+                                let data = doc.data()
+                                
+                                print("orders happening 2")
+                                
+                                if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String, let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String {
+                                    
+                                    print("orders happening 3")
+                                    let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems)
+                                    print("happening 1")
+                                    if orderUpdate == "pending" {
+                                        print("happening")
+                                        if self.pendingOrders.isEmpty  {
+                                            self.pendingOrders.append(newOrder)
+                                            if self.toggle == "Pending" {
+                                                self.orders = self.pendingOrders
+                                                self.orderTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                            }
+                                        } else {
+                                            let index = self.pendingOrders.firstIndex { $0.documentId == doc.documentID }
+                                            if index == nil {
+                                                self.pendingOrders.append(newOrder)
+                                                if self.toggle == "Pending" {
+                                                    self.orders = self.pendingOrders
+                                                    self.orderTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                                }
+                                            }
+                                        }
+                                    } else if orderUpdate == "scheduled" {
+                                        if self.scheduledOrders.isEmpty {
+                                            self.scheduledOrders.append(newOrder)
+                                            if self.toggle == "Scheduled" {
+                                                self.orders = self.scheduledOrders
+                                                self.orderTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                            }
+                                        } else {
+                                            let index = self.scheduledOrders.firstIndex { $0.documentId == doc.documentID }
+                                            if index == nil {
+                                                self.scheduledOrders.append(newOrder)
+                                                if self.toggle == "Scheduled" {
+                                                    self.orders = self.scheduledOrders
+                                                    self.orderTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                                }
+                                            }
+                                        }
+                                    } else if orderUpdate == "complete" {
+                                        if self.completeOrders.isEmpty {
+                                            self.completeOrders.append(newOrder)
+                                            if self.toggle == "Complete" {
+                                                self.orders = self.completeOrders
+                                                self.orderTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                            }
+                                        } else {
+                                            let index = self.completeOrders.firstIndex { $0.documentId == doc.documentID }
+                                            if index == nil {
+                                                self.completeOrders.append(newOrder)
+                                                if self.toggle == "Complete" {
+                                                    self.orders = self.completeOrders
+                                                    self.orderTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
-                            } else {
-                                let index = self.pendingOrders.firstIndex { $0.documentId == doc.documentID }
-                                if index == nil {
-                                    self.pendingOrders.append(newOrder)
-                                    if self.toggle == "Pending" {
-                                    self.orders = self.pendingOrders
-                                    self.orderTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
-                                }
-                            }
-                            }
-                        } else if orderUpdate == "scheduled" {
-                            if self.scheduledOrders.isEmpty {
-                                self.scheduledOrders.append(newOrder)
-                                if self.toggle == "Scheduled" {
-                                self.orders = self.scheduledOrders
-                                self.orderTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                }
-                            } else {
-                                let index = self.scheduledOrders.firstIndex { $0.documentId == doc.documentID }
-                                if index == nil {
-                                    self.scheduledOrders.append(newOrder)
-                                    if self.toggle == "Scheduled" {
-                                    self.orders = self.scheduledOrders
-                                    self.orderTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
-                                }
-                                }
-                            }
-                        } else if orderUpdate == "complete" {
-                            if self.completeOrders.isEmpty {
-                                self.completeOrders.append(newOrder)
-                                if self.toggle == "Complete" {
-                                self.orders = self.completeOrders
-                                self.orderTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                }
-                            } else {
-                                let index = self.completeOrders.firstIndex { $0.documentId == doc.documentID }
-                                if index == nil {
-                                    self.completeOrders.append(newOrder)
-                                    if self.toggle == "Complete" {
-                                    self.orders = self.completeOrders
-                                    self.orderTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
-                                }
-                            }
                             }
                         }
                     }
+                })
+            } else {
+                if toggle == "Pending" {
+                    orders = pendingOrders
+                } else if toggle == "Scheduled" {
+                    orders = scheduledOrders
+                } else if toggle == "Complete" {
+                    orders = completeOrders
                 }
+                orderTableView.reloadData()
             }
-            }
-        })
         } else {
-            if toggle == "Pending" {
-                orders = pendingOrders
-            } else if toggle == "Scheduled" {
-                orders = scheduledOrders
-            } else if toggle == "Complete" {
-                orders = completeOrders
-            }
-            orderTableView.reloadData()
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     private func payout(transferAmount: Double, orderId: String, userImageId: String, chefImageId: String) {
-        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
-            if error == nil {
-                if documents != nil {
-                    for doc in documents!.documents {
-                        let data = doc.data()
-                        
-                        if let stripeAccountId = data["stripeAccountId"] as? String {
-                            let a = transferAmount * 100
-                            let amount = String(format: "%.0f", a)
+        if Auth.auth().currentUser != nil {
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
                             
-                            let json: [String: Any] = ["amount": amount, "stripeAccountId" : stripeAccountId]
+                            if let stripeAccountId = data["stripeAccountId"] as? String {
+                                let a = transferAmount * 100
+                                let amount = String(format: "%.0f", a)
+                                
+                                let json: [String: Any] = ["amount": amount, "stripeAccountId" : stripeAccountId]
                                 
                                 let jsonData = try? JSONSerialization.data(withJSONObject: json)
                                 // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
@@ -175,15 +179,15 @@ class ChefOrdersViewController: UIViewController {
                                 request.httpBody = jsonData
                                 let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data,response, error) in
                                     guard let data = data,
-                                        let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                                        let transferId = json["transferId"],
-                                        let self = self else {
-                                    // Handle error
-                                    return
+                                          let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                                          let transferId = json["transferId"],
+                                          let self = self else {
+                                        // Handle error
+                                        return
                                     }
                                     
                                     DispatchQueue.main.async {
-                                       
+                                        
                                         let data : [String: Any] = ["transferId" : transferId, "orderId" : orderId, "date" : self.df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
                                         let data2 : [String : Any] = ["orderUpdate" : "complete"]
                                         self.db.collection("Transfers").document(orderId).setData(data)
@@ -192,20 +196,23 @@ class ChefOrdersViewController: UIViewController {
                                         self.db.collection("Orders").document(orderId).updateData(data2)
                                         
                                         self.showToast(message: "$\(String(format: "%.2f", transferAmount)) payout on the way.", font: .systemFont(ofSize: 12))
-                                        }
+                                    }
                                 })
                                 task.resume()
+                            }
+                            
                         }
-                        
                     }
                 }
             }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
-       
     }
     
     private func refundOrder(paymentId: String, amount: String, orderId: String, userImageId: String, chefImageId: String, chargeForPayout : Double) {
-        let json: [String: Any] = ["paymentId": paymentId,"amount" : amount]
+        if Auth.auth().currentUser != nil {
+            let json: [String: Any] = ["paymentId": paymentId,"amount" : amount]
             
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
@@ -215,15 +222,15 @@ class ChefOrdersViewController: UIViewController {
             request.httpBody = jsonData
             let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data,response, error) in
                 guard let data = data,
-                    let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                    let refundId = json["refund_id"],
-                    let self = self else {
-                // Handle error
-                return
+                      let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                      let refundId = json["refund_id"],
+                      let self = self else {
+                    // Handle error
+                    return
                 }
                 
                 DispatchQueue.main.async {
-                   
+                    
                     let data : [String: Any] = ["refundId" : refundId, "paymentIntent" : paymentId, "orderId" : orderId, "date" : self.df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
                     let data1 : [String: Any] = ["cancelled" : "refunded", "orderUpdate" : "cancelled"]
                     let data2 : [String : Any] = ["cancelled" : "refunded"]
@@ -245,10 +252,12 @@ class ChefOrdersViewController: UIViewController {
                         }
                     }
                     self.showToast(message: "Item Canceled.", font: .systemFont(ofSize: 12))
-                    }
+                }
             })
             task.resume()
-            
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     func showToast(message : String, font: UIFont) {

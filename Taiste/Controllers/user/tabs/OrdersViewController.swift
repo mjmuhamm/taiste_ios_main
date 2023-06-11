@@ -81,69 +81,73 @@ class OrdersViewController: UIViewController {
             ordersI = completeOrders
         }
         if ordersI.isEmpty {
+            if Auth.auth().currentUser != nil {
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").addSnapshotListener { documents, error in
             
-            if error == nil {
-                if (documents != nil) {
-                for doc in documents!.documents {
-                    let data = doc.data()
-                    
-                    if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String,let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String {
-                        
-                        let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems)
-                        
-                        if orderUpdate == "pending" {
-                            if self.toggle == "Pending" {
-                            if self.pendingOrders.isEmpty  {
-                                self.pendingOrders.append(newOrder)
-                                self.orders = self.pendingOrders
-                                self.ordersTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                            } else {
-                                let index = self.pendingOrders.firstIndex { $0.documentId == doc.documentID }
-                                if index == nil {
-                                    self.pendingOrders.append(newOrder)
-                                    self.orders = self.pendingOrders
-                                    self.ordersTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
-                                }
-                            }
-                            }
-                        } else if orderUpdate == "scheduled" {
-                            if self.toggle == "Scheduled" {
+                if error == nil {
+                    if (documents != nil) {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String,let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String {
                                 
-                            if self.scheduledOrders.isEmpty {
-                                self.scheduledOrders.append(newOrder)
-                                self.orders = self.scheduledOrders
-                                self.ordersTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                            } else {
-                                let index = self.scheduledOrders.firstIndex { $0.documentId == doc.documentID }
-                                if index == nil {
-                                    self.scheduledOrders.append(newOrder)
-                                    self.orders = self.scheduledOrders
-                                    self.ordersTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems)
+                                
+                                if orderUpdate == "pending" {
+                                    if self.toggle == "Pending" {
+                                        if self.pendingOrders.isEmpty  {
+                                            self.pendingOrders.append(newOrder)
+                                            self.orders = self.pendingOrders
+                                            self.ordersTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                        } else {
+                                            let index = self.pendingOrders.firstIndex { $0.documentId == doc.documentID }
+                                            if index == nil {
+                                                self.pendingOrders.append(newOrder)
+                                                self.orders = self.pendingOrders
+                                                self.ordersTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                            }
+                                        }
+                                    }
+                                } else if orderUpdate == "scheduled" {
+                                    if self.toggle == "Scheduled" {
+                                        
+                                        if self.scheduledOrders.isEmpty {
+                                            self.scheduledOrders.append(newOrder)
+                                            self.orders = self.scheduledOrders
+                                            self.ordersTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                        } else {
+                                            let index = self.scheduledOrders.firstIndex { $0.documentId == doc.documentID }
+                                            if index == nil {
+                                                self.scheduledOrders.append(newOrder)
+                                                self.orders = self.scheduledOrders
+                                                self.ordersTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                            }
+                                        }
+                                    }
+                                } else if orderUpdate == "complete" {
+                                    if self.toggle == "Complete" {
+                                        if self.completeOrders.isEmpty {
+                                            self.completeOrders.append(newOrder)
+                                            self.orders = self.completeOrders
+                                            self.ordersTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                        } else {
+                                            let index = self.completeOrders.firstIndex { $0.documentId == doc.documentID }
+                                            if index == nil {
+                                                self.completeOrders.append(newOrder)
+                                                self.orders = self.completeOrders
+                                                self.ordersTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                            }
+                                        }
+                                    }
                                 }
-                            }
-                            }
-                        } else if orderUpdate == "complete" {
-                            if self.toggle == "Complete" {
-                            if self.completeOrders.isEmpty {
-                                self.completeOrders.append(newOrder)
-                                self.orders = self.completeOrders
-                                self.ordersTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                            } else {
-                                let index = self.completeOrders.firstIndex { $0.documentId == doc.documentID }
-                                if index == nil {
-                                    self.completeOrders.append(newOrder)
-                                    self.orders = self.completeOrders
-                                    self.ordersTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
-                                }
-                            }
                             }
                         }
                     }
                 }
             }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        }
         } else {
             if toggle == "Pending" {
                 orders = pendingOrders

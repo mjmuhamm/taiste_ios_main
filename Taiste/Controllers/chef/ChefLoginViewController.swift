@@ -62,6 +62,7 @@ class ChefLoginViewController: UIViewController {
     }
     
     @IBAction func forgottonPasswordButtonPressed(_ sender: Any) {
+       
         if !self.emailText.text!.isEmpty {
             db.collection("Usernames").getDocuments { documents, error in
                 if error == nil {

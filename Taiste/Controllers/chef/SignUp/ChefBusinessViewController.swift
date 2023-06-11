@@ -64,60 +64,64 @@ class ChefBusinessViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        if streetAddress.text == "" || city.text == "" || state.text == "" || zipCode.text == "" {
-            self.showToast(message: "Please enter your business street address.", font: .systemFont(ofSize: 12))
-        } else if chefPassion.text == "" {
-            self.showToast(message: "Please enter a passion for cooking.", font: .systemFont(ofSize: 12))
-        } else {
-            
-        if newOrEdit == "new" {
-            let data : [String : Any] = ["chefPassion" : chefPassion.text!, "streetAddress" : streetAddress.text!, "city" : city.text!, "state" : state.text!, "zipCode" : zipCode.text!]
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BusinessInfo").document().setData(data)
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
-                if error == nil {
-                    for doc in documents!.documents {
-                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(doc.documentID).updateData(data)
-                    }
-                }
-            }
-
-            performSegue(withIdentifier: "ChefBusinessToChefBankingSegue", sender: self)
-        } else {
-            let data : [String : Any] = ["chefPassion" : chefPassion.text!, "streetAddress" : streetAddress.text, "city" : city.text, "state" : state.text, "zipCode" : zipCode.text]
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
-                if error == nil {
-                    for doc in documents!.documents {
-                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(doc.documentID).updateData(data)
-                    }
-                }
-            }
-            
-            let array = ["Cater Items", "Executive Items", "MealKit Items"]
-            
-            for i in 0..<array.count {
-            
-                db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(array[i]).getDocuments { documents, error in
-                    if error == nil {
-                        if documents != nil {
+        if Auth.auth().currentUser != nil {
+            if streetAddress.text == "" || city.text == "" || state.text == "" || zipCode.text == "" {
+                self.showToast(message: "Please enter your business street address.", font: .systemFont(ofSize: 12))
+            } else if chefPassion.text == "" {
+                self.showToast(message: "Please enter a passion for cooking.", font: .systemFont(ofSize: 12))
+            } else {
+                
+                if newOrEdit == "new" {
+                    let data : [String : Any] = ["chefPassion" : chefPassion.text!, "streetAddress" : streetAddress.text!, "city" : city.text!, "state" : state.text!, "zipCode" : zipCode.text!]
+                    db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BusinessInfo").document().setData(data)
+                    db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                        if error == nil {
                             for doc in documents!.documents {
-                                let data = doc.data()
-                                
-                                let data1 : [String : Any] = ["chefPassion" : self.chefPassion.text!, "city" : self.city.text! , "state" : self.state.text! , "zipCode" : self.zipCode.text!]
-                                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(array[i]).document(doc.documentID).updateData(data1)
-                                    
-                                    self.db.collection(array[i]).document(doc.documentID).updateData(data1)
-                                
-                                
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(doc.documentID).updateData(data)
                             }
                         }
                     }
+                    
+                    performSegue(withIdentifier: "ChefBusinessToChefBankingSegue", sender: self)
+                } else {
+                    let data : [String : Any] = ["chefPassion" : chefPassion.text!, "streetAddress" : streetAddress.text, "city" : city.text, "state" : state.text, "zipCode" : zipCode.text]
+                    db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                        if error == nil {
+                            for doc in documents!.documents {
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(doc.documentID).updateData(data)
+                            }
+                        }
+                    }
+                    
+                    let array = ["Cater Items", "Executive Items", "MealKit Items"]
+                    
+                    for i in 0..<array.count {
+                        
+                        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(array[i]).getDocuments { documents, error in
+                            if error == nil {
+                                if documents != nil {
+                                    for doc in documents!.documents {
+                                        let data = doc.data()
+                                        
+                                        let data1 : [String : Any] = ["chefPassion" : self.chefPassion.text!, "city" : self.city.text! , "state" : self.state.text! , "zipCode" : self.zipCode.text!]
+                                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(array[i]).document(doc.documentID).updateData(data1)
+                                        
+                                        self.db.collection(array[i]).document(doc.documentID).updateData(data1)
+                                        
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BusinessInfo").document(self.documentId).updateData(data)
+                    showToast(message: "Business info saved.", font: .systemFont(ofSize: 12))
+                    self.dismiss(animated: true, completion: nil)
                 }
+                
             }
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BusinessInfo").document(self.documentId).updateData(data)
-            showToast(message: "Business info saved.", font: .systemFont(ofSize: 12))
-            self.dismiss(animated: true, completion: nil)
-            }
-            
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
             
         }

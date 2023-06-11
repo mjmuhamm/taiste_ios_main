@@ -64,6 +64,7 @@ class HomeViewController: UIViewController {
     }
     
     private func loadCart() {
+        if Auth.auth().currentUser != nil {
         db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").getDocuments { documents, error in
             if error == nil {
                 for doc in documents!.documents {
@@ -88,28 +89,34 @@ class HomeViewController: UIViewController {
                         }
                     }
                 }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         }
     }
-    
+    }
     
     private func loadFilter() {
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
-            if error == nil {
-                for doc in documents!.documents {
-                    let data = doc.data()
-                    
-                    if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
+        if Auth.auth().currentUser != nil {
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                if error == nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
                         
-                        self.filter = Filter(local: local, region: region, nation: nation, city: city, state: state, burger: burger, creative: creative, lowCal: lowCal, lowCarb: lowCarb, pasta: pasta, healthy: healthy, vegan: vegan, seafood: seafood, workout: workout, surpriseMe: surpriseMe)
-                        
-                        self.loadItems(filter: self.filter!, go: "")
-                        
+                        if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
+                            
+                            self.filter = Filter(local: local, region: region, nation: nation, city: city, state: state, burger: burger, creative: creative, lowCal: lowCal, lowCarb: lowCarb, pasta: pasta, healthy: healthy, vegan: vegan, seafood: seafood, workout: workout, surpriseMe: surpriseMe)
+                            
+                            self.loadItems(filter: self.filter!, go: "")
+                            
+                            
+                        }
                         
                     }
-                    
                 }
             }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     

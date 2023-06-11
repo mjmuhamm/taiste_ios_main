@@ -84,70 +84,74 @@ class MeViewController: UIViewController {
     private func loadPersonalInfo() {
         let storageRef = storage.reference()
         let image : UIImage?
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").addSnapshotListener { documents, error in
-            if error == nil {
-                if documents != nil {
+        if Auth.auth().currentUser != nil {
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").addSnapshotListener { documents, error in
+                if error == nil {
+                    if documents != nil {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                        if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let vegan = data["vegan"] as? Int {
-                            
-                            storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { itemUrl, error in
+                            if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let vegan = data["vegan"] as? Int {
                                 
-                                URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                                    // Error handling...
-                                    guard let imageData = data else { return }
+                                storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { itemUrl, error in
                                     
-                                    print("happening itemdata")
-                                    DispatchQueue.main.async {
-                                        self.userImage.image = UIImage(data: imageData)!
-                                    }
-                                }.resume()
+                                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                                        // Error handling...
+                                        guard let imageData = data else { return }
+                                        
+                                        print("happening itemdata")
+                                        DispatchQueue.main.async {
+                                            self.userImage.image = UIImage(data: imageData)!
+                                        }
+                                    }.resume()
+                                }
+                                
+                                self.preferences.text = "Preferences:"
+                                
+                                if (burger == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Burger"
+                                }
+                                if (creative == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Creative"
+                                }
+                                if (healthy == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Healthy"
+                                }
+                                if (lowCal == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Low Calorie"
+                                }
+                                if (lowCarb == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Low Carb"
+                                }
+                                if (pasta == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Pasta"
+                                }
+                                if (seafood == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Seafood"
+                                }
+                                if (vegan == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Vegan"
+                                }
+                                if (workout == 1) {
+                                    self.preferences.text = "\(self.preferences.text!)  Workout"
+                                }
+                                
+                                self.userName.text = "@\(userName)"
+                                if local == 1 {
+                                    self.location.text = "Location: \(city), \(state)"
+                                } else if region == 1 {
+                                    self.location.text = "Location: \(state)"
+                                } else {
+                                    self.location.text = "Location: Nationwide"
+                                }
                             }
-                            
-                            self.preferences.text = "Preferences:"
-                            
-                            if (burger == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Burger"
-                            }
-                            if (creative == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Creative"
-                            }
-                            if (healthy == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Healthy"
-                            }
-                            if (lowCal == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Low Calorie"
-                            }
-                            if (lowCarb == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Low Carb"
-                            }
-                            if (pasta == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Pasta"
-                            }
-                            if (seafood == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Seafood"
-                            }
-                            if (vegan == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Vegan"
-                            }
-                            if (workout == 1) {
-                                self.preferences.text = "\(self.preferences.text!)  Workout"
-                            }
+                        }
                         
-                        self.userName.text = "@\(userName)"
-                            if local == 1 {
-                                self.location.text = "Location: \(city), \(state)"
-                            } else if region == 1 {
-                                self.location.text = "Location: \(state)"
-                            } else {
-                                self.location.text = "Location: Nationwide"
-                            }
-                        }
-                        }
-                    
+                    }
                 }
             }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     private func loadOrders() {
@@ -163,61 +167,65 @@ class MeViewController: UIViewController {
        
         
         if self.orders.isEmpty {
-            db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").getDocuments { documents, error in
-            if documents != nil {
-                for doc in documents!.documents {
-                    let data = doc.data()
-                    let typeOfService = data["typeOfService"] as! String
-                    var a = ""
-                    if typeOfService == "Executive Item" {
-                        a = "Executive Items"
-                     } else {   
-                        a = typeOfService
-                    }
-                    
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let signatureDishId = data["signatureDishId"] as? String {
-                        
-                       
-                        let index = self.userOrders.firstIndex(where: { $0.menuItemId == menuItemId })
-                        if index == nil {
+            if Auth.auth().currentUser != nil {
+                db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").getDocuments { documents, error in
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            let typeOfService = data["typeOfService"] as! String
+                            var a = ""
+                            if typeOfService == "Executive Item" {
+                                a = "Executive Items"
+                            } else {
+                                a = typeOfService
+                            }
                             
-                            
-                            self.db.collection(a).document(menuItemId).getDocument { document, error in
-                                if error == nil {
-                                    if document != nil {
-                                        let data1 = document!.data()
-                                        
-                                        if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double], let chefUsername = data["chefUsername"] as? String {
-                                            
-                                            
-                                            
-                                            let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: 0, chefRating: 0, quality: 0, signatureDishId: signatureDishId)
-                                            
-                                            if self.userOrders.isEmpty {
-                                                self.userOrders.append(newItem)
-                                                self.orders = self.userOrders
-                                                self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                            } else {
-                                                let index = self.userOrders.firstIndex { $0.documentId == doc.documentID
-                                                }
-                                                if index == nil {
-                                                    self.userOrders.append(newItem)
-                                                    self.orders = self.userOrders
-                                                    self.meTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                            if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let city = data["city"] as? String, let eventDates = data["eventDates"] as? [String], let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let menuItemId = data["menuItemId"] as? String, let orderDate = data["orderDate"] as? String, let orderUpdate = data["orderUpdate"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFee = data["travelFee"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let imageCount = data["imageCount"] as? Int, let itemCalories = data["itemCalories"] as? String, let state = data["state"] as? String, let signatureDishId = data["signatureDishId"] as? String {
+                                
+                                
+                                let index = self.userOrders.firstIndex(where: { $0.menuItemId == menuItemId })
+                                if index == nil {
+                                    
+                                    
+                                    self.db.collection(a).document(menuItemId).getDocument { document, error in
+                                        if error == nil {
+                                            if document != nil {
+                                                let data1 = document!.data()
+                                                
+                                                if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double], let chefUsername = data["chefUsername"] as? String {
+                                                    
+                                                    
+                                                    
+                                                    let newItem = UserOrders(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: "", eventDates: eventDates, itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: unitPrice, menuItemId: menuItemId, itemImage: UIImage(), orderDate: orderDate, orderUpdate: orderUpdate, totalCostOfEvent: totalCostOfEvent, travelFee: travelFee, typeOfService: typeOfService, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: 0, chefRating: 0, quality: 0, signatureDishId: signatureDishId)
+                                                    
+                                                    if self.userOrders.isEmpty {
+                                                        self.userOrders.append(newItem)
+                                                        self.orders = self.userOrders
+                                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                                    } else {
+                                                        let index = self.userOrders.firstIndex { $0.documentId == doc.documentID
+                                                        }
+                                                        if index == nil {
+                                                            self.userOrders.append(newItem)
+                                                            self.orders = self.userOrders
+                                                            self.meTableView.insertRows(at: [IndexPath(item: self.orders.count - 1, section: 0)], with: .fade)
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                
+                                
                             }
+                            
                         }
-                        
-                        
                     }
-                
+                }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-            }
-        }
         } else {
             self.userOrders = self.orders
             self.meTableView.reloadData()
@@ -235,47 +243,51 @@ class MeViewController: UIViewController {
         
         
         if self.chefs.isEmpty {
-            db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
-            
-            if error == nil {
-                for doc in documents!.documents {
-                    let data = doc.data()
+            if Auth.auth().currentUser != nil {
+                db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
-                        
-                        
-                        if let index = self.chefs.firstIndex(where: { $0.chefEmail == chefEmail }) {
-                            for i in 0..<liked.count {
-                                self.chefs[index].chefLiked.append(liked[i])
+                    if error == nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
+                                
+                                
+                                if let index = self.chefs.firstIndex(where: { $0.chefEmail == chefEmail }) {
+                                    for i in 0..<liked.count {
+                                        self.chefs[index].chefLiked.append(liked[i])
+                                    }
+                                    self.chefs[index].chefOrders += itemOrders
+                                    for i in 0..<itemRating.count {
+                                        self.chefs[index].chefRating.append(itemRating[i])
+                                    }
+                                    self.chefs[index].timesLiked += 1
+                                    self.meTableView.reloadData()
+                                } else {
+                                    let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: itemOrders, chefRating: itemRating)
+                                    
+                                    if self.userChefs.isEmpty {
+                                        self.userChefs.append(newItem)
+                                        self.chefs = self.userChefs
+                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                    } else {
+                                        let index = self.userChefs.firstIndex { $0.chefEmail == chefEmail }
+                                        if index == nil {
+                                            self.userChefs.append(newItem)
+                                            self.chefs = self.userChefs
+                                            self.meTableView.insertRows(at: [IndexPath(item: self.chefs.count - 1, section: 0)], with: .fade)
+                                        } else {
+                                            self.userChefs[index!].timesLiked = self.userChefs[index!].timesLiked + 1
+                                        }
+                                    }
+                                }
                             }
-                            self.chefs[index].chefOrders += itemOrders
-                            for i in 0..<itemRating.count {
-                                self.chefs[index].chefRating.append(itemRating[i])
-                            }
-                            self.chefs[index].timesLiked += 1
-                            self.meTableView.reloadData()
-                        } else {
-                            let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: itemOrders, chefRating: itemRating)
-                        
-                        if self.userChefs.isEmpty {
-                            self.userChefs.append(newItem)
-                            self.chefs = self.userChefs
-                            self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                        } else {
-                            let index = self.userChefs.firstIndex { $0.chefEmail == chefEmail }
-                            if index == nil {
-                                self.userChefs.append(newItem)
-                                self.chefs = self.userChefs
-                                self.meTableView.insertRows(at: [IndexPath(item: self.chefs.count - 1, section: 0)], with: .fade)
-                            } else {
-                                self.userChefs[index!].timesLiked = self.userChefs[index!].timesLiked + 1
-                            }
-                        }
                         }
                     }
                 }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        }
         } else {
             self.userChefs = self.chefs
             self.meTableView.reloadData()
@@ -294,48 +306,52 @@ class MeViewController: UIViewController {
         userReviews.removeAll()
         meTableView.reloadData()
         if self.likes.isEmpty {
+            if Auth.auth().currentUser != nil {
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
-            if error == nil {
-                if documents != nil {
-                for doc in documents!.documents {
-                    let data = doc.data()
-                    
-                    if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let signatureDishId = data["signatureDishId"] as? String  {
-                        print("likes happening")
-                        
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
                             
-                        
-                        self.db.collection(itemType).document(doc.documentID).getDocument { document, error in
-                            if error == nil {
-                                if document!.exists {
-                                    let data1 = document?.data()
-                                    
-                                    if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
-                                    
-                                        let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: signatureDishId)
-                                    
-                                    if self.userLikes.isEmpty {
-                                        self.userLikes.append(newItem)
-                                        self.likes = self.userLikes
-                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                    } else {
-                                        let index = self.userLikes.firstIndex { $0.documentId == doc.documentID }
-                                        if index == nil {
-                                            self.userLikes.append(newItem)
-                                            self.likes = self.userLikes
-                                            self.meTableView.insertRows(at: [IndexPath(item: self.likes.count - 1, section: 0)], with: .fade)
-                                        }
-                                    }
-                                    
+                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let signatureDishId = data["signatureDishId"] as? String  {
+                                print("likes happening")
                                 
-                                }
+                                
+                                
+                                self.db.collection(itemType).document(doc.documentID).getDocument { document, error in
+                                    if error == nil {
+                                        if document!.exists {
+                                            let data1 = document?.data()
+                                            
+                                            if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
+                                                
+                                                let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: signatureDishId)
+                                                
+                                                if self.userLikes.isEmpty {
+                                                    self.userLikes.append(newItem)
+                                                    self.likes = self.userLikes
+                                                    self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                                } else {
+                                                    let index = self.userLikes.firstIndex { $0.documentId == doc.documentID }
+                                                    if index == nil {
+                                                        self.userLikes.append(newItem)
+                                                        self.likes = self.userLikes
+                                                        self.meTableView.insertRows(at: [IndexPath(item: self.likes.count - 1, section: 0)], with: .fade)
+                                                    }
+                                                }
+                                                
+                                                
+                                            }
+                                        }
+                                    }}
+                            }
                         }
-                            }}
                     }
-                 }
                 }
             }
-        }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+            }
         } else {
             self.userLikes = self.likes
             self.meTableView.reloadData()
@@ -353,37 +369,41 @@ class MeViewController: UIViewController {
         meTableView.reloadData()
         
         if self.reviews.isEmpty {
-            db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserReviews").getDocuments { documents, error in
-            if error == nil {
-                if documents != nil {
-                    for doc in documents!.documents {
-                        let data = doc.data()
-                        
-                        
-                        if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let date = data["date"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let userChefRating = data["chefRating"] as? Int, let userExpectationsRating = data["expectations"] as? Int, let qualityRating = data["quality"] as? Int, let userRecommendation = data["recommend"] as? Int, let userReviewTextField = data["thoughts"] as? String, let liked = data["liked"] as? [String] {
-                            
-                               
-                            print("reviews happening")
-                            let newItem = UserReviews(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefUsername, date: date, documentID: doc.documentID, itemTitle: itemTitle, itemType: itemType, liked: liked, user: Auth.auth().currentUser!.uid, userChefRating: userChefRating, userExpectationsRating: userExpectationsRating, userImageId: userImageId, userQualityRating: qualityRating, userRecommendation: userRecommendation, userReviewTextField: userReviewTextField)
-                            
-                            if self.userReviews.isEmpty {
-                                self.userReviews.append(newItem)
-                                self.reviews = self.userReviews
-                                self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                            } else {
-                                let index = self.userReviews.firstIndex(where: { $0.documentID == doc.documentID })
-                                if index == nil {
-                                    self.userReviews.append(newItem)
-                                    self.reviews = self.userReviews
-                                    self.meTableView.insertRows(at: [IndexPath(item: self.reviews.count - 1, section: 0)], with: .fade)
+            if Auth.auth().currentUser != nil {
+                db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserReviews").getDocuments { documents, error in
+                    if error == nil {
+                        if documents != nil {
+                            for doc in documents!.documents {
+                                let data = doc.data()
+                                
+                                
+                                if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let date = data["date"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let userChefRating = data["chefRating"] as? Int, let userExpectationsRating = data["expectations"] as? Int, let qualityRating = data["quality"] as? Int, let userRecommendation = data["recommend"] as? Int, let userReviewTextField = data["thoughts"] as? String, let liked = data["liked"] as? [String] {
+                                    
+                                    
+                                    print("reviews happening")
+                                    let newItem = UserReviews(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefUsername, date: date, documentID: doc.documentID, itemTitle: itemTitle, itemType: itemType, liked: liked, user: Auth.auth().currentUser!.uid, userChefRating: userChefRating, userExpectationsRating: userExpectationsRating, userImageId: userImageId, userQualityRating: qualityRating, userRecommendation: userRecommendation, userReviewTextField: userReviewTextField)
+                                    
+                                    if self.userReviews.isEmpty {
+                                        self.userReviews.append(newItem)
+                                        self.reviews = self.userReviews
+                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                    } else {
+                                        let index = self.userReviews.firstIndex(where: { $0.documentID == doc.documentID })
+                                        if index == nil {
+                                            self.userReviews.append(newItem)
+                                            self.reviews = self.userReviews
+                                            self.meTableView.insertRows(at: [IndexPath(item: self.reviews.count - 1, section: 0)], with: .fade)
+                                        }
+                                        
+                                    }
                                 }
-                            
-                        }
+                            }
                         }
                     }
                 }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        }
         } else {
             self.userReviews = self.reviews
             self.meTableView.reloadData()
@@ -454,6 +474,25 @@ class MeViewController: UIViewController {
     @IBAction func settingsButtonPressed(_ sender: Any) {
     }
     
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }
 
 extension MeViewController : UITableViewDataSource, UITableViewDelegate {
