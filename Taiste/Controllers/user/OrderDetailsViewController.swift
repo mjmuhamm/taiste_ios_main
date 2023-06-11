@@ -530,56 +530,60 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func addEventButtonPressed(_ sender: MDCButton) {
-        if newOrEdit != "edit" {
-        if typeOfEventText.text!.isEmpty {
-            showToast(message: "Please select the type of your event above.", font: .systemFont(ofSize: 12))
-        } else if quantityOfEventText.text!.isEmpty {
-            showToast(message: "Please select the quantity of your event above.", font: .systemFont(ofSize: 12))
-        } else if (eventDays.isEmpty) {
-            showToast(message: "Please select the day(s) of your event above.", font: .systemFont(ofSize: 12))
-        } else if locationOfEventText.text == "Select a location for your event here." {
-            showToast(message: "Please select the location of your event above.", font: .systemFont(ofSize: 12))
-        } else {
-            
-                let priceToChef = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))! * 0.07
-                let totalCostOfEVent = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))!
-                
-                let documentId = UUID().uuidString
-                
-            let data : [String: Any] = ["chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "chefUsername" : item!.chefUsername, "city" : item!.city, "state" : item!.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item!.itemDescription, "itemTitle" : item!.itemTitle, "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item!.menuItemId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityOfEventText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : item!.itemType, "unitPrice" : item!.itemPrice, "user" : user, "imageCount" : item!.imageCount, "liked" : item!.liked, "itemOrders" : item!.itemOrders, "itemRating" : item!.itemRating, "itemCalories" : item!.itemCalories, "documentId" : documentId, "allergies" : "", "additionalMenuItems" : "", "signatureDishId" : ""]
-            
-                
-                db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
-            db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        
-                        let userNotification = data!["notificationToken"] as! String
-                        let data1: [String: Any] = ["userNotificationToken" : userNotification]
-                        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+        if Auth.auth().currentUser != nil {
+            if newOrEdit != "edit" {
+                if typeOfEventText.text!.isEmpty {
+                    showToast(message: "Please select the type of your event above.", font: .systemFont(ofSize: 12))
+                } else if quantityOfEventText.text!.isEmpty {
+                    showToast(message: "Please select the quantity of your event above.", font: .systemFont(ofSize: 12))
+                } else if (eventDays.isEmpty) {
+                    showToast(message: "Please select the day(s) of your event above.", font: .systemFont(ofSize: 12))
+                } else if locationOfEventText.text == "Select a location for your event here." {
+                    showToast(message: "Please select the location of your event above.", font: .systemFont(ofSize: 12))
+                } else {
+                    
+                    let priceToChef = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))! * 0.07
+                    let totalCostOfEVent = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))!
+                    
+                    let documentId = UUID().uuidString
+                    
+                    let data : [String: Any] = ["chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "chefUsername" : item!.chefUsername, "city" : item!.city, "state" : item!.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item!.itemDescription, "itemTitle" : item!.itemTitle, "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item!.menuItemId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityOfEventText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : item!.itemType, "unitPrice" : item!.itemPrice, "user" : user, "imageCount" : item!.imageCount, "liked" : item!.liked, "itemOrders" : item!.itemOrders, "itemRating" : item!.itemRating, "itemCalories" : item!.itemCalories, "documentId" : documentId, "allergies" : "", "additionalMenuItems" : "", "signatureDishId" : ""]
+                    
+                    
+                    db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
+                    db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                        if error == nil {
+                            if document != nil {
+                                let data = document!.data()
+                                
+                                let userNotification = data!["notificationToken"] as! String
+                                let data1: [String: Any] = ["userNotificationToken" : userNotification]
+                                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                            }
+                        }
                     }
-                }
-            }
-            
-            db.collection("Chef").document(item!.chefImageId).getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        
-                        let chefNotification = data!["notificationToken"] as! String
-                        let data1: [String: Any] = ["chefNotificationToken" : chefNotification]
-                        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                    
+                    db.collection("Chef").document(item!.chefImageId).getDocument { document, error in
+                        if error == nil {
+                            if document != nil {
+                                let data = document!.data()
+                                
+                                let chefNotification = data!["notificationToken"] as! String
+                                let data1: [String: Any] = ["chefNotificationToken" : chefNotification]
+                                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                            }
+                        }
                     }
+                    
+                    self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
                 }
-            }
-                
-                self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+            } else {
+                db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).delete()
+                self.showToastCompletion(message: "Item Cancelled.", font: .systemFont(ofSize: 12))
             }
         } else {
-            db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).delete()
-            self.showToastCompletion(message: "Item Cancelled.", font: .systemFont(ofSize: 12))
-    }
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
     }
     

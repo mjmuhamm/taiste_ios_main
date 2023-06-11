@@ -114,37 +114,20 @@ class CheckoutViewController: UIViewController {
     }
     
     private func loadCart() {
-        
-        let storageRef = storage.reference()
-        var chefImage = UIImage()
-        
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").getDocuments { documents, error in
-            if error == nil {
-                for doc in documents!.documents {
-                    let data = doc.data()
-                    
-                    if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let menuItemId = data["menuItemId"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let datesOfEvent = data["datesOfEvent"] as? [String], let timesForDatesOfEvent = data["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data["travelExpenseOption"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let priceToChef = data["priceToChef"] as? Double, let quantityOfEvent = data["quantityOfEvent"] as? String, let unitPrice = data["unitPrice"] as? String, let distance = data["distance"] as? String, let location = data["location"] as? String, let latitudeOfEvent = data["latitudeOfEvent"] as? String, let longitudeOfEvent = data["longitudeOfEvent"] as? String, let notesToChef = data["notesToChef"] as? String, let typeOfService = data["typeOfService"] as? String, let typeOfEvent = data["typeOfEvent"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let user = data["user"] as? String, let imageCount = data["imageCount"] as? Int, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let signatureDishId = data["signatureDishId"] as? String, let userNotificationToken = data["userNotificationToken"] as? String, let chefNotificationToken = data["chefNotificationToken"] as? String  {
+        if Auth.auth().currentUser != nil {
+            let storageRef = storage.reference()
+            var chefImage = UIImage()
+            
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").getDocuments { documents, error in
+                if error == nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
                         
-                        let newItem = CheckoutItems(chefEmail: chefEmail, chefImageId: chefImageId, chefUsername: chefUsername, chefImage: chefImage, menuItemId: menuItemId, itemTitle: itemTitle, itemDescription: itemDescription, datesOfEvent: datesOfEvent, timesForDatesOfEvent: timesForDatesOfEvent, travelExpenseOption: travelExpenseOption, totalCostOfEvent: totalCostOfEvent, priceToChef: priceToChef, quantityOfEvent: quantityOfEvent, unitPrice: unitPrice, distance: distance, location: location, latitudeOfEvent: latitudeOfEvent, longitudeOfEvent: longitudeOfEvent, notesToChef: notesToChef, typeOfService: typeOfService, typeOfEvent: typeOfEvent, city: city, state: state, user: user, documentId: doc.documentID, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, allergies: allergies, additionalMenuItems: additionalMenuItems, signatureDishId: signatureDishId, userNotification: userNotificationToken, chefNotification: chefNotificationToken)
-                        
-                        if self.checkoutItems.count == 0 {
-                            self.checkoutItems.append(newItem)
-                            self.totalPrice += totalCostOfEvent
-                            let a = String(format: "%.2f", self.totalPrice)
-                            let taxesAndFees = self.totalPrice * 0.125
-                            let b = String(format: "%.2f", taxesAndFees)
-                            let finalTotal = self.totalPrice + taxesAndFees
-                            let c = String(format: "%.2f", finalTotal)
-                            self.foodTotalText.text = "$\(a)"
-                            self.taxesAndFeesText.text = "$\(b)"
-                            self.finalTotalText.text = "$\(c)"
-                            self.fetchPaymentIntent(costOfEvent: finalTotal)
+                        if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let menuItemId = data["menuItemId"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let datesOfEvent = data["datesOfEvent"] as? [String], let timesForDatesOfEvent = data["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data["travelExpenseOption"] as? String, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let priceToChef = data["priceToChef"] as? Double, let quantityOfEvent = data["quantityOfEvent"] as? String, let unitPrice = data["unitPrice"] as? String, let distance = data["distance"] as? String, let location = data["location"] as? String, let latitudeOfEvent = data["latitudeOfEvent"] as? String, let longitudeOfEvent = data["longitudeOfEvent"] as? String, let notesToChef = data["notesToChef"] as? String, let typeOfService = data["typeOfService"] as? String, let typeOfEvent = data["typeOfEvent"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let user = data["user"] as? String, let imageCount = data["imageCount"] as? Int, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let signatureDishId = data["signatureDishId"] as? String, let userNotificationToken = data["userNotificationToken"] as? String, let chefNotificationToken = data["chefNotificationToken"] as? String  {
                             
-                            self.checkoutTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                        } else {
-                            let index = self.checkoutItems.firstIndex { $0.documentId == doc.documentID
-                            }
-                            if index == nil {
+                            let newItem = CheckoutItems(chefEmail: chefEmail, chefImageId: chefImageId, chefUsername: chefUsername, chefImage: chefImage, menuItemId: menuItemId, itemTitle: itemTitle, itemDescription: itemDescription, datesOfEvent: datesOfEvent, timesForDatesOfEvent: timesForDatesOfEvent, travelExpenseOption: travelExpenseOption, totalCostOfEvent: totalCostOfEvent, priceToChef: priceToChef, quantityOfEvent: quantityOfEvent, unitPrice: unitPrice, distance: distance, location: location, latitudeOfEvent: latitudeOfEvent, longitudeOfEvent: longitudeOfEvent, notesToChef: notesToChef, typeOfService: typeOfService, typeOfEvent: typeOfEvent, city: city, state: state, user: user, documentId: doc.documentID, imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, allergies: allergies, additionalMenuItems: additionalMenuItems, signatureDishId: signatureDishId, userNotification: userNotificationToken, chefNotification: chefNotificationToken)
+                            
+                            if self.checkoutItems.count == 0 {
                                 self.checkoutItems.append(newItem)
                                 self.totalPrice += totalCostOfEvent
                                 let a = String(format: "%.2f", self.totalPrice)
@@ -156,14 +139,34 @@ class CheckoutViewController: UIViewController {
                                 self.taxesAndFeesText.text = "$\(b)"
                                 self.finalTotalText.text = "$\(c)"
                                 self.fetchPaymentIntent(costOfEvent: finalTotal)
-                                self.checkoutTableView.insertRows(at: [IndexPath(item:self.checkoutItems.count - 1, section: 0)], with: .fade)
-                            
+                                
+                                self.checkoutTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                            } else {
+                                let index = self.checkoutItems.firstIndex { $0.documentId == doc.documentID
+                                }
+                                if index == nil {
+                                    self.checkoutItems.append(newItem)
+                                    self.totalPrice += totalCostOfEvent
+                                    let a = String(format: "%.2f", self.totalPrice)
+                                    let taxesAndFees = self.totalPrice * 0.125
+                                    let b = String(format: "%.2f", taxesAndFees)
+                                    let finalTotal = self.totalPrice + taxesAndFees
+                                    let c = String(format: "%.2f", finalTotal)
+                                    self.foodTotalText.text = "$\(a)"
+                                    self.taxesAndFeesText.text = "$\(b)"
+                                    self.finalTotalText.text = "$\(c)"
+                                    self.fetchPaymentIntent(costOfEvent: finalTotal)
+                                    self.checkoutTableView.insertRows(at: [IndexPath(item:self.checkoutItems.count - 1, section: 0)], with: .fade)
+                                    
+                                    
+                                }
+                            }}
                         
                     }
-                        }}
-                    
                 }
             }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     
@@ -230,45 +233,49 @@ class CheckoutViewController: UIViewController {
     
     
     private func saveInfo() {
-        var date = sdf.string(from: Date())
-        for i in 0..<checkoutItems.count {
-            let item = checkoutItems[i]
-            let orderId = UUID().uuidString
-            let data: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle, "menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : item.totalCostOfEvent * 0.95, "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
-            
-            
-            let data1: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId,  "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle,"menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : (item.totalCostOfEvent * 0.95), "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "paymentIntent" : paymentId, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
-            
-            var numOfOrders = 0
-            if item.quantityOfEvent == "1-10" {
-                numOfOrders = 10
-            } else if item.quantityOfEvent == "11-25" {
-                numOfOrders = 25
-            } else if item.quantityOfEvent == "26-40" {
-                numOfOrders = 40
-            } else if item.quantityOfEvent == "41-55" {
-                numOfOrders = 55
-            } else if item.quantityOfEvent == "56-70" {
-                numOfOrders = 70
-            } else if item.quantityOfEvent == "71-90" {
-                numOfOrders = 90
-            } else {
-                if Int(item.quantityOfEvent) != nil {
-                    numOfOrders = Int(item.quantityOfEvent)!
+        if Auth.auth().currentUser != nil {
+            var date = sdf.string(from: Date())
+            for i in 0..<checkoutItems.count {
+                let item = checkoutItems[i]
+                let orderId = UUID().uuidString
+                let data: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle, "menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : item.totalCostOfEvent * 0.95, "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
+                
+                
+                let data1: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId,  "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle,"menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : (item.totalCostOfEvent * 0.95), "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "paymentIntent" : paymentId, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
+                
+                var numOfOrders = 0
+                if item.quantityOfEvent == "1-10" {
+                    numOfOrders = 10
+                } else if item.quantityOfEvent == "11-25" {
+                    numOfOrders = 25
+                } else if item.quantityOfEvent == "26-40" {
+                    numOfOrders = 40
+                } else if item.quantityOfEvent == "41-55" {
+                    numOfOrders = 55
+                } else if item.quantityOfEvent == "56-70" {
+                    numOfOrders = 70
+                } else if item.quantityOfEvent == "71-90" {
+                    numOfOrders = 90
+                } else {
+                    if Int(item.quantityOfEvent) != nil {
+                        numOfOrders = Int(item.quantityOfEvent)!
+                    }
                 }
+                let data2: [String: Any] = ["itemOrders" : numOfOrders]
+                db.collection("Chef").document(item.chefImageId).collection("Orders").document(orderId).setData(data)
+                db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").document(orderId).setData(data)
+                db.collection("Orders").document(orderId).setData(data1)
+                db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(item.documentId).delete()
+                db.collection(item.typeOfService).document(item.menuItemId).updateData(data2)
+                subscribeToTopic(userNotification: item.userNotification, chefNotification: item.chefNotification, orderId: orderId, itemTitle: item.itemTitle)
+                
+                if (i == checkoutItems.count - 1) {
+                    showToastCompletion(message: "Order Complete! Please check 'Orders' tab for an update on this order.", font: .systemFont(ofSize: 12))
+                }
+                
             }
-            let data2: [String: Any] = ["itemOrders" : numOfOrders]
-            db.collection("Chef").document(item.chefImageId).collection("Orders").document(orderId).setData(data)
-            db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").document(orderId).setData(data)
-            db.collection("Orders").document(orderId).setData(data1)
-            db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(item.documentId).delete()
-            db.collection(item.typeOfService).document(item.menuItemId).updateData(data2)
-            subscribeToTopic(userNotification: item.userNotification, chefNotification: item.chefNotification, orderId: orderId, itemTitle: item.itemTitle)
-            
-            if (i == checkoutItems.count - 1) {
-                showToastCompletion(message: "Order Complete! Please check 'Orders' tab for an update on this order.", font: .systemFont(ofSize: 12))
-            }
-            
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     
