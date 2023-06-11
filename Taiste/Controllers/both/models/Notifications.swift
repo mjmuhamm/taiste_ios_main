@@ -11,7 +11,15 @@ struct Notifications {
     let chefOrUser: String
     let messageOrEvent: String
     let notification: String
-    let notificationDate: String
-    
-    
+    let date: String
+    let documentId: String
+}
+
+struct MessageNotification {
+    let chefOrUser: String
+    let notification: String
+    let userName: String
+    let userEmail: String
+    let userImageId: String
+    let date: String
 }

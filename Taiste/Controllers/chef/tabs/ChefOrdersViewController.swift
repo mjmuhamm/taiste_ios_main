@@ -36,6 +36,7 @@ class ChefOrdersViewController: UIViewController {
     
     @IBOutlet weak var orderTableView: UITableView!
     
+    @IBOutlet weak var newNotificationImage: UIImageView!
     
     
     override func viewDidLoad() {
@@ -48,12 +49,65 @@ class ChefOrdersViewController: UIViewController {
         orderTableView.dataSource = self
         
         loadOrders()
+        loadNotifications()
+        loadUsername()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.tintColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         self.tabBarController?.tabBar.barTintColor = UIColor.white
     }
+    private func loadUsername() {
+        if guserName == "" {
+            db.collection("Usernames").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            
+                            if let username = data["username"] as? String, let email = data["email"] as? String {
+                                if email == Auth.auth().currentUser!.email! {
+                                    guserName = username
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    private func loadNotifications() {
+        if Auth.auth().currentUser != nil {
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        let notifications = data!["notifications"] as! String
+                        if notifications != "" {
+                            if notifications == "seen" {
+                                let data1 : [String: Any] = ["notifications" : ""]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                self.newNotificationImage.isHidden = true
+                            } else {
+                                let data1 : [String: Any] = ["notifications" : "seen"]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                self.newNotificationImage.isHidden = false
+                            }
+                        } else {
+                            self.newNotificationImage.isHidden = true
+                        }
+                    }
+                }
+            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check connection.", font: .systemFont(ofSize: 12))
+        }
+    }
+    
 
     private func loadOrders() {
         if Auth.auth().currentUser != nil {
@@ -251,7 +305,7 @@ class ChefOrdersViewController: UIViewController {
                             }
                         }
                     }
-                    self.showToast(message: "Item Canceled.", font: .systemFont(ofSize: 12))
+                    self.showToast(message: "Item Cancelled.", font: .systemFont(ofSize: 12))
                 }
             })
             task.resume()
@@ -312,6 +366,14 @@ class ChefOrdersViewController: UIViewController {
             completeButton.setTitleColor(UIColor.white, for: .normal)
             completeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
     }
+    
+    @IBAction func notificationsButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Notifications") as? NotificationsViewController {
+            vc.chefOrUser = "Chef"
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
 }
 
@@ -443,9 +505,11 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         cell.messagesForTravelFeeButtonTapped = {
             print("user \(order.user)")
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-                vc.otherUser = order.user
+                vc.otherUser = order.userImageId
+                vc.otherUserName = order.user
                 vc.chefOrUser = "Chef"
                 vc.order = order
+                vc.itemTitle = order.itemTitle
                 vc.eventTypeAndQuantityText = "Event Type: \(order.typeOfService)   Event Quantity: \(order.eventQuantity)"
                 vc.locationText = "Location: \(order.location)"
                 vc.travelFeeOrMessage = "travelFee"
@@ -469,6 +533,7 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
             let data2: [String: Any] = ["orderUpdate" : "scheduled"]
             
             if self.toggle == "Pending" {
+                self.showToast(message: "Order Accepted!", font: .systemFont(ofSize: 12))
                 self.db.collection("User").document(order.userImageId).collection("Orders").document(order.documentId).updateData(data2)
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(order.documentId).updateData(data2)
                 self.db.collection("Orders").document(order.documentId).updateData(data2)
@@ -529,14 +594,25 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                     self.pendingOrders.remove(at: index)
                     self.orderTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
                 }
+                
+                let date = Date()
+                let df = DateFormatter()
+                df.dateFormat = "MM-dd-yyyy hh:mm a"
+                let date1 =  df.string(from: Date())
+                let data3: [String: Any] = ["notification" : "\(guserName) has just accepted your order (\(order.typeOfService)) \(order.itemTitle).", "date" : date1]
+                let data4: [String: Any] = ["notifications" : "yes"]
+                self.db.collection("User").document(order.userImageId).collection("Notifications").document().setData(data3)
+                self.db.collection("User").document(order.userImageId).updateData(data4)
                
                 
                
             } else {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-                vc.otherUser = order.user
+                vc.otherUser = order.userImageId
+                vc.otherUserName = order.user
                 vc.chefOrUser = "Chef"
                 vc.order = order
+                vc.itemTitle = order.itemTitle
                 vc.eventTypeAndQuantityText = "Event Type: \(order.typeOfService)   Event Quantity: \(order.eventQuantity)"
                 vc.locationText = "Location: \(order.location)"
                 vc.travelFeeOrMessage = "messages"
@@ -573,23 +649,44 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         
         cell.cancelButtonTapped = {
             if self.toggle == "Pending" {
-                self.db.collection("Orders").document(order.documentId).getDocument { document, error in
-                    if error == nil {
-                        if document != nil {
-                            let data = document!.data()
-                            
-                            let paymentIntent = data!["paymentIntent"] as? String
-                            
-                            self.refundOrder(paymentId: paymentIntent!, amount: String(format: "%.0f", order.totalCostOfEvent + order.taxesAndFees), orderId: order.documentId, userImageId: order.userImageId, chefImageId: order.chefImageId, chargeForPayout: 0.0)
-                            
-                            if let index = self.orders.firstIndex(where: { $0.documentId == order.documentId }) {
-                                self.orders.remove(at: index)
-                                self.pendingOrders.remove(at: index)
-                                self.orderTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
+                let alert = UIAlertController(title: "Are you sure you want to cancel this order?", message: nil, preferredStyle: .actionSheet)
+                    
+                    
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                        self.db.collection("Orders").document(order.documentId).getDocument { document, error in
+                            if error == nil {
+                                if document != nil {
+                                    let data = document!.data()
+                                    
+                                    let paymentIntent = data!["paymentIntent"] as? String
+                                    
+                                    self.refundOrder(paymentId: paymentIntent!, amount: String(format: "%.0f", order.totalCostOfEvent + order.taxesAndFees), orderId: order.documentId, userImageId: order.userImageId, chefImageId: order.chefImageId, chargeForPayout: 0.0)
+                                    
+                                    if let index = self.orders.firstIndex(where: { $0.documentId == order.documentId }) {
+                                        self.orders.remove(at: index)
+                                        self.pendingOrders.remove(at: index)
+                                        self.orderTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
+                                    }
+                                }
                             }
                         }
-                    }
-                }
+                       
+                        let date = Date()
+                        let df = DateFormatter()
+                        df.dateFormat = "MM-dd-yyyy hh:mm a"
+                        let date1 =  df.string(from: Date())
+                        let data3: [String: Any] = ["notification" : "\(guserName) has just cancelled your order (\(order.typeOfService)) \(order.itemTitle). You will receive a full refund.", "date" : date1]
+                        let data4: [String: Any] = ["notifications" : "yes"]
+                        self.db.collection("User").document(order.userImageId).collection("Notifications").document().setData(data3)
+                        self.db.collection("User").document(order.userImageId).updateData(data4)
+                    }))
+                    
+                    alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                        alert.dismiss(animated: true, completion: nil)
+                    }))
+                
+                    self.present(alert, animated: true, completion: nil)
+                
             } else {
                 var newEventDates : [Date] = []
                 var percent : Double?
@@ -645,6 +742,14 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                                 }
                             }
                         }
+                        let date = Date()
+                        let df = DateFormatter()
+                        df.dateFormat = "MM-dd-yyyy hh:mm a"
+                        let date1 =  df.string(from: Date())
+                        let data3: [String: Any] = ["notification" : "\(guserName) has just cancelled your order (\(order.typeOfService)) \(order.itemTitle). You will receive a full refund.", "date" : date1]
+                        let data4: [String: Any] = ["notifications" : "yes"]
+                        self.db.collection("User").document(order.userImageId).collection("Notifications").document().setData(data3)
+                        self.db.collection("User").document(order.userImageId).updateData(data4)
                     }))
                     
                     alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in

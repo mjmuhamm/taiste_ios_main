@@ -24,6 +24,9 @@ class CheckoutViewController: UIViewController {
     var paymentSheet: PaymentSheet?
     let backendCheckoutUrl = URL(string: "https://taiste-payments.onrender.com/create-payment-intent")! // Your backend endpoint
 
+    let date = Date()
+    let df = DateFormatter()
+    
     
     private let storage = Storage.storage()
     @IBOutlet weak var foodTotalText: UILabel!
@@ -43,13 +46,14 @@ class CheckoutViewController: UIViewController {
     private var totalPrice = 0.0
     
     let sdf = DateFormatter()
+    var userName = ""
     
     @IBOutlet weak var checkoutTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        df.dateFormat = "MM-dd-yyyy hh:mm a"
         sdf.dateFormat = "MM-dd-yyyy"
         payButton.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
         payButton.isEnabled = false
@@ -117,6 +121,19 @@ class CheckoutViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             let storageRef = storage.reference()
             var chefImage = UIImage()
+            
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            let userName = data["userName"] as! String
+                            self.userName = userName
+                        }
+                    }
+                }
+            }
             
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").getDocuments { documents, error in
                 if error == nil {
@@ -238,10 +255,10 @@ class CheckoutViewController: UIViewController {
             for i in 0..<checkoutItems.count {
                 let item = checkoutItems[i]
                 let orderId = UUID().uuidString
-                let data: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle, "menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : item.totalCostOfEvent * 0.95, "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
+                let data: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle, "menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : item.totalCostOfEvent * 0.95, "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : self.userName, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
                 
                 
-                let data1: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId,  "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle,"menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : (item.totalCostOfEvent * 0.95), "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : user, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "paymentIntent" : paymentId, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
+                let data1: [String: Any] = ["cancelled" : "", "chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId,  "chefUsername" : item.chefUsername, "city" : item.city, "state" : item.state, "distance" : item.distance, "eventDates" : item.datesOfEvent, "eventNotes" : item.notesToChef, "eventTimes" : item.timesForDatesOfEvent, "eventType" : item.typeOfEvent, "itemDescription" : item.itemDescription, "itemTitle" : item.itemTitle,"menuItemId" : item.menuItemId, "numberOfEvents" : checkoutItems.count, "orderDate" : date, "orderId" : orderId, "orderUpdate" : "pending", "priceToChef" : (item.totalCostOfEvent * 0.95), "taxesAndFees" : item.totalCostOfEvent * 0.125, "totalCostOfEvent" : item.totalCostOfEvent, "travelFee" : "", "travelFeeAccepted" : "", "travelFeeRequested" : "", "travelFeeApproved" : "", "typeOfService" : item.typeOfService, "userImageId" : Auth.auth().currentUser!.uid, "user" : self.userName, "unitPrice" : item.unitPrice, "imageCount" : item.imageCount, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "\(item.itemCalories)", "location" : item.location, "eventQuantity" : item.quantityOfEvent, "travelExpenseOption" : item.travelExpenseOption, "creditsApplied" : creditsApplied, "creditIds" : creditsIds, "paymentIntent" : paymentId, "allergies": item.allergies, "additionalMenuItems" : item.additionalMenuItems, "signatureDishId" : item.signatureDishId, "userNotificationToken" : item.userNotification, "chefNotificationToken" : item.chefNotification]
                 
                 var numOfOrders = 0
                 if item.quantityOfEvent == "1-10" {
@@ -261,8 +278,13 @@ class CheckoutViewController: UIViewController {
                         numOfOrders = Int(item.quantityOfEvent)!
                     }
                 }
+                let date = df.string(from: Date())
                 let data2: [String: Any] = ["itemOrders" : numOfOrders]
+                let data3: [String: Any] = ["notification" : "\(self.userName) has just placed an order (\(item.typeOfService)) for \(item.itemTitle)", "date" : date]
+                let data4: [String: Any] = ["notifications" : "yes"]
                 db.collection("Chef").document(item.chefImageId).collection("Orders").document(orderId).setData(data)
+                db.collection("Chef").document(item.chefImageId).collection("Notifications").document(orderId).setData(data3)
+                db.collection("Chef").document(item.chefImageId).updateData(data4)
                 db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").document(orderId).setData(data)
                 db.collection("Orders").document(orderId).setData(data1)
                 db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(item.documentId).delete()
@@ -431,7 +453,7 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
                 let newFinalTotal = Double(newTotal) + Double(
                     taxes)
                 
-                if let index = self.checkoutItems.firstIndex(where: { $0.menuItemId == item.menuItemId }) {
+                if let index = self.checkoutItems.firstIndex(where: { $0.documentId == item.documentId }) {
                     self.checkoutItems.remove(at: index)
                     self.checkoutTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
                     self.foodTotalText.text = "$\(String(format: "%.2f", newTotal))"

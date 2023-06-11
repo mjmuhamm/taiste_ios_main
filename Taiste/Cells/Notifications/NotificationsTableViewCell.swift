@@ -11,16 +11,33 @@ class NotificationsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var notification: UILabel!
     @IBOutlet weak var notificationDate: UILabel!
+    @IBOutlet weak var notificationView: UIStackView!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var messagesView: UIStackView!
+    @IBOutlet weak var message: UILabel!
+    
+    @IBOutlet weak var buttonConstant: NSLayoutConstraint!
+    @IBOutlet weak var userImageButton: UIButton!
+    
+    var userImageTapped : (() -> ()) = {}
     var notificationTapped : (() -> ()) = {}
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        userImage.layer.borderWidth = 1
+        userImage.layer.masksToBounds = false
+        userImage.layer.borderColor = UIColor.white.cgColor
+        userImage.layer.cornerRadius = userImage.frame.height/2
+        userImage.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func userImageButtonPressed(_ sender: Any) {
+        userImageTapped()
     }
     
     @IBAction func notificationClickButton(_ sender: Any) {

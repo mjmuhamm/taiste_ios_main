@@ -101,10 +101,34 @@ class ProfileAsUserViewController: UIViewController {
             self.chefToggleStack.isHidden = true
             self.userToggleStack.isHidden = false
         }
+        loadUsername()
         
 
         // Do any additional setup after loading the view.
     }
+    
+    private func loadUsername() {
+        if guserName == "" {
+            db.collection("Usernames").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let username = data["username"] as? String, let email = data["email"] as? String {
+                                if email == Auth.auth().currentUser!.email! {
+                                    guserName = username
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+  
     
     private func loadUserInfo() {
         let storageRef = storage.reference()
@@ -799,6 +823,18 @@ class ProfileAsUserViewController: UIViewController {
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
     }
     
+    
+    @IBAction func messagesButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+            vc.otherUser = user
+            vc.otherUserName = "@\(self.userName.text!)"
+            vc.chefOrUser = "Chef"
+            vc.eventTypeAndQuantityText = "na"
+            vc.travelFeeOrMessage = "MessageRequests"
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func reviewsButtonPressed(_ sender: Any) {
         toggle = "Reviews"
         loadUserReviews()
@@ -955,7 +991,11 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                             }
                         }
                     })
-                    
+                    let date =  self.df.string(from: Date())
+                    let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (\(item.itemType))  \(item.itemTitle)", "date" : date]
+                    let data4: [String: Any] = ["notifications" : "yes"]
+                    self.db.collection("Chef").document(item.chefImageId).collection("Notifications").document().setData(data3)
+                    self.db.collection("Chef").document(item.chefImageId).updateData(data4)
                 }
                 
                 return cell
@@ -1791,6 +1831,16 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                                 }
                             }
                         })
+                        
+                     
+                        let date = Date()
+                        let df = DateFormatter()
+                        df.dateFormat = "MM-dd-yyyy hh:mm a"
+                        let date1 =  df.string(from: Date())
+                        let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (\(item.itemType)) \(item.itemTitle).", "date" : date1]
+                        let data4: [String: Any] = ["notifications" : "yes"]
+                        self.db.collection("Chef").document(item.chefImageId).collection("Notifications").document().setData(data3)
+                        self.db.collection("Chef").document(item.chefImageId).updateData(data4)
                         
                     }
                     

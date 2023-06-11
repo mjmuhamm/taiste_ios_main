@@ -510,7 +510,7 @@ class UserPersonalViewController: UIViewController {
                                 }
                                 let data: [String: Any] = ["fullName" : self.fullName.text, "userName" : self.userName.text, "email": self.email.text,  "city" : self.city.text, "state" : self.state.text, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
                                 let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
-                                let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no"]
+                                let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : ""]
                                 self.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
                                 self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
                                 self.db.collection("User").document(authResult!.user.uid).setData(data2)

@@ -143,7 +143,7 @@ class ChefPersonalViewController: UIViewController {
                             }
                             let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
                             let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
-                            let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0]
+                            let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : ""]
                             self.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
                             self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
                             self.db.collection("Chef").document(authResult!.user.uid).setData(data2)

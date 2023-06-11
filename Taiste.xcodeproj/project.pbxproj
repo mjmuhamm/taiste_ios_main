@@ -13,6 +13,7 @@
 		F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */; };
 		F429F0D42A24D3B100D22271 /* DisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */; };
 		F429F0D62A24E8C000D22271 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429F0D52A24E8C000D22271 /* MenuItem.swift */; };
+		F42B6D692A35F83600878BB4 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B6D682A35F83600878BB4 /* NotificationsViewController.swift */; };
 		F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436E52F29F6FCFD00B2F38C /* Dashboard.swift */; };
 		F43D90F02A261FA700AE248E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D90EE2A261FA700AE248E /* ReviewsTableViewCell.swift */; };
 		F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */; };
@@ -91,7 +92,6 @@
 		F4E44B1A27C96DEF007F6295 /* ChefItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1827C96DEF007F6295 /* ChefItemTableViewCell.swift */; };
 		F4E44B1B27C96DEF007F6295 /* ChefItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E44B1927C96DEF007F6295 /* ChefItemTableViewCell.xib */; };
 		F4E44B1D27C9773F007F6295 /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1C27C9773F007F6295 /* OrderDetailsViewController.swift */; };
-		F4ED0D5F2A27E975000B166B /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ED0D5E2A27E975000B166B /* NotificationsViewController.swift */; };
 		F4ED0D632A27EA2A000B166B /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ED0D612A27EA2A000B166B /* NotificationsTableViewCell.swift */; };
 		F4ED0D642A27EA2A000B166B /* NotificationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4ED0D622A27EA2A000B166B /* NotificationsTableViewCell.xib */; };
 		F4ED0D662A27ECBB000B166B /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ED0D652A27ECBB000B166B /* Notifications.swift */; };
@@ -134,6 +134,7 @@
 		F423AC0F2A1D138F009E9600 /* OwnersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnersViewController.swift; sourceTree = "<group>"; };
 		F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerViewController.swift; sourceTree = "<group>"; };
 		F429F0D52A24E8C000D22271 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuItem.swift; path = Taiste/Controllers/chef/MenuItem.swift; sourceTree = SOURCE_ROOT; };
+		F42B6D682A35F83600878BB4 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F436E52F29F6FCFD00B2F38C /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dashboard.swift; path = Taiste/Controllers/user/Dashboard.swift; sourceTree = SOURCE_ROOT; };
 		F43D90EE2A261FA700AE248E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
@@ -217,7 +218,6 @@
 		F4E44B1827C96DEF007F6295 /* ChefItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefItemTableViewCell.swift; sourceTree = "<group>"; };
 		F4E44B1927C96DEF007F6295 /* ChefItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChefItemTableViewCell.xib; sourceTree = "<group>"; };
 		F4E44B1C27C9773F007F6295 /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
-		F4ED0D5E2A27E975000B166B /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F4ED0D612A27EA2A000B166B /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		F4ED0D622A27EA2A000B166B /* NotificationsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationsTableViewCell.xib; sourceTree = "<group>"; };
 		F4ED0D652A27ECBB000B166B /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
@@ -539,7 +539,7 @@
 				F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */,
 				F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */,
 				F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */,
-				F4ED0D5E2A27E975000B166B /* NotificationsViewController.swift */,
+				F42B6D682A35F83600878BB4 /* NotificationsViewController.swift */,
 			);
 			path = both;
 			sourceTree = "<group>";
@@ -842,7 +842,6 @@
 				F4ED0D632A27EA2A000B166B /* NotificationsTableViewCell.swift in Sources */,
 				F481948A27C817D0002BB9D3 /* LoginViewController.swift in Sources */,
 				F4AE2FEE27CF9B6700F529C5 /* FeedCollectionViewCell.swift in Sources */,
-				F4ED0D5F2A27E975000B166B /* NotificationsViewController.swift in Sources */,
 				F436E53029F6FCFD00B2F38C /* Dashboard.swift in Sources */,
 				F4E44B1327C94100007F6295 /* ChefTabViewController.swift in Sources */,
 				F4A13EBC27CD882F00A63A00 /* UserOrderPostTableViewCell.swift in Sources */,
@@ -867,6 +866,7 @@
 				F4A080B429FDA3BF00895938 /* ChefPersonalViewController.swift in Sources */,
 				F4A080BD2A00020900895938 /* StripeTermsOfServiceViewController.swift in Sources */,
 				F4C5E7EC2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift in Sources */,
+				F42B6D692A35F83600878BB4 /* NotificationsViewController.swift in Sources */,
 				F481948327C80252002BB9D3 /* HomeTableViewCell.swift in Sources */,
 				F4B90E0E27C70B89004B1FB1 /* OrdersViewController.swift in Sources */,
 				F4E44B1D27C9773F007F6295 /* OrderDetailsViewController.swift in Sources */,

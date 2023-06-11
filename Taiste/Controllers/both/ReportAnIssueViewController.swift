@@ -36,6 +36,7 @@ class ReportAnIssueViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        issueInDetail.delegate = self
         // Do any additional setup after loading the view.
     }
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -43,8 +44,10 @@ class ReportAnIssueViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        issueInDetail.text = ""
-        issueInDetail.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        if issueInDetail.text == "Issue here in detail." {
+            issueInDetail.text = ""
+            issueInDetail.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        }
     }
     
     @IBAction func issueWithEventYesButtonPressed(_ sender: Any) {

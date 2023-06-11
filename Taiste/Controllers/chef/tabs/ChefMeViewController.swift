@@ -80,6 +80,7 @@ class ChefMeViewController: UIViewController {
     private var longitude = ""
     private var profileImageId = ""
     private var menuItemId = UUID().uuidString
+    @IBOutlet weak var newNotificationImage: UIImageView!
     
     
     override func viewDidLoad() {
@@ -101,6 +102,7 @@ class ChefMeViewController: UIViewController {
         
         loadChefInfo()
         loadItems()
+        loadNotifications()
         
     }
     
@@ -110,6 +112,33 @@ class ChefMeViewController: UIViewController {
         self.tabBarController?.tabBar.barTintColor = UIColor.white
     }
     
+    private func loadNotifications() {
+        if Auth.auth().currentUser != nil {
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        let notifications = data!["notifications"] as! String
+                        if notifications != "" {
+                            if notifications == "seen" {
+                                let data1 : [String: Any] = ["notifications" : ""]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                self.newNotificationImage.isHidden = true
+                            } else {
+                                let data1 : [String: Any] = ["notifications" : "seen"]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                self.newNotificationImage.isHidden = false
+                            }
+                        } else {
+                            self.newNotificationImage.isHidden = true
+                        }
+                    }
+                }
+            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check connection.", font: .systemFont(ofSize: 12))
+        }
+    }
     private func loadChefInfo() {
         if Auth.auth().currentUser != nil {
             let storageRef = storage.reference()
@@ -597,6 +626,7 @@ class ChefMeViewController: UIViewController {
     @IBAction func cateringButtonPressed(_ sender: Any) {
         toggle = "Cater Items"
         loadItems()
+        addContentButton.isHidden = false
         contentCollectionView.isHidden = true
         meTableView.isHidden = false
         bankingView.isHidden = true
@@ -636,6 +666,7 @@ class ChefMeViewController: UIViewController {
         var abc = toggle
         toggle = "MealKit Items"
         loadItems()
+        addContentButton.isHidden = false
         comingSoon.isHidden = true
         contentCollectionView.isHidden = true
         meTableView.isHidden = false
@@ -657,6 +688,7 @@ class ChefMeViewController: UIViewController {
     @IBAction func contentButtonPressed(_ sender: Any) {
         toggle = "Content"
         loadContent()
+        addContentButton.isHidden = false
         contentCollectionView.isHidden = false
         meTableView.isHidden = true
         bankingView.isHidden = true
@@ -711,6 +743,13 @@ class ChefMeViewController: UIViewController {
                 
                 self.present(vc, animated: true, completion: nil)
             }
+        }
+    }
+    
+    @IBAction func notificationsButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Notifications") as? NotificationsViewController {
+            vc.chefOrUser = "Chef"
+            self.present(vc, animated: true, completion: nil)
         }
     }
     

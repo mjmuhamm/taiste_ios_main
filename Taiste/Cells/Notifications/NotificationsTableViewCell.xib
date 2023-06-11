@@ -19,20 +19,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="97"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@malik_testing has sent you a message about abc event, coming up on 1-12-2023." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbn-90-FG6">
-                        <rect key="frame" x="20" y="18" width="384" height="28.666666666666671"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03-25-2023" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ya-Lx-d10">
-                        <rect key="frame" x="20" y="53.666666666666664" width="70.666666666666671" height="14.333333333333336"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" systemColor="systemGray3Color"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="BYM-Xt-6PU">
+                        <rect key="frame" x="20" y="18" width="384" height="49"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@malik_testing has sent you a message about abc event, coming up on 1-12-2023." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbn-90-FG6">
+                                <rect key="frame" x="0.0" y="0.0" width="372" height="28.666666666666668"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03-25-2023" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ya-Lx-d10">
+                                <rect key="frame" x="0.0" y="34.666666666666664" width="70.666666666666671" height="14.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" systemColor="systemGray3Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ayi-KA-YVK">
-                        <rect key="frame" x="161.66666666666666" y="62" width="90.666666666666657" height="35"/>
+                        <rect key="frame" x="161.66666666666666" y="79.333333333333329" width="90.666666666666657" height="17.666666666666671"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="tintColor" systemColor="systemGray5Color"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -41,35 +46,70 @@
                             <imageReference key="image" image="arrow.up.circle.fill" catalog="system" symbolScale="small"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tC3-h6-ZEJ">
-                        <rect key="frame" x="10" y="6" width="394" height="83"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="J5V-Xm-bRe">
+                        <rect key="frame" x="20" y="18" width="384" height="48"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UIh-im-eRC">
+                                <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="VxX-TY-mv7"/>
+                                    <constraint firstAttribute="height" constant="48" id="yKr-tL-fwP"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@malik_testing has sent you a message about abc event, coming up on 1-12-2023." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYi-kE-ioa">
+                                <rect key="frame" x="67" y="0.0" width="317" height="28.666666666666668"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="NotificationsReusableCell" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUP-2a-Xxk">
+                        <rect key="frame" x="74" y="0.0" width="340" height="97"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="notificationClickButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0Ia-ig-hqS"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggS-Xu-UWh">
+                        <rect key="frame" x="22" y="18" width="46" height="48"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="83" id="5AO-Zf-ReR"/>
+                            <constraint firstAttribute="height" constant="48" id="0ga-de-z6t"/>
+                            <constraint firstAttribute="width" constant="46" id="h4v-ey-6hS"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <connections>
-                            <action selector="notificationClickButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fDh-FX-Heg"/>
+                            <action selector="userImageButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hf6-P3-NqG"/>
                         </connections>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tC3-h6-ZEJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Ejl-ca-f0a"/>
-                    <constraint firstItem="Tbn-90-FG6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="FR4-as-vgx"/>
-                    <constraint firstItem="9Ya-Lx-d10" firstAttribute="top" secondItem="Tbn-90-FG6" secondAttribute="bottom" constant="6.9999999999999858" id="a9l-Id-SaD"/>
-                    <constraint firstAttribute="trailing" secondItem="Tbn-90-FG6" secondAttribute="trailing" constant="10" id="dBo-N2-eGg"/>
+                    <constraint firstAttribute="trailing" secondItem="BYM-Xt-6PU" secondAttribute="trailing" constant="10" id="1QH-VZ-R0i"/>
+                    <constraint firstItem="QUP-2a-Xxk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5GW-ye-3Zh"/>
+                    <constraint firstItem="J5V-Xm-bRe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="6Lw-pc-Eo1"/>
+                    <constraint firstItem="ggS-Xu-UWh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="Hbo-ls-6mn"/>
+                    <constraint firstItem="QUP-2a-Xxk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="74" id="Sbb-Ts-ThN"/>
+                    <constraint firstItem="J5V-Xm-bRe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="acP-S2-DD9"/>
                     <constraint firstItem="Ayi-KA-YVK" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="dml-Nt-1EC"/>
-                    <constraint firstItem="Tbn-90-FG6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="jzm-zW-MBQ"/>
+                    <constraint firstItem="ggS-Xu-UWh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="g9C-rS-Jog"/>
                     <constraint firstAttribute="bottom" secondItem="Ayi-KA-YVK" secondAttribute="bottom" id="kRv-Dx-Mry"/>
-                    <constraint firstItem="9Ya-Lx-d10" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="otb-Hk-crj"/>
-                    <constraint firstItem="Ayi-KA-YVK" firstAttribute="top" secondItem="Tbn-90-FG6" secondAttribute="bottom" constant="15.33" id="qNc-Cv-4fj"/>
-                    <constraint firstItem="tC3-h6-ZEJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="tS9-2I-nXP"/>
-                    <constraint firstAttribute="trailing" secondItem="tC3-h6-ZEJ" secondAttribute="trailing" constant="10" id="vcC-wc-1g4"/>
+                    <constraint firstItem="BYM-Xt-6PU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="ksF-B1-sjV"/>
+                    <constraint firstItem="BYM-Xt-6PU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="mCg-7k-PfU"/>
+                    <constraint firstAttribute="bottom" secondItem="QUP-2a-Xxk" secondAttribute="bottom" id="pF5-7h-rZV"/>
+                    <constraint firstAttribute="trailing" secondItem="QUP-2a-Xxk" secondAttribute="trailing" id="w7V-rF-7hv"/>
+                    <constraint firstAttribute="trailing" secondItem="J5V-Xm-bRe" secondAttribute="trailing" constant="10" id="y0R-oQ-ZUg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="buttonConstant" destination="Sbb-Ts-ThN" id="FMn-lp-kaf"/>
+                <outlet property="message" destination="pYi-kE-ioa" id="jrT-yF-MPj"/>
+                <outlet property="messagesView" destination="J5V-Xm-bRe" id="QeS-gg-8I3"/>
                 <outlet property="notification" destination="Tbn-90-FG6" id="hl1-i2-i0l"/>
                 <outlet property="notificationDate" destination="9Ya-Lx-d10" id="6zt-pW-mlh"/>
+                <outlet property="notificationView" destination="BYM-Xt-6PU" id="jvF-QP-WL9"/>
+                <outlet property="userImage" destination="UIh-im-eRC" id="zS0-Vq-ZAE"/>
+                <outlet property="userImageButton" destination="ggS-Xu-UWh" id="F7j-O6-0Ce"/>
             </connections>
             <point key="canvasLocation" x="210.68702290076334" y="38.380281690140848"/>
         </tableViewCell>

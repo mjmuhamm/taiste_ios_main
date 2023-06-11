@@ -13,11 +13,17 @@ import FirebaseFirestore
 import MaterialComponents.MaterialButtons
 import MaterialComponents
 
+var guserName = ""
 class HomeViewController: UIViewController {
-    
+
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
     private let user = "malik@testing.com"
+    
+    let date = Date()
+    let df = DateFormatter()
+    
+    
     
     @IBOutlet weak var cateringButton: MDCButton!
     @IBOutlet weak var personalChefButton: MDCButton!
@@ -42,9 +48,10 @@ class HomeViewController: UIViewController {
     private var toggle = "Cater Items"
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        df.dateFormat = "MM-dd-yyyy hh:mm a"
         homeTableView.delegate = self
         homeTableView.dataSource = self
         
@@ -54,6 +61,7 @@ class HomeViewController: UIViewController {
 
         loadCart()
         loadFilter()
+        loadUsername()
         // Do any additional setup after loading the view.
     }
     
@@ -63,6 +71,27 @@ class HomeViewController: UIViewController {
         self.tabBarController?.tabBar.barTintColor = UIColor.white
     }
     
+    private func loadUsername() {
+        if guserName == "" {
+            db.collection("Usernames").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let username = data["username"] as? String, let email = data["email"] as? String {
+                                if email == Auth.auth().currentUser!.email! {
+                                    guserName = username
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+  
     private func loadCart() {
         if Auth.auth().currentUser != nil {
         db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").getDocuments { documents, error in
@@ -336,6 +365,7 @@ class HomeViewController: UIViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "Filter") as? FilterViewController
         self.present(vc!, animated: true, completion: nil)
         
+        
     }
     
     @IBAction func checkoutButtonPressed(_ sender: Any) {
@@ -503,6 +533,11 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                         }
                     }
                 })
+                let date =  self.df.string(from: Date())
+                let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (\(item.itemType))  \(item.itemTitle)", "date" : date]
+                let data4: [String: Any] = ["notifications" : "yes"]
+                self.db.collection("Chef").document(item.chefImageId).collection("Notifications").document().setData(data3)
+                self.db.collection("Chef").document(item.chefImageId).updateData(data4)
                 
             }
             
@@ -706,6 +741,12 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                             if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                 self.db.collection("Executive Items").document(item.documentId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                 self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
+                                
+                                let date =  self.df.string(from: Date())
+                                let data3: [String: Any] = ["notification" : "\(guserName) has just liked your item (Executive Item)", "date" : date]
+                                let data4: [String: Any] = ["notifications" : "yes"]
+                                self.db.collection("Chef").document(item.chefImageId).collection("Notifications").document().setData(data3)
+                                self.db.collection("Chef").document(item.chefImageId).updateData(data4)
                                 
                                 cell.likeImage.image = UIImage(systemName: "heart")
                                 cell.chefLikes.text = "\(Int(cell.chefLikes.text!)! - 1)"

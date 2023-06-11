@@ -57,12 +57,33 @@ class UserReviewViewController: UIViewController {
         
         itemTitle.text = item!.itemTitle
         itemDescription.text = item!.itemDescription
-        
+        loadUsername()
         df.dateFormat = "yyyy-MM-dd HH:mm"
     //        print("date \(year), \(month)")
 
         // Do any additional setup after loading the view.
     }
+    
+    private func loadUsername() {
+        if guserName == "" {
+            db.collection("Usernames").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let username = data["username"] as? String, let email = data["email"] as? String {
+                                if email == Auth.auth().currentUser!.email! {
+                                    guserName = username
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     
     
     @IBAction func expectations1ButtonPressed(_ sender: Any) {
@@ -231,6 +252,15 @@ class UserReviewViewController: UIViewController {
         db.collection(item!.typeOfService).document(item!.menuItemId).collection("UserReviews").document().setData(data)
         db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserReviews").document().setData(data)
         
+        
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "MM-dd-yyyy hh:mm a"
+        let date1 =  df.string(from: Date())
+        let data3: [String: Any] = ["notification" : "\(guserName) has just reviewed your item (\(item!.typeOfService)) \(item!.itemTitle).", "date" : date1]
+        let data4: [String: Any] = ["notifications" : "yes"]
+        self.db.collection("Chef").document(item!.chefImageId).collection("Notifications").document().setData(data3)
+        self.db.collection("Chef").document(item!.chefImageId).updateData(data4)
 //        db.collection(item!.typeOfService).document(item!.menuItemId)
             
         self.performSegue(withIdentifier: "UserReviewToHomeSegue", sender: self)
