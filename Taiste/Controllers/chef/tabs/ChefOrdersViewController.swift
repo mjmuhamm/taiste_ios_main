@@ -528,11 +528,17 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
             print("yearMonth \(yearMonth)")
             
             let calendar = Calendar(identifier: .gregorian)
-            let currentWeek = calendar.component(.weekOfMonth, from: Date())
+            var currentWeek = calendar.component(.weekOfMonth, from: Date())
             let data3: [String: Any] = ["totalPay" : (order.totalCostOfEvent - (order.totalCostOfEvent * 0.05))]
             let data2: [String: Any] = ["orderUpdate" : "scheduled"]
             
             if self.toggle == "Pending" {
+                print("menuitemid \(order.menuItemId)")
+                print("menuitemid \(order.typeOfService)")
+                print("menuitemid week \(currentWeek)")
+                if currentWeek > 4 {
+                    currentWeek = 4
+                }
                 self.showToast(message: "Order Accepted!", font: .systemFont(ofSize: 12))
                 self.db.collection("User").document(order.userImageId).collection("Orders").document(order.documentId).updateData(data2)
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(order.documentId).updateData(data2)
@@ -650,8 +656,6 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         cell.cancelButtonTapped = {
             if self.toggle == "Pending" {
                 let alert = UIAlertController(title: "Are you sure you want to cancel this order?", message: nil, preferredStyle: .actionSheet)
-                    
-                    
                     alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
                         self.db.collection("Orders").document(order.documentId).getDocument { document, error in
                             if error == nil {

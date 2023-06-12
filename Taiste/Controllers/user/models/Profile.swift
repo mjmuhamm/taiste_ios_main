@@ -104,4 +104,9 @@ struct UserReviews {
     
 }
 
+struct Usernames {
+    let username: String
+    let email: String
+}
+
 

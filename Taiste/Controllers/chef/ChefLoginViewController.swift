@@ -110,6 +110,46 @@ class ChefLoginViewController: UIViewController {
             if error != nil {
                 self!.showToast(message: "An error has occured. \(error!.localizedDescription)", font: .systemFont(ofSize: 12))
             } else {
+                if authResult!.user.displayName == "User" {
+                    self!.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").getDocuments { documents, error in
+                        if error == nil {
+                            if documents != nil {
+                                if documents!.count > 0 {
+                                    let changeRequest = authResult!.user.createProfileChangeRequest()
+                                    changeRequest.displayName = "Chef"
+                                    changeRequest.commitChanges { error in
+                                        // ...
+                                    }
+                                    
+                                    self!.db.collection("Chef").document(authResult!.user.uid).collection("BankingInfo").getDocuments { documents, error in
+                                        if error == nil {
+                                            if documents!.count > 0 {
+                                                self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
+                                            } else {
+                                                self!.performSegue(withIdentifier: "ChefLoginToChefBanking", sender: self)
+                                            }
+                                        }
+                                    }
+                                    
+                                } else {
+                                    if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController  {
+                                        vc.newOrEdit = "new"
+                                        vc.newUser = "yes"
+                                        self!.present(vc, animated: true, completion: nil)
+                                    }
+                                }
+                            } else {
+                                if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController {
+                                    vc.newOrEdit = "new"
+                                    vc.newUser = "yes"
+                                    self!.present(vc, animated: true, completion: nil)
+                                }
+                            }
+                        } else {
+                            self!.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+                        }
+                    }
+                } else {
                 self!.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
                     if error == nil {
                         if documents?.documents.isEmpty == true {
@@ -117,6 +157,7 @@ class ChefLoginViewController: UIViewController {
                         } else {
                             self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
                         }
+                    }
                     }
                 }
                 

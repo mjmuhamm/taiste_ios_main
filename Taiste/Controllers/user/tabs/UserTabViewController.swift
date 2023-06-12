@@ -15,9 +15,9 @@ class UserTabViewController: UITabBarController {
     var whereTo = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      
         if whereTo == "home" {
-            selectedIndex = 0
+            selectedIndex = 2
         } else if whereTo == "orders" {
             selectedIndex = 3
         }

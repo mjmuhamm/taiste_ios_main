@@ -33,6 +33,9 @@ class ChefPersonalViewController: UIViewController {
     
     private var documentId = ""
     
+    var newUser = ""
+    private var usernames : [Usernames] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +52,41 @@ class ChefPersonalViewController: UIViewController {
         userImage.layer.cornerRadius = userImage.frame.height/2
         userImage.clipsToBounds = true
         
+        if newUser == "yes" {
+            self.email.text = Auth.auth().currentUser!.email!
+            self.password.text = "**********"
+            self.confirmPassword.text = "**********"
+            self.email.isEnabled = false
+            self.password.isEnabled = false
+            self.confirmPassword.isEnabled = false
+        }
+        loadUsernames()
         
+    }
+    
+    private func loadUsernames() {
+        db.collection("Usernames").getDocuments { documents, error in
+            if error == nil {
+                for doc in documents!.documents {
+                    let data = doc.data()
+                    
+                    
+                    if let username = data["username"] as? String, let email = data["email"] as? String {
+                        let name = Usernames(username: username, email: email)
+                        
+                        
+                        if self.usernames.count == 0 {
+                            self.usernames.append(name)
+                        } else {
+                            if let index = self.usernames.firstIndex(where: { $0.username == username }) {} else {
+                                self.usernames.append(name)
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private func loadPersonalInfo() {
@@ -119,13 +156,17 @@ class ChefPersonalViewController: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         if Auth.auth().currentUser != nil {
-            if newOrEdit == "new" {
+            if newUser == "Yes" {
                 if fullName.text == "" {
                     self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
-                } else if chefName.text == "" || "\(chefName.text)".contains(" ") == true {
+                } else if chefName.text == "" || "\(chefName.text!)".contains(" ") == true {
                     self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
                 } else if email.text == "" || !isValidEmail(email.text!) {
                     self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
+                } else if usernames.contains(where: { $0.username == self.chefName.text }) {
+                    self.showToast(message: "This username is already taken. Please select another one.", font: .systemFont(ofSize: 12))
+                } else if usernames.contains(where: { $0.email == self.email.text }) {
+                    self.showToast(message: "This email is already in use.", font: .systemFont(ofSize: 12))
                 } else if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
                     self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
                 } else if education.text == "" {
@@ -133,77 +174,113 @@ class ChefPersonalViewController: UIViewController {
                 } else if userImageData == nil {
                     self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
                 } else {
-                    
                     let storageRef = storage.reference()
-                    Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
+                    storageRef.child("chefs/\(self.email.text!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
+                    
+                    let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
+                    let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
+                    let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : ""]
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document().setData(data)
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).setData(data2)
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = "Chef"
+                    
+                    changeRequest?.commitChanges { error in
+                        // ...
+                    }
+                    self.performSegue(withIdentifier: "ChefPersonalToChefBusinessSegue", sender: self)
+                }
+                
+            } else {
+                if newOrEdit == "new" {
+                    if fullName.text == "" {
+                        self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
+                    } else if chefName.text == "" || "\(chefName.text!)".contains(" ") == true {
+                        self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
+                    } else if email.text == "" || !isValidEmail(email.text!) {
+                        self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
+                    } else if usernames.contains(where: { $0.username == self.chefName.text }) {
+                        self.showToast(message: "This username is already taken. Please select another one.", font: .systemFont(ofSize: 12))
+                    } else if usernames.contains(where: { $0.email == self.email.text }) {
+                        self.showToast(message: "This email is already in use.", font: .systemFont(ofSize: 12))
+                    } else if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
+                        self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
+                    } else if education.text == "" {
+                        self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
+                    } else if userImageData == nil {
+                        self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
+                    } else {
                         
-                        if error == nil {
-                            if self.userImage1 != nil {
-                                storageRef.child("chefs/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
-                            }
-                            let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
-                            let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
-                            let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : ""]
-                            self.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
-                            self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
-                            self.db.collection("Chef").document(authResult!.user.uid).setData(data2)
-                            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                            changeRequest?.displayName = "Chef"
+                        let storageRef = storage.reference()
+                        Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
                             
-                            changeRequest?.commitChanges { error in
-                                // ...
-                            }
-                            self.performSegue(withIdentifier: "ChefPersonalToChefBusinessSegue", sender: self)
-                        } else {
-                            self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
-                        }
-                    }}} else {
-                        if fullName.text == "" {
-                            self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
-                        } else if chefName.text == "" || "\(chefName.text)".contains(" ") == true {
-                            self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
-                        } else if email.text == "" || !isValidEmail(email.text!) {
-                            self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
-                        } else if education.text == "" {
-                            self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
-                        } else {
-                            
-                            if !password.text!.contains("*") {
-                                if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
-                                    self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
-                                } else {
-                                    Auth.auth().currentUser?.updatePassword(to: password.text!) { error in
-                                        // ...
-                                        if error == nil {
-                                            let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!]
-                                            let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
-                                            
-                                            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)
-                                            self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
-                                            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                                            changeRequest?.displayName = self.chefName.text
-                                            
-                                            changeRequest?.commitChanges { error in
-                                                // ...
-                                            }
-                                            self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
-                                        } else {
-                                            self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
-                                        }
-                                        
-                                        print("yes")
-                                    }
+                            if error == nil {
+                                if self.userImage1 != nil {
+                                    storageRef.child("chefs/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
                                 }
-                                
-                            } else {
-                                let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!]
+                                let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
                                 let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
+                                let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : ""]
+                                self.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
+                                self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
+                                self.db.collection("Chef").document(authResult!.user.uid).setData(data2)
+                                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                changeRequest?.displayName = "Chef"
                                 
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)
-                                self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
-                                self.showToast(message: "Info updated.", font: .systemFont(ofSize: 12))
-                                self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
-                            }}}} else {
+                                changeRequest?.commitChanges { error in
+                                    // ...
+                                }
+                                self.performSegue(withIdentifier: "ChefPersonalToChefBusinessSegue", sender: self)
+                            } else {
+                                self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
+                            }
+                        }}} else {
+                            if fullName.text == "" {
+                                self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
+                            } else if chefName.text == "" || "\(chefName.text)".contains(" ") == true {
+                                self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
+                            } else if email.text == "" || !isValidEmail(email.text!) {
+                                self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
+                            } else if education.text == "" {
+                                self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
+                            } else {
+                                
+                                if !password.text!.contains("*") {
+                                    if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
+                                        self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
+                                    } else {
+                                        Auth.auth().currentUser?.updatePassword(to: password.text!) { error in
+                                            // ...
+                                            if error == nil {
+                                                let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!]
+                                                let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
+                                                
+                                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)
+                                                self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                                changeRequest?.displayName = self.chefName.text
+                                                
+                                                changeRequest?.commitChanges { error in
+                                                    // ...
+                                                }
+                                                self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
+                                            } else {
+                                                self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
+                                            }
+                                            
+                                            print("yes")
+                                        }
+                                    }
+                                    
+                                } else {
+                                    let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!]
+                                    let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
+                                    
+                                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document(self.documentId).updateData(data)
+                                    self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
+                                    self.showToast(message: "Info updated.", font: .systemFont(ofSize: 12))
+                                    self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
+                                }}}}} else {
                                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
                             }
         

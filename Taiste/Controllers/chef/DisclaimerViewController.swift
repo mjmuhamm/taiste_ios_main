@@ -18,6 +18,7 @@ class DisclaimerViewController: UIViewController {
 
     @IBOutlet weak var okButton: MDCButton!
     var newOrEdit = "new"
+    var newUser = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +36,7 @@ class DisclaimerViewController: UIViewController {
     @IBAction func okButtonPressed(_ sender: Any) {
         if newOrEdit == "new" {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefPersonal") as? ChefPersonalViewController {
+                vc.newUser = newUser
             self.present(vc, animated: true, completion: nil)
         }
         } else {

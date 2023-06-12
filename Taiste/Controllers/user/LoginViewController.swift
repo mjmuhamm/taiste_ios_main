@@ -108,8 +108,40 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { [weak self] authResult, error in
           guard let strongSelf = self else { return }
           // ...
+            if authResult!.user.displayName! == "User" {
+                self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
+            } else {
+                self!.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").getDocuments { documents, error in
+                    if error == nil {
+                        if documents != nil {
+                            if documents!.count > 0 {
+                                let changeRequest = authResult!.user.createProfileChangeRequest()
+                                changeRequest.displayName = "User"
+                                changeRequest.commitChanges { error in
+                                    // ...
+                                }
+                                self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
+                            } else {
+                                if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
+                                    vc.newChef = "yes"
+                                    self!.present(vc, animated: true, completion: nil)
+                                }
+                            }
+                        } else {
+                            if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
+                                vc.newChef = "yes"
+                                self!.present(vc, animated: true, completion: nil)
+                            }
+                        }
+                    } else {
+                        self!.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+                    }
+                }
+              
+                
+            }
             
-            self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
+            
         }
         }
         

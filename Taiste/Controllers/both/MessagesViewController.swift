@@ -52,6 +52,10 @@ class MessagesViewController: UIViewController {
     var messageRequestMessages = 0
     var messageRequestRecipient = ""
     
+    @IBOutlet weak var tableViewConstant: NSLayoutConstraint!
+    
+    //31.5
+    
     //this user
     var userName = ""
     var fullName = ""
@@ -95,12 +99,15 @@ class MessagesViewController: UIViewController {
             }
         } else if travelFeeOrMessage == "MessageRequests" {
             requestTravelFeeButton.isHidden = true
+            travelFeeLabel.isHidden = true
+            tableViewConstant.constant = 31.5
             if Auth.auth().currentUser != nil {
                 loadMessageRequests()
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         } else {
+            travelFeeLabel.isHidden = false
             requestTravelFeeButton.isHidden = true
             if Auth.auth().currentUser != nil {
                 loadMessages()
@@ -114,6 +121,7 @@ class MessagesViewController: UIViewController {
     }
     
     private func loadUsername() {
+        print("gusername \(guserName)")
         if guserName == "" {
             db.collection("Usernames").getDocuments { documents, error in
                 if error == nil {
@@ -248,23 +256,6 @@ class MessagesViewController: UIViewController {
         task.resume()
     }
     
-    private func getUsername() {
-        db.collection("Usernames").getDocuments { documents, error in
-            if error == nil {
-                if documents != nil {
-                    for doc in documents!.documents {
-                        let data = doc.data()
-                        
-                        if let username = data["username"] as? String, let fullName = data["fullName"] as? String {
-                            self.userName = username
-                            self.fullName = fullName
-                        }
-                    }
-                }
-                
-            }
-        }
-    }
     private func saveInfo() {
         if Auth.auth().currentUser != nil {
             let month = "\(df.string(from: date))".prefix(7).suffix(2)
@@ -343,7 +334,7 @@ class MessagesViewController: UIViewController {
     private func loadMessageRequests() {
         self.messageText.isEnabled = false
         let storageRef = storage.reference()
-        db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("MessageRequests").document(otherUser).collection(otherUserName).addSnapshotListener { documents, error in
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("MessageRequests").document(otherUser).collection(otherUserName).addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                     if documents!.count == 0 {
@@ -379,10 +370,14 @@ class MessagesViewController: UIViewController {
                             if user != Auth.auth().currentUser!.uid {
                                 self.userImageId = user
                             }
+                            print("vari \(vari)")
+                            print("vari \(userEmail)")
+                            print("vari \(self.otherUser)")
+                            print("vari \(user)")
                             
                             
                             let date1 = self.df.date(from: date)
-                            storageRef.child("\(vari)/\(self.otherUserName)/profileImage/\(self.otherUser).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
+                            storageRef.child("\(vari)/\(userEmail)/profileImage/\(user).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
                                 
                                 let image = UIImage(data: data!)
                                 
@@ -391,6 +386,13 @@ class MessagesViewController: UIViewController {
                                     let index = self.messages.firstIndex { $0.documentId == doc.documentID }
                                     if index == nil {
                                     self.messages.append(Messages(homeOrAway: homeOrAway, pictureId: user, image: image!, message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: ""))
+                                        if self.messages.count == 1 {
+                                            if userEmail != Auth.auth().currentUser!.email! {
+                                                self.messageText.isEnabled = true
+                                            }
+                                        } else {
+                                            self.messageText.isEnabled = true
+                                        }
                                     
                                     self.messages = self.messages.sorted(by: { $0.date.compare($1.date) == .orderedAscending })
                                     self.messageTableView.reloadData()
@@ -579,7 +581,7 @@ class MessagesViewController: UIViewController {
                 
                 let storageRef = storage.reference()
                 var vari = ""
-                if chefOrUser == "Chef" {
+                if Auth.auth().currentUser!.displayName! == "Chef" {
                     vari = "chefs"
                 } else {
                     vari = "users"
@@ -592,30 +594,43 @@ class MessagesViewController: UIViewController {
                     self.messageTableView.reloadData()
                     
                     self.messageText.text = ""
+                    if self.travelFeeOrMessage == "MessageRequests" && self.messages.count == 1 {
+                        self.messageText.isEnabled = false
+                    }
                     
                 }
                 
-                let data : [String : Any] = ["chefOrUser" : chefOrUser, "user" : Auth.auth().currentUser!.uid, "message" : messageText.text!, "date" : df.string(from: date), "userEmail": Auth.auth().currentUser!.email!, "travelFee" : "", "userName" : self.username, "fullName" : self.fullName]
+                let data : [String : Any] = ["chefOrUser" : Auth.auth().currentUser!.displayName!, "user" : Auth.auth().currentUser!.uid, "message" : messageText.text!, "date" : df.string(from: date), "userEmail": Auth.auth().currentUser!.email!, "travelFee" : "", "userName" : guserName, "fullName" : self.fullName]
                 
                 var otherUser = ""
                 var otherImageId = ""
                 var travelFeeVari = ""
                 
-                if chefOrUser == "Chef" {
+                if Auth.auth().currentUser!.displayName! == "Chef" {
                     otherUser = "User"
-                    otherImageId = order!.userImageId
+                    if travelFeeOrMessage != "MessageRequests" {
+                        otherImageId = order!.userImageId
+                    }
                 } else {
                     otherUser = "Chef"
-                    otherImageId = order!.chefImageId
+                    if travelFeeOrMessage != "MessageRequests" {
+                        otherImageId = order!.chefImageId
+                    }
                 }
                 if travelFeeOrMessage == "travelFee" {
                     travelFeeVari = "TravelFeeMessages"
                 } else if travelFeeOrMessage == "MessageRequests" {
                     travelFeeVari = "MessageRequests"
                     
-                    self.db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(self.otherUser).collection(self.otherUserName).document(documentId).setData(data)
-                    self.db.collection(otherUser).document(self.otherUser).collection(travelFeeVari).document(self.otherUser).collection(self.otherUserName).document(documentId).setData(data)
-                    db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                    
+                    let data5 : [String: Any] = ["chefOrUser" :  Auth.auth().currentUser!.displayName!, "user" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "date": self.df.string(from: self.date), "userName" : guserName]
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(self.otherUser).setData(data5)
+                    self.db.collection(otherUser).document(self.otherUser).collection(travelFeeVari).document(self.otherUser).setData(data5)
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(self.otherUser).collection(self.otherUser).document(documentId).setData(data)
+                    self.db.collection(otherUser).document(self.otherUser).collection(travelFeeVari).document(self.otherUser).collection(self.otherUser).document(documentId).setData(data)
+                  
+                    print("other username")
+                    db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).getDocument { document, error in
                         if error == nil {
                             if document != nil {
                                 let data = document!.data()
@@ -638,10 +653,11 @@ class MessagesViewController: UIViewController {
                     }
                     
                     let date =  self.df.string(from: Date())
-                    let data3: [String: Any] = ["notification" : "\(otherUserName) has just messaged you in MessageRequests.", "date" : date]
+                    let data3: [String: Any] = ["notification" : "@\(self.userName) has just sent you a message request.", "date" : date]
                     let data4: [String: Any] = ["notifications" : "yes"]
                     self.db.collection(otherUser).document(self.otherUser).collection("Notifications").document().setData(data3)
                     self.db.collection(otherUser).document(self.otherUser).updateData(data4)
+                    self.sendMessage(title: "Message Request", notification: "New message from @\(self.otherUserName)", topic: documentId)
                 } else {
                     travelFeeVari = "Messages"
                 }
@@ -655,7 +671,7 @@ class MessagesViewController: UIViewController {
                                 for doc in documents!.documents {
                                     let data = doc.data()
                                     let userName = data["chefName"] as! String
-                                    self.sendMessage(title: travelFeeVari, notification: "New message from \(userName)", topic: self.order!.documentId)
+                                    self.sendMessage(title: travelFeeVari, notification: "New message from @\(userName)", topic: self.order!.documentId)
                                 }
                             }
                         }
@@ -665,23 +681,24 @@ class MessagesViewController: UIViewController {
                                 for doc in documents!.documents {
                                     let data = doc.data()
                                     let userName = data["userName"] as! String
-                                    self.sendMessage(title: travelFeeVari, notification: "New message from \(userName)", topic: self.order!.documentId)
+                                    self.sendMessage(title: travelFeeVari, notification: "New message from @\(userName)", topic: self.order!.documentId)
                                 }
                             }
                         }
                     }
+                    let date = Date()
+                    let df = DateFormatter()
+                    df.dateFormat = "MM-dd-yyyy hh:mm a"
+                    let date1 =  df.string(from: Date())
+                    let data3: [String: Any] = ["notification" : "\(guserName) has just messaged you (\(order!.typeOfService)) about \(order!.itemTitle).", "date" : date1]
+                    let data4: [String: Any] = ["notifications" : "yes"]
+                    self.db.collection(otherUser).document(otherImageId).collection("Notifications").document().setData(data3)
+                    self.db.collection(otherUser).document(otherImageId).updateData(data4)
                 }
                 
                
                 
-                let date = Date()
-                let df = DateFormatter()
-                df.dateFormat = "MM-dd-yyyy hh:mm a"
-                let date1 =  df.string(from: Date())
-                let data3: [String: Any] = ["notification" : "\(guserName) has just messaged you (\(order!.typeOfService)) about \(order!.itemTitle).", "date" : date1]
-                let data4: [String: Any] = ["notifications" : "yes"]
-                self.db.collection(otherUser).document(otherImageId).collection("Notifications").document().setData(data3)
-                self.db.collection(otherUser).document(otherImageId).updateData(data4)
+               
                 
                 self.showToast(message: "Message Sent", font: .systemFont(ofSize: 12))
             }

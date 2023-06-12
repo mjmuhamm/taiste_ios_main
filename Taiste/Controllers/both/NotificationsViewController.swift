@@ -36,6 +36,8 @@ class NotificationsViewController: UIViewController {
     }
     
     private func loadNotifications() {
+        let data2 : [String: Any] = ["notifications" : ""]
+        db.collection(self.chefOrUser).document(Auth.auth().currentUser!.uid).updateData(data2)
         if toggle == "Messages" {
             db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("MessageRequests").addSnapshotListener { documents, error in
                 if error == nil {
@@ -66,8 +68,7 @@ class NotificationsViewController: UIViewController {
                 }
             }
         } else {
-            let data2 : [String: Any] = ["notifications" : ""]
-            db.collection(self.chefOrUser).document(Auth.auth().currentUser!.uid).updateData(data2)
+            
             db.collection(self.chefOrUser).document(Auth.auth().currentUser!.uid).collection("Notifications").addSnapshotListener { documents, error in
                 if error == nil {
                     if documents != nil {

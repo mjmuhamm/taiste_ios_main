@@ -827,7 +827,7 @@ class ProfileAsUserViewController: UIViewController {
     @IBAction func messagesButtonPressed(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
             vc.otherUser = user
-            vc.otherUserName = "@\(self.userName.text!)"
+            vc.otherUserName = "\(self.userName.text!)"
             vc.chefOrUser = "Chef"
             vc.eventTypeAndQuantityText = "na"
             vc.travelFeeOrMessage = "MessageRequests"

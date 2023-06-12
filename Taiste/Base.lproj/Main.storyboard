@@ -2662,19 +2662,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEo-Kh-lYM" customClass="MDCButton">
-                                <rect key="frame" x="365.5" y="7.5" width="28.5" height="24.5"/>
+                                <rect key="frame" x="371.5" y="2" width="22.5" height="22"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="envelope.badge" catalog="system">
                                     <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                 </state>
                                 <state key="selected">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="contentButtonPressed:" destination="O7X-fF-rpK" eventType="touchUpInside" id="7Uw-fe-MFm"/>
                                     <action selector="messagesButtonPressed:" destination="O7X-fF-rpK" eventType="touchUpInside" id="MrI-mg-Gbs"/>
                                 </connections>
                             </button>
@@ -2700,12 +2699,12 @@
                             <constraint firstItem="dwj-i0-u3D" firstAttribute="trailing" secondItem="VKp-KE-8g5" secondAttribute="trailing" id="ayI-Ng-fjq"/>
                             <constraint firstItem="dwj-i0-u3D" firstAttribute="trailing" secondItem="RSt-t0-t3L" secondAttribute="trailing" id="bcn-zG-Y2V"/>
                             <constraint firstItem="98Q-in-CXx" firstAttribute="centerY" secondItem="oWg-k1-NDE" secondAttribute="centerY" id="f7V-xb-Fyz"/>
+                            <constraint firstItem="HEo-Kh-lYM" firstAttribute="top" secondItem="dwj-i0-u3D" secondAttribute="top" constant="2" id="h15-r3-e0T"/>
                             <constraint firstItem="98Q-in-CXx" firstAttribute="top" secondItem="dwj-i0-u3D" secondAttribute="top" constant="2" id="hJg-1F-tA0"/>
                             <constraint firstItem="9iJ-Lx-mki" firstAttribute="centerY" secondItem="Dem-9X-PlB" secondAttribute="centerY" id="hXf-WT-bij"/>
                             <constraint firstItem="hJb-Cb-ZWZ" firstAttribute="top" secondItem="Dzy-RX-K4o" secondAttribute="bottom" constant="11.5" id="mFi-M6-gCZ"/>
                             <constraint firstItem="Dem-9X-PlB" firstAttribute="centerX" secondItem="erO-Uj-3Py" secondAttribute="centerX" id="nA4-cI-EI9"/>
                             <constraint firstItem="XUN-I6-JBI" firstAttribute="centerX" secondItem="erO-Uj-3Py" secondAttribute="centerX" id="oZv-lH-A17"/>
-                            <constraint firstItem="Dzy-RX-K4o" firstAttribute="top" secondItem="HEo-Kh-lYM" secondAttribute="bottom" constant="12" id="pdq-1a-h6M"/>
                             <constraint firstItem="dwj-i0-u3D" firstAttribute="bottom" secondItem="RSt-t0-t3L" secondAttribute="bottom" id="sxO-bF-kuK"/>
                             <constraint firstItem="XUN-I6-JBI" firstAttribute="centerY" secondItem="erO-Uj-3Py" secondAttribute="centerY" id="t5H-qn-gyB"/>
                             <constraint firstItem="VKp-KE-8g5" firstAttribute="leading" secondItem="dwj-i0-u3D" secondAttribute="leading" id="uDs-px-ZPu"/>
@@ -4251,6 +4250,7 @@
                         <outlet property="messageTableView" destination="4Q9-La-WQN" id="1qL-FX-zVk"/>
                         <outlet property="messageText" destination="UzB-B6-lQ9" id="qPk-G2-ECa"/>
                         <outlet property="requestTravelFeeButton" destination="EeX-JL-Tq9" id="b1a-0m-LrX"/>
+                        <outlet property="tableViewConstant" destination="1tD-Cs-s7h" id="4QB-Di-icJ"/>
                         <outlet property="travelFeeLabel" destination="HVR-bS-Qoe" id="zzV-02-dJU"/>
                         <outlet property="username" destination="z6j-UK-gsj" id="1wU-IM-oe7"/>
                         <segue destination="O7X-fF-rpK" kind="presentation" identifier="MessagesToProfileAsUserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gmU-Hz-wfQ"/>
