@@ -63,6 +63,9 @@ class ProfileAsUserViewController: UIViewController {
     var chefOrUser = ""
     var chefEmail = ""
     
+    var userEmail = ""
+    var receiverChefOrUser = ""
+    
     
     @IBOutlet weak var itemTableView: UITableView!
     @IBOutlet weak var contentCollectionView: UICollectionView!
@@ -141,7 +144,10 @@ class ProfileAsUserViewController: UIViewController {
 
                         if let fullName = data["fullName"] as? String, let email = data["email"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let userName = data["userName"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let healthy = data["healthy"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let vegan = data["vegan"] as? Int, let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
 
+                            self.userEmail = email
+                            self.receiverChefOrUser = "User"
                             storageRef.child("users/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
+                                
                                 
                                 URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                                     // Error handling...
@@ -437,6 +443,9 @@ class ProfileAsUserViewController: UIViewController {
                     
                     if let chefPassion = data["chefPassion"] as? String, let city = data["city"] as? String, let education = data["education"] as? String, let fullName = data["fullName"] as? String, let state = data["state"] as? String, let username = data["chefName"] as? String, let email = data["email"] as? String {
                         self.chefEmail = email
+                        
+                        self.userEmail = email
+                        self.receiverChefOrUser = "Chef"
                         let chefRef = storageRef.child("chefs/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
                         
                             
@@ -826,11 +835,18 @@ class ProfileAsUserViewController: UIViewController {
     
     @IBAction func messagesButtonPressed(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-            vc.otherUser = user
-            vc.otherUserName = "\(self.userName.text!)"
-            vc.chefOrUser = "Chef"
-            vc.eventTypeAndQuantityText = "na"
-            vc.travelFeeOrMessage = "MessageRequests"
+            
+            vc.messageRequestReceiverUsername = self.userName.text!
+            vc.messageRequestSenderUsername = guserName
+            vc.messageRequestSenderImageId = Auth.auth().currentUser!.uid
+            vc.messageRequestReceiverImageId = self.user
+            vc.messageRequestChefOrUser = Auth.auth().currentUser!.displayName!
+            vc.messageRequestDocumentId = self.user
+            vc.messageRequestSenderEmail = Auth.auth().currentUser!.email!
+            vc.messageRequestReceiverEmail = self.userEmail
+            vc.messageRequestReceiverChefOrUser = self.receiverChefOrUser
+            vc.travelFeeOrMessages = "MessageRequests"
+            
             self.present(vc, animated: true, completion: nil)
         }
     }

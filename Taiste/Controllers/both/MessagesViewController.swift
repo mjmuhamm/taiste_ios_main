@@ -20,6 +20,8 @@ class MessagesViewController: UIViewController {
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
+    var paymentId = ""
+    
     var paymentSheet: PaymentSheet?
     let backendCheckoutUrl = URL(string: "https://ruh.herokuapp.com/create-payment-intent")! // Your backend endpoint
     
@@ -35,22 +37,37 @@ class MessagesViewController: UIViewController {
     private var messages : [Messages] = []
     private var sortedMessages : [Messages] = []
     
-    var travelFeeOrMessage = ""
-    var otherUser = ""
-    var otherUserName = ""
-    private var travelFeePriceText = ""
-    private var userImageId = ""
-    var order : Orders?
-    var chefOrUser = ""
-    var documentId = ""
-    private var paymentId = ""
-    
-    var eventTypeAndQuantityText = ""
-    var locationText = ""
-    var itemTitle = ""
-    
-    var messageRequestMessages = 0
-    var messageRequestRecipient = ""
+    //messageRequest
+        var messageRequestRecipient = ""
+        var messageRequestReceiverUsername = ""
+        var messageRequestSenderUsername = ""
+        var messageRequestSenderImageId = ""
+        var messageRequestReceiverImageId = ""
+        var messageRequestChefOrUser = ""
+        var messageRequestDocumentId = ""
+        var messageRequestSenderEmail = ""
+        var messageRequestReceiverEmail = ""
+        var messageRequestReceiverChefOrUser = ""
+
+        //Orders
+        var travelFeeOrMessages = ""
+        var travelFee = ""
+        var menuItemId = ""
+        var totalCostOfEvent = ""
+        var itemTitle = ""
+        var eventType = ""
+        var eventQuantity = ""
+        var locationText = ""
+        
+        var orderMessageSenderImageId = ""
+        var orderMessageReceiverImageId = ""
+        var orderMessageChefOrUser = ""
+        var orderMessageDocumentId = ""
+        var orderMessageReceiverName = ""
+        var orderMessageSenderName = ""
+        var orderMessageReceiverEmail = ""
+        var orderMessageSenderEmail = ""
+        var orderMessageReceiverChefOrUser = ""
     
     @IBOutlet weak var tableViewConstant: NSLayoutConstraint!
     
@@ -64,12 +81,12 @@ class MessagesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if eventTypeAndQuantityText == "na" {
+        if travelFeeOrMessages == "MessageRequests" {
             self.eventTypeAndQuantity.isHidden = true
             self.location.isHidden = true
             
         } else {
-            self.eventTypeAndQuantity.text = eventTypeAndQuantityText
+            self.eventTypeAndQuantity.text = "Event Type: \(eventType)   Event Quantity: \(eventQuantity)"
             self.location.text = locationText
             self.eventTypeAndQuantity.isHidden = false
             self.location.isHidden = false
@@ -82,22 +99,26 @@ class MessagesViewController: UIViewController {
         
         messageTableView.register(UINib(nibName: "MessagesTableViewCell", bundle: nil), forCellReuseIdentifier: "MessagesReusableCell")
         
-        username.text = otherUserName
+        if travelFeeOrMessages == "MessageRequests" {
+            username.text = messageRequestSenderUsername
+        } else {
+            username.text = orderMessageSenderName
+        }
         
-        if chefOrUser == "Chef" {
+        if orderMessageChefOrUser == "Chef" {
             requestTravelFeeButton.isHidden = false
         } else {
             requestTravelFeeButton.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
             requestTravelFeeButton.isHidden = true
         }
 //        
-        if travelFeeOrMessage == "travelFee" {
+        if travelFeeOrMessages == "travelFee" {
             if Auth.auth().currentUser != nil {
                 loadTravelFeeMessages()
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        } else if travelFeeOrMessage == "MessageRequests" {
+        } else if travelFeeOrMessages == "MessageRequests" {
             requestTravelFeeButton.isHidden = true
             travelFeeLabel.isHidden = true
             tableViewConstant.constant = 31.5
@@ -121,23 +142,27 @@ class MessagesViewController: UIViewController {
     }
     
     private func loadUsername() {
-        print("gusername \(guserName)")
-        if guserName == "" {
-            db.collection("Usernames").getDocuments { documents, error in
-                if error == nil {
-                    if documents != nil {
-                        for doc in documents!.documents {
-                            let data = doc.data()
-                            
-                            if let username = data["username"] as? String, let email = data["email"] as? String {
-                                if email == Auth.auth().currentUser!.email! {
-                                    guserName = username
+        if Auth.auth().currentUser == nil {
+            print("gusername \(guserName)")
+            if guserName == "" {
+                db.collection("Usernames").getDocuments { documents, error in
+                    if error == nil {
+                        if documents != nil {
+                            for doc in documents!.documents {
+                                let data = doc.data()
+                                
+                                if let username = data["username"] as? String, let email = data["email"] as? String {
+                                    if email == Auth.auth().currentUser!.email! {
+                                        guserName = username
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     
@@ -263,69 +288,74 @@ class MessagesViewController: UIViewController {
             let yearMonth = "\(year), \(month)"
             
             let calendar = Calendar(identifier: .gregorian)
-            let currentWeek = calendar.component(.weekOfMonth, from: Date())
+            var currentWeek = calendar.component(.weekOfMonth, from: Date())
+            var weekOfMonth = ""
+            if currentWeek > 4 { weekOfMonth = "Week 4" } else { weekOfMonth = "Week \(currentWeek)" }
             
-            let data: [String: Any] = ["paymentId" : paymentId, "userId" : Auth.auth().currentUser!.uid, "chefEmail" : order!.chefEmail, "menuItemId" : order!.documentId, "date" : df.string(from: date), "chefImageId" : order!.chefImageId]
+            let data: [String: Any] = ["paymentId" : paymentId, "userImageId" : Auth.auth().currentUser!.uid, "chefEmail" : orderMessageReceiverEmail, "menuItemId" : orderMessageDocumentId, "date" : df.string(from: date), "chefImageId" : orderMessageReceiverImageId]
             let data2: [String: Any] = ["orderUpdate" : "scheduled", "travelFee" : self.travelFeeLabel.text!]
-            let data3: [String: Any] = ["totalPay" : (order!.totalCostOfEvent - (order!.totalCostOfEvent * 0.05))]
+//            let data3: [String: Any] = ["totalPay" : (totalCostOfEvent - (totalCostOfEvent * 0.05))]
             //        let data4: [String: Any] = ["Total" : ]
             
-            self.db.collection("TravelFeePayments").document().setData(data)
+            db.collection("TravelFeePayments").document(menuItemId).setData(data)
+            db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("TravelFeePayments").document(orderMessageDocumentId).collection(orderMessageDocumentId).document("payment").setData(data)
+            db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection("TravelFeePayments").document(orderMessageDocumentId).collection(orderMessageDocumentId).document("payment").setData(data)
             
-            self.db.collection("User").document(Auth.auth().currentUser!.uid).collection(travelFeeOrMessage).document(order!.documentId).collection(order!.itemTitle).document("payment").setData(data)
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(travelFeeOrMessage).document(order!.documentId).collection(order!.itemTitle).document("payment").setData(data)
-            self.db.collection("User").document(order!.userImageId).collection("Orders").document(order!.documentId).updateData(data2)
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(order!.documentId).updateData(data2)
-            self.db.collection("Orders").document(order!.menuItemId).updateData(data2)
+            db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection("Orders").document(orderMessageDocumentId).updateData(data2)
+            db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("Orders").document(orderMessageDocumentId).updateData(data2)
+            db.collection("Orders").document(menuItemId).updateData(data2)
             
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order!.typeOfService).collection(order!.menuItemId).document("Month").collection(yearMonth).document("Week").collection("Week \(currentWeek)").document().setData(data3)
             
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order!.typeOfService).collection(order!.menuItemId).document("Month").collection(yearMonth).document("Total").getDocument(completion: { document, error in
+            let docRef = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType)
+            let docRef1 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Total")
+            let docRef2 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Month").collection(yearMonth).document("Total")
+            let docRef3 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Month").collection(yearMonth).document("Week").collection(weekOfMonth).document("Total")
+            let docRef4 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Month").collection(yearMonth).document("Week").collection(weekOfMonth).document(orderMessageDocumentId)
+            
+            docRef.getDocument { document, error in
                 if error == nil {
                     if document != nil {
                         let data = document!.data()
-                        if let total = data!["totalPay"] as? Double {
-                            let data5 : [String : Any] = ["totalPay" : total + Double(self.order!.totalCostOfEvent)]
-                            self.db.collection("Chef").document(self.order!.chefImageId).collection("Dashboard").document(self.order!.typeOfService).collection(self.order!.menuItemId).document("Month").collection(yearMonth).document("Total").updateData(data5)
-                        }
-                    } else {
-                        let data5 : [String : Any] = ["totalPay" : Double(self.order!.totalCostOfEvent)]
-                        self.db.collection("Chef").document(self.order!.chefImageId).collection("Dashboard").document(self.order!.typeOfService).collection(self.order!.documentId).document("Month").collection(yearMonth).document("Total").setData(data5)
-                    }
-                    
-                }
-            })
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order!.typeOfService).getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        if let total = data!["totalPay"] as? Double {
-                            let data5 : [String : Any] = ["totalPay" : total + Double(self.order!.totalCostOfEvent)]
-                            self.db.collection("Chef").document(self.order!.chefImageId).collection("Dashboard").document(self.order!.typeOfService).updateData(data5)
-                        }
-                    } else {
-                        let data5 : [String : Any] = ["totalPay" : Double(self.order!.totalCostOfEvent)]
-                        self.db.collection("Chef").document(self.order!.chefImageId).collection("Dashboard").document(self.order!.typeOfService).setData(data5)
-                    }
-                    
-                }
-            }
-            
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order!.typeOfService).collection(order!.menuItemId).document("Total").getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        
-                        if let total = data!["totalPay"] as? Double {
-                            let data5 : [String : Any] = ["totalPay" : total + Double(self.order!.totalCostOfEvent)]
-                            self.db.collection("Chef").document(self.order!.chefImageId).collection("Dashboard").document(self.order!.typeOfService).collection(self.order!.menuItemId).document("Total").updateData(data5)
-                        }
-                    } else {
-                        let data5 : [String : Any] = ["totalPay" : Double(self.order!.totalCostOfEvent)]
-                        self.db.collection("Chef").document(self.order!.chefImageId).collection("Dashboard").document(self.order!.typeOfService).collection(self.order!.menuItemId).document("Total").setData(data5)
+                        let totalPay = data!["totalPay"] as! Double
+                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
+                        docRef.updateData(data4)
                     }
                 }
             }
+            docRef1.getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        let totalPay = data!["totalPay"] as! Double
+                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
+                        docRef1.updateData(data4)
+                    }
+                }
+            }
+            docRef2.getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        let totalPay = data!["totalPay"] as! Double
+                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
+                        docRef2.updateData(data4)
+                    }
+                }
+            }
+            docRef3.getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        let totalPay = data!["totalPay"] as! Double
+                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
+                        docRef3.updateData(data4)
+                    }
+                }
+            }
+            let data4: [String: Any] = ["totalPay" : Double(totalCostOfEvent)!]
+            docRef.setData(data4)
+           
+            
             self.dismiss(animated: true, completion: nil)
         } else {
             self.showToast(message: "Somthing went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
@@ -334,26 +364,25 @@ class MessagesViewController: UIViewController {
     private func loadMessageRequests() {
         self.messageText.isEnabled = false
         let storageRef = storage.reference()
-        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("MessageRequests").document(otherUser).collection(otherUserName).addSnapshotListener { documents, error in
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("MessageRequests").document(messageRequestDocumentId).collection(messageRequestDocumentId).addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                     if documents!.count == 0 {
                         self.messageText.isEnabled = true
                     }
-                    self.messageRequestMessages = documents!.count
+                   
                     for doc in documents!.documents {
                         
                         let data = doc.data()
                         if let chefOrUserI = data["chefOrUser"] as? String, let user = data["user"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String {
                          
-                            if self.messageRequestRecipient == "" {
-                                self.messageRequestRecipient = user
-                            } else if self.messageRequestRecipient != "good" {
-                                if self.messageRequestRecipient != user {
-                                    self.messageRequestRecipient = "good"
-                                    self.messageText.isEnabled = true
-                                }
-                             }
+                            if documents!.count == 1 && userEmail == Auth.auth().currentUser!.email! {
+                                self.messageText.isEnabled = false
+                            }
+                            if documents!.count > 1 {
+                                self.messageText.isEnabled = true
+                            }
+                          
                             var vari = ""
                             if chefOrUserI == "Chef" {
                                 vari = "chefs"
@@ -367,12 +396,9 @@ class MessagesViewController: UIViewController {
                                 homeOrAway = "away"
                             }
                             
-                            if user != Auth.auth().currentUser!.uid {
-                                self.userImageId = user
-                            }
+                           
                             print("vari \(vari)")
                             print("vari \(userEmail)")
-                            print("vari \(self.otherUser)")
                             print("vari \(user)")
                             
                             
@@ -409,7 +435,7 @@ class MessagesViewController: UIViewController {
     private func loadTravelFeeMessages() {
         
         let storageRef = storage.reference()
-        db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(order!.documentId).collection(order!.orderDate).addSnapshotListener { documents, error in
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(orderMessageDocumentId).collection(orderMessageDocumentId).addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                     for doc in documents!.documents {
@@ -430,16 +456,12 @@ class MessagesViewController: UIViewController {
                                 homeOrAway = "away"
                             } else {
                                 homeOrAway = "travel"
-                                if self.chefOrUser == "User" {
+                                if Auth.auth().currentUser!.displayName! == "User" {
                                 self.travelFeeLabel.text = "$\(travelFee)"
                                     if Double(travelFee) != nil {
                                         self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
                                     }
                                 }
-                            }
-                            self.travelFeePriceText = travelFee
-                            if user != Auth.auth().currentUser!.uid {
-                                self.userImageId = user
                             }
                             
                             print("date \(date)")
@@ -479,7 +501,7 @@ class MessagesViewController: UIViewController {
 
     private func loadMessages() {
         let storageRef = storage.reference()
-        db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("Messages").document(order!.documentId).collection(order!.itemTitle).addSnapshotListener { documents, error in
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("Messages").document(orderMessageDocumentId).collection(orderMessageDocumentId).addSnapshotListener { documents, error in
             if error == nil {
                 if documents != nil {
                     for doc in documents!.documents {
@@ -503,12 +525,6 @@ class MessagesViewController: UIViewController {
                                 self.travelFeeLabel.text = "$\(travelFee)"
                                 self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
                             }
-                            self.travelFeePriceText = travelFee
-                            self.userImageId = user
-                            if user != Auth.auth().currentUser!.uid {
-                                self.userImageId = user
-                            }
-                            
                             let date1 = self.df.date(from: date)
                             if homeOrAway != "travel" {
                             storageRef.child("\(vari)/\(userEmail)/profileImage/\(user).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
@@ -587,14 +603,25 @@ class MessagesViewController: UIViewController {
                     vari = "users"
                 }
                 let documentId = UUID().uuidString
-                storageRef.child("\(vari)/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
+                storageRef.child("\(vari)/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { url, error in
                     
-                    self.messages.append(Messages(homeOrAway: "home", pictureId: Auth.auth().currentUser!.uid, image: UIImage(data: data!)!, message: self.messageText.text!, date: self.df.date(from: self.df.string(from: self.date))!, dateString: self.df.string(from: self.date), documentId: documentId, chefOrUser: self.chefOrUser, travelFee: ""))
-                    self.messages.sort(by: { $0.date.compare($1.date) == .orderedAscending })
-                    self.messageTableView.reloadData()
+                    
+                    URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
+                        
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            self.messages.append(Messages(homeOrAway: "home", pictureId: Auth.auth().currentUser!.uid, image: UIImage(data: imageData)!, message: self.messageText.text!, date: self.df.date(from: self.df.string(from: self.date))!, dateString: self.df.string(from: self.date), documentId: documentId, chefOrUser: Auth.auth().currentUser!.displayName!, travelFee: ""))
+                            self.messages.sort(by: { $0.date.compare($1.date) == .orderedAscending })
+                            self.messageTableView.reloadData()
+                        }
+                    }.resume()
+                }
+                   
                     
                     self.messageText.text = ""
-                    if self.travelFeeOrMessage == "MessageRequests" && self.messages.count == 1 {
+                    if self.travelFeeOrMessages == "MessageRequests" && self.messages.count == 1 {
                         self.messageText.isEnabled = false
                     }
                     
@@ -602,32 +629,22 @@ class MessagesViewController: UIViewController {
                 
                 let data : [String : Any] = ["chefOrUser" : Auth.auth().currentUser!.displayName!, "user" : Auth.auth().currentUser!.uid, "message" : messageText.text!, "date" : df.string(from: date), "userEmail": Auth.auth().currentUser!.email!, "travelFee" : "", "userName" : guserName, "fullName" : self.fullName]
                 
-                var otherUser = ""
-                var otherImageId = ""
+            
                 var travelFeeVari = ""
                 
-                if Auth.auth().currentUser!.displayName! == "Chef" {
-                    otherUser = "User"
-                    if travelFeeOrMessage != "MessageRequests" {
-                        otherImageId = order!.userImageId
-                    }
-                } else {
-                    otherUser = "Chef"
-                    if travelFeeOrMessage != "MessageRequests" {
-                        otherImageId = order!.chefImageId
-                    }
-                }
-                if travelFeeOrMessage == "travelFee" {
+                if travelFeeOrMessages == "travelFee" {
                     travelFeeVari = "TravelFeeMessages"
-                } else if travelFeeOrMessage == "MessageRequests" {
+                } else if travelFeeOrMessages == "Messages" {
+                    travelFeeVari = "Messages"
+                } else if travelFeeOrMessages == "MessageRequests" {
                     travelFeeVari = "MessageRequests"
                     
-                    
-                    let data5 : [String: Any] = ["chefOrUser" :  Auth.auth().currentUser!.displayName!, "user" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "date": self.df.string(from: self.date), "userName" : guserName]
-                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(self.otherUser).setData(data5)
-                    self.db.collection(otherUser).document(self.otherUser).collection(travelFeeVari).document(self.otherUser).setData(data5)
-                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(self.otherUser).collection(self.otherUser).document(documentId).setData(data)
-                    self.db.collection(otherUser).document(self.otherUser).collection(travelFeeVari).document(self.otherUser).collection(self.otherUser).document(documentId).setData(data)
+                    let documentId = UUID().uuidString
+                    let data5 : [String: Any] = ["chefOrUser" :  Auth.auth().currentUser!.displayName!, "userImageId" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "date": self.df.string(from: self.date), "userName" : guserName]
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(messageRequestDocumentId).setData(data5)
+                    self.db.collection(messageRequestReceiverChefOrUser).document(messageRequestReceiverImageId).collection(travelFeeVari).document(messageRequestDocumentId).setData(data5)
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(messageRequestDocumentId).collection(messageRequestDocumentId).document(documentId).setData(data)
+                    self.db.collection(messageRequestReceiverChefOrUser).document(messageRequestReceiverImageId).collection(travelFeeVari).document(messageRequestDocumentId).collection(messageRequestDocumentId).document(documentId).setData(data)
                   
                     print("other username")
                     db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).getDocument { document, error in
@@ -637,13 +654,13 @@ class MessagesViewController: UIViewController {
                                 
                                 let notificationToken1 = data!["notificationToken"] as! String
                                 
-                                self.db.collection(otherUser).document(self.otherUser).getDocument { document, error in
+                                self.db.collection(self.messageRequestReceiverChefOrUser).document(self.messageRequestReceiverImageId).getDocument { document, error in
                                     if error == nil {
                                         if document != nil {
                                             let data = document!.data()
                                             let notificationToken2 = data!["notificationToken"] as! String
                                             
-                                            self.subscribeToTopic(userNotification: notificationToken1, chefNotification: notificationToken2, chefOrUser: self.chefOrUser, topic: self.otherUser)
+                                            self.subscribeToTopic(userNotification: notificationToken1, chefNotification: notificationToken2, chefOrUser: Auth.auth().currentUser!.displayName!, topic: self.messageRequestDocumentId)
                                         }
                                     }
                                 }
@@ -655,23 +672,24 @@ class MessagesViewController: UIViewController {
                     let date =  self.df.string(from: Date())
                     let data3: [String: Any] = ["notification" : "@\(self.userName) has just sent you a message request.", "date" : date]
                     let data4: [String: Any] = ["notifications" : "yes"]
-                    self.db.collection(otherUser).document(self.otherUser).collection("Notifications").document().setData(data3)
-                    self.db.collection(otherUser).document(self.otherUser).updateData(data4)
-                    self.sendMessage(title: "Message Request", notification: "New message from @\(self.otherUserName)", topic: documentId)
+                    self.db.collection(messageRequestReceiverChefOrUser).document(messageRequestReceiverImageId).collection("Notifications").document().setData(data3)
+                    self.db.collection(messageRequestReceiverChefOrUser).document(messageRequestReceiverImageId).updateData(data4)
+                    
                 } else {
                     travelFeeVari = "Messages"
                 }
                 if travelFeeVari != "MessageRequests" {
-                    self.db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(order!.documentId).collection(order!.orderDate).document(documentId).setData(data)
-                    self.db.collection(otherUser).document(otherImageId).collection(travelFeeVari).document(order!.documentId).collection(order!.orderDate).document(documentId).setData(data)
+                    let documentId = UUID().uuidString
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(orderMessageDocumentId).collection(orderMessageDocumentId).document(documentId).setData(data)
+                    self.db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection(travelFeeVari).document(orderMessageDocumentId).collection(orderMessageDocumentId).document(documentId).setData(data)
                     
-                    if chefOrUser == "Chef" {
+                    if Auth.auth().currentUser!.displayName! == "Chef" {
                         db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
                             if error == nil {
                                 for doc in documents!.documents {
                                     let data = doc.data()
                                     let userName = data["chefName"] as! String
-                                    self.sendMessage(title: travelFeeVari, notification: "New message from @\(userName)", topic: self.order!.documentId)
+                                    self.sendMessage(title: travelFeeVari, notification: "New message from @\(userName)", topic: self.orderMessageDocumentId)
                                 }
                             }
                         }
@@ -681,7 +699,7 @@ class MessagesViewController: UIViewController {
                                 for doc in documents!.documents {
                                     let data = doc.data()
                                     let userName = data["userName"] as! String
-                                    self.sendMessage(title: travelFeeVari, notification: "New message from @\(userName)", topic: self.order!.documentId)
+                                    self.sendMessage(title: travelFeeVari, notification: "New message from @\(userName)", topic: self.orderMessageDocumentId)
                                 }
                             }
                         }
@@ -690,15 +708,12 @@ class MessagesViewController: UIViewController {
                     let df = DateFormatter()
                     df.dateFormat = "MM-dd-yyyy hh:mm a"
                     let date1 =  df.string(from: Date())
-                    let data3: [String: Any] = ["notification" : "\(guserName) has just messaged you (\(order!.typeOfService)) about \(order!.itemTitle).", "date" : date1]
+                    let data3: [String: Any] = ["notification" : "\(guserName) has just messaged you (\(eventType)) about \(itemTitle).", "date" : date1]
                     let data4: [String: Any] = ["notifications" : "yes"]
-                    self.db.collection(otherUser).document(otherImageId).collection("Notifications").document().setData(data3)
-                    self.db.collection(otherUser).document(otherImageId).updateData(data4)
-                }
+                    self.db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection("Notifications").document().setData(data3)
+                    self.db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).updateData(data4)
                 
-               
                 
-               
                 
                 self.showToast(message: "Message Sent", font: .systemFont(ofSize: 12))
             }
@@ -706,19 +721,19 @@ class MessagesViewController: UIViewController {
     }
     
     private var user = ""
-    
+    private var chefOrUser = ""
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MessagesToProfileAsUserSegue" {
             let info = segue.destination as! ProfileAsUserViewController
-            info.chefOrUser = chefOrUser
+            info.chefOrUser = Auth.auth().currentUser!.displayName!
             info.user = user
         } else if segue.identifier == "MessagesToTravelFeeSegue" {
             let info = segue.destination as! TravelFeeViewController
-            info.travelFeePriceText = travelFeePriceText
+            info.travelFeePriceText = self.travelFee
             info.userImageId = userImageId
-            info.chefOrUser = chefOrUser
-            info.travelFeePriceText = travelFeePriceText
-            info.order = self.order
+            info.chefOrUser = Auth.auth().currentUser!.displayName!
+            info.travelFeePriceText = self.travelFee
+//            info.order = self.order
         }
     }
     

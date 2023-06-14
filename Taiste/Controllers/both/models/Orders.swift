@@ -48,4 +48,6 @@ struct Orders {
     let creditIds: [String]
     let allergies: String
     let additionalMenuItems: String
+    let userName: String
+    let userEmail: String
 }

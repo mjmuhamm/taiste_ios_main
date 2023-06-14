@@ -24,7 +24,9 @@ class TravelFeeViewController: UIViewController {
     var travelFeePriceText = ""
     var userImageId = ""
     var chefOrUser = ""
-    var order : Orders?
+    
+    var orderMessageDocumentId = ""
+    var orderMessageReceiverImageId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,19 +50,17 @@ class TravelFeeViewController: UIViewController {
                 for doc in documents!.documents {
                     let info = doc.data()
                     let chefName = info["chefName"] as! String
-                    let data : [String : Any] = ["chefOrUser" : self.chefOrUser, "user" : Auth.auth().currentUser!.uid, "message" : "@\(chefName) has requested $\(self.travelFeePrice.text!) for travel.", "date" : self.df.string(from: self.date), "userEmail": "", "travelFee" : self.travelFeePrice.text!]
+                    let data : [String : Any] = ["chefOrUser" : self.chefOrUser, "userImageId" : Auth.auth().currentUser!.uid, "message" : "@\(guserName) has requested $\(self.travelFeePrice.text!) for travel.", "date" : self.df.string(from: self.date), "userEmail": Auth.auth().currentUser!.email!, "travelFee" : self.travelFeePrice.text!]
                     
                     let documentId = UUID().uuidString
-                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(self.order!.documentId).collection(self.order!.orderDate).document(documentId).setData(data)
-                    self.db.collection("User").document(self.userImageId).collection("TravelFeeMessages").document(self.order!.documentId).collection(self.order!.orderDate).document(documentId).setData(data)
-                    self.sendMessage(title: "TravelFeeMessage", notification: "@\(chefName) has requested $\(self.travelFeePrice.text!) for travel.", topic: self.order!.documentId)
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("TravelFeeMessages").document(self.orderMessageDocumentId).collection(self.orderMessageDocumentId).document(documentId).setData(data)
+                    self.db.collection("User").document(self.orderMessageReceiverImageId).collection("TravelFeeMessages").document(self.orderMessageDocumentId).collection(self.orderMessageDocumentId).document(documentId).setData(data)
+                    self.sendMessage(title: "TravelFeeMessage", notification: "@\(guserName) has requested $\(self.travelFeePrice.text!) for travel.", topic: self.orderMessageDocumentId)
                         self.dismiss(animated: true, completion: nil)
                     }
                 }
             }
         }
-        
-        
     }
     
     private func sendMessage(title: String, notification: String, topic: String) {

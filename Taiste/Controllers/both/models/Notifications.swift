@@ -22,4 +22,5 @@ struct MessageNotification {
     let userEmail: String
     let userImageId: String
     let date: String
+    let documentId: String
 }

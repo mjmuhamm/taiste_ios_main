@@ -141,9 +141,9 @@ class OrdersViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String,let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String {
+                            if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String,let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let userEmail = data["userEmail"] as? String, let userName = data["userName"] as? String {
                                 
-                                let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems)
+                                let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems, userName: userName, userEmail: userEmail)
                                 
                                 if orderUpdate == "pending" {
                                     if self.toggle == "Pending" {
@@ -335,17 +335,7 @@ class OrdersViewController: UIViewController {
     private var locationText = ""
     private var itemTitle = ""
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "UserOrdersToMessagesSegue" {
-            let info = segue.destination as! MessagesViewController
-            info.travelFeeOrMessage = travelFeeOrMessage
-            info.order = orderTransfer
-            info.otherUser = otherUser
-            info.otherUserName = otherUserName
-            info.chefOrUser = "User"
-            info.itemTitle = itemTitle
-            info.eventTypeAndQuantityText = "Event Type: \(typeOfService)   Event Quantity: \(eventQuantity)"
-            info.locationText = "Location: \(locationText)"
-        }
+     
     }
     
 }
@@ -473,23 +463,52 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.messagesForTravelFeeButtonTapped = {
-            self.travelFeeOrMessage = "travelFee"
-            self.orderTransfer = order
-            self.otherUser = order.chefImageId
-            self.otherUserName = "@\(order.chefUsername)"
-            self.typeOfService = order.typeOfService
-            self.eventQuantity = order.eventQuantity
-            self.locationText = order.location
-            self.itemTitle = order.itemTitle
-            self.performSegue(withIdentifier: "UserOrdersToMessagesSegue", sender: self)
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+                
+                vc.travelFeeOrMessages = "travelFee"
+                vc.travelFee = order.travelFee
+                vc.menuItemId = order.menuItemId
+                vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
+                vc.itemTitle = order.itemTitle
+                vc.eventType = order.eventType
+                vc.eventQuantity = order.eventQuantity
+                vc.locationText = order.location
+                
+                vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
+                vc.orderMessageReceiverImageId = order.chefImageId
+                vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
+                vc.orderMessageDocumentId = order.orderId
+                vc.orderMessageReceiverName = order.chefUsername
+                vc.orderMessageSenderName = order.userName
+                vc.orderMessageReceiverEmail = order.chefEmail
+                vc.orderMessageReceiverChefOrUser = "Chef"
+                
+                self.present(vc, animated: true, completion: nil)
+            }
         }
         cell.messagesButtonTapped = {
-            self.travelFeeOrMessage = "messages"
-            self.orderTransfer = order
-            self.otherUser = order.chefImageId
-            self.itemTitle = order.itemTitle
-            self.otherUserName = order.chefUsername
-            self.performSegue(withIdentifier: "UserOrdersToMessagesSegue", sender: self)
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+                
+                vc.travelFeeOrMessages = "messages"
+                vc.travelFee = order.travelFee
+                vc.menuItemId = order.menuItemId
+                vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
+                vc.itemTitle = order.itemTitle
+                vc.eventType = order.eventType
+                vc.eventQuantity = order.eventQuantity
+                vc.locationText = order.location
+                
+                vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
+                vc.orderMessageReceiverImageId = order.chefImageId
+                vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
+                vc.orderMessageDocumentId = order.orderId
+                vc.orderMessageReceiverName = order.chefUsername
+                vc.orderMessageSenderName = order.userName
+                vc.orderMessageReceiverEmail = order.chefEmail
+                vc.orderMessageReceiverChefOrUser = "Chef"
+                
+                self.present(vc, animated: true, completion: nil)
+            }
         }
         
         cell.showNotesButtonTapped = {

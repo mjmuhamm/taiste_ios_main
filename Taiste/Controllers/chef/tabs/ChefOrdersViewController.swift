@@ -134,10 +134,10 @@ class ChefOrdersViewController: UIViewController {
                                 
                                 print("orders happening 2")
                                 
-                                if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String, let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String {
+                                if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String, let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let userName = data["userName"] as? String, let userEmail = data["userEmail"] as? String {
                                     
                                     print("orders happening 3")
-                                    let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems)
+                                    let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems, userName: userName, userEmail: userEmail)
                                     print("happening 1")
                                     if orderUpdate == "pending" {
                                         print("happening")
@@ -505,14 +505,25 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         cell.messagesForTravelFeeButtonTapped = {
             print("user \(order.user)")
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-                vc.otherUser = order.userImageId
-                vc.otherUserName = order.user
-                vc.chefOrUser = "Chef"
-                vc.order = order
+              
+                
+                vc.travelFeeOrMessages = "travelFee"
+                vc.travelFee = order.travelFee
+                vc.menuItemId = order.menuItemId
+                vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
                 vc.itemTitle = order.itemTitle
-                vc.eventTypeAndQuantityText = "Event Type: \(order.typeOfService)   Event Quantity: \(order.eventQuantity)"
-                vc.locationText = "Location: \(order.location)"
-                vc.travelFeeOrMessage = "travelFee"
+                vc.eventType = order.eventType
+                vc.eventQuantity = order.eventQuantity
+                vc.locationText = order.location
+                
+                vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
+                vc.orderMessageReceiverImageId = order.userImageId
+                vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
+                vc.orderMessageDocumentId = order.orderId
+                vc.orderMessageReceiverName = order.userName
+                vc.orderMessageSenderName = order.chefUsername
+                vc.orderMessageReceiverEmail = order.userEmail
+                vc.orderMessageReceiverChefOrUser = "User"
                 self.present(vc, animated: true, completion: nil)
             }
             //        ChefOrdersToMessagesSegue
@@ -614,14 +625,24 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                
             } else {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-                vc.otherUser = order.userImageId
-                vc.otherUserName = order.user
-                vc.chefOrUser = "Chef"
-                vc.order = order
+                
+                vc.travelFeeOrMessages = "messages"
+                vc.travelFee = order.travelFee
+                vc.menuItemId = order.menuItemId
+                vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
                 vc.itemTitle = order.itemTitle
-                vc.eventTypeAndQuantityText = "Event Type: \(order.typeOfService)   Event Quantity: \(order.eventQuantity)"
-                vc.locationText = "Location: \(order.location)"
-                vc.travelFeeOrMessage = "messages"
+                vc.eventType = order.eventType
+                vc.eventQuantity = order.eventQuantity
+                vc.locationText = order.location
+                
+                vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
+                vc.orderMessageReceiverImageId = order.userImageId
+                vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
+                vc.orderMessageDocumentId = order.orderId
+                vc.orderMessageReceiverName = order.userName
+                vc.orderMessageSenderName = order.chefUsername
+                vc.orderMessageReceiverEmail = order.userEmail
+                vc.orderMessageReceiverChefOrUser = "User"
                 self.present(vc, animated: true, completion: nil)
             }
             }

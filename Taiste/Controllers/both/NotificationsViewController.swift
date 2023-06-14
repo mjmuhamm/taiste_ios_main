@@ -37,9 +37,9 @@ class NotificationsViewController: UIViewController {
     
     private func loadNotifications() {
         let data2 : [String: Any] = ["notifications" : ""]
-        db.collection(self.chefOrUser).document(Auth.auth().currentUser!.uid).updateData(data2)
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).updateData(data2)
         if toggle == "Messages" {
-            db.collection(chefOrUser).document(Auth.auth().currentUser!.uid).collection("MessageRequests").addSnapshotListener { documents, error in
+            db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("MessageRequests").addSnapshotListener { documents, error in
                 if error == nil {
                     if documents != nil {
                         for doc in documents!.documents {
@@ -47,7 +47,7 @@ class NotificationsViewController: UIViewController {
                             
                             if let userImageId = data["userImageId"] as? String, let userName = data["userName"] as? String, let chefOrUser = data["chefOrUser"] as? String, let userEmail = data["userEmail"] as? String, let date = data["date"] as? String {
                                 
-                                let message = MessageNotification(chefOrUser: chefOrUser, notification: "", userName: userName, userEmail: userEmail, userImageId: userImageId, date: date)
+                                let message = MessageNotification(chefOrUser: chefOrUser, notification: "", userName: userName, userEmail: userEmail, userImageId: userImageId, date: date, documentId: doc.documentID)
                                 
                                 DispatchQueue.main.async {
                                     if self.messages.count == 0 {
@@ -69,7 +69,7 @@ class NotificationsViewController: UIViewController {
             }
         } else {
             
-            db.collection(self.chefOrUser).document(Auth.auth().currentUser!.uid).collection("Notifications").addSnapshotListener { documents, error in
+            db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("Notifications").addSnapshotListener { documents, error in
                 if error == nil {
                     if documents != nil {
                         for doc in documents!.documents {
@@ -204,12 +204,16 @@ extension NotificationsViewController :  UITableViewDelegate, UITableViewDataSou
             
             cell.notificationTapped = {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController {
-                    vc.otherUser = message.userImageId
-                    vc.otherUserName = "@\(message.userName)"
-                    vc.chefOrUser = message.chefOrUser
-//                    vc.order = order
-                    vc.eventTypeAndQuantityText = "na"
-                    vc.travelFeeOrMessage = "MessageRequests"
+                    vc.messageRequestReceiverUsername = message.userName
+                    vc.messageRequestSenderUsername = guserName
+                    vc.messageRequestSenderImageId = Auth.auth().currentUser!.uid
+                    vc.messageRequestReceiverImageId = message.userImageId
+                    vc.messageRequestChefOrUser = Auth.auth().currentUser!.displayName!
+                    vc.messageRequestDocumentId = message.documentId
+                    vc.messageRequestSenderEmail = Auth.auth().currentUser!.email!
+                    vc.messageRequestReceiverEmail = message.userEmail
+                    vc.messageRequestReceiverChefOrUser = message.chefOrUser
+                    vc.travelFeeOrMessages = "MessageRequests"
                     self.present(vc, animated: true, completion: nil)
                 }
             }
