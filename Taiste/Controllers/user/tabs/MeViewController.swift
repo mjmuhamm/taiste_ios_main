@@ -84,7 +84,7 @@ class MeViewController: UIViewController {
     
     private func loadNotifications() {
         if Auth.auth().currentUser != nil {
-            db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+            db.collection("User").document(Auth.auth().currentUser!.uid).addSnapshotListener { document, error in
                 if error == nil {
                     if document != nil {
                         let data = document!.data()

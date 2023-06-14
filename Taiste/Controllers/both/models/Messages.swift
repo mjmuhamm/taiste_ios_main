@@ -11,7 +11,8 @@ import UIKit
 struct Messages {
     
     let homeOrAway: String
-    let pictureId: String
+    let userImageId: String
+    let userEmail: String
     let image: UIImage
     let message: String
     let date: Date
@@ -19,5 +20,7 @@ struct Messages {
     let documentId: String
     let chefOrUser: String
     let travelFee: String
+    
+    
     
 }

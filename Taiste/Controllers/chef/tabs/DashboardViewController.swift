@@ -139,7 +139,7 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
 
     private func loadNotifications() {
         if Auth.auth().currentUser != nil {
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).addSnapshotListener { document, error in
                 if error == nil {
                     if document != nil {
                         let data = document!.data()

@@ -17,7 +17,7 @@ class UserTabViewController: UITabBarController {
         super.viewDidLoad()
       
         if whereTo == "home" {
-            selectedIndex = 2
+            selectedIndex = 0
         } else if whereTo == "orders" {
             selectedIndex = 3
         }

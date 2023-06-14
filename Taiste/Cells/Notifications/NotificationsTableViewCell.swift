@@ -9,13 +9,9 @@ import UIKit
 
 class NotificationsTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var notification: UILabel!
-    @IBOutlet weak var notificationDate: UILabel!
-    @IBOutlet weak var notificationView: UIStackView!
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var messagesView: UIStackView!
     @IBOutlet weak var message: UILabel!
-    
+    @IBOutlet weak var message2: UILabel!
     @IBOutlet weak var buttonConstant: NSLayoutConstraint!
     @IBOutlet weak var userImageButton: UIButton!
     
@@ -40,7 +36,7 @@ class NotificationsTableViewCell: UITableViewCell {
         userImageTapped()
     }
     
-    @IBAction func notificationClickButton(_ sender: Any) {
+    @IBAction func message2ButtonPressed(_ sender: Any) {
         notificationTapped()
     }
 }

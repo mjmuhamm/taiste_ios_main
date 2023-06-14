@@ -17,7 +17,7 @@ class NotificationsViewController: UIViewController {
     let storage = Storage.storage()
     
     var chefOrUser = ""
-    private var toggle = "Message"
+    private var toggle = "Messages"
     private var notifications : [Notifications] = []
     private var messages : [MessageNotification] = []
 
@@ -30,12 +30,14 @@ class NotificationsViewController: UIViewController {
 
         notificationsTableView.delegate = self
         notificationsTableView.dataSource = self
-        notificationsTableView.register(UINib(nibName: "NotificationsReusableCell", bundle: nil), forCellReuseIdentifier: "NotificationsReusableCell")
+        notificationsTableView.register(UINib(nibName: "NotificationsTableViewCell", bundle: nil), forCellReuseIdentifier: "NotificationsReusableCell")
+        loadNotifications()
         
         // Do any additional setup after loading the view.
     }
     
     private func loadNotifications() {
+        notificationsTableView.reloadData()
         let data2 : [String: Any] = ["notifications" : ""]
         db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).updateData(data2)
         if toggle == "Messages" {
@@ -45,7 +47,7 @@ class NotificationsViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let userImageId = data["userImageId"] as? String, let userName = data["userName"] as? String, let chefOrUser = data["chefOrUser"] as? String, let userEmail = data["userEmail"] as? String, let date = data["date"] as? String {
+                            if let userImageId = data["user"] as? String, let userName = data["userName"] as? String, let chefOrUser = data["chefOrUser"] as? String, let userEmail = data["userEmail"] as? String, let date = data["date"] as? String {
                                 
                                 let message = MessageNotification(chefOrUser: chefOrUser, notification: "", userName: userName, userEmail: userEmail, userImageId: userImageId, date: date, documentId: doc.documentID)
                                 
@@ -104,7 +106,8 @@ class NotificationsViewController: UIViewController {
         
     }
     @IBAction func messagesButtonPressed(_ sender: Any) {
-        toggle = "Message"
+        toggle = "Messages"
+        loadNotifications()
         messagesButton.setTitleColor(UIColor.white, for: .normal)
         messagesButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         notificationsButton.backgroundColor = UIColor.white
@@ -112,7 +115,8 @@ class NotificationsViewController: UIViewController {
     }
     
     @IBAction func notificationsButtonPressed(_ sender: Any) {
-        toggle = "Notification"
+        toggle = "Notifications"
+        loadNotifications()
         notificationsButton.setTitleColor(UIColor.white, for: .normal)
         notificationsButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         messagesButton.backgroundColor = UIColor.white
@@ -142,7 +146,7 @@ class NotificationsViewController: UIViewController {
 
 extension NotificationsViewController :  UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if toggle == "Message" {
+        if toggle == "Messages" {
             return messages.count
         } else {
             return notifications.count
@@ -154,26 +158,23 @@ extension NotificationsViewController :  UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = notificationsTableView.dequeueReusableCell(withIdentifier: "NotificationsReusableCell", for: indexPath) as! NotificationsTableViewCell
         
-        let message = messages[indexPath.row]
-        let notification = notifications[indexPath.row]
+        
+        
+        
         
         if toggle == "Messages" {
-            cell.notificationView.isHidden = true
-            cell.messagesView.isHidden = false
-            cell.buttonConstant.constant = 74
+            let message = messages[indexPath.row]
+            cell.userImage.isHidden = false
             cell.userImageButton.isHidden = false
             
             cell.message.text = "@\(message.userName)"
+            cell.message2.text = "Click here to view your message from @\(message.userName)"
             
             var a = ""
-            if message.chefOrUser == "Chef" {
-                a = "chefs"
-            } else {
-                a = "users"
-            }
+            if message.chefOrUser == "Chef" { a = "chef" } else { a = "user" }
             
             let storageRef = storage.reference()
-            storageRef.child("\(a)/\(message.userEmail)/profileImage/\(message.userImageId).png").downloadURL { imageUrl, error in
+            storageRef.child("\(a)s/\(message.userEmail)/profileImage/\(message.userImageId).png").downloadURL { imageUrl, error in
                 
                 
                 URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
@@ -189,15 +190,10 @@ extension NotificationsViewController :  UITableViewDelegate, UITableViewDataSou
             }
             
             cell.userImageTapped = {
-                var b = ""
-                if message.chefOrUser == "Chef" {
-                    b = "chef"
-                } else {
-                    b = "user"
-                }
+              
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController {
                     vc.user = message.userImageId
-                    vc.chefOrUser = b
+                    vc.chefOrUser = a
                     self.present(vc, animated: true, completion: nil)
                 }
             }
@@ -219,13 +215,11 @@ extension NotificationsViewController :  UITableViewDelegate, UITableViewDataSou
             }
             
         } else {
-            cell.notificationView.isHidden = false
-            cell.messagesView.isHidden = true
-            cell.buttonConstant.constant = 0
+            let notification = notifications[indexPath.row]
+            cell.userImage.isHidden = true
             cell.userImageButton.isHidden = true
-            
-            cell.notification.text = notification.notification
-            cell.notificationDate.text = notification.date
+            cell.message.text = notification.notification
+            cell.message2.text = notification.date
             
             
         }

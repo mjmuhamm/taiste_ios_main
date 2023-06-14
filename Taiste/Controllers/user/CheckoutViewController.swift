@@ -50,6 +50,8 @@ class CheckoutViewController: UIViewController {
     
     @IBOutlet weak var checkoutTableView: UITableView!
     
+    @IBOutlet weak var progressBar: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,6 +112,9 @@ class CheckoutViewController: UIViewController {
            
 
           DispatchQueue.main.async {
+              self.progressBar.stopAnimating()
+              self.progressBar.isHidden = true
+              
             self.payButton.isEnabled = true
               self.paymentId = paymentId
           }
@@ -280,7 +285,7 @@ class CheckoutViewController: UIViewController {
                 }
                 let date = df.string(from: Date())
                 let data2: [String: Any] = ["itemOrders" : numOfOrders]
-                let data3: [String: Any] = ["notification" : "\(self.userName) has just placed an order (\(item.typeOfService)) for \(item.itemTitle)", "date" : date]
+                let data3: [String: Any] = ["notification" : "@\(self.userName) has just placed an order (\(item.typeOfService)) for \(item.itemTitle)", "date" : date]
                 let data4: [String: Any] = ["notifications" : "yes"]
                 db.collection("Chef").document(item.chefImageId).collection("Orders").document(orderId).setData(data)
                 db.collection("Chef").document(item.chefImageId).collection("Notifications").document(orderId).setData(data3)

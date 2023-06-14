@@ -14,6 +14,9 @@ import Stripe
 
 class MessagesViewController: UIViewController {
     
+    @IBOutlet weak var messageLabel: UILabel!
+    
+    
     let date = Date()
     let df = DateFormatter()
     
@@ -92,7 +95,7 @@ class MessagesViewController: UIViewController {
             self.location.isHidden = false
         }
             
-        df.dateFormat = "MM-dd-yyyy hh:mm a"
+        df.dateFormat = "MM-dd-yyyy hh:mm:ss a"
         
         messageTableView.delegate = self
         messageTableView.dataSource = self
@@ -105,15 +108,21 @@ class MessagesViewController: UIViewController {
             username.text = orderMessageSenderName
         }
         
-        if orderMessageChefOrUser == "Chef" {
-            requestTravelFeeButton.isHidden = false
-        } else {
-            requestTravelFeeButton.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
-            requestTravelFeeButton.isHidden = true
-        }
 //        
         if travelFeeOrMessages == "travelFee" {
             if Auth.auth().currentUser != nil {
+                    messageLabel.isHidden = true
+                    requestTravelFeeButton.isHidden = false
+                if orderMessageChefOrUser == "User" {
+                    requestTravelFeeButton.setTitle("Pay Travel Fee", for: .normal)
+                    if Double(travelFee) == nil {
+                        requestTravelFeeButton.isEnabled = true
+                    } else {
+                        requestTravelFeeButton.isEnabled = false
+                    }
+                } else {
+                    requestTravelFeeButton.setTitle("Request Travel Fee", for: .normal)
+                }
                 loadTravelFeeMessages()
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
@@ -137,6 +146,7 @@ class MessagesViewController: UIViewController {
             }
         }
         
+        self.requestTravelFeeButton.isEnabled = true
         loadUsername()
         
     }
@@ -167,51 +177,7 @@ class MessagesViewController: UIViewController {
     }
     
     
-    private func fetchPaymentIntent(costOfEvent: Double) {
-        
-        let cost = costOfEvent * 100
-        let a = String(format: "%.0f", cost)
-        
-        let json: [String: Any] = ["amount": a]
-        
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/create-payment-intent")!)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-          guard let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                let customerId = json["customer"] as? String,
-                let customerEphemeralKeySecret = json["ephemeralKey"] as? String,
-                let IntentClientSecret = json["paymentIntent"] as? String,
-                let publishableKey = json["publishableKey"] as? String,
-                let paymentId = json["paymentId"] as? String,
-                let self = self else {
-            // Handle error
-            return
-          }
-
-            STPAPIClient.shared.publishableKey = publishableKey
-          // MARK: Create a PaymentSheet instance
-          var configuration = PaymentSheet.Configuration()
-          configuration.merchantDisplayName = "Taïste, Inc."
-          configuration.customer = .init(id: customerId, ephemeralKeySecret: customerEphemeralKeySecret)
-          // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
-          // methods that complete payment after a delay, like SEPA Debit and Sofort.
-          configuration.allowsDelayedPaymentMethods = true
-          self.paymentSheet = PaymentSheet(paymentIntentClientSecret: IntentClientSecret, configuration: configuration)
-           
-
-          DispatchQueue.main.async {
-            self.requestTravelFeeButton.isEnabled = true
-              self.paymentId = paymentId
-          }
-        })
-        task.resume()
-    }
+    
     
     private func subscribeToTopic(userNotification: String, chefNotification: String, chefOrUser: String, topic: String) {
         let json: [String: Any] = ["notificationToken1": userNotification, "notificationToken2" : chefNotification, "topic" : topic]
@@ -281,87 +247,9 @@ class MessagesViewController: UIViewController {
         task.resume()
     }
     
-    private func saveInfo() {
-        if Auth.auth().currentUser != nil {
-            let month = "\(df.string(from: date))".prefix(7).suffix(2)
-            let year = "\(df.string(from: date))".prefix(4)
-            let yearMonth = "\(year), \(month)"
-            
-            let calendar = Calendar(identifier: .gregorian)
-            var currentWeek = calendar.component(.weekOfMonth, from: Date())
-            var weekOfMonth = ""
-            if currentWeek > 4 { weekOfMonth = "Week 4" } else { weekOfMonth = "Week \(currentWeek)" }
-            
-            let data: [String: Any] = ["paymentId" : paymentId, "userImageId" : Auth.auth().currentUser!.uid, "chefEmail" : orderMessageReceiverEmail, "menuItemId" : orderMessageDocumentId, "date" : df.string(from: date), "chefImageId" : orderMessageReceiverImageId]
-            let data2: [String: Any] = ["orderUpdate" : "scheduled", "travelFee" : self.travelFeeLabel.text!]
-//            let data3: [String: Any] = ["totalPay" : (totalCostOfEvent - (totalCostOfEvent * 0.05))]
-            //        let data4: [String: Any] = ["Total" : ]
-            
-            db.collection("TravelFeePayments").document(menuItemId).setData(data)
-            db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("TravelFeePayments").document(orderMessageDocumentId).collection(orderMessageDocumentId).document("payment").setData(data)
-            db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection("TravelFeePayments").document(orderMessageDocumentId).collection(orderMessageDocumentId).document("payment").setData(data)
-            
-            db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection("Orders").document(orderMessageDocumentId).updateData(data2)
-            db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("Orders").document(orderMessageDocumentId).updateData(data2)
-            db.collection("Orders").document(menuItemId).updateData(data2)
-            
-            
-            let docRef = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType)
-            let docRef1 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Total")
-            let docRef2 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Month").collection(yearMonth).document("Total")
-            let docRef3 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Month").collection(yearMonth).document("Week").collection(weekOfMonth).document("Total")
-            let docRef4 = db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(eventType).collection(menuItemId).document("Month").collection(yearMonth).document("Week").collection(weekOfMonth).document(orderMessageDocumentId)
-            
-            docRef.getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        let totalPay = data!["totalPay"] as! Double
-                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
-                        docRef.updateData(data4)
-                    }
-                }
-            }
-            docRef1.getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        let totalPay = data!["totalPay"] as! Double
-                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
-                        docRef1.updateData(data4)
-                    }
-                }
-            }
-            docRef2.getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        let totalPay = data!["totalPay"] as! Double
-                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
-                        docRef2.updateData(data4)
-                    }
-                }
-            }
-            docRef3.getDocument { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        let totalPay = data!["totalPay"] as! Double
-                        let data4: [String: Any] = ["totalPay" : totalPay + Double(self.totalCostOfEvent)!]
-                        docRef3.updateData(data4)
-                    }
-                }
-            }
-            let data4: [String: Any] = ["totalPay" : Double(totalCostOfEvent)!]
-            docRef.setData(data4)
-           
-            
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.showToast(message: "Somthing went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
-        }
-    }
+
     private func loadMessageRequests() {
+        
         self.messageText.isEnabled = false
         let storageRef = storage.reference()
         db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("MessageRequests").document(messageRequestDocumentId).collection(messageRequestDocumentId).addSnapshotListener { documents, error in
@@ -374,7 +262,7 @@ class MessagesViewController: UIViewController {
                     for doc in documents!.documents {
                         
                         let data = doc.data()
-                        if let chefOrUserI = data["chefOrUser"] as? String, let user = data["user"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String {
+                        if let chefOrUserI = data["chefOrUser"] as? String, let user = data["userImageId"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String {
                          
                             if documents!.count == 1 && userEmail == Auth.auth().currentUser!.email! {
                                 self.messageText.isEnabled = false
@@ -403,15 +291,13 @@ class MessagesViewController: UIViewController {
                             
                             
                             let date1 = self.df.date(from: date)
-                            storageRef.child("\(vari)/\(userEmail)/profileImage/\(user).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
-                                
-                                let image = UIImage(data: data!)
+                            
                                 
                                 DispatchQueue.main.async {
                                     print("message \(message)")
                                     let index = self.messages.firstIndex { $0.documentId == doc.documentID }
                                     if index == nil {
-                                    self.messages.append(Messages(homeOrAway: homeOrAway, pictureId: user, image: image!, message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: ""))
+                                    self.messages.append(Messages(homeOrAway: homeOrAway, userImageId: user, userEmail: userEmail, image: UIImage(), message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: ""))
                                         if self.messages.count == 1 {
                                             if userEmail != Auth.auth().currentUser!.email! {
                                                 self.messageText.isEnabled = true
@@ -425,7 +311,7 @@ class MessagesViewController: UIViewController {
                                     }
                                 }
                                 }
-                        }
+                        
                     }
                 }
             }
@@ -441,14 +327,9 @@ class MessagesViewController: UIViewController {
                     for doc in documents!.documents {
                         if doc.documentID != "payment" {
                         let data = doc.data()
-                        if let chefOrUserI = data["chefOrUser"] as? String, let user = data["user"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String, let travelFee = data["travelFee"] as? String {
-                         
-                            var vari = ""
-                            if chefOrUserI == "Chef" {
-                                vari = "chefs"
-                            } else {
-                                vari = "users"
-                            }
+                        if let chefOrUserI = data["chefOrUser"] as? String, let user = data["userImageId"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String, let travelFee = data["travelFee"] as? String {
+                            
+                          
                             var homeOrAway = ""
                             if userEmail == Auth.auth().currentUser!.email! {
                                 homeOrAway = "home"
@@ -458,38 +339,19 @@ class MessagesViewController: UIViewController {
                                 homeOrAway = "travel"
                                 if Auth.auth().currentUser!.displayName! == "User" {
                                 self.travelFeeLabel.text = "$\(travelFee)"
-                                    if Double(travelFee) != nil {
-                                        self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
-                                    }
+                                   
                                 }
                             }
-                            
-                            print("date \(date)")
-                            print("date1 \(self.df.date(from: date))")
                             let date1 = self.df.date(from: date)
-                            if homeOrAway != "travel" {
-                            storageRef.child("\(vari)/\(userEmail)/profileImage/\(user).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
-                                
-                                let image = UIImage(data: data!)
-                                
-                                DispatchQueue.main.async {
-                                    print("message \(message)")
-                                    let index = self.messages.firstIndex { $0.documentId == doc.documentID }
-                                    if index == nil {
-                                    self.messages.append(Messages(homeOrAway: homeOrAway, pictureId: user, image: image!, message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: travelFee))
+                                let index = self.messages.firstIndex(where: { $0.documentId == doc.documentID })
+                                if index == nil {
+                                    self.messages.append(Messages(homeOrAway: homeOrAway, userImageId: user, userEmail: userEmail, image: UIImage(), message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: chefOrUserI, travelFee: travelFee))
                                     
                                     self.messages = self.messages.sorted(by: { $0.date.compare($1.date) == .orderedAscending })
                                     self.messageTableView.reloadData()
-                                    }
                                 }
-                                }
-                                
-                            } else {
-                                self.messages.append(Messages(homeOrAway: homeOrAway, pictureId: user, image: UIImage(), message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: travelFee))
-                                
-                                self.messages = self.messages.sorted(by: { $0.date.compare($1.date) == .orderedAscending })
-                                self.messageTableView.reloadData()
-                            }
+                               
+                            
                         }
                         
                         }
@@ -507,7 +369,7 @@ class MessagesViewController: UIViewController {
                     for doc in documents!.documents {
                         if doc.documentID != "payment" {
                         let data = doc.data()
-                        if let chefOrUserI = data["chefOrUser"] as? String, let user = data["user"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String, let travelFee = data["travelFee"] as? String {
+                        if let chefOrUserI = data["chefOrUser"] as? String, let user = data["userImageId"] as? String, let message = data["message"] as? String, let date = data["date"] as? String, let userEmail = data["userEmail"] as? String, let travelFee = data["travelFee"] as? String {
                          
                             var vari = ""
                             if chefOrUserI == "Chef" {
@@ -523,57 +385,31 @@ class MessagesViewController: UIViewController {
                             } else {
                                 homeOrAway = "travel"
                                 self.travelFeeLabel.text = "$\(travelFee)"
-                                self.fetchPaymentIntent(costOfEvent: Double(travelFee)!)
+                              
                             }
                             let date1 = self.df.date(from: date)
-                            if homeOrAway != "travel" {
-                            storageRef.child("\(vari)/\(userEmail)/profileImage/\(user).png").getData(maxSize: 15 * 1024 * 1024) { data, error in
-                                
-                                let image = UIImage(data: data!)
                                 
                                  
                                 DispatchQueue.main.async {
                                     let index = self.messages.firstIndex { $0.documentId == doc.documentID }
                                     if index == nil {
-                                    self.messages.append(Messages(homeOrAway: homeOrAway, pictureId: user, image: image!, message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: ""))
-                                   
+                                    self.messages.append(Messages(homeOrAway: homeOrAway, userImageId: user, userEmail: userEmail, image: UIImage(), message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: ""))
                                     self.messages = self.messages.sorted(by: { $0.date.compare($1.date) == .orderedAscending })
-                                    
                                     self.messageTableView.reloadData()
                                     }
                                 }
                                 
                             }
-                            } else {
-                                self.messages.append(Messages(homeOrAway: homeOrAway, pictureId: user, image: UIImage(), message: message, date: date1!, dateString: date, documentId: doc.documentID, chefOrUser: "\(vari.prefix(4))", travelFee: ""))
-                               
-                                self.messages = self.messages.sorted(by: { $0.date.compare($1.date) == .orderedAscending })
-                                
-                                self.messageTableView.reloadData()
-                            }
+                            
                         }
                         }
-                    }
+                    
                 }
             }
         }
     }
     
-    @objc
-    func didTapCheckoutButton() {
-      // MARK: Start the checkout process
-        paymentSheet?.present(from: self) { paymentResult in
-          // MARK: Handle the payment result
-          switch paymentResult {
-          case .completed:
-              self.saveInfo()
-          case .canceled:
-            print("Canceled!")
-          case .failed(let error):
-              self.showToast(message: "Order Failed. Please check your information and try again.", font: .systemFont(ofSize: 12))
-          }
-        }
-    }
+  
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -584,8 +420,21 @@ class MessagesViewController: UIViewController {
     }
     
     @IBAction func requestTravelFeeButtonPressed(_ sender: Any) {
-        
-        self.performSegue(withIdentifier: "MessagesToTravelFeeSegue", sender: self)
+        if travelFeeLabel.text != "" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "TravelFee") as? TravelFeeViewController  {
+                vc.orderMessageDocumentId = self.orderMessageDocumentId
+                vc.orderMessageReceiverEmail = self.orderMessageReceiverEmail
+                vc.orderMessageReceiverImageId = self.orderMessageReceiverImageId
+                vc.totalCostOfEvent = self.totalCostOfEvent
+                vc.eventType = self.eventType
+                vc.travelFeePriceText = self.travelFee
+                vc.userImageId = userImageId
+                vc.chefOrUser = Auth.auth().currentUser!.displayName!
+                vc.travelFeePriceText = self.travelFee
+                self.present(vc, animated: true, completion: nil)
+            }
+            
+        }
     }
     
     @IBAction func sendMessageButtonPressed(_ sender: Any) {
@@ -603,31 +452,17 @@ class MessagesViewController: UIViewController {
                     vari = "users"
                 }
                 let documentId = UUID().uuidString
-                storageRef.child("\(vari)/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { url, error in
-                    
-                    
-                    URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                        // Error handling...
-                        guard let imageData = data else { return }
-                        
-                        print("happening itemdata")
-                        DispatchQueue.main.async {
-                            self.messages.append(Messages(homeOrAway: "home", pictureId: Auth.auth().currentUser!.uid, image: UIImage(data: imageData)!, message: self.messageText.text!, date: self.df.date(from: self.df.string(from: self.date))!, dateString: self.df.string(from: self.date), documentId: documentId, chefOrUser: Auth.auth().currentUser!.displayName!, travelFee: ""))
-                            self.messages.sort(by: { $0.date.compare($1.date) == .orderedAscending })
-                            self.messageTableView.reloadData()
-                        }
-                    }.resume()
-                }
+                
                    
+                
                     
-                    self.messageText.text = ""
                     if self.travelFeeOrMessages == "MessageRequests" && self.messages.count == 1 {
                         self.messageText.isEnabled = false
                     }
                     
                 }
                 
-                let data : [String : Any] = ["chefOrUser" : Auth.auth().currentUser!.displayName!, "user" : Auth.auth().currentUser!.uid, "message" : messageText.text!, "date" : df.string(from: date), "userEmail": Auth.auth().currentUser!.email!, "travelFee" : "", "userName" : guserName, "fullName" : self.fullName]
+                let data : [String : Any] = ["chefOrUser" : Auth.auth().currentUser!.displayName!, "userImageId" : Auth.auth().currentUser!.uid, "message" : messageText.text!, "date" : df.string(from: date), "userEmail": Auth.auth().currentUser!.email!, "travelFee" : "", "userName" : guserName, "fullName" : self.fullName]
                 
             
                 var travelFeeVari = ""
@@ -681,6 +516,8 @@ class MessagesViewController: UIViewController {
                 if travelFeeVari != "MessageRequests" {
                     let documentId = UUID().uuidString
                     self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(orderMessageDocumentId).collection(orderMessageDocumentId).document(documentId).setData(data)
+                    self.db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection(travelFeeVari).document(orderMessageDocumentId).setData(data)
+                    self.db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection(travelFeeVari).document(orderMessageDocumentId).setData(data)
                     self.db.collection(orderMessageReceiverChefOrUser).document(orderMessageReceiverImageId).collection(travelFeeVari).document(orderMessageDocumentId).collection(orderMessageDocumentId).document(documentId).setData(data)
                     
                     if Auth.auth().currentUser!.displayName! == "Chef" {
@@ -706,7 +543,7 @@ class MessagesViewController: UIViewController {
                     }
                     let date = Date()
                     let df = DateFormatter()
-                    df.dateFormat = "MM-dd-yyyy hh:mm a"
+                    df.dateFormat = "MM-dd-yyyy hh:mm:ss a"
                     let date1 =  df.string(from: Date())
                     let data3: [String: Any] = ["notification" : "\(guserName) has just messaged you (\(eventType)) about \(itemTitle).", "date" : date1]
                     let data4: [String: Any] = ["notifications" : "yes"]
@@ -718,6 +555,7 @@ class MessagesViewController: UIViewController {
                 self.showToast(message: "Message Sent", font: .systemFont(ofSize: 12))
             }
         }
+        messageText.text = ""
     }
     
     private var user = ""
@@ -798,10 +636,57 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             cell.homeDate.isHidden = true
             cell.travelFeeMessage.isHidden = false
             cell.travelFeeMessage.text = message.message
+            print("travelfee \(message.travelFee)")
+            self.travelFeeLabel.text = "$\(message.travelFee)"
+            self.travelFeeLabel.isHidden = false
+        }
+        var a = ""
+        if message.chefOrUser == "Chef" { a = "chefs" } else { a = "users" }
+        if message.travelFee != "" {
+            
+        }
+        
+        if message.documentId == "payment" {
+            self.showToast(message: "Payment Received.", font: .systemFont(ofSize: 12))
+            if Auth.auth().currentUser!.displayName! == "Chef" {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefTab") as? ChefTabViewController  {
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTab") as? UserTabViewController  {
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+        }
+        
+        print("cheforuser \(message.chefOrUser)")
+        print("\(message.userEmail)")
+        print("\(message.userImageId)")
+        if message.homeOrAway == "home" || message.homeOrAway == "away" {
+            let storageRef = storage.reference()
+            storageRef.child("\(a)/\(message.userEmail)/profileImage/\(message.userImageId).png").downloadURL { imageUrl, error in
+                
+                
+                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                    // Error handling...
+                    guard let imageData = data else { return }
+                    
+                    print("happening itemdata")
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data!)!
+                        if message.homeOrAway == "home" {
+                            cell.homeImage.image = image
+                        } else {
+                            cell.awayImage.image = image
+                        }
+                     }
+                }.resume()
+                
+            }
         }
         
         cell.profileButtonTapped = {
-            self.user = message.pictureId
+            self.user = message.userImageId
             self.chefOrUser = message.chefOrUser
             self.performSegue(withIdentifier: "MessagesToProfileAsUserSegue", sender: self)
         }
