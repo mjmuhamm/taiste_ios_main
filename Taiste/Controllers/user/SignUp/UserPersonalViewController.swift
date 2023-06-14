@@ -129,6 +129,22 @@ class UserPersonalViewController: UIViewController {
         }
     }
     
+    private func stateFilter(state: String) -> String {
+        
+        var stateAbbr : [String] = ["AL", "AK", "AZ", "AR", "AS", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "TT", "UT", "VT", "VA", "VI", "WA", "WY", "WV", "WI", "WY" ]
+        
+        for i in 0..<stateAbbr.count {
+            let a = stateAbbr[i].lowercased()
+            if a == state.lowercased() {
+                return "good"
+            }
+        }
+        
+        return "not good"
+      
+        
+    }
+    
     @IBAction func userImageButtonPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         
@@ -534,6 +550,8 @@ class UserPersonalViewController: UIViewController {
                 self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
             } else if region == 1 && state.text == "" {
                 self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
+            } else if region == 1 || local == 1 && stateFilter(state: state.text!) != "good" {
+                self.showToast(message: "Please enter the abbreviation of your state.", font: .systemFont(ofSize: 12))
             } else if userImageData == nil {
                 self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
             } else  {
