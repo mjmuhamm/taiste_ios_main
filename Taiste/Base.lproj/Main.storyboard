@@ -680,7 +680,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QYD-L9-iD0">
-                                <rect key="frame" x="0.0" y="112" width="414" height="735"/>
+                                <rect key="frame" x="0.0" y="131.5" width="414" height="715.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
@@ -706,6 +706,12 @@
                                 <color key="tintColor" red="0.9375815783" green="0.34654789530000002" blue="0.35419432080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12" scale="small"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjd-BY-OWk">
+                                <rect key="frame" x="10" y="110" width="394" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" systemColor="systemGray4Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wMT-1g-e4a"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -713,15 +719,19 @@
                             <constraint firstItem="esf-6X-dCD" firstAttribute="centerX" secondItem="CAi-hP-6dL" secondAttribute="centerX" id="2pj-s4-RD8"/>
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="trailing" secondItem="wMT-1g-e4a" secondAttribute="trailing" id="38D-iQ-Zkc"/>
                             <constraint firstItem="8VU-31-tvP" firstAttribute="centerX" secondItem="CAi-hP-6dL" secondAttribute="centerX" id="3t7-Gc-UcN"/>
+                            <constraint firstItem="Bjd-BY-OWk" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" constant="10" id="4G2-cy-00I"/>
                             <constraint firstItem="esf-6X-dCD" firstAttribute="top" secondItem="wMT-1g-e4a" secondAttribute="top" constant="14" id="4vp-hE-O76"/>
+                            <constraint firstItem="Bjd-BY-OWk" firstAttribute="centerX" secondItem="CAi-hP-6dL" secondAttribute="centerX" id="7tZ-pg-B78"/>
                             <constraint firstItem="8cn-Db-vVM" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" constant="24" id="ARj-Gl-q93"/>
-                            <constraint firstItem="QYD-L9-iD0" firstAttribute="top" secondItem="8VU-31-tvP" secondAttribute="bottom" constant="10" id="Anr-lY-gXM"/>
+                            <constraint firstItem="QYD-L9-iD0" firstAttribute="top" secondItem="Bjd-BY-OWk" secondAttribute="bottom" constant="7" id="G6y-LS-a1c"/>
                             <constraint firstItem="05O-WH-s4B" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" constant="11" id="IaV-JQ-aAc"/>
                             <constraint firstItem="QUD-0c-h8i" firstAttribute="top" secondItem="esf-6X-dCD" secondAttribute="bottom" constant="12.5" id="JcQ-eZ-JzN"/>
+                            <constraint firstItem="Bjd-BY-OWk" firstAttribute="top" secondItem="8VU-31-tvP" secondAttribute="bottom" constant="8" id="KCM-kP-z5D"/>
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="bottom" secondItem="wMT-1g-e4a" secondAttribute="bottom" id="P1T-SI-vjJ"/>
                             <constraint firstItem="QYD-L9-iD0" firstAttribute="leading" secondItem="wMT-1g-e4a" secondAttribute="leading" id="QD8-2Y-RYK"/>
                             <constraint firstItem="QUD-0c-h8i" firstAttribute="leading" secondItem="CAi-hP-6dL" secondAttribute="leading" id="WGc-w4-uan"/>
                             <constraint firstItem="8cn-Db-vVM" firstAttribute="top" secondItem="wMT-1g-e4a" secondAttribute="top" constant="4" id="X2N-hl-wOE"/>
+                            <constraint firstItem="wMT-1g-e4a" firstAttribute="trailing" secondItem="Bjd-BY-OWk" secondAttribute="trailing" constant="10" id="XY8-pH-EmB"/>
                             <constraint firstAttribute="trailing" secondItem="QUD-0c-h8i" secondAttribute="trailing" id="hH4-KN-ahC"/>
                             <constraint firstItem="05O-WH-s4B" firstAttribute="top" secondItem="wMT-1g-e4a" secondAttribute="top" constant="14.5" id="mBo-bz-s5g"/>
                             <constraint firstItem="8VU-31-tvP" firstAttribute="top" secondItem="QUD-0c-h8i" secondAttribute="bottom" constant="13.5" id="mHF-DD-bf1"/>
@@ -732,6 +742,7 @@
                     <navigationItem key="navigationItem" id="6HC-36-B71"/>
                     <connections>
                         <outlet property="completeButton" destination="Dj2-Qy-g1f" id="eIz-6f-ku8"/>
+                        <outlet property="disclaimerText" destination="Bjd-BY-OWk" id="BNG-Ab-GgV"/>
                         <outlet property="newNotificationImage" destination="8cn-Db-vVM" id="Kki-IG-mz7"/>
                         <outlet property="ordersTableView" destination="QYD-L9-iD0" id="I1D-a3-6et"/>
                         <outlet property="pendingButton" destination="aYU-mM-5uC" id="hAX-Fa-sSX"/>
@@ -4901,7 +4912,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nwe-Jd-iTL">
-                                <rect key="frame" x="0.0" y="122" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="133.5" width="414" height="762.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
@@ -4922,15 +4933,24 @@
                                 <color key="tintColor" red="0.9375815783" green="0.34654789530000002" blue="0.35419432080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12" scale="small"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuQ-35-MN9">
+                                <rect key="frame" x="10" y="112" width="394" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" systemColor="systemGray4Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mVD-Ct-svM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="nwe-Jd-iTL" firstAttribute="top" secondItem="wRB-cO-0rd" secondAttribute="bottom" constant="15" id="0yt-rG-twe"/>
+                            <constraint firstItem="vuQ-35-MN9" firstAttribute="centerX" secondItem="K6d-47-Gf1" secondAttribute="centerX" id="2sh-9I-lJz"/>
                             <constraint firstItem="W5P-OZ-Uqt" firstAttribute="top" secondItem="mVD-Ct-svM" secondAttribute="top" constant="5.5" id="AIH-Rf-66F"/>
+                            <constraint firstItem="vuQ-35-MN9" firstAttribute="leading" secondItem="mVD-Ct-svM" secondAttribute="leading" constant="10" id="D2r-Mb-Tb6"/>
                             <constraint firstItem="p56-gg-IrF" firstAttribute="centerX" secondItem="K6d-47-Gf1" secondAttribute="centerX" id="Gs2-Hr-wFh"/>
                             <constraint firstItem="2sS-Cv-qFH" firstAttribute="leading" secondItem="mVD-Ct-svM" secondAttribute="leading" constant="12" id="IgJ-rc-Mrb"/>
                             <constraint firstItem="tCe-mJ-ef0" firstAttribute="leading" secondItem="K6d-47-Gf1" secondAttribute="leading" id="Pqu-aS-021"/>
+                            <constraint firstItem="mVD-Ct-svM" firstAttribute="trailing" secondItem="vuQ-35-MN9" secondAttribute="trailing" constant="10" id="Qps-cJ-WrC"/>
+                            <constraint firstItem="nwe-Jd-iTL" firstAttribute="top" secondItem="vuQ-35-MN9" secondAttribute="bottom" constant="7" id="TUl-Gz-lNd"/>
                             <constraint firstItem="wRB-cO-0rd" firstAttribute="top" secondItem="tCe-mJ-ef0" secondAttribute="bottom" constant="15" id="WTp-Ba-hdv"/>
                             <constraint firstItem="p56-gg-IrF" firstAttribute="top" secondItem="mVD-Ct-svM" secondAttribute="top" constant="15" id="ZIi-GN-hGr"/>
                             <constraint firstItem="2sS-Cv-qFH" firstAttribute="top" secondItem="mVD-Ct-svM" secondAttribute="top" constant="15" id="aVX-Tx-GAp"/>
@@ -4940,6 +4960,7 @@
                             <constraint firstItem="nwe-Jd-iTL" firstAttribute="leading" secondItem="mVD-Ct-svM" secondAttribute="leading" id="rZd-H8-ECH"/>
                             <constraint firstItem="wRB-cO-0rd" firstAttribute="centerX" secondItem="K6d-47-Gf1" secondAttribute="centerX" id="uyv-sZ-4s9"/>
                             <constraint firstItem="tCe-mJ-ef0" firstAttribute="top" secondItem="p56-gg-IrF" secondAttribute="bottom" constant="15" id="zFC-Fu-4rj"/>
+                            <constraint firstItem="vuQ-35-MN9" firstAttribute="top" secondItem="wRB-cO-0rd" secondAttribute="bottom" constant="5" id="zG2-OD-ulc"/>
                             <constraint firstItem="nwe-Jd-iTL" firstAttribute="trailing" secondItem="mVD-Ct-svM" secondAttribute="trailing" id="zuf-Zj-Q0u"/>
                         </constraints>
                     </view>
@@ -4948,6 +4969,7 @@
                     <connections>
                         <outlet property="chefName" destination="p56-gg-IrF" id="DU7-gx-2Wo"/>
                         <outlet property="completeButton" destination="CaP-jE-HVS" id="RNC-BI-ENU"/>
+                        <outlet property="disclaimerText" destination="vuQ-35-MN9" id="s1N-I6-bsr"/>
                         <outlet property="newNotificationImage" destination="W5P-OZ-Uqt" id="Pw6-aB-5xA"/>
                         <outlet property="orderTableView" destination="nwe-Jd-iTL" id="JNB-w6-ciw"/>
                         <outlet property="pendingButton" destination="l6X-jp-ipo" id="8L8-eV-IIM"/>
@@ -10988,7 +11010,7 @@ Taïste may contain links to third-party websites or services that are not contr
     <inferredMetricsTieBreakers>
         <segue reference="IKH-yz-VW2"/>
         <segue reference="nDc-ga-NWH"/>
-        <segue reference="Dwe-Tp-kXr"/>
+        <segue reference="o3x-XZ-YkT"/>
         <segue reference="tkP-ld-7rs"/>
         <segue reference="gmU-Hz-wfQ"/>
         <segue reference="ngW-4j-MLJ"/>

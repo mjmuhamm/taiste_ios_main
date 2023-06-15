@@ -143,19 +143,12 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
                 if error == nil {
                     if document != nil {
                         let data = document!.data()
-                        let notifications = data!["notifications"] as! String
-                        if notifications != "" {
-                            if notifications == "seen" {
-                                let data1 : [String: Any] = ["notifications" : ""]
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
-                                self.notificationsImage.isHidden = true
-                            } else {
-                                let data1 : [String: Any] = ["notifications" : "seen"]
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                        if let notifications = data?["notifications"] as? String {
+                            if notifications == "yes" {
                                 self.notificationsImage.isHidden = false
+                            } else {
+                                self.notificationsImage.isHidden = true
                             }
-                        } else {
-                            self.notificationsImage.isHidden = true
                         }
                     }
                 }

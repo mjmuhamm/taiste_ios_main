@@ -26,6 +26,7 @@ class ChefOrdersViewController: UIViewController {
     @IBOutlet weak var scheduledButton: MDCButton!
     @IBOutlet weak var completeButton: MDCButton!
     
+    @IBOutlet weak var disclaimerText: UILabel!
     private var toggle = "Pending"
 
     private var pendingOrders : [Orders] = []
@@ -41,7 +42,7 @@ class ChefOrdersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        disclaimerText.text = "*Orders appear hear until the you accept, and will transfer to the 'Schedule' tab after. If you cancel here, no worries.*"
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dfCompare.dateFormat = "MM-dd-yyyy HH:mm"
         orderTableView.register(UINib(nibName: "ChefOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefOrdersReusableCell")
@@ -86,19 +87,12 @@ class ChefOrdersViewController: UIViewController {
                 if error == nil {
                     if document != nil {
                         let data = document!.data()
-                        let notifications = data!["notifications"] as! String
-                        if notifications != "" {
-                            if notifications == "seen" {
-                                let data1 : [String: Any] = ["notifications" : ""]
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
-                                self.newNotificationImage.isHidden = true
-                            } else {
-                                let data1 : [String: Any] = ["notifications" : "seen"]
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                        if let notifications = data?["notifications"] as? String {
+                            if notifications == "yes" {
                                 self.newNotificationImage.isHidden = false
+                            } else {
+                                self.newNotificationImage.isHidden = true
                             }
-                        } else {
-                            self.newNotificationImage.isHidden = true
                         }
                     }
                 }
@@ -314,6 +308,59 @@ class ChefOrdersViewController: UIViewController {
         }
     }
     
+    private func subscribeToTopic(userNotification: String, chefNotification: String, orderId: String, itemTitle: String, userName: String) {
+        let json: [String: Any] = ["notificationToken1": userNotification, "notificationToken2" : chefNotification, "topic" : orderId]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/subscribe-to-topic")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+               
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              self.sendMessage(title: "Order Accepted!", notification: "@\(userName) has just accepted your order.", topic: orderId)
+              
+          }
+        })
+        task.resume()
+    }
+    
+    private func sendMessage(title: String, notification: String, topic: String) {
+        let json: [String: Any] = ["title": title, "notification" : notification, "topic" : topic]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/send-message")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              
+          }
+        })
+        task.resume()
+    }
+    
     func showToast(message : String, font: UIFont) {
         
         let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
@@ -336,6 +383,7 @@ class ChefOrdersViewController: UIViewController {
     
     @IBAction func pendingOrdersButtonPressed(_ sender: Any) {
         toggle = "Pending"
+        disclaimerText.text = "*Orders appear hear until you accept., and will transfer to the 'Schedule' tab after. If you cancel here, no worries.*"
         loadOrders()
         pendingButton.setTitleColor(UIColor.white, for: .normal)
         pendingButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
@@ -346,6 +394,7 @@ class ChefOrdersViewController: UIViewController {
     }
     
     @IBAction func scheduledOrdersButtonPressed(_ sender: Any) {
+        disclaimerText.text = "*Orders appear hear when you accept. If you cancel within 7 days of the event you will be chargeed 15% of the total order cost, otherwise, you can expect 5% charge to be dispersed to the user.*"
         toggle = "Scheduled"
         loadOrders()
         pendingButton.backgroundColor = UIColor.white
@@ -357,6 +406,7 @@ class ChefOrdersViewController: UIViewController {
     }
     
     @IBAction func completeOrdersButtonPressed(_ sender: Any) {
+        disclaimerText.text = "*Orders appear after completion. Please consider reviewing each order to help other users best decide on their selections.*"
             toggle = "Complete"
             loadOrders()
             pendingButton.backgroundColor = UIColor.white
@@ -474,7 +524,7 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
             cell.messagesButton.isUppercaseTitle = false
         }
         if toggle == "Scheduled" {
-            cell.messagesForTravelFeeButton.isHidden = true
+            cell.messagesForTravelFeeButton.isEnabled = false
         }
         
         if order.cancelled != "" {
@@ -554,18 +604,39 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                 self.db.collection("User").document(order.userImageId).collection("Orders").document(order.documentId).updateData(data2)
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(order.documentId).updateData(data2)
                 self.db.collection("Orders").document(order.documentId).updateData(data2)
-                
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                    if error == nil {
+                        
+                        let data = document!.data()
+                        
+                        let notification = data!["notificationToken"] as! String
+                        
+                        self.db.collection("User").document(order.userImageId).getDocument { document, error in
+                            if error == nil {
+                                let data = document!.data()
+                                
+                                let notification1 = data!["notificationToken"] as! String
+                                self.subscribeToTopic(userNotification: notification, chefNotification: notification1, orderId: order.orderId, itemTitle: "Order Accepted!", userName: order.userName)
+                            }
+                        }
+                        
+                    }
+                }
+               
+               
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Month").collection(yearMonth).document("Week").collection("Week \(currentWeek)").document().setData(data3)
                 
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Month").collection(yearMonth).document("Total").getDocument(completion: { document, error in
                     if error == nil {
                         if document != nil {
-                            let data = document!.data()
-                            if data != nil {
-                            if let total = data!["totalPay"] as? Double {
-                                let data5 : [String : Any] = ["totalPay" : total + Double(order.totalCostOfEvent)]
-                                self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Month").collection(yearMonth).document("Total").updateData(data5)
-                            }
+                            if document!.exists {
+                                let data = document!.data()
+                                if data != nil {
+                                    if let total = data?["totalPay"] as? Double {
+                                        let data5 : [String : Any] = ["totalPay" : total + Double(order.totalCostOfEvent)]
+                                        self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Month").collection(yearMonth).document("Total").updateData(data5)
+                                    }
+                                }
                             } else {
                                 let data5 : [String : Any] = ["totalPay" : Double(order.totalCostOfEvent)]
                                 self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Month").collection(yearMonth).document("Total").setData(data5)
@@ -576,12 +647,14 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order.typeOfService).getDocument { document, error in
                     if error == nil {
                         if document != nil {
-                            let data = document!.data()
-                            if data != nil {
-                            if let total = data!["totalPay"] as? Double {
-                                let data5 : [String : Any] = ["totalPay" : total + Double(order.totalCostOfEvent)]
-                                self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).updateData(data5)
-                            }
+                            if document!.exists {
+                                let data = document!.data()
+                                if data != nil {
+                                    if let total = data?["totalPay"] as? Double {
+                                        let data5 : [String : Any] = ["totalPay" : total + Double(order.totalCostOfEvent)]
+                                        self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).updateData(data5)
+                                    }
+                                }
                             } else {
                                 let data5 : [String : Any] = ["totalPay" : Double(order.totalCostOfEvent)]
                                 self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).setData(data5)
@@ -592,17 +665,19 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                 self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Total").getDocument { document, error in
                     if error == nil {
                         if document != nil {
-                            let data = document!.data()
-                            
-                            if let total = data!["totalPay"] as? Double {
-                                let data5 : [String : Any] = ["totalPay" : total + Double(order.totalCostOfEvent)]
-                                self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Total").updateData(data5)
-                            }
+                            if document!.exists {
+                                let data = document!.data()
+                                
+                                if let total = data?["totalPay"] as? Double {
+                                    let data5 : [String : Any] = ["totalPay" : total + Double(order.totalCostOfEvent)]
+                                    self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Total").updateData(data5)
+                                }
                             } else {
                                 let data5 : [String : Any] = ["totalPay" : Double(order.totalCostOfEvent)]
                                 self.db.collection("Chef").document(order.chefImageId).collection("Dashboard").document(order.typeOfService).collection(order.menuItemId).document("Total").setData(data5)
                             }
                         }
+                    }
                     }
                 
                 if let index = self.orders.firstIndex(where: { $0.documentId == order.documentId }) {

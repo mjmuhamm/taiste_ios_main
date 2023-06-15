@@ -118,19 +118,12 @@ class ChefMeViewController: UIViewController {
                 if error == nil {
                     if document != nil {
                         let data = document!.data()
-                        let notifications = data!["notifications"] as! String
-                        if notifications != "" {
-                            if notifications == "seen" {
-                                let data1 : [String: Any] = ["notifications" : ""]
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
-                                self.newNotificationImage.isHidden = true
-                            } else {
-                                let data1 : [String: Any] = ["notifications" : "seen"]
-                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data1)
+                        if let notifications = data?["notifications"] as? String {
+                            if notifications == "yes" {
                                 self.newNotificationImage.isHidden = false
+                            } else {
+                                self.newNotificationImage.isHidden = true
                             }
-                        } else {
-                            self.newNotificationImage.isHidden = true
                         }
                     }
                 }

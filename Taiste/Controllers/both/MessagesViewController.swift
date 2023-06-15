@@ -89,6 +89,7 @@ class MessagesViewController: UIViewController {
             self.location.isHidden = true
             
         } else {
+           
             self.eventTypeAndQuantity.text = "Event Type: \(eventType)   Event Quantity: \(eventQuantity)"
             self.location.text = locationText
             self.eventTypeAndQuantity.isHidden = false
@@ -148,6 +149,9 @@ class MessagesViewController: UIViewController {
         
         self.requestTravelFeeButton.isEnabled = true
         loadUsername()
+        if travelFeeOrMessages == "messages" {
+            self.travelFeeLabel.isHidden = true
+        }
         
     }
     
@@ -605,7 +609,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = messageTableView.dequeueReusableCell(withIdentifier: "MessagesReusableCell", for: indexPath) as! MessagesTableViewCell
         var message = messages[indexPath.row]
         
-        if message.homeOrAway == "home" {
+        if message.homeOrAway == "home" && message.chefOrUser != "system" {
             cell.awayImage.isHidden = true
             cell.awayMessage.isHidden = true
             cell.awayDate.isHidden = true
@@ -616,7 +620,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             cell.homeImage.image = message.image
             cell.homeMessage.text = message.message
             cell.homeDate.text = "\(message.dateString)"
-        } else if message.homeOrAway == "away" {
+        } else if message.homeOrAway == "away" &&  message.chefOrUser != "system" {
             cell.awayImage.isHidden = false
             cell.awayMessage.isHidden = false
             cell.awayDate.isHidden = false
@@ -641,7 +645,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
             self.travelFeeLabel.isHidden = false
         }
         var a = ""
-        if message.chefOrUser == "Chef" { a = "chefs" } else { a = "users" }
+        if message.chefOrUser == "Chef" || message.chefOrUser == "chef" { a = "chefs" } else { a = "users" }
         if message.travelFee != "" {
             
         }
@@ -662,7 +666,7 @@ extension MessagesViewController : UITableViewDataSource, UITableViewDelegate {
         print("cheforuser \(message.chefOrUser)")
         print("\(message.userEmail)")
         print("\(message.userImageId)")
-        if message.homeOrAway == "home" || message.homeOrAway == "away" {
+        if (message.homeOrAway == "home" || message.homeOrAway == "away") && message.chefOrUser != "system" {
             let storageRef = storage.reference()
             storageRef.child("\(a)/\(message.userEmail)/profileImage/\(message.userImageId).png").downloadURL { imageUrl, error in
                 
