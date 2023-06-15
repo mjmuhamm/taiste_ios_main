@@ -5049,27 +5049,21 @@
                                     <action selector="businessButtonPressed:" destination="UHJ-6K-3na" eventType="touchUpInside" id="e2Y-qW-dgA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shareable Link to Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISo-Aq-CGk">
-                                <rect key="frame" x="30" y="246" width="189" height="20"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taïste" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCI-PT-9Zm">
-                                <rect key="frame" x="27" y="323" width="47" height="20"/>
+                                <rect key="frame" x="27" y="243" width="47" height="20"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXl-Zf-ubs">
-                                <rect key="frame" x="30" y="351" width="354" height="0.5"/>
+                                <rect key="frame" x="30" y="271" width="354" height="0.5"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="OgK-7o-caD"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTz-zq-zK2">
-                                <rect key="frame" x="27" y="371" width="132" height="25.5"/>
+                                <rect key="frame" x="27" y="368.5" width="132" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5081,7 +5075,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H84-gM-zcS">
-                                <rect key="frame" x="27" y="415.5" width="153" height="25.5"/>
+                                <rect key="frame" x="27" y="413" width="153" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5093,7 +5087,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnb-GF-N7g">
-                                <rect key="frame" x="27" y="504.5" width="146" height="25.5"/>
+                                <rect key="frame" x="27" y="502" width="146" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5105,7 +5099,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVf-aa-fAd" customClass="MDCButton">
-                                <rect key="frame" x="30" y="563" width="48" height="30"/>
+                                <rect key="frame" x="30" y="560.5" width="48" height="30"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Logout"/>
@@ -5114,7 +5108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlq-H5-eKv" customClass="MDCButton">
-                                <rect key="frame" x="27" y="609" width="105" height="30"/>
+                                <rect key="frame" x="27" y="606.5" width="105" height="30"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Delete Account"/>
@@ -5134,14 +5128,8 @@
                                     <action selector="bankingButtonPressed:" destination="UHJ-6K-3na" eventType="touchUpInside" id="3Fl-Co-IPv"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="coming soon." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87A-F1-Pw8">
-                                <rect key="frame" x="30" y="277" width="84" height="16"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps1-gl-rtr">
-                                <rect key="frame" x="27" y="460" width="192" height="25.5"/>
+                                <rect key="frame" x="27" y="457.5" width="192" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5152,17 +5140,42 @@
                                     <action selector="regulationAgreementPressed:" destination="UHJ-6K-3na" eventType="touchUpInside" id="hjM-Eg-lpj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjE-VK-KJb">
+                                <rect key="frame" x="27" y="327.5" width="229" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" systemColor="systemGray5Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title=" Taïste: Guide to Purchasing" image="square.and.pencil" catalog="system">
+                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="guideToPurchasingPressed:" destination="UHJ-6K-3na" eventType="touchUpInside" id="0mE-38-QBZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNV-ii-a3f">
+                                <rect key="frame" x="27" y="286.5" width="203" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" systemColor="systemGray5Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title=" Taïste: Guide to Posting" image="square.and.pencil" catalog="system">
+                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="guideToPosting:" destination="UHJ-6K-3na" eventType="touchUpInside" id="fLp-91-DBH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cUo-T7-GOB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="0A8-Fi-o4G" secondAttribute="trailing" constant="10" id="17Y-xU-RyS"/>
+                            <constraint firstItem="xjE-VK-KJb" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="1bJ-z2-FCy"/>
                             <constraint firstItem="0A8-Fi-o4G" firstAttribute="top" secondItem="QaQ-C8-YW7" secondAttribute="bottom" constant="8" symbolic="YES" id="21Q-60-usD"/>
-                            <constraint firstItem="JCI-PT-9Zm" firstAttribute="top" secondItem="87A-F1-Pw8" secondAttribute="bottom" constant="30" id="2X8-qf-04Z"/>
                             <constraint firstItem="ps1-gl-rtr" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="2zE-Xa-mXU"/>
-                            <constraint firstItem="ISo-Aq-CGk" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="30" id="4Wg-2a-aKC"/>
                             <constraint firstItem="nIp-NF-tlP" firstAttribute="leading" secondItem="DrC-3U-ZIY" secondAttribute="leading" id="4pz-qk-bgH"/>
+                            <constraint firstItem="xjE-VK-KJb" firstAttribute="top" secondItem="FNV-ii-a3f" secondAttribute="bottom" constant="15" id="67d-Td-NEK"/>
                             <constraint firstItem="qxE-e2-rdF" firstAttribute="top" secondItem="aM9-Ku-Wmr" secondAttribute="bottom" constant="15" id="77O-K7-36t"/>
+                            <constraint firstItem="WTz-zq-zK2" firstAttribute="top" secondItem="xjE-VK-KJb" secondAttribute="bottom" constant="15" id="APk-cf-n5i"/>
                             <constraint firstItem="nIp-NF-tlP" firstAttribute="top" secondItem="rXg-8Q-e78" secondAttribute="bottom" constant="19" id="D6H-J7-z9q"/>
                             <constraint firstItem="mXl-Zf-ubs" firstAttribute="leading" secondItem="DrC-3U-ZIY" secondAttribute="leading" constant="30" id="Ek8-ok-gNm"/>
                             <constraint firstItem="aM9-Ku-Wmr" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="FA0-Yp-4CK"/>
@@ -5170,6 +5183,7 @@
                             <constraint firstItem="sVf-aa-fAd" firstAttribute="top" secondItem="fnb-GF-N7g" secondAttribute="bottom" constant="33" id="Gr0-8g-vfj"/>
                             <constraint firstAttribute="trailing" secondItem="mXl-Zf-ubs" secondAttribute="trailing" constant="30" id="L0O-5T-2lp"/>
                             <constraint firstItem="8lO-XV-bR6" firstAttribute="centerX" secondItem="DrC-3U-ZIY" secondAttribute="centerX" id="M61-Wo-oFl"/>
+                            <constraint firstItem="JCI-PT-9Zm" firstAttribute="top" secondItem="qdP-IJ-DUk" secondAttribute="bottom" constant="20" id="Ndg-DC-AYP"/>
                             <constraint firstItem="fnb-GF-N7g" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="P0p-T2-LDh"/>
                             <constraint firstItem="qdP-IJ-DUk" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="PBv-Rp-2d6"/>
                             <constraint firstItem="mXl-Zf-ubs" firstAttribute="top" secondItem="JCI-PT-9Zm" secondAttribute="bottom" constant="8" symbolic="YES" id="PHE-ni-uvv"/>
@@ -5178,10 +5192,12 @@
                             <constraint firstItem="QaQ-C8-YW7" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="36" id="Rxg-dz-D1B"/>
                             <constraint firstItem="rXg-8Q-e78" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="12" id="U7B-RV-eET"/>
                             <constraint firstItem="qxE-e2-rdF" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="VIp-PC-A3w"/>
+                            <constraint firstItem="FNV-ii-a3f" firstAttribute="top" secondItem="mXl-Zf-ubs" secondAttribute="bottom" constant="15" id="XMV-rV-mmT"/>
                             <constraint firstItem="8lO-XV-bR6" firstAttribute="top" secondItem="cUo-T7-GOB" secondAttribute="top" constant="8" id="YSA-PB-hWT"/>
                             <constraint firstItem="nIp-NF-tlP" firstAttribute="leading" secondItem="DrC-3U-ZIY" secondAttribute="leading" id="Ylb-Or-Jup"/>
                             <constraint firstItem="H84-gM-zcS" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="ZI9-lI-23S"/>
                             <constraint firstItem="sVf-aa-fAd" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="30" id="a2U-Dg-cT2"/>
+                            <constraint firstItem="FNV-ii-a3f" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="c8i-gc-iJM"/>
                             <constraint firstItem="zlq-H5-eKv" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="eh1-Xz-kEW"/>
                             <constraint firstItem="zlq-H5-eKv" firstAttribute="top" secondItem="sVf-aa-fAd" secondAttribute="bottom" constant="16" id="f5O-bd-ndf"/>
                             <constraint firstItem="0A8-Fi-o4G" firstAttribute="leading" secondItem="DrC-3U-ZIY" secondAttribute="leadingMargin" constant="10" id="gZz-OT-M0X"/>
@@ -5190,13 +5206,9 @@
                             <constraint firstItem="WTz-zq-zK2" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="hta-KD-rtR"/>
                             <constraint firstAttribute="trailing" secondItem="nIp-NF-tlP" secondAttribute="trailing" id="jCc-jm-Ihg"/>
                             <constraint firstItem="H84-gM-zcS" firstAttribute="top" secondItem="WTz-zq-zK2" secondAttribute="bottom" constant="19" id="lfz-eP-vaF"/>
-                            <constraint firstItem="ISo-Aq-CGk" firstAttribute="top" secondItem="qdP-IJ-DUk" secondAttribute="bottom" constant="23" id="m5d-u6-FpC"/>
                             <constraint firstItem="JCI-PT-9Zm" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="mJl-8E-Bi4"/>
                             <constraint firstItem="fnb-GF-N7g" firstAttribute="top" secondItem="ps1-gl-rtr" secondAttribute="bottom" constant="19" id="nLO-gu-Fdk"/>
-                            <constraint firstItem="87A-F1-Pw8" firstAttribute="top" secondItem="ISo-Aq-CGk" secondAttribute="bottom" constant="11" id="s53-BQ-6fV"/>
                             <constraint firstItem="ps1-gl-rtr" firstAttribute="top" secondItem="H84-gM-zcS" secondAttribute="bottom" constant="19" id="sMB-qZ-evJ"/>
-                            <constraint firstItem="WTz-zq-zK2" firstAttribute="top" secondItem="mXl-Zf-ubs" secondAttribute="bottom" constant="19.5" id="sPM-Un-568"/>
-                            <constraint firstItem="87A-F1-Pw8" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="30" id="wix-cJ-e44"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="n43-1C-Zgn"/>
@@ -5282,7 +5294,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzg-j4-hpP">
-                                <rect key="frame" x="27" y="320" width="132" height="25.5"/>
+                                <rect key="frame" x="27" y="356.5" width="132" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5294,7 +5306,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t5Z-j0-gKT">
-                                <rect key="frame" x="27" y="360.5" width="153" height="25.5"/>
+                                <rect key="frame" x="27" y="397" width="153" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5306,7 +5318,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWY-h0-UTC">
-                                <rect key="frame" x="27" y="405" width="146" height="25.5"/>
+                                <rect key="frame" x="27" y="441.5" width="146" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5318,7 +5330,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6p-Y8-w19" customClass="MDCButton">
-                                <rect key="frame" x="30" y="457.5" width="48" height="30"/>
+                                <rect key="frame" x="30" y="494" width="48" height="30"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Logout"/>
@@ -5327,7 +5339,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHZ-TO-zUt" customClass="MDCButton">
-                                <rect key="frame" x="27" y="503.5" width="105" height="30"/>
+                                <rect key="frame" x="27" y="540" width="105" height="30"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Delete Account"/>
@@ -5377,15 +5389,29 @@
                                     <action selector="privatizeNoPressed:" destination="3gr-eD-A3r" eventType="touchUpInside" id="wVa-MO-6yJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkP-9f-d7z">
+                                <rect key="frame" x="27" y="315.5" width="229" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" systemColor="systemGray5Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title=" Taïste: Guide to Purchasing" image="square.and.pencil" catalog="system">
+                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="guideToPurchasingPressed:" destination="3gr-eD-A3r" eventType="touchUpInside" id="QK4-2r-8Xu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xji-jJ-b5n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="XfR-iu-ntG" secondAttribute="trailing" id="0He-RG-uAF"/>
+                            <constraint firstItem="Jzg-j4-hpP" firstAttribute="top" secondItem="GkP-9f-d7z" secondAttribute="bottom" constant="15" id="16n-CS-yhY"/>
                             <constraint firstItem="R5l-JS-9tL" firstAttribute="top" secondItem="xji-jJ-b5n" secondAttribute="top" constant="10" id="1Yw-mS-SwV"/>
                             <constraint firstItem="Vmr-3j-7ZG" firstAttribute="top" secondItem="WlJ-yL-mhR" secondAttribute="bottom" constant="23" id="5rK-M8-AGI"/>
                             <constraint firstItem="kC8-9h-nxA" firstAttribute="leading" secondItem="7YT-gh-1Yb" secondAttribute="trailing" id="5vi-Qy-NIp"/>
                             <constraint firstItem="ueF-X3-3Gn" firstAttribute="leading" secondItem="akG-QW-sXN" secondAttribute="leadingMargin" constant="10" id="5xB-k1-G3M"/>
+                            <constraint firstItem="GkP-9f-d7z" firstAttribute="leading" secondItem="xji-jJ-b5n" secondAttribute="leading" constant="27" id="7du-be-jVy"/>
                             <constraint firstItem="t5Z-j0-gKT" firstAttribute="leading" secondItem="xji-jJ-b5n" secondAttribute="leading" constant="27" id="7kf-ha-RMD"/>
                             <constraint firstAttribute="trailing" secondItem="XfR-iu-ntG" secondAttribute="trailing" id="86x-gu-FUj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6gG-em-aek" secondAttribute="trailing" constant="4" id="94w-JF-6WH"/>
@@ -5393,7 +5419,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="ueF-X3-3Gn" secondAttribute="trailing" constant="10" id="BnY-H9-RSL"/>
                             <constraint firstItem="g0U-Ka-OZI" firstAttribute="top" secondItem="XfR-iu-ntG" secondAttribute="bottom" constant="24.5" id="DKN-MS-Yyg"/>
                             <constraint firstItem="kC8-9h-nxA" firstAttribute="top" secondItem="6gG-em-aek" secondAttribute="bottom" constant="7.5" id="DKm-cn-Txu"/>
-                            <constraint firstItem="Jzg-j4-hpP" firstAttribute="top" secondItem="jPP-8V-oN3" secondAttribute="bottom" constant="19.5" id="FJA-8K-t3Y"/>
                             <constraint firstItem="MWY-h0-UTC" firstAttribute="top" secondItem="t5Z-j0-gKT" secondAttribute="bottom" constant="19" id="FQd-ok-KUl"/>
                             <constraint firstItem="jPP-8V-oN3" firstAttribute="top" secondItem="Blk-jk-3xG" secondAttribute="bottom" constant="14" id="FT1-b4-s02"/>
                             <constraint firstItem="7YT-gh-1Yb" firstAttribute="leading" secondItem="xji-jJ-b5n" secondAttribute="leading" constant="36" id="HMb-Qa-Z5L"/>
@@ -5408,6 +5433,7 @@
                             <constraint firstItem="ueF-X3-3Gn" firstAttribute="top" secondItem="g0U-Ka-OZI" secondAttribute="bottom" constant="14" id="X1t-Dt-jZH"/>
                             <constraint firstItem="Blk-jk-3xG" firstAttribute="leading" secondItem="xji-jJ-b5n" secondAttribute="leading" constant="27" id="X38-2o-NlI"/>
                             <constraint firstItem="7be-Qh-Opa" firstAttribute="centerX" secondItem="akG-QW-sXN" secondAttribute="centerX" id="ZrB-s9-6HN"/>
+                            <constraint firstItem="GkP-9f-d7z" firstAttribute="top" secondItem="jPP-8V-oN3" secondAttribute="bottom" constant="15" id="cDs-6z-7jL"/>
                             <constraint firstItem="XfR-iu-ntG" firstAttribute="leading" secondItem="akG-QW-sXN" secondAttribute="leading" id="dzy-cU-C7e"/>
                             <constraint firstItem="7YT-gh-1Yb" firstAttribute="top" secondItem="6gG-em-aek" secondAttribute="bottom" constant="7.5" id="ea9-pS-XE7"/>
                             <constraint firstItem="W6p-Y8-w19" firstAttribute="leading" secondItem="xji-jJ-b5n" secondAttribute="leading" constant="30" id="gr7-lC-Ufk"/>
@@ -11006,9 +11032,876 @@ Taïste may contain links to third-party websites or services that are not contr
             </objects>
             <point key="canvasLocation" x="14147.826086956522" y="-314.0625"/>
         </scene>
+        <!--Guide To Purchasing View Controller-->
+        <scene sceneID="eVq-dt-sq7">
+            <objects>
+                <viewController storyboardIdentifier="GuideToPurchasing" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="zQb-gf-lud" customClass="GuideToPurchasingViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0b8-J7-Lcd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjv-Mb-x1y">
+                                <rect key="frame" x="0.0" y="85.5" width="414" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="5Nl-uN-5wp"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="aex-K3-b0m"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taïste: Guide to Purchasing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glz-3q-fii">
+                                <rect key="frame" x="101" y="56" width="212" height="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dy-zX-cPR">
+                                <rect key="frame" x="12" y="56" width="25" height="20.5"/>
+                                <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="arrow.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="zQb-gf-lud" eventType="touchUpInside" id="nVT-Ah-99g"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gG-RI-lxg">
+                                <rect key="frame" x="0.0" y="86" width="414" height="810"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKR-co-kv0">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2200"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cater Hiring" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFm-6u-fJI">
+                                                <rect key="frame" x="5" y="201.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="3jz-ps-GU9"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vlm-nV-AhB">
+                                                <rect key="frame" x="5" y="240.5" width="404" height="100.5"/>
+                                                <string key="text">All Catering Events are scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill your desired catering needs. Please note that all suggestions are at the discrepancy of the chef, and the promoted menu item is the item that you, the consumer, can expect to be fully satisfied with. Please be detail oriented in your answers.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m90-wf-oCk">
+                                                <rect key="frame" x="5" y="46" width="404" height="150.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150.5" id="t6g-13-Tee"/>
+                                                </constraints>
+                                                <string key="text">Our chefs have put together menus that they believe best represent their interests and capabilities to best service you. In this, please take each dish listed as personal suggestions from the chef, and continue with the inspiration and creativity from the chef, and the boldness from your own ideal catering menu. We push for full transparency and communication between you and the chef so that suggestions can be made, and the chef can confirm or deny his or her willingness to partake. Enjoy!</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Purchases" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhb-m7-EM8">
+                                                <rect key="frame" x="5" y="1357.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="4BH-PY-J9q"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXw-Jg-VHM">
+                                                <rect key="frame" x="5" y="1396.5" width="404" height="134"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="134" id="EgK-ZM-Gpn"/>
+                                                </constraints>
+                                                <string key="text">All purchases are made through the application, and Taïste, operates as the intermediary for the event, dispersing the payment to the chef exactly one hour after the scheduled event date and event time. Should any concerns arise to your trust of a fulfilling experience, please head to the ‘Settings’ -&gt; ‘Report An Issue’ tab. Here, be sure to describe your issues in detail, ensuring for our representative to handle any adjustments completely and efficiently.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cancellations" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suo-pg-7f3">
+                                                <rect key="frame" x="5" y="1533.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="Feg-VH-E2E"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oW-0V-ggi">
+                                                <rect key="frame" x="5" y="1572.5" width="404" height="150.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150.5" id="y1u-H8-Whl"/>
+                                                </constraints>
+                                                <string key="text">All consumers are able to cancel any purchased event at any time. If the chef has not accepted your event request yet, upon cancellation, you will receive a full, tax included, refund. After the chef has accepted, if your cancellation occurs 7 days or more before the event is scheduled, you will receive 95% of your total event cost refunded. If your cancellation occurs within a 7 day time period of the event’s scheduling, you can expect to receive an 85% reimbursement.
+</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Travel Fee Payments" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yv7-YW-LoY">
+                                                <rect key="frame" x="5" y="1726" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="ilf-dc-EER"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LxH-H3-CZu">
+                                                <rect key="frame" x="5" y="1765" width="404" height="167.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="167.5" id="i8R-u1-6Qf"/>
+                                                </constraints>
+                                                <mutableString key="text">In the event of a chef being further than 50 miles of the event location, the chef will be awarded the option to request a traveling fee. This traveling fee, will be negotiated, and paid in full, with you and the chef after the event has been purchased, in the “Messages for Travel Fee” button, located in the ‘Orders’ -&gt;  ‘Pending’ tab. Here you will be able to communicate directly with the chef, and the chef, if need be, request a traveling fee. To purchase, a button in the message screen will appear showcasing a payment sheet resembling the payment sheet presented in the ‘Checkout’ location.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Message Requests" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ZG-6f-NIA">
+                                                <rect key="frame" x="5" y="1935.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="T7R-KL-5aK"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MC0-Oc-mzD">
+                                                <rect key="frame" x="5" y="1974.5" width="404" height="100.5"/>
+                                                <string key="text">When visiting each chef profile, located at the top right of the screen, a message button will appear. Here, feel free to send your potential chef a message with menu item requests, and other questions about your potential hire. After sending an initial message, you must wait until the chef returns a message to continue the conversation.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Executive Chef Hiring" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw7-z4-QQc">
+                                                <rect key="frame" x="5" y="344" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="XQC-WB-O5A"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84s-uV-AUY">
+                                                <rect key="frame" x="5" y="383" width="404" height="150.5"/>
+                                                <mutableString key="text">All Executive Items are scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired personal chef. Here you are able to detail a time allotment with the options of Trial Run, Weeks, and Months. You will also be able to describe allergies, additional menu item requests for additional days, and other notes and questions that may arise. Taïste operates as the intermediary for each payment, and the chef, will be paid after each day that is outlined in the purchase agreement.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Meal Kit Purchasing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHN-Zu-DMj">
+                                                <rect key="frame" x="5" y="538.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="LZr-9s-m5Y"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wx-De-o0H">
+                                                <rect key="frame" x="5" y="577.5" width="404" height="310"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="310" id="AVh-VS-Psz"/>
+                                                </constraints>
+                                                <mutableString key="text">All MealKit Requests will be scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired meal kit needs. Here you are able to outline the length of the meal kit order with a notes option to detail any ingredients to stay away from, and any other questions that may arise.
+
+Additionally, we include a $70 additional charge for the chef in the purchasing of meal kit containers and boxes to securely ship your meal kit purchase for a 30 day time window. If your meal kit purchase is only inclusive of one week, then a $45 additional charge will be accrued in your checkout price. Before shipping, we require each chef to take a picture showcasing how each meal kit item is prepared and how it will be shipped to your front door. These pictures will require approval by you and / or our internal staff, whichever sees the images first, to ensure quality control.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Pricing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhI-Eb-UIM">
+                                                <rect key="frame" x="5" y="890.5" width="404" height="35"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="oi1-ck-uhh"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKj-Lm-XnL">
+                                                <rect key="frame" x="5" y="928.5" width="404" height="426"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="426" id="v7V-s0-8HE"/>
+                                                </constraints>
+                                                <mutableString key="text">We give full autonomy to the chef to consider their ingredient and preparation expenses before marketing an item price; but we have safeguarded windows of expectation for our customers to beware of any over-charged menu prices. Please be cautious. Although some chefs are premier, well-experienced and deserving of above average prices, we open our platform to all culinary enthusiasts, culinary students, chef entrepreneurs, restaurant chefs, and hobbyists. Please consider this in your decision making.
+
+Cater Items price similarly to restaurant dishes and thus, you can expect to pay anywhere from $12 - $60 for per serving. As a courtesy, we have discounted the price for multiple day events.
+
+Executive Chef’s can charge anywhere from $100 - $4,000 for one event. This range is represented by the years of experience of the chef, menu items associated with the event, and the chef’s availability.
+
+Meal Kit prices can range anywhere from $8 - $15 per plate.
+
+Taïste platform fees are about 5% for consumers plus local and federal sales taxes which average to about 9%.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We know this process can be overwhelming, and we will be with you every step of the way." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sax-wq-ukW">
+                                                <rect key="frame" x="5" y="2078" width="404" height="72"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="72" id="bnM-zf-jzq"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hi Taïste Users" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgI-O3-sSk">
+                                                <rect key="frame" x="5" y="5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="lxN-vX-3yz"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="1Py-nz-j3B"/>
+                                            <constraint firstItem="84s-uV-AUY" firstAttribute="top" secondItem="Zw7-z4-QQc" secondAttribute="bottom" constant="3" id="2Cl-re-mMv"/>
+                                            <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="2m9-vD-5Ex"/>
+                                            <constraint firstItem="jKj-Lm-XnL" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="2sH-fp-m8h"/>
+                                            <constraint firstItem="sax-wq-ukW" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="68B-zl-0n7"/>
+                                            <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="6N3-Zf-bbr"/>
+                                            <constraint firstAttribute="trailing" secondItem="jKj-Lm-XnL" secondAttribute="trailing" constant="5" id="6fy-nG-IFw"/>
+                                            <constraint firstItem="Vlm-nV-AhB" firstAttribute="top" secondItem="iFm-6u-fJI" secondAttribute="bottom" constant="3" id="8c8-Mj-eq8"/>
+                                            <constraint firstItem="yv7-YW-LoY" firstAttribute="top" secondItem="9oW-0V-ggi" secondAttribute="bottom" constant="3" id="9q3-Fq-jTB"/>
+                                            <constraint firstAttribute="trailing" secondItem="Zw7-z4-QQc" secondAttribute="trailing" constant="5" id="Acy-oO-VPq"/>
+                                            <constraint firstAttribute="trailing" secondItem="m90-wf-oCk" secondAttribute="trailing" constant="5" id="CjU-CQ-eKh"/>
+                                            <constraint firstItem="kXw-Jg-VHM" firstAttribute="top" secondItem="Yhb-m7-EM8" secondAttribute="bottom" constant="3" id="DTl-0A-avp"/>
+                                            <constraint firstAttribute="trailing" secondItem="9oW-0V-ggi" secondAttribute="trailing" constant="5" id="F7z-p8-Rpm"/>
+                                            <constraint firstItem="iFm-6u-fJI" firstAttribute="top" secondItem="m90-wf-oCk" secondAttribute="bottom" constant="5" id="Gc6-jt-QvZ"/>
+                                            <constraint firstItem="yv7-YW-LoY" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="K0Y-e0-egX"/>
+                                            <constraint firstItem="MC0-Oc-mzD" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="KOY-d8-RYE"/>
+                                            <constraint firstItem="eHN-Zu-DMj" firstAttribute="top" secondItem="84s-uV-AUY" secondAttribute="bottom" constant="5" id="LI5-mN-7Tz"/>
+                                            <constraint firstAttribute="trailing" secondItem="6ZG-6f-NIA" secondAttribute="trailing" constant="5" id="Lel-mv-skH"/>
+                                            <constraint firstAttribute="trailing" secondItem="2wx-De-o0H" secondAttribute="trailing" constant="5" id="MS6-2t-ObT"/>
+                                            <constraint firstItem="suo-pg-7f3" firstAttribute="top" secondItem="kXw-Jg-VHM" secondAttribute="bottom" constant="3" id="Mwm-G0-0zt"/>
+                                            <constraint firstItem="Yhb-m7-EM8" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="NFr-ab-Cul"/>
+                                            <constraint firstItem="kXw-Jg-VHM" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="NIc-Ux-Xwn"/>
+                                            <constraint firstAttribute="trailing" secondItem="iFm-6u-fJI" secondAttribute="trailing" constant="5" id="Nr7-DA-zMV"/>
+                                            <constraint firstAttribute="trailing" secondItem="Yhb-m7-EM8" secondAttribute="trailing" constant="5" id="O5H-kb-9Fj"/>
+                                            <constraint firstItem="iFm-6u-fJI" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="OdM-dv-sUu"/>
+                                            <constraint firstItem="m90-wf-oCk" firstAttribute="top" secondItem="jgI-O3-sSk" secondAttribute="bottom" constant="5" id="P3n-ox-w21"/>
+                                            <constraint firstItem="m90-wf-oCk" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="PUK-eV-IER"/>
+                                            <constraint firstItem="Zw7-z4-QQc" firstAttribute="top" secondItem="Vlm-nV-AhB" secondAttribute="bottom" constant="3" id="QTW-JK-4su"/>
+                                            <constraint firstItem="6ZG-6f-NIA" firstAttribute="top" secondItem="LxH-H3-CZu" secondAttribute="bottom" constant="3" id="Tda-mr-3od"/>
+                                            <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="Twy-bA-52U"/>
+                                            <constraint firstAttribute="trailing" secondItem="MC0-Oc-mzD" secondAttribute="trailing" constant="5" id="UAs-83-jgm"/>
+                                            <constraint firstItem="hhI-Eb-UIM" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="V98-7i-zR1"/>
+                                            <constraint firstItem="2wx-De-o0H" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Voz-yx-N6G"/>
+                                            <constraint firstItem="LxH-H3-CZu" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="WFc-Sp-6t3"/>
+                                            <constraint firstAttribute="trailing" secondItem="suo-pg-7f3" secondAttribute="trailing" constant="5" id="WpK-ZE-3ew"/>
+                                            <constraint firstAttribute="trailing" secondItem="84s-uV-AUY" secondAttribute="trailing" constant="5" id="XhC-vK-4qo"/>
+                                            <constraint firstItem="2wx-De-o0H" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Yij-qN-Vux"/>
+                                            <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="ZPt-yH-kwo"/>
+                                            <constraint firstItem="eHN-Zu-DMj" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="aT4-sI-uiz"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vlm-nV-AhB" secondAttribute="trailing" constant="5" id="bjH-UV-vk3"/>
+                                            <constraint firstAttribute="trailing" secondItem="hhI-Eb-UIM" secondAttribute="trailing" constant="5" id="c73-No-2pl"/>
+                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="top" secondItem="suo-pg-7f3" secondAttribute="bottom" constant="3" id="cxf-NQ-oX1"/>
+                                            <constraint firstItem="jgI-O3-sSk" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="dbf-6Q-Crc"/>
+                                            <constraint firstAttribute="trailing" secondItem="kXw-Jg-VHM" secondAttribute="trailing" constant="5" id="eiK-5n-6NA"/>
+                                            <constraint firstAttribute="trailing" secondItem="LxH-H3-CZu" secondAttribute="trailing" constant="5" id="eoj-XQ-zYP"/>
+                                            <constraint firstItem="Vlm-nV-AhB" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="f3F-XZ-XFH"/>
+                                            <constraint firstItem="Zw7-z4-QQc" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="fI4-RS-GYZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="2wx-De-o0H" secondAttribute="trailing" constant="5" id="fI9-4O-yR1"/>
+                                            <constraint firstAttribute="trailing" secondItem="eHN-Zu-DMj" secondAttribute="trailing" constant="5" id="hnw-qI-asc"/>
+                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="top" secondItem="suo-pg-7f3" secondAttribute="bottom" constant="3" id="hxQ-tx-Pce"/>
+                                            <constraint firstItem="jgI-O3-sSk" firstAttribute="top" secondItem="CKR-co-kv0" secondAttribute="top" constant="5" id="i1W-2G-Fpr"/>
+                                            <constraint firstAttribute="trailing" secondItem="yv7-YW-LoY" secondAttribute="trailing" constant="5" id="jVv-WB-N0f"/>
+                                            <constraint firstItem="jKj-Lm-XnL" firstAttribute="top" secondItem="hhI-Eb-UIM" secondAttribute="bottom" constant="3" id="kA3-9z-ULW"/>
+                                            <constraint firstItem="84s-uV-AUY" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="kl4-nG-Kin"/>
+                                            <constraint firstItem="MC0-Oc-mzD" firstAttribute="top" secondItem="6ZG-6f-NIA" secondAttribute="bottom" constant="3" id="le0-4x-uNz"/>
+                                            <constraint firstAttribute="trailing" secondItem="sax-wq-ukW" secondAttribute="trailing" constant="5" id="lia-At-Kcb"/>
+                                            <constraint firstAttribute="trailing" secondItem="jgI-O3-sSk" secondAttribute="trailing" constant="5" id="m4a-bh-eKd"/>
+                                            <constraint firstItem="hhI-Eb-UIM" firstAttribute="top" secondItem="2wx-De-o0H" secondAttribute="bottom" constant="3" id="mSk-T4-lUM"/>
+                                            <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="mkh-nX-37U"/>
+                                            <constraint firstItem="MC0-Oc-mzD" firstAttribute="top" secondItem="6ZG-6f-NIA" secondAttribute="bottom" constant="3" id="o2a-JK-6QG"/>
+                                            <constraint firstItem="suo-pg-7f3" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="pbV-Ro-ekC"/>
+                                            <constraint firstAttribute="height" constant="2200" id="sqZ-Ve-UUi"/>
+                                            <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="tMM-I9-Ijz"/>
+                                            <constraint firstItem="Yhb-m7-EM8" firstAttribute="top" secondItem="jKj-Lm-XnL" secondAttribute="bottom" constant="3" id="x3b-6S-O3b"/>
+                                            <constraint firstItem="6ZG-6f-NIA" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="yDB-u0-UuY"/>
+                                            <constraint firstItem="sax-wq-ukW" firstAttribute="top" secondItem="MC0-Oc-mzD" secondAttribute="bottom" constant="3" id="z9T-WC-33I"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="CKR-co-kv0" secondAttribute="trailing" id="9um-gW-xgb"/>
+                                    <constraint firstItem="CKR-co-kv0" firstAttribute="centerX" secondItem="0gG-RI-lxg" secondAttribute="centerX" id="hob-EQ-cfE"/>
+                                    <constraint firstItem="CKR-co-kv0" firstAttribute="leading" secondItem="0gG-RI-lxg" secondAttribute="leading" id="lhV-Mw-lyV"/>
+                                    <constraint firstItem="CKR-co-kv0" firstAttribute="top" secondItem="0gG-RI-lxg" secondAttribute="top" id="lqB-OA-qaW"/>
+                                    <constraint firstAttribute="bottom" secondItem="CKR-co-kv0" secondAttribute="bottom" id="w25-GT-eQw"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DNA-lr-kXr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="glz-3q-fii" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7dy-zX-cPR" secondAttribute="trailing" constant="8" symbolic="YES" id="32c-Av-CGc"/>
+                            <constraint firstItem="0gG-RI-lxg" firstAttribute="trailing" secondItem="DNA-lr-kXr" secondAttribute="trailing" id="3ZS-Uz-tki"/>
+                            <constraint firstItem="Gjv-Mb-x1y" firstAttribute="trailing" secondItem="0gG-RI-lxg" secondAttribute="trailing" id="5ki-J3-TcR"/>
+                            <constraint firstItem="7dy-zX-cPR" firstAttribute="top" secondItem="DNA-lr-kXr" secondAttribute="top" constant="8" id="8fM-SA-gku"/>
+                            <constraint firstAttribute="bottom" secondItem="0gG-RI-lxg" secondAttribute="bottom" id="IWl-nB-nFT"/>
+                            <constraint firstItem="Gjv-Mb-x1y" firstAttribute="leading" secondItem="0gG-RI-lxg" secondAttribute="leading" id="OKZ-uv-5Cy"/>
+                            <constraint firstItem="glz-3q-fii" firstAttribute="centerX" secondItem="0b8-J7-Lcd" secondAttribute="centerX" id="SoX-gG-wni"/>
+                            <constraint firstItem="Gjv-Mb-x1y" firstAttribute="top" secondItem="7dy-zX-cPR" secondAttribute="bottom" constant="9" id="Yef-LA-CaD"/>
+                            <constraint firstItem="0gG-RI-lxg" firstAttribute="top" secondItem="Gjv-Mb-x1y" secondAttribute="bottom" id="aeS-vy-DtV"/>
+                            <constraint firstItem="7dy-zX-cPR" firstAttribute="leading" secondItem="DNA-lr-kXr" secondAttribute="leading" constant="12" id="jai-mm-D3k"/>
+                            <constraint firstItem="glz-3q-fii" firstAttribute="top" secondItem="DNA-lr-kXr" secondAttribute="top" constant="8" id="lSF-IX-05z"/>
+                            <constraint firstItem="0gG-RI-lxg" firstAttribute="leading" secondItem="DNA-lr-kXr" secondAttribute="leading" id="nLw-NM-lKr"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jJD-BW-QcS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5107.2463768115949" y="2325.6696428571427"/>
+        </scene>
+        <!--Guide To Posting View Controller-->
+        <scene sceneID="Fm7-yX-LYo">
+            <objects>
+                <viewController storyboardIdentifier="GuideToPosting" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DSk-eU-Xw6" customClass="GuideToPostingViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gOn-Uz-Xas">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdy-wy-M6t">
+                                <rect key="frame" x="0.0" y="85.5" width="414" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="UeF-jy-le6"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="hUZ-kU-4bI"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taïste: Guide to Posting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3E-4W-ukw">
+                                <rect key="frame" x="115.5" y="56" width="183.5" height="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Zi-XU-nnO">
+                                <rect key="frame" x="12" y="56" width="25" height="20.5"/>
+                                <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="arrow.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="DSk-eU-Xw6" eventType="touchUpInside" id="Hey-kZ-ZYa"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YiA-LI-oaC">
+                                <rect key="frame" x="0.0" y="86" width="414" height="810"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKE-7S-bEC">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="3050"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cater Event Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxg-cT-b2r">
+                                                <rect key="frame" x="5" y="379" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="gt7-xd-Ruz"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6Z-iX-jqi">
+                                                <rect key="frame" x="5" y="418" width="404" height="100.5"/>
+                                                <string key="text">Each consumer will be presented with a list of cater item suggestions, that cater to their personalized palates, from chefs across the United States, and the world. Your Cater Item Post will include an item title, maximum of 4 pictures, item description, calorie count, Price Point Per Serving / Guest, and the categories you believe your item best represents. </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="13" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXr-rL-Nuk">
+                                                <rect key="frame" x="5" y="46" width="404" height="217.5"/>
+                                                <mutableString key="text">Thank you for taking on this journey of servicing your community, your business, and your culinary inspirations into the 22nd century. Our goal is to make your business operate efficiently, effectively, and at scale. In this we have created a powerful Software-as-a-Service Solution to service your business. With powerful data modeling, and suggestion features, we dedicate ourselves to serving your business with advanced consumer insight, and nationwide leads, so that you can operate your entire business, with artificial intelligence, from your phone. In this, we have prepared a detailed posting schema to guide you in posting, and preparing your catering, executive chef, and meal kit events and disbursements. Please continue in reading the following, and welcome, to Taïste.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Payouts" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfz-fl-fC0">
+                                                <rect key="frame" x="5" y="1186.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="zaW-sp-YLS"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRG-Xx-y3A">
+                                                <rect key="frame" x="5" y="1225.5" width="404" height="134"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="134" id="hsR-Pw-e1Y"/>
+                                                </constraints>
+                                                <string key="text">We have set all cater event payouts to disburse into your bank account exactly one hour after the event has occurred. We understand the pain in preparation expenses and planning, and in the way of transaction integrity, and customer service, we have prompted our systems to continue with this path forward. As time continues, we will be able to award preparation disbursements, applicable to high-performing and trusted chefs.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cancellations" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cui-Os-Qpr">
+                                                <rect key="frame" x="5" y="1362.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="mnN-87-AdT"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEa-On-c99">
+                                                <rect key="frame" x="5" y="1401.5" width="404" height="150.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150.5" id="Y7b-Us-CxC"/>
+                                                </constraints>
+                                                <string key="text">If you have not accepted the event, your cancellation will automatically reward a full refund to the user. If the event has been accepted, a 5% inconvenience fee, of the total event cost, will awarded to the user, at the expense of your next payout. If the event is scheduled for less than 7 days of the cancellation date, your inconvenience fee will graduate to 15% of the total order cost, to be awarded to the user.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Pricing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WU-Ea-t7C">
+                                                <rect key="frame" x="5" y="523.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="J1m-9o-Y5n"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1F-87-rlu">
+                                                <rect key="frame" x="5" y="562.5" width="404" height="167.5"/>
+                                                <mutableString key="text">Your menu item pricing completely in your control; but please keep in mind that we advocate transparency with our users in weighing the value of cater items based on industry standards, and estimates in food preparation costs, and the number of users that have positively reviewed your cater item. We recommend to users that Cater Items be priced, per serving, in the ranges of $12-$65. Please try to follow this standard, as internal auditing will take place in the event that our team believes that your price is a bit overpriced, or if users begin reporting your cater item listings.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Purchasing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJU-gY-VMS">
+                                                <rect key="frame" x="5" y="735" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="80s-s8-07L"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djW-dQ-oNW">
+                                                <rect key="frame" x="5" y="774" width="404" height="50.5"/>
+                                                <string key="text">When a user purchases an item, Taïste, Inc immediately is notified, and operates as an intermediary between events for user payment and chef payouts. </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Messaging" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxo-0f-Jgb">
+                                                <rect key="frame" x="5" y="1057.5" width="404" height="35"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="0x6-eP-NS9"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPi-ON-ztD">
+                                                <rect key="frame" x="5" y="1097.5" width="404" height="84"/>
+                                                <string key="text">As soon as an event is accepted, you will be able to communicate directly with the user, in the ‘Messaging’ tab of your event post, to best plan for the event. If there are any surprises, please be sure to communicate them to your user to ensure a high rating for your event. </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We know this process can be overwhelming, and we will be with you every step of the way." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTY-we-bMo">
+                                                <rect key="frame" x="5" y="2922.5" width="404" height="73.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNy-IQ-cZI">
+                                                <rect key="frame" x="5" y="273.5" width="404" height="100.5"/>
+                                                <string key="text">There are three revenue models on the Taïste platform to supplement your consumer requirements: Catering Events, Personal Chef Events, and Meal Kit Purchasing. Additionally, we include a content tab to engage users with event hosting, recipe inspirations, and any other food related video content that you can imagine; and Banking.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Travel Fee Capability" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gv7-ck-dTi">
+                                                <rect key="frame" x="5" y="829.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="G5W-Ux-nTu"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLi-5d-pps">
+                                                <rect key="frame" x="5" y="868.5" width="404" height="184"/>
+                                                <mutableString key="text">If the event location is more than 45 miles of your business location, a travel fee option will be allotted to you, where in which you will be able to negotiate with the user on what you believe should adequately supplement your travel, and what the user can afford.  Upon payment, the event will automatically be accepted and will appear in your ‘Scheduled’ Orders tab. 
+
+If the event is less than 45 miles, then normal operations will prompt, and you will have the option to accept or cancel the event based on your business and personal responsibilities. </mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Executive Chef Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-fw-78s">
+                                                <rect key="frame" x="5" y="1557" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="XSi-q9-0Gv"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxE-jT-9ky">
+                                                <rect key="frame" x="5" y="1596" width="404" height="100.5"/>
+                                                <string key="text">Each consumer will be presented with a list of cater item suggestions, that cater to their personalized palates, from chefs across the United States, and the world. Your Cater Item Post will include an item title, maximum of 4 pictures, item description, calorie count, Price Point Per Serving / Guest, and the categories you believe your item best represents. </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Pricing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZG-1w-BO3">
+                                                <rect key="frame" x="5" y="1701.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="x8W-au-rwf"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VN-14-yVL">
+                                                <rect key="frame" x="5" y="1740.5" width="404" height="117"/>
+                                                <string key="text">Pricing for your executive chef event will be presented to the user in a lump sum format, representing each day that will be serviced, per day (not per hour). We have prompted our user community that Executive Chef Pricing can range anywhere from $60-$4,000. Please charge for your comfortability,  and expertise. Similarly to Cater Items, All Chefs will be presented to the user in a feed, focusing on the user’s preferences. </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Payouts" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EW3-UJ-3gS">
+                                                <rect key="frame" x="5" y="1862.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="Cgz-nD-Sug"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5um-PJ-fej">
+                                                <rect key="frame" x="5" y="1901.5" width="404" height="100.5"/>
+                                                <string key="text">Payouts for Executive Chef Events will disburse to your bank account exactly one hour of each day that is being serviced. For Example, if you are to receive $5,000 for an executive chef event scheduled for 7 days, that $5,000 payment will be divided by 7, representing each service day, and disbursed to you exactly one hour after each service day has completed.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Cancellation expectations apply similarly to Executive Chef Postings." lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-jj-zlG">
+                                                <rect key="frame" x="5" y="2016" width="404" height="33.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="MealKit Item Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mq-zq-VQM">
+                                                <rect key="frame" x="5" y="2054.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="Res-Vu-Xp7"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LqE-es-mYJ">
+                                                <rect key="frame" x="5" y="2093.5" width="404" height="67"/>
+                                                <string key="text">Meal Kit Items represent a huge opportunity for our chef community, and as such, require a special regulation to associate with delivery expectations. Nonetheless, we are here to help you succeed, exceptionally.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7O-Ne-3KR">
+                                                <rect key="frame" x="5" y="2165.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="i1P-au-4a4"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2H-ob-juH">
+                                                <rect key="frame" x="5" y="2204.5" width="404" height="134"/>
+                                                <string key="text">Meal Kit postings appear similarly to Cater Items. You are presented with an opportunity to present your item title, item pictures, description, calories, pricing, and categories of relevance. We have suggested to our user community that Meal Kit Items should reflect a price point of between $7-$14 per meal, to best compete with any external competitor, and to best service our user base. We prompt users to select from time frames, that represent Trial Runs, Weeks, and Months.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Preperation" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzg-VB-w0n">
+                                                <rect key="frame" x="5" y="2343.5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="SF8-oV-l3c"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdM-Rs-7lP">
+                                                <rect key="frame" x="5" y="2383" width="404" height="184"/>
+                                                <mutableString key="text">As the chef, we hold you to the responsibility of delivering exceptionally high meal-prepped items to your consumer. In this, we extract an additional $70 preparation charge from the user to supplement your preparation, shipping, and convenience costs; per $30 day period. With this extra $70, we hope for it to help in meal kit containers, averaging in price from $28-$40 for 30 day container allotments, and shipping expenses that can range from $8-$15. Before shipping, we require each chef to upload pictures of one meal prepped container, and the presentation of the meals-prepped inside of the shipping package, being delivered to the consumer.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Payouts" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-P5-Dgh">
+                                                <rect key="frame" x="5" y="2572" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="xpH-Oy-qBO"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xm-TW-abB">
+                                                <rect key="frame" x="5" y="2611" width="404" height="84"/>
+                                                <string key="text">After the item is shipped to your consumer, you will be expected to upload a picture of the tracking number, and tracking label from the shipping company, for the viewer and internal staff to verify. After verification, your payout will be disbursed.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Cancellation expectations apply similarly to MealKit Postings." lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9m-he-eJg">
+                                                <rect key="frame" x="5" y="2705" width="404" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Video Content Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qwp-6W-luL">
+                                                <rect key="frame" x="5" y="2727" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="AdX-Dv-IsL"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTd-Gn-7pC">
+                                                <rect key="frame" x="5" y="2766" width="404" height="67"/>
+                                                <string key="text">We expect for all video content to be limited to food engagement content only. Any other content will be removed, and repeat offenses will result in the dismissal of your account and use of the Taïste platform.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Taïste Fees" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNH-Q7-W81">
+                                                <rect key="frame" x="5" y="2838" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="Y7N-U1-FgY"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="We charge a 6% service fee for all orders. Local and Nationwide Sales Taxes are deducted accordingly." lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsG-AB-Vgh">
+                                                <rect key="frame" x="5" y="2877" width="404" height="33.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hi Chefs" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGK-zw-Wlx">
+                                                <rect key="frame" x="5" y="5" width="404" height="36"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="nxt-dV-fJR"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Nfz-fl-fC0" firstAttribute="top" secondItem="wPi-ON-ztD" secondAttribute="bottom" constant="5" id="0Gv-4a-2cV"/>
+                                            <constraint firstAttribute="trailing" secondItem="qJU-gY-VMS" secondAttribute="trailing" constant="5" id="16L-P9-U8Y"/>
+                                            <constraint firstItem="1mq-zq-VQM" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="1Pu-fH-aPH"/>
+                                            <constraint firstItem="fNy-IQ-cZI" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="2D5-IK-d6v"/>
+                                            <constraint firstItem="qEa-On-c99" firstAttribute="top" secondItem="Cui-Os-Qpr" secondAttribute="bottom" constant="3" id="2wX-OJ-y6m"/>
+                                            <constraint firstAttribute="trailing" secondItem="kZG-1w-BO3" secondAttribute="trailing" constant="5" id="3Yf-hY-unm"/>
+                                            <constraint firstItem="fNy-IQ-cZI" firstAttribute="top" secondItem="sXr-rL-Nuk" secondAttribute="bottom" constant="10" id="3pe-tZ-CgH"/>
+                                            <constraint firstAttribute="trailing" secondItem="E9m-he-eJg" secondAttribute="trailing" constant="5" id="4nf-Yd-tNM"/>
+                                            <constraint firstAttribute="trailing" secondItem="1Xm-TW-abB" secondAttribute="trailing" constant="5" id="5DN-ck-bp4"/>
+                                            <constraint firstAttribute="trailing" secondItem="Uxo-0f-Jgb" secondAttribute="trailing" constant="5" id="5Mf-FO-Z88"/>
+                                            <constraint firstItem="3WU-Ea-t7C" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="5Vm-6C-wOf"/>
+                                            <constraint firstAttribute="trailing" secondItem="UGK-zw-Wlx" secondAttribute="trailing" constant="5" id="7VB-DQ-UYd"/>
+                                            <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="7XO-dH-qhP"/>
+                                            <constraint firstItem="GTY-we-bMo" firstAttribute="top" secondItem="ZsG-AB-Vgh" secondAttribute="bottom" constant="12" id="7nj-mZ-fLG"/>
+                                            <constraint firstItem="kzg-VB-w0n" firstAttribute="top" secondItem="M2H-ob-juH" secondAttribute="bottom" constant="5" id="7qf-TQ-ehe"/>
+                                            <constraint firstItem="5um-PJ-fej" firstAttribute="top" secondItem="EW3-UJ-3gS" secondAttribute="bottom" constant="3" id="8It-Jt-RnS"/>
+                                            <constraint firstAttribute="trailing" secondItem="kzg-VB-w0n" secondAttribute="trailing" constant="5" id="8mD-bH-9tp"/>
+                                            <constraint firstItem="pdM-Rs-7lP" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="9Sh-UI-mJW"/>
+                                            <constraint firstItem="5um-PJ-fej" firstAttribute="top" secondItem="EW3-UJ-3gS" secondAttribute="bottom" constant="3" id="9Zs-Ep-F73"/>
+                                            <constraint firstItem="kZG-1w-BO3" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="9aj-66-8BV"/>
+                                            <constraint firstItem="qJU-gY-VMS" firstAttribute="top" secondItem="f1F-87-rlu" secondAttribute="bottom" constant="5" id="A1C-p7-ckX"/>
+                                            <constraint firstItem="wPi-ON-ztD" firstAttribute="top" secondItem="Uxo-0f-Jgb" secondAttribute="bottom" constant="5" id="APv-ip-rgj"/>
+                                            <constraint firstItem="LqE-es-mYJ" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="AmK-Qb-Iw2"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nfz-fl-fC0" secondAttribute="trailing" constant="5" id="An1-eo-hMb"/>
+                                            <constraint firstAttribute="trailing" secondItem="j5l-fw-78s" secondAttribute="trailing" constant="5" id="B4N-nD-22Q"/>
+                                            <constraint firstItem="sXr-rL-Nuk" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="BJb-kL-CdA"/>
+                                            <constraint firstItem="gxE-jT-9ky" firstAttribute="top" secondItem="j5l-fw-78s" secondAttribute="bottom" constant="3" id="CVq-UT-hIX"/>
+                                            <constraint firstAttribute="trailing" secondItem="M2H-ob-juH" secondAttribute="trailing" constant="5" id="Ckk-JJ-RHu"/>
+                                            <constraint firstItem="3WU-Ea-t7C" firstAttribute="top" secondItem="d6Z-iX-jqi" secondAttribute="bottom" constant="5" id="DU0-TC-Oek"/>
+                                            <constraint firstItem="ZsG-AB-Vgh" firstAttribute="top" secondItem="FNH-Q7-W81" secondAttribute="bottom" constant="3" id="DX1-4w-Cwd"/>
+                                            <constraint firstItem="kZG-1w-BO3" firstAttribute="top" secondItem="gxE-jT-9ky" secondAttribute="bottom" constant="5" id="Dr9-lT-ScB"/>
+                                            <constraint firstItem="Cui-Os-Qpr" firstAttribute="top" secondItem="PRG-Xx-y3A" secondAttribute="bottom" constant="3" id="DxA-TM-s3w"/>
+                                            <constraint firstItem="Nvd-P5-Dgh" firstAttribute="top" secondItem="pdM-Rs-7lP" secondAttribute="bottom" constant="5" id="F8z-O4-pVi"/>
+                                            <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="FdC-ud-GIT"/>
+                                            <constraint firstItem="FNH-Q7-W81" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="FnG-tO-U3R"/>
+                                            <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="GRE-HM-wjT"/>
+                                            <constraint firstItem="j5l-fw-78s" firstAttribute="top" secondItem="qEa-On-c99" secondAttribute="bottom" constant="5" id="H0b-8t-jBr"/>
+                                            <constraint firstAttribute="trailing" secondItem="sXr-rL-Nuk" secondAttribute="trailing" constant="5" id="HTj-dz-Bcz"/>
+                                            <constraint firstItem="EW3-UJ-3gS" firstAttribute="top" secondItem="4VN-14-yVL" secondAttribute="bottom" constant="5" id="HnP-H1-Z6X"/>
+                                            <constraint firstItem="QYR-jj-zlG" firstAttribute="top" secondItem="5um-PJ-fej" secondAttribute="bottom" constant="14" id="IrS-rf-4fb"/>
+                                            <constraint firstItem="EW3-UJ-3gS" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="JR4-6d-RV6"/>
+                                            <constraint firstItem="t7O-Ne-3KR" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="K4R-sM-CPs"/>
+                                            <constraint firstItem="qEa-On-c99" firstAttribute="top" secondItem="Cui-Os-Qpr" secondAttribute="bottom" constant="3" id="KwX-ps-0VY"/>
+                                            <constraint firstItem="ZsG-AB-Vgh" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="LQB-tk-2oP"/>
+                                            <constraint firstItem="bTd-Gn-7pC" firstAttribute="top" secondItem="Qwp-6W-luL" secondAttribute="bottom" constant="3" id="MGB-g2-mcn"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cui-Os-Qpr" secondAttribute="trailing" constant="5" id="MlY-Ds-jAl"/>
+                                            <constraint firstAttribute="trailing" secondItem="djW-dQ-oNW" secondAttribute="trailing" constant="5" id="MxZ-uV-pPX"/>
+                                            <constraint firstItem="1Xm-TW-abB" firstAttribute="top" secondItem="Nvd-P5-Dgh" secondAttribute="bottom" constant="3" id="NQb-T7-lbD"/>
+                                            <constraint firstAttribute="trailing" secondItem="PRG-Xx-y3A" secondAttribute="trailing" constant="5" id="NeV-1s-6yF"/>
+                                            <constraint firstItem="Uxo-0f-Jgb" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="Noj-eH-fgm"/>
+                                            <constraint firstItem="j5l-fw-78s" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="Nxe-oL-UKM"/>
+                                            <constraint firstItem="PRG-Xx-y3A" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="Ny3-KI-KUY"/>
+                                            <constraint firstItem="1Xm-TW-abB" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="OWU-5o-tlq"/>
+                                            <constraint firstAttribute="trailing" secondItem="pdM-Rs-7lP" secondAttribute="trailing" constant="5" id="PEo-M2-M3l"/>
+                                            <constraint firstItem="qJU-gY-VMS" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="Pkj-Ld-DSG"/>
+                                            <constraint firstItem="djW-dQ-oNW" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="QvM-Ey-Mp4"/>
+                                            <constraint firstAttribute="trailing" secondItem="FNH-Q7-W81" secondAttribute="trailing" constant="5" id="SAB-bO-EZN"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZsG-AB-Vgh" secondAttribute="trailing" constant="5" id="SSv-2e-jZ0"/>
+                                            <constraint firstItem="Nfz-fl-fC0" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="T6Z-6t-P2F"/>
+                                            <constraint firstAttribute="trailing" secondItem="fNy-IQ-cZI" secondAttribute="trailing" constant="5" id="TUb-gc-Pu0"/>
+                                            <constraint firstAttribute="trailing" secondItem="bTd-Gn-7pC" secondAttribute="trailing" constant="5" id="VDX-PC-Ah8"/>
+                                            <constraint firstItem="GTY-we-bMo" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="VaK-7q-0Ti"/>
+                                            <constraint firstItem="Qwp-6W-luL" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="WCZ-C4-OaN"/>
+                                            <constraint firstItem="qEa-On-c99" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="WxC-eT-SXN"/>
+                                            <constraint firstAttribute="trailing" secondItem="1mq-zq-VQM" secondAttribute="trailing" constant="5" id="X5Q-Tk-TNt"/>
+                                            <constraint firstItem="4VN-14-yVL" firstAttribute="top" secondItem="kZG-1w-BO3" secondAttribute="bottom" constant="3" id="XIU-sS-bLk"/>
+                                            <constraint firstItem="ZsG-AB-Vgh" firstAttribute="top" secondItem="FNH-Q7-W81" secondAttribute="bottom" constant="3" id="XJP-Ck-uHJ"/>
+                                            <constraint firstItem="4VN-14-yVL" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="YJm-B1-yL2"/>
+                                            <constraint firstAttribute="trailing" secondItem="wPi-ON-ztD" secondAttribute="trailing" constant="5" id="YMp-1Q-qrU"/>
+                                            <constraint firstItem="sXr-rL-Nuk" firstAttribute="top" secondItem="UGK-zw-Wlx" secondAttribute="bottom" constant="5" id="Ydk-L9-7Fw"/>
+                                            <constraint firstItem="4VN-14-yVL" firstAttribute="top" secondItem="kZG-1w-BO3" secondAttribute="bottom" constant="3" id="ZV5-Ai-lIO"/>
+                                            <constraint firstItem="UGK-zw-Wlx" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="ZY0-Ci-wbN"/>
+                                            <constraint firstItem="d6Z-iX-jqi" firstAttribute="top" secondItem="Hxg-cT-b2r" secondAttribute="bottom" constant="3" id="aBT-yV-6RU"/>
+                                            <constraint firstItem="Hxg-cT-b2r" firstAttribute="top" secondItem="fNy-IQ-cZI" secondAttribute="bottom" constant="5" id="c3O-yP-82l"/>
+                                            <constraint firstItem="QYR-jj-zlG" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="cJw-Xw-JyN"/>
+                                            <constraint firstItem="FLi-5d-pps" firstAttribute="top" secondItem="gv7-ck-dTi" secondAttribute="bottom" constant="3" id="cJz-JM-7iA"/>
+                                            <constraint firstItem="f1F-87-rlu" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="cQb-QR-tLk"/>
+                                            <constraint firstItem="LqE-es-mYJ" firstAttribute="top" secondItem="1mq-zq-VQM" secondAttribute="bottom" constant="3" id="cZC-Rh-Ogz"/>
+                                            <constraint firstItem="kZG-1w-BO3" firstAttribute="top" secondItem="gxE-jT-9ky" secondAttribute="bottom" constant="5" id="cfq-U2-lio"/>
+                                            <constraint firstAttribute="trailing" secondItem="FLi-5d-pps" secondAttribute="trailing" constant="5" id="cmO-Bo-fhv"/>
+                                            <constraint firstAttribute="trailing" secondItem="QYR-jj-zlG" secondAttribute="trailing" constant="5" id="d1O-sR-GaM"/>
+                                            <constraint firstAttribute="trailing" secondItem="gxE-jT-9ky" secondAttribute="trailing" constant="5" id="dRS-1x-z8E"/>
+                                            <constraint firstAttribute="trailing" secondItem="f1F-87-rlu" secondAttribute="trailing" constant="5" id="dff-1t-1Gk"/>
+                                            <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="dp8-iz-1Fo"/>
+                                            <constraint firstItem="gv7-ck-dTi" firstAttribute="top" secondItem="djW-dQ-oNW" secondAttribute="bottom" constant="5" id="e4P-Y3-aXt"/>
+                                            <constraint firstItem="5um-PJ-fej" firstAttribute="top" secondItem="EW3-UJ-3gS" secondAttribute="bottom" constant="3" id="ei5-vc-JID"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hxg-cT-b2r" secondAttribute="trailing" constant="5" id="emO-sQ-45F"/>
+                                            <constraint firstItem="pdM-Rs-7lP" firstAttribute="top" secondItem="kzg-VB-w0n" secondAttribute="bottom" constant="3.5" id="fIh-OM-OLD"/>
+                                            <constraint firstItem="Cui-Os-Qpr" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="fQZ-Gi-fzZ"/>
+                                            <constraint firstItem="kZG-1w-BO3" firstAttribute="top" secondItem="gxE-jT-9ky" secondAttribute="bottom" constant="5" id="fqu-D2-XH3"/>
+                                            <constraint firstItem="FLi-5d-pps" firstAttribute="top" secondItem="gv7-ck-dTi" secondAttribute="bottom" constant="3" id="gD3-DW-q2X"/>
+                                            <constraint firstItem="Qwp-6W-luL" firstAttribute="top" secondItem="E9m-he-eJg" secondAttribute="bottom" constant="5" id="hCh-tn-MwU"/>
+                                            <constraint firstItem="UGK-zw-Wlx" firstAttribute="top" secondItem="iKE-7S-bEC" secondAttribute="top" constant="5" id="hDi-s3-KYX"/>
+                                            <constraint firstItem="5um-PJ-fej" firstAttribute="top" secondItem="EW3-UJ-3gS" secondAttribute="bottom" constant="3" id="hmw-5b-aaa"/>
+                                            <constraint firstItem="gv7-ck-dTi" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="isj-nl-GnD"/>
+                                            <constraint firstAttribute="trailing" secondItem="3WU-Ea-t7C" secondAttribute="trailing" constant="5" id="kQA-Ls-IUE"/>
+                                            <constraint firstItem="Uxo-0f-Jgb" firstAttribute="top" secondItem="FLi-5d-pps" secondAttribute="bottom" constant="5" id="l8K-pn-g8U"/>
+                                            <constraint firstItem="t7O-Ne-3KR" firstAttribute="top" secondItem="LqE-es-mYJ" secondAttribute="bottom" constant="5" id="l9B-kt-42Q"/>
+                                            <constraint firstItem="Hxg-cT-b2r" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="lKF-vn-jz1"/>
+                                            <constraint firstAttribute="trailing" secondItem="gv7-ck-dTi" secondAttribute="trailing" constant="5" id="lM2-we-lvs"/>
+                                            <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="lVf-Ad-gOj"/>
+                                            <constraint firstItem="M2H-ob-juH" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="mBj-Qo-JSz"/>
+                                            <constraint firstItem="E9m-he-eJg" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="n6k-Qy-DwL"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nvd-P5-Dgh" secondAttribute="trailing" constant="5" id="nZs-Zn-cEV"/>
+                                            <constraint firstItem="gxE-jT-9ky" firstAttribute="top" secondItem="j5l-fw-78s" secondAttribute="bottom" constant="3" id="oSg-vw-ofU"/>
+                                            <constraint firstAttribute="trailing" secondItem="qEa-On-c99" secondAttribute="trailing" constant="5" id="ooV-1R-01s"/>
+                                            <constraint firstItem="PRG-Xx-y3A" firstAttribute="top" secondItem="Nfz-fl-fC0" secondAttribute="bottom" constant="3" id="p1y-WE-sj7"/>
+                                            <constraint firstItem="LqE-es-mYJ" firstAttribute="top" secondItem="1mq-zq-VQM" secondAttribute="bottom" constant="3" id="pin-AY-Tqi"/>
+                                            <constraint firstAttribute="trailing" secondItem="GTY-we-bMo" secondAttribute="trailing" constant="5" id="qHI-9e-heE"/>
+                                            <constraint firstItem="bTd-Gn-7pC" firstAttribute="top" secondItem="Qwp-6W-luL" secondAttribute="bottom" constant="3" id="qSM-IH-bla"/>
+                                            <constraint firstItem="d6Z-iX-jqi" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="qdC-XV-Krp"/>
+                                            <constraint firstItem="gxE-jT-9ky" firstAttribute="top" secondItem="j5l-fw-78s" secondAttribute="bottom" constant="3" id="r5O-14-yg6"/>
+                                            <constraint firstItem="FNH-Q7-W81" firstAttribute="top" secondItem="bTd-Gn-7pC" secondAttribute="bottom" constant="5" id="rng-eu-Gnj"/>
+                                            <constraint firstItem="f1F-87-rlu" firstAttribute="top" secondItem="3WU-Ea-t7C" secondAttribute="bottom" constant="3" id="s7C-v6-Xjm"/>
+                                            <constraint firstItem="1mq-zq-VQM" firstAttribute="top" secondItem="QYR-jj-zlG" secondAttribute="bottom" constant="5" id="sGc-Zd-s4I"/>
+                                            <constraint firstItem="E9m-he-eJg" firstAttribute="top" secondItem="1Xm-TW-abB" secondAttribute="bottom" constant="10" id="siK-Bf-cZi"/>
+                                            <constraint firstItem="ZsG-AB-Vgh" firstAttribute="top" secondItem="FNH-Q7-W81" secondAttribute="bottom" constant="3" id="tcj-Sv-n06"/>
+                                            <constraint firstAttribute="trailing" secondItem="d6Z-iX-jqi" secondAttribute="trailing" constant="5" id="thy-ri-57q"/>
+                                            <constraint firstAttribute="trailing" secondItem="4VN-14-yVL" secondAttribute="trailing" constant="5" id="tmC-a4-xrA"/>
+                                            <constraint firstAttribute="trailing" secondItem="LqE-es-mYJ" secondAttribute="trailing" constant="5" id="tr8-mw-NGC"/>
+                                            <constraint firstItem="bTd-Gn-7pC" firstAttribute="top" secondItem="Qwp-6W-luL" secondAttribute="bottom" constant="3" id="u9S-EM-pBs"/>
+                                            <constraint firstItem="ZsG-AB-Vgh" firstAttribute="top" secondItem="FNH-Q7-W81" secondAttribute="bottom" constant="3" id="ugl-6F-Nrr"/>
+                                            <constraint firstAttribute="trailing" secondItem="t7O-Ne-3KR" secondAttribute="trailing" constant="5" id="v5o-IE-q81"/>
+                                            <constraint firstItem="FLi-5d-pps" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="vGx-km-h5S"/>
+                                            <constraint firstItem="Nvd-P5-Dgh" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="vJM-Fh-O8h"/>
+                                            <constraint firstAttribute="trailing" secondItem="5um-PJ-fej" secondAttribute="trailing" constant="5" id="vhC-wi-pUf"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qwp-6W-luL" secondAttribute="trailing" constant="5" id="viA-lc-FSo"/>
+                                            <constraint firstItem="5um-PJ-fej" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="vil-mb-08T"/>
+                                            <constraint firstItem="wPi-ON-ztD" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="w3F-ol-wHv"/>
+                                            <constraint firstItem="djW-dQ-oNW" firstAttribute="top" secondItem="qJU-gY-VMS" secondAttribute="bottom" constant="3" id="wXg-vR-erV"/>
+                                            <constraint firstItem="4VN-14-yVL" firstAttribute="top" secondItem="kZG-1w-BO3" secondAttribute="bottom" constant="3" id="wcO-ni-km3"/>
+                                            <constraint firstAttribute="height" constant="3050" id="xBj-zu-0s6"/>
+                                            <constraint firstAttribute="bottom" secondItem="GTY-we-bMo" secondAttribute="bottom" constant="54" id="xGv-1e-Uan"/>
+                                            <constraint firstItem="gxE-jT-9ky" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="yCe-dk-xeH"/>
+                                            <constraint firstAttribute="trailing" secondItem="EW3-UJ-3gS" secondAttribute="trailing" constant="5" id="z8p-lN-lbd"/>
+                                            <constraint firstItem="kzg-VB-w0n" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="zFo-1c-0Fk"/>
+                                            <constraint firstItem="bTd-Gn-7pC" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="zxx-xh-AQA"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="iKE-7S-bEC" firstAttribute="leading" secondItem="YiA-LI-oaC" secondAttribute="leading" id="2UU-pt-3Xt"/>
+                                    <constraint firstItem="iKE-7S-bEC" firstAttribute="top" secondItem="YiA-LI-oaC" secondAttribute="top" id="N18-8X-TF7"/>
+                                    <constraint firstAttribute="trailing" secondItem="iKE-7S-bEC" secondAttribute="trailing" id="R08-uW-wt7"/>
+                                    <constraint firstAttribute="bottom" secondItem="iKE-7S-bEC" secondAttribute="bottom" id="fBC-dA-ExO"/>
+                                    <constraint firstItem="iKE-7S-bEC" firstAttribute="centerX" secondItem="YiA-LI-oaC" secondAttribute="centerX" id="hKe-Qa-ltz"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="g6M-e3-7uL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="YiA-LI-oaC" secondAttribute="bottom" id="6jK-qs-zok"/>
+                            <constraint firstItem="YiA-LI-oaC" firstAttribute="leading" secondItem="g6M-e3-7uL" secondAttribute="leading" id="DEm-Qr-435"/>
+                            <constraint firstItem="6Zi-XU-nnO" firstAttribute="leading" secondItem="g6M-e3-7uL" secondAttribute="leading" constant="12" id="Np8-Va-j7U"/>
+                            <constraint firstItem="Gdy-wy-M6t" firstAttribute="leading" secondItem="YiA-LI-oaC" secondAttribute="leading" id="PSS-Iq-GcV"/>
+                            <constraint firstItem="J3E-4W-ukw" firstAttribute="centerX" secondItem="gOn-Uz-Xas" secondAttribute="centerX" id="VY5-d8-YFX"/>
+                            <constraint firstItem="Gdy-wy-M6t" firstAttribute="trailing" secondItem="YiA-LI-oaC" secondAttribute="trailing" id="Vma-RT-CpC"/>
+                            <constraint firstItem="YiA-LI-oaC" firstAttribute="trailing" secondItem="g6M-e3-7uL" secondAttribute="trailing" id="Wfy-mC-Pjt"/>
+                            <constraint firstItem="J3E-4W-ukw" firstAttribute="top" secondItem="g6M-e3-7uL" secondAttribute="top" constant="8" id="eVN-Oo-hqd"/>
+                            <constraint firstItem="6Zi-XU-nnO" firstAttribute="top" secondItem="g6M-e3-7uL" secondAttribute="top" constant="8" id="jyl-A6-pCI"/>
+                            <constraint firstItem="YiA-LI-oaC" firstAttribute="top" secondItem="Gdy-wy-M6t" secondAttribute="bottom" id="nSB-aP-kVX"/>
+                            <constraint firstItem="Gdy-wy-M6t" firstAttribute="top" secondItem="6Zi-XU-nnO" secondAttribute="bottom" constant="9" id="nlj-0f-9FV"/>
+                            <constraint firstItem="J3E-4W-ukw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Zi-XU-nnO" secondAttribute="trailing" constant="8" symbolic="YES" id="sjg-i9-gKO"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPE-or-bym" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5886.9565217391309" y="2321.6517857142858"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IKH-yz-VW2"/>
+        <segue reference="tjO-v4-2Va"/>
         <segue reference="nDc-ga-NWH"/>
         <segue reference="o3x-XZ-YkT"/>
         <segue reference="tkP-ld-7rs"/>

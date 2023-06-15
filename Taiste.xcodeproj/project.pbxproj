@@ -25,6 +25,8 @@
 		F43D91012A2621CC00AE248E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D91002A2621CC00AE248E /* Reviews.swift */; };
 		F43D91032A26225700AE248E /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D91022A26225700AE248E /* Comments.swift */; };
 		F45366302A21883200E18D9B /* ReportAnIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */; };
+		F4568E982A3B9E6E00B64E9B /* GuideToPurchasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4568E972A3B9E6E00B64E9B /* GuideToPurchasingViewController.swift */; };
+		F4568E9A2A3BAF8400B64E9B /* GuideToPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4568E992A3BAF8400B64E9B /* GuideToPostingViewController.swift */; };
 		F4572EE82A2D2AB100EAC393 /* PersonalChefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4572EE72A2D2AB100EAC393 /* PersonalChefViewController.swift */; };
 		F4572EED2A2D32A600EAC393 /* PersonalChefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4572EEB2A2D32A600EAC393 /* PersonalChefTableViewCell.swift */; };
 		F4572EEE2A2D32A600EAC393 /* PersonalChefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4572EEC2A2D32A600EAC393 /* PersonalChefTableViewCell.xib */; };
@@ -146,6 +148,8 @@
 		F43D91002A2621CC00AE248E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		F43D91022A26225700AE248E /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAnIssueViewController.swift; sourceTree = "<group>"; };
+		F4568E972A3B9E6E00B64E9B /* GuideToPurchasingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideToPurchasingViewController.swift; sourceTree = "<group>"; };
+		F4568E992A3BAF8400B64E9B /* GuideToPostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideToPostingViewController.swift; sourceTree = "<group>"; };
 		F4572EE72A2D2AB100EAC393 /* PersonalChefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChefViewController.swift; sourceTree = "<group>"; };
 		F4572EEB2A2D32A600EAC393 /* PersonalChefTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChefTableViewCell.swift; sourceTree = "<group>"; };
 		F4572EEC2A2D32A600EAC393 /* PersonalChefTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalChefTableViewCell.xib; sourceTree = "<group>"; };
@@ -488,6 +492,7 @@
 				F4B90DF927C70B2B004B1FB1 /* both */,
 				F4B90DF827C70B27004B1FB1 /* chef */,
 				F4B90DF727C70B21004B1FB1 /* user */,
+				F4568E992A3BAF8400B64E9B /* GuideToPostingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -540,6 +545,7 @@
 				F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */,
 				F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */,
 				F42B6D682A35F83600878BB4 /* NotificationsViewController.swift */,
+				F4568E972A3B9E6E00B64E9B /* GuideToPurchasingViewController.swift */,
 			);
 			path = both;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				F43D91032A26225700AE248E /* Comments.swift in Sources */,
 				F4DA73222A05AC8D004FE58F /* TravelFeeViewController.swift in Sources */,
 				F4E44B1127C940F3007F6295 /* UserTabViewController.swift in Sources */,
+				F4568E982A3B9E6E00B64E9B /* GuideToPurchasingViewController.swift in Sources */,
 				F4572EE82A2D2AB100EAC393 /* PersonalChefViewController.swift in Sources */,
 				F4B3D77527CAB7F700AA5544 /* CheckoutTableViewCell.swift in Sources */,
 				F4FDB63C27CE838C0078E563 /* UserReviewsTableViewCell.swift in Sources */,
@@ -895,6 +902,7 @@
 				F4A080BB29FFDE8000895938 /* AddPersonViewController.swift in Sources */,
 				F43D90FF2A26209500AE248E /* ChefOrdersTableViewCell.swift in Sources */,
 				F4B90DC427C709A9004B1FB1 /* AppDelegate.swift in Sources */,
+				F4568E9A2A3BAF8400B64E9B /* GuideToPostingViewController.swift in Sources */,
 				F4E44B1727C965AC007F6295 /* ProfileAsUserViewController.swift in Sources */,
 				F4DA73202A056A66004FE58F /* UserReviewViewController.swift in Sources */,
 				F4C5E7E92A1ABAB60063A5E1 /* AccountSettingsChefViewController.swift in Sources */,

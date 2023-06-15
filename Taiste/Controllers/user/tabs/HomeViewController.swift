@@ -364,7 +364,7 @@ class HomeViewController: UIViewController {
                                 }
                             }  else {
                                 
-                                loadExecutiveItems(filter: self.filter, go: "Yes")
+                                self.loadExecutiveItems(filter: self.filter!, go: "Yes")
                                 
                             }
                                     }

@@ -80,6 +80,12 @@ class AccountSettingsViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
     }
+    @IBAction func guideToPurchasingPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToPurchasing") as? GuideToPurchasingViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
     @IBAction func privatizeYesPressed(_ sender: Any) {
         let data : [String: Any] = ["privatizeData" : "yes"]
