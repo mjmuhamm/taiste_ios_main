@@ -11067,10 +11067,10 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <rect key="frame" x="0.0" y="86" width="414" height="810"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKR-co-kv0">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="2260"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cater Hiring" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFm-6u-fJI">
-                                                <rect key="frame" x="5" y="201.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="245" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="3jz-ps-GU9"/>
@@ -11080,14 +11080,14 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vlm-nV-AhB">
-                                                <rect key="frame" x="5" y="240.5" width="404" height="100.5"/>
+                                                <rect key="frame" x="5" y="284" width="404" height="100.5"/>
                                                 <string key="text">All Catering Events are scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill your desired catering needs. Please note that all suggestions are at the discrepancy of the chef, and the promoted menu item is the item that you, the consumer, can expect to be fully satisfied with. Please be detail oriented in your answers.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m90-wf-oCk">
-                                                <rect key="frame" x="5" y="46" width="404" height="150.5"/>
+                                                <rect key="frame" x="5" y="89.5" width="404" height="150.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150.5" id="t6g-13-Tee"/>
                                                 </constraints>
@@ -11097,7 +11097,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Purchases" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhb-m7-EM8">
-                                                <rect key="frame" x="5" y="1357.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1401" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="4BH-PY-J9q"/>
@@ -11107,7 +11107,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXw-Jg-VHM">
-                                                <rect key="frame" x="5" y="1396.5" width="404" height="134"/>
+                                                <rect key="frame" x="5" y="1440" width="404" height="134"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="134" id="EgK-ZM-Gpn"/>
                                                 </constraints>
@@ -11117,7 +11117,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cancellations" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suo-pg-7f3">
-                                                <rect key="frame" x="5" y="1533.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1577" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="Feg-VH-E2E"/>
@@ -11127,7 +11127,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oW-0V-ggi">
-                                                <rect key="frame" x="5" y="1572.5" width="404" height="150.5"/>
+                                                <rect key="frame" x="5" y="1616" width="404" height="150.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150.5" id="y1u-H8-Whl"/>
                                                 </constraints>
@@ -11138,7 +11138,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Travel Fee Payments" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yv7-YW-LoY">
-                                                <rect key="frame" x="5" y="1726" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1769.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="ilf-dc-EER"/>
@@ -11148,7 +11148,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LxH-H3-CZu">
-                                                <rect key="frame" x="5" y="1765" width="404" height="167.5"/>
+                                                <rect key="frame" x="5" y="1808.5" width="404" height="167.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="167.5" id="i8R-u1-6Qf"/>
                                                 </constraints>
@@ -11158,7 +11158,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Message Requests" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ZG-6f-NIA">
-                                                <rect key="frame" x="5" y="1935.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1979" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="T7R-KL-5aK"/>
@@ -11168,14 +11168,14 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MC0-Oc-mzD">
-                                                <rect key="frame" x="5" y="1974.5" width="404" height="100.5"/>
+                                                <rect key="frame" x="5" y="2018" width="404" height="100.5"/>
                                                 <string key="text">When visiting each chef profile, located at the top right of the screen, a message button will appear. Here, feel free to send your potential chef a message with menu item requests, and other questions about your potential hire. After sending an initial message, you must wait until the chef returns a message to continue the conversation.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Executive Chef Hiring" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw7-z4-QQc">
-                                                <rect key="frame" x="5" y="344" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="387.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="XQC-WB-O5A"/>
@@ -11185,14 +11185,14 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84s-uV-AUY">
-                                                <rect key="frame" x="5" y="383" width="404" height="150.5"/>
+                                                <rect key="frame" x="5" y="426.5" width="404" height="150.5"/>
                                                 <mutableString key="text">All Executive Items are scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired personal chef. Here you are able to detail a time allotment with the options of Trial Run, Weeks, and Months. You will also be able to describe allergies, additional menu item requests for additional days, and other notes and questions that may arise. Taïste operates as the intermediary for each payment, and the chef, will be paid after each day that is outlined in the purchase agreement.</mutableString>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Meal Kit Purchasing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHN-Zu-DMj">
-                                                <rect key="frame" x="5" y="538.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="582" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="LZr-9s-m5Y"/>
@@ -11202,7 +11202,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wx-De-o0H">
-                                                <rect key="frame" x="5" y="577.5" width="404" height="310"/>
+                                                <rect key="frame" x="5" y="621" width="404" height="310"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="310" id="AVh-VS-Psz"/>
                                                 </constraints>
@@ -11214,7 +11214,7 @@ Additionally, we include a $70 additional charge for the chef in the purchasing 
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Pricing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhI-Eb-UIM">
-                                                <rect key="frame" x="5" y="890.5" width="404" height="35"/>
+                                                <rect key="frame" x="5" y="934" width="404" height="35"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="oi1-ck-uhh"/>
@@ -11224,7 +11224,7 @@ Additionally, we include a $70 additional charge for the chef in the purchasing 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKj-Lm-XnL">
-                                                <rect key="frame" x="5" y="928.5" width="404" height="426"/>
+                                                <rect key="frame" x="5" y="972" width="404" height="426"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="426" id="v7V-s0-8HE"/>
                                                 </constraints>
@@ -11242,7 +11242,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We know this process can be overwhelming, and we will be with you every step of the way." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sax-wq-ukW">
-                                                <rect key="frame" x="5" y="2078" width="404" height="72"/>
+                                                <rect key="frame" x="5" y="2121.5" width="404" height="72"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="72" id="bnM-zf-jzq"/>
@@ -11261,6 +11261,12 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for being here! We hope to service your pallettes with inspring chefs from all over the world." lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dbd-mS-tyG">
+                                                <rect key="frame" x="5" y="46" width="404" height="33.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -11268,6 +11274,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             <constraint firstItem="84s-uV-AUY" firstAttribute="top" secondItem="Zw7-z4-QQc" secondAttribute="bottom" constant="3" id="2Cl-re-mMv"/>
                                             <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="2m9-vD-5Ex"/>
                                             <constraint firstItem="jKj-Lm-XnL" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="2sH-fp-m8h"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dbd-mS-tyG" secondAttribute="trailing" constant="5" id="46I-79-t7i"/>
                                             <constraint firstItem="sax-wq-ukW" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="68B-zl-0n7"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="6N3-Zf-bbr"/>
                                             <constraint firstAttribute="trailing" secondItem="jKj-Lm-XnL" secondAttribute="trailing" constant="5" id="6fy-nG-IFw"/>
@@ -11280,6 +11287,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             <constraint firstItem="iFm-6u-fJI" firstAttribute="top" secondItem="m90-wf-oCk" secondAttribute="bottom" constant="5" id="Gc6-jt-QvZ"/>
                                             <constraint firstItem="yv7-YW-LoY" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="K0Y-e0-egX"/>
                                             <constraint firstItem="MC0-Oc-mzD" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="KOY-d8-RYE"/>
+                                            <constraint firstItem="Dbd-mS-tyG" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Kbp-0o-auu"/>
                                             <constraint firstItem="eHN-Zu-DMj" firstAttribute="top" secondItem="84s-uV-AUY" secondAttribute="bottom" constant="5" id="LI5-mN-7Tz"/>
                                             <constraint firstAttribute="trailing" secondItem="6ZG-6f-NIA" secondAttribute="trailing" constant="5" id="Lel-mv-skH"/>
                                             <constraint firstAttribute="trailing" secondItem="2wx-De-o0H" secondAttribute="trailing" constant="5" id="MS6-2t-ObT"/>
@@ -11289,7 +11297,6 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             <constraint firstAttribute="trailing" secondItem="iFm-6u-fJI" secondAttribute="trailing" constant="5" id="Nr7-DA-zMV"/>
                                             <constraint firstAttribute="trailing" secondItem="Yhb-m7-EM8" secondAttribute="trailing" constant="5" id="O5H-kb-9Fj"/>
                                             <constraint firstItem="iFm-6u-fJI" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="OdM-dv-sUu"/>
-                                            <constraint firstItem="m90-wf-oCk" firstAttribute="top" secondItem="jgI-O3-sSk" secondAttribute="bottom" constant="5" id="P3n-ox-w21"/>
                                             <constraint firstItem="m90-wf-oCk" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="PUK-eV-IER"/>
                                             <constraint firstItem="Zw7-z4-QQc" firstAttribute="top" secondItem="Vlm-nV-AhB" secondAttribute="bottom" constant="3" id="QTW-JK-4su"/>
                                             <constraint firstItem="6ZG-6f-NIA" firstAttribute="top" secondItem="LxH-H3-CZu" secondAttribute="bottom" constant="3" id="Tda-mr-3od"/>
@@ -11303,8 +11310,10 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Yij-qN-Vux"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="ZPt-yH-kwo"/>
                                             <constraint firstItem="eHN-Zu-DMj" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="aT4-sI-uiz"/>
+                                            <constraint firstItem="m90-wf-oCk" firstAttribute="top" secondItem="Dbd-mS-tyG" secondAttribute="bottom" constant="10" id="ad2-Xs-6Dg"/>
                                             <constraint firstAttribute="trailing" secondItem="Vlm-nV-AhB" secondAttribute="trailing" constant="5" id="bjH-UV-vk3"/>
                                             <constraint firstAttribute="trailing" secondItem="hhI-Eb-UIM" secondAttribute="trailing" constant="5" id="c73-No-2pl"/>
+                                            <constraint firstItem="Dbd-mS-tyG" firstAttribute="top" secondItem="jgI-O3-sSk" secondAttribute="bottom" constant="5" id="cR1-wD-k7d"/>
                                             <constraint firstItem="9oW-0V-ggi" firstAttribute="top" secondItem="suo-pg-7f3" secondAttribute="bottom" constant="3" id="cxf-NQ-oX1"/>
                                             <constraint firstItem="jgI-O3-sSk" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="dbf-6Q-Crc"/>
                                             <constraint firstAttribute="trailing" secondItem="kXw-Jg-VHM" secondAttribute="trailing" constant="5" id="eiK-5n-6NA"/>
@@ -11325,7 +11334,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="mkh-nX-37U"/>
                                             <constraint firstItem="MC0-Oc-mzD" firstAttribute="top" secondItem="6ZG-6f-NIA" secondAttribute="bottom" constant="3" id="o2a-JK-6QG"/>
                                             <constraint firstItem="suo-pg-7f3" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="pbV-Ro-ekC"/>
-                                            <constraint firstAttribute="height" constant="2200" id="sqZ-Ve-UUi"/>
+                                            <constraint firstAttribute="height" constant="2260" id="sqZ-Ve-UUi"/>
                                             <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="tMM-I9-Ijz"/>
                                             <constraint firstItem="Yhb-m7-EM8" firstAttribute="top" secondItem="jKj-Lm-XnL" secondAttribute="bottom" constant="3" id="x3b-6S-O3b"/>
                                             <constraint firstItem="6ZG-6f-NIA" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="yDB-u0-UuY"/>
@@ -11421,7 +11430,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="13" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXr-rL-Nuk">
                                                 <rect key="frame" x="5" y="46" width="404" height="217.5"/>
-                                                <mutableString key="text">Thank you for taking on this journey of servicing your community, your business, and your culinary inspirations into the 22nd century. Our goal is to make your business operate efficiently, effectively, and at scale. In this we have created a powerful Software-as-a-Service Solution to service your business. With powerful data modeling, and suggestion features, we dedicate ourselves to serving your business with advanced consumer insight, and nationwide leads, so that you can operate your entire business, with artificial intelligence, from your phone. In this, we have prepared a detailed posting schema to guide you in posting, and preparing your catering, executive chef, and meal kit events and disbursements. Please continue in reading the following, and welcome, to Taïste.</mutableString>
+                                                <mutableString key="text">Thank you for being here! Helping us take on the journey of servicing our communities, with culinary inspirations from around the world. Our goal is to make your business operate efficiently, effectively, and at scale. In this we have created a powerful Software-as-a-Service Solution to service your business. With powerful data modeling, and suggestion features, we dedicate ourselves to serving your business with advanced consumer insight, and nationwide leads, so that you can operate your entire business, with artificial intelligence, from your phone. In this, we have prepared a detailed posting schema to guide you in posting, and preparing your catering, executive chef, and meal kit events and disbursements. Please continue in reading the following, and welcome, to Taïste.</mutableString>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
