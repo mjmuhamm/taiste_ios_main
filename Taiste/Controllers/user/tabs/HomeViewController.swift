@@ -151,7 +151,7 @@ class HomeViewController: UIViewController {
     private func loadItems(filter: Filter, go: String) {
         print("go \(go) 111")
         if go == "Yes" {
-            showToast(message: "No items matching your filter.", font: .systemFont(ofSize: 12))
+            showToast(message: "We widened your search criteria a bit.", font: .systemFont(ofSize: 12))
         }
         let storageRef = storage.reference()
         if !items.isEmpty {
@@ -267,11 +267,13 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func loadExecutiveItems() {
+    private func loadExecutiveItems(filter: Filter, go: String) {
         if !items.isEmpty {
             items.removeAll()
             homeTableView.reloadData()
         }
+        
+        
         db.collection("Executive Items").getDocuments { documents, error in
             if error == nil {
                 if documents != nil {
@@ -280,6 +282,58 @@ class HomeViewController: UIViewController {
                         
                             
                         if let briefIntroduction = data["briefIntroduction"] as? String, let lengthOfPersonalChef = data["lengthOfPersonalChef"] as? String, let specialty = data["specialty"] as? String, let servicePrice = data["servicePrice"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let chefName = data["chefName"] as? String, let whatHelpsYouExcel = data["whatHelpsYouExcel"] as? String, let mostPrizedAccomplishment = data["mostPrizedAccomplishment"] as? String, let weeks = data["weeks"] as? Int, let months = data["months"] as? Int, let trialRun = data["trialRun"] as? Int, let hourlyOrPersSession = data["hourlyOrPerSession"] as? String, let chefImageId = data["chefImageId"] as? String, let chefEmail = data["chefEmail"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let signatureDishId = data["signatureDishId"] as? String, let zipCode = data["zipCode"] as? String, let openToMenuRequests = data["openToMenuRequests"] as? String {
+                            
+                            self.db.collection("Chef").document(chefImageId).collection("Executive Items").document(signatureDishId).getDocument { document, error in
+                                
+                                if error == nil {
+                                    if document != nil {
+                                            let data = document!.data()
+                                            
+                                            if let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let creative = data!["creative"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int {
+                                
+                            
+                            var location = ""
+                            var preference = ""
+                            
+                            if filter.local == 1 {
+                                if filter.city == city || filter.state == state {
+                                    location = "go"
+                                }
+                            } else if filter.region == 1 {
+                                if filter.state == state {
+                                    location = "go"
+                                }
+                            } else if filter.nation == 1 {
+                                location = "go"
+                            }
+                            
+                            
+                            if (filter.burger == 1 && burger == 1) {
+                                preference = "go"
+                            } else if (filter.creative == 1 && creative == 1) {
+                                preference = "go"
+                            } else if (filter.pasta == 1 && pasta == 1) {
+                                preference = "go"
+                            } else if (filter.healthy == 1 && healthy == 1) {
+                                preference = "go"
+                            } else if (filter.vegan == 1 && vegan == 1) {
+                                preference = "go"
+                            } else if (filter.lowCal == 1 && lowCal == 1) {
+                                preference = "go"
+                            } else if (filter.lowCarb == 1 && lowCarb == 1) {
+                                preference = "go"
+                            } else if (filter.seafood == 1 && seafood == 1) {
+                                preference = "go"
+                            } else if (filter.workout == 1 && workout == 1) {
+                                preference = "go"
+                            } else if (filter.surpriseMe == 1) {
+                                preference = "go"
+                            } else if (filter.burger == 0 && filter.creative == 0 && filter.lowCal == 0 && filter.lowCarb == 0 && filter.pasta == 0 && filter.healthy == 0 && filter.vegan == 0 && filter.workout == 0 && filter.seafood == 0) {
+                                preference = "go"
+                            }
+                            
+                            if (location == "go" && preference == "go") || go == "Yes" {
+                                
                                 
                                 var availability = ""
                                 if trialRun == 0 {
@@ -291,26 +345,33 @@ class HomeViewController: UIViewController {
                                 if months == 0 {
                                     availability = "\(availability)  Months"
                                 }
-                                            print("happening itemdata")
-                            
-                                    DispatchQueue.main.async {
-                                        let item = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: zipCode, signatureDishImage: UIImage(), signatureDishId: signatureDishId, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID, openToMenuRequests: openToMenuRequests)
-                                        
-                                        if self.personalChefItems.isEmpty {
+                                print("happening itemdata")
+                                
+                                DispatchQueue.main.async {
+                                    let item = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: zipCode, signatureDishImage: UIImage(), signatureDishId: signatureDishId, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID, openToMenuRequests: openToMenuRequests)
+                                    
+                                    if self.personalChefItems.isEmpty {
+                                        self.personalChefItems.append(item)
+                                        self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                    } else {
+                                        if let index = self.personalChefItems.firstIndex(where: { $0.chefImageId == chefImageId }) {} else {
                                             self.personalChefItems.append(item)
-                                            self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                        } else {
-                                            if let index = self.personalChefItems.firstIndex(where: { $0.chefImageId == chefImageId }) {} else {
-                                                self.personalChefItems.append(item)
-                                                self.homeTableView.insertRows(at: [IndexPath(item: self.personalChefItems.count - 1, section: 0)], with: .fade)
-                                            }
+                                            self.homeTableView.insertRows(at: [IndexPath(item: self.personalChefItems.count - 1, section: 0)], with: .fade)
                                         }
-                                        
-                                                
-                                            }
-                                   
+                                    }
+                                    
+                                    
+                                }
+                            }  else {
+                                
+                                loadExecutiveItems(filter: self.filter, go: "Yes")
+                                
                             }
-                        
+                                    }
+                                    }
+                                }
+                            }
+                        }
                     }
                         }
                 
@@ -336,7 +397,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func personalChefButtonPressed(_ sender: MDCButton) {
         toggle = "Executive Items"
-        loadExecutiveItems()
+        loadExecutiveItems(filter: filter!, go: "")
         cateringButton.backgroundColor = UIColor.white
         cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         personalChefButton.setTitleColor(UIColor.white, for: .normal)
