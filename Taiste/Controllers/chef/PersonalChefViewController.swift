@@ -84,7 +84,13 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         briefIntroduction.delegate = self
         specialDishImage.layer.cornerRadius = 6
-        loadPersonalChefInfo()
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+            loadPersonalChefInfo()
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
+        
         print("color \(briefIntroduction.textColor)")
         
 
@@ -264,6 +270,10 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     
     
     @IBAction func addSpecialDishImage(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+            
+       
         let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : self.expectations, "chefRating" : self.chefRating, "quality" : self.quality, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "openToMenuRequests" : self.openToMenuRequests]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId, openToMenuRequests: self.openToMenuRequests)
@@ -281,9 +291,15 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
             self.present(vc, animated: true, completion: nil)
         }
         
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func option1ButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         
         let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "openToMenuRequests": self.openToMenuRequests]
         
@@ -301,9 +317,15 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
             vc.personalChefItem = self.personalChefItem
             self.present(vc, animated: true, completion: nil)
         }
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func option2ButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+       
         let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "openToMenuRequests": self.openToMenuRequests]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId, openToMenuRequests: self.openToMenuRequests)
@@ -320,9 +342,16 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
             vc.personalChefItem = self.personalChefItem
             self.present(vc, animated: true, completion: nil)
         }
+            
+            } else {
+                self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+            }
     }
     
     @IBAction func option3ButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+   
         let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0]]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId, openToMenuRequests: self.openToMenuRequests)
@@ -339,9 +368,16 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
             vc.personalChefItem = self.personalChefItem
             self.present(vc, animated: true, completion: nil)
         }
+            
+        } else {
+                self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+            }
     }
     
     @IBAction func option4ButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         let info: [String: Any] = ["typeOfService" : "info", "briefIntroduction" : briefIntroduction.text!, "lengthOfPersonalChef" : lengthOfPersonalChef.text!, "specialty" : specialty.text!, "whatHelpsYouExcel" : whatHelpsYouExcel.text!, "trialRun" : self.trialRun, "weeks" : self.weeks, "months" : self.months, "hourlyOrPerSession" : self.hourlyOrPerSession, "servicePrice" : personalChefPrice.text!, "expectations" : 0, "chefRating" : 0, "quality" : 0, "chefName" : self.chefName, "mostPrizedAccomplishment" : mostPrizedAccomplishments.text!, "chefImageId" : Auth.auth().currentUser!.uid, "chefEmail" : Auth.auth().currentUser!.email!, "city" : self.city, "state": self.state, "liked" : [], "itemOrders" : 0, "itemRating" : [0.0], "openToMenuRequests": self.openToMenuRequests]
         
         self.personalChefItem = PersonalChefInfo(chefName: self.chefName, chefEmail: Auth.auth().currentUser!.email!, chefImageId: Auth.auth().currentUser!.uid, chefImage: self.chefImageI!, city: self.city, state: self.state, zipCode: self.zipCode, signatureDishImage: UIImage(), signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction.text!, howLongBeenAChef: lengthOfPersonalChef.text!, specialty: specialty.text!, whatHelpesYouExcel: whatHelpsYouExcel.text!, mostPrizedAccomplishment: mostPrizedAccomplishments.text!, availabilty: "", hourlyOrPerSession: self.hourlyOrPerSession, servicePrice: personalChefPrice.text!, trialRun: self.trialRun, weeks: self.weeks, months: self.months, liked: [], itemOrders: self.itemOrders, itemRating: self.itemRating, expectations: 0, chefRating: 0, quality: 0, documentId: self.documentId, openToMenuRequests: self.openToMenuRequests)
@@ -358,6 +394,10 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
             vc.personalChefItem = self.personalChefItem
             self.present(vc, animated: true, completion: nil)
         }
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     @IBAction func trialRunButtonPressed(_ sender: Any) {
@@ -438,6 +478,9 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         if briefIntroduction.text == "Brief Introduction and why people should believe in your ability." || briefIntroduction.text == "" {
             showToast(message: "Please provide a brief introduction of why people should believe in your ability.", font: .systemFont(ofSize: 12))
         } else if lengthOfPersonalChef.text == "" {
@@ -468,6 +511,9 @@ class PersonalChefViewController: UIViewController, UITextViewDelegate {
             
         }
             
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
             
         
         

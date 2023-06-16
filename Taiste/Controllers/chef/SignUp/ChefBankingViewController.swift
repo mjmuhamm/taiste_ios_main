@@ -94,6 +94,8 @@ class ChefBankingViewController: UIViewController {
         self.activityIndicator.stopAnimating()
         self.activityIndicator.isHidden = true
     
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
         
         if newAccountOrEditedAccount == "new" {
             if external == "Individual" {
@@ -167,6 +169,9 @@ class ChefBankingViewController: UIViewController {
             bSaveButton.setTitle("Save", for: .normal)
             saveButton.setTitle("Save", for: .normal)
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         // Do any additional setup after loading the view.
     }
     
@@ -840,7 +845,9 @@ class ChefBankingViewController: UIViewController {
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         if termsOfServiceAccept != "Yes" {
             self.showToast(message: "Please accept terms of service.", font: .systemFont(ofSize: 12))
         } else if mccCode.text == "" || mccCode.text!.count != 4 {
@@ -873,7 +880,9 @@ class ChefBankingViewController: UIViewController {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         }
-        
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     //Business
@@ -977,6 +986,9 @@ class ChefBankingViewController: UIViewController {
     
     
     @IBAction func bSaveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         var owners : [Representative] = []
         if businessBankingInfo?.owner1 != nil {
             owners.append(businessBankingInfo!.owner1!)
@@ -1020,6 +1032,9 @@ class ChefBankingViewController: UIViewController {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -1038,6 +1053,8 @@ class ChefBankingViewController: UIViewController {
     }
     
     @IBAction func deleteAccountButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
         
         let alert = UIAlertController(title: "Are you sure you want to continue? This will delete your stripe bank account.", message: nil, preferredStyle: .actionSheet)
         
@@ -1058,7 +1075,9 @@ class ChefBankingViewController: UIViewController {
             }))
         present(alert, animated: true, completion: nil)
         
-        
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         
     }
     

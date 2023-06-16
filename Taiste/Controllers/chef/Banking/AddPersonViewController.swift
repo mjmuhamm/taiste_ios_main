@@ -437,6 +437,8 @@ class AddPersonViewController: UIViewController {
     }
     //Person Save Button
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
         
         if firstName.text == "" {
             self.showToast(message: "Please enter your first name.", font: .systemFont(ofSize: 12))
@@ -557,7 +559,9 @@ class AddPersonViewController: UIViewController {
                     
                 }
         }
-        
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         
     }
     

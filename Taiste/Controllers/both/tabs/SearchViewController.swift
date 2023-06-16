@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
+import SystemConfiguration
 
 class SearchViewController: UIViewController, UISearchResultsUpdating {
     
@@ -34,11 +35,16 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         navigationItem.searchController?.searchBar.autocapitalizationType = .none
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
         
         if Auth.auth().currentUser != nil {
             setupData()
         } else {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
         
     }
@@ -50,6 +56,9 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
     }
     
     func updateSearchResults(for searchController: UISearchController) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         guard let text = searchController.searchBar.text else {
             return
         }
@@ -62,6 +71,9 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
         }
         setupData()
         print("text \(text)")
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     private var count = 0
@@ -171,5 +183,41 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource  {
         
         return cell
     
+    }
+}
+
+public class Reachability {
+
+    class func isConnectedToNetwork() -> Bool {
+
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+            return false
+        }
+
+        /* Only Working for WIFI
+        let isReachable = flags == .reachable
+        let needsConnection = flags == .connectionRequired
+
+        return isReachable && !needsConnection
+        */
+
+        // Working for Cellular and WIFI
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        let ret = (isReachable && !needsConnection)
+
+        return ret
+
     }
 }

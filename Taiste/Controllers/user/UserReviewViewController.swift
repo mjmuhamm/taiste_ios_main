@@ -247,23 +247,50 @@ class UserReviewViewController: UIViewController {
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        let data: [String: Any] = ["itemTitle" : item!.itemTitle, "itemDescription" : item!.itemDescription, "expectations" : expectationsNum, "quality" : qualityNum, "chefRating" : chefRatingNum, "recommend" : recommend, "thoughts" : thoughtsText.text ?? "", "date" :  df.string(from: date), "liked" : [], "chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "itemType" : item!.typeOfService]
-        let data1: [String: Any] = ["itemRating" : (expectationsNum + qualityNum + chefRatingNum) / 3]
-        db.collection(item!.typeOfService).document(item!.menuItemId).collection("UserReviews").document().setData(data)
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserReviews").document().setData(data)
-        
-        
-        let date = Date()
-        let df = DateFormatter()
-        df.dateFormat = "MM-dd-yyyy hh:mm a"
-        let date1 =  df.string(from: Date())
-        let data3: [String: Any] = ["notification" : "\(guserName) has just reviewed your item (\(item!.typeOfService)) \(item!.itemTitle).", "date" : date1]
-        let data4: [String: Any] = ["notifications" : "yes"]
-        self.db.collection("Chef").document(item!.chefImageId).collection("Notifications").document().setData(data3)
-        self.db.collection("Chef").document(item!.chefImageId).updateData(data4)
-//        db.collection(item!.typeOfService).document(item!.menuItemId)
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
             
-        self.performSegue(withIdentifier: "UserReviewToHomeSegue", sender: self)
+            let data: [String: Any] = ["itemTitle" : item!.itemTitle, "itemDescription" : item!.itemDescription, "expectations" : expectationsNum, "quality" : qualityNum, "chefRating" : chefRatingNum, "recommend" : recommend, "thoughts" : thoughtsText.text ?? "", "date" :  df.string(from: date), "liked" : [], "chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "itemType" : item!.typeOfService]
+            let data1: [String: Any] = ["itemRating" : (expectationsNum + qualityNum + chefRatingNum) / 3]
+            db.collection(item!.typeOfService).document(item!.menuItemId).collection("UserReviews").document().setData(data)
+            db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserReviews").document().setData(data)
+            
+            
+            let date = Date()
+            let df = DateFormatter()
+            df.dateFormat = "MM-dd-yyyy hh:mm a"
+            let date1 =  df.string(from: Date())
+            let data3: [String: Any] = ["notification" : "\(guserName) has just reviewed your item (\(item!.typeOfService)) \(item!.itemTitle).", "date" : date1]
+            let data4: [String: Any] = ["notifications" : "yes"]
+            self.db.collection("Chef").document(item!.chefImageId).collection("Notifications").document().setData(data3)
+            self.db.collection("Chef").document(item!.chefImageId).updateData(data4)
+            //        db.collection(item!.typeOfService).document(item!.menuItemId)
+            
+            self.performSegue(withIdentifier: "UserReviewToHomeSegue", sender: self)
+            
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
+    }
+    
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
     }
     
 }

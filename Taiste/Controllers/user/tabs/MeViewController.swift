@@ -68,10 +68,15 @@ class MeViewController: UIViewController {
         meTableView.register(UINib(nibName: "UserReviewsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserReviewsReusableCell")
         meTableView.register(UINib(nibName: "UserOrdersAndLikesTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrdersAndLikesReusableCell")
         meTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            loadPersonalInfo()
+            loadOrders()
+            loadNotifications()
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
-        loadPersonalInfo()
-        loadOrders()
-        loadNotifications()
        
     }
     
@@ -436,6 +441,10 @@ class MeViewController: UIViewController {
     
     
     @IBAction func orderButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+           
+       
         toggle = "Orders"
         ordersOrLikes = "orders"
         loadOrders()
@@ -447,9 +456,16 @@ class MeViewController: UIViewController {
         likesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         reviewsButton.backgroundColor = UIColor.white
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func chefsButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+           
+       
         toggle = "Chefs"
         loadChefs()
         orderButton.backgroundColor = UIColor.white
@@ -460,9 +476,15 @@ class MeViewController: UIViewController {
         likesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         reviewsButton.backgroundColor = UIColor.white
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func likesButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         toggle = "Likes"
         ordersOrLikes = "likes"
         loadLikes()
@@ -474,9 +496,16 @@ class MeViewController: UIViewController {
         likesButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         reviewsButton.backgroundColor = UIColor.white
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            
+         } else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+         }
     }
     
     @IBAction func reviewsButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         toggle = "Reviews"
         loadReviews()
         orderButton.backgroundColor = UIColor.white
@@ -487,6 +516,10 @@ class MeViewController: UIViewController {
         likesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         reviewsButton.setTitleColor(UIColor.white, for: .normal)
         reviewsButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+            
+         } else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+         }
     }
     
     

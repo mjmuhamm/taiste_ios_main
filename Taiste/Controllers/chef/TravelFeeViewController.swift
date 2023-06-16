@@ -67,6 +67,9 @@ class TravelFeeViewController: UIViewController {
     }
     
     @IBAction func requestButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+   
         if Auth.auth().currentUser!.displayName! == "User" && travelFeePriceText != "" && Double(travelFeePriceText) != nil {
             
         } else {
@@ -88,9 +91,16 @@ class TravelFeeViewController: UIViewController {
                 }
             }
         }
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     private func sendMessage(title: String, notification: String, topic: String) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         let json: [String: Any] = ["title": title, "notification" : notification, "topic" : topic]
         
     
@@ -114,10 +124,16 @@ class TravelFeeViewController: UIViewController {
           }
         })
         task.resume()
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     private func fetchPaymentIntent(costOfEvent: Double) {
-        
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         let cost = costOfEvent * 100
         let a = String(format: "%.0f", cost)
         
@@ -160,9 +176,14 @@ class TravelFeeViewController: UIViewController {
           }
         })
         task.resume()
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     private func saveInfo() {
+        
         if Auth.auth().currentUser != nil {
             let month = "\(df.string(from: date))".prefix(7).suffix(2)
             let year = "\(df.string(from: date))".prefix(4)

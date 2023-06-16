@@ -86,6 +86,8 @@ class CommentsViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func sendCommentButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
         
         let data : [String : Any] = ["comment" : messageText.text!, "date" : df.string(from: Date()), "likes" : [], "userImageId" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "chefOrUser" : chefOrUser]
         
@@ -97,7 +99,9 @@ class CommentsViewController: UIViewController {
         self.commentsTableView.reloadData()
         
     }
-    
+    } else {
+          self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+    }
 }
 
 extension CommentsViewController :  UITableViewDelegate, UITableViewDataSource  {

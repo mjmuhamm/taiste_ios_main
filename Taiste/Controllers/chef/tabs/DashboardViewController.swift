@@ -69,6 +69,9 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
         
         itemTypeMenu.dataSource = ["Cater Items", "Personal Chef Items", "MealKit Items"]
         itemTypeMenu.anchorView = itemTypeText
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+       
         itemTypeMenu.selectionAction = { index, item in
             self.itemTypeText.text = item
             if self.time != "Yearly" {
@@ -77,7 +80,13 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
             self.loadItemYearlyData(itemTitle: item)
             }
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         itemMenu.anchorView = itemText
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         itemMenu.selectionAction = { index, item in
             self.itemText.text = item
             if self.time == "Weekly" {
@@ -86,7 +95,9 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
             } else if self.time == "Monthly" {
                 self.loadItemMonthlyData(itemTitle: item)
             }
-            
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         }
         
         // Date
@@ -123,10 +134,15 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
         itemTypeText.layer.cornerRadius = 2
         itemText.layer.cornerRadius = 2
         
-
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         if Auth.auth().currentUser != nil {
             loadNotifications()
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
 
         // Do any additional setup after loading the view.
     }

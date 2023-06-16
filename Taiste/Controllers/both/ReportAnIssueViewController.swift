@@ -71,6 +71,9 @@ class ReportAnIssueViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+
         if descriptionOfIssue.text == "" {
             showToast(message: "Please provide a brief description of your issue..", font: .systemFont(ofSize: 12))
         } else if issueInDetail.text == "" {
@@ -109,7 +112,9 @@ class ReportAnIssueViewController: UIViewController, UITextViewDelegate {
             showToastCompletion(message: "Thank you. Someone will get back to you really soon.", font: .systemFont(ofSize: 12))
             
         }
-        
+    } else {
+          self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+    }
     }
     
     func showToast(message : String, font: UIFont) {

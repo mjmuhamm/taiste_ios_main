@@ -20,19 +20,24 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.register(UINib(nibName: "FeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "FeedCollectionViewReusableCell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        if chefOrFeed == "" {
-            if Auth.auth().currentUser != nil {
-                loadContent()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            collectionView.register(UINib(nibName: "FeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "FeedCollectionViewReusableCell")
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            if chefOrFeed == "" {
+                if Auth.auth().currentUser != nil {
+                    loadContent()
+                } else {
+                    self.showToast(message: "Soemthing went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+                }
             } else {
-                self.showToast(message: "Soemthing went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+                collectionView.reloadData()
             }
-        } else {
-            collectionView.reloadData()
-        }
+        }  else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     override func viewWillAppear(_ animated: Bool) {

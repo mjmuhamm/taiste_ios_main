@@ -49,36 +49,64 @@ class AddContentViewController: UIViewController {
     }
     
     private func saveVideo(name: String, description: String, videoUrl: URL) {
-        
-        let storageRef = storage.reference()
-        let json: [String: Any] = ["name": "\(name)", "description" : "\(description)", "videoUrl" : "\(videoUrl)"]
-        
-    
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/upload-video")!)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-          guard let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                let self = self else {
-            // Handle error
-            return
-          }
-            DispatchQueue.main.async {
-                
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            let storageRef = storage.reference()
+            let json: [String: Any] = ["name": "\(name)", "description" : "\(description)", "videoUrl" : "\(videoUrl)"]
+            
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/upload-video")!)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+                guard let data = data,
+                      let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                      let self = self else {
+                    // Handle error
+                    return
+                }
+                DispatchQueue.main.async {
+                    
                     self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
                     self.actiityIndicator.stopAnimating()
-//                storageRef.child("chefs/malik@cheftesting.com/Content/\(self.videoId).png").delete { error in
-//                    if error == nil {
-//                    }
-//                }
-            }
+                    //                storageRef.child("chefs/malik@cheftesting.com/Content/\(self.videoId).png").delete { error in
+                    //                    if error == nil {
+                    //                    }
+                    //                }
+                }
+                
+            })
+            task.resume()
             
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
+        
+    }
+    
+  
+    func showToast(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
         })
-        task.resume()
     }
     
     

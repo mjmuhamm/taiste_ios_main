@@ -539,6 +539,9 @@ class UserPersonalViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         if newChef == "yes" {
             if fullName.text == "" {
                 self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
@@ -649,6 +652,9 @@ class UserPersonalViewController: UIViewController {
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
+        }
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
         
     }

@@ -69,80 +69,92 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButtonPressed(_ sender: Any) {
-        if !self.emailText.text!.isEmpty {
-            db.collection("Usernames").getDocuments { documents, error in
-                if error == nil {
-                    for doc in documents!.documents {
-                        let data = doc.data()
-                        
-                        let email = data["email"] as! String
-                        let chefOrUser = data["chefOrUser"] as! String
-                        
-                        if self.emailText.text == email {
-                            if chefOrUser != "User" {
-                                self.showToast(message: "It looks like you have a Chef account. Please create a user account to continue.", font: .systemFont(ofSize: 12))
-                            } else {
-                                Auth.auth().sendPasswordReset(withEmail: email) { error in
-                                    if error != nil {
-                                        self.showToast(message: "An error has occured. Please try again later.", font: .systemFont(ofSize: 12))
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            if !self.emailText.text!.isEmpty {
+                db.collection("Usernames").getDocuments { documents, error in
+                    if error == nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            let email = data["email"] as! String
+                            let chefOrUser = data["chefOrUser"] as! String
+                            
+                            if self.emailText.text == email {
+                                if chefOrUser != "User" {
+                                    self.showToast(message: "It looks like you have a Chef account. Please create a user account to continue.", font: .systemFont(ofSize: 12))
+                                } else {
+                                    Auth.auth().sendPasswordReset(withEmail: email) { error in
+                                        if error != nil {
+                                            self.showToast(message: "An error has occured. Please try again later.", font: .systemFont(ofSize: 12))
+                                        }
                                     }
+                                    
                                 }
-                                
                             }
+                            
                         }
-                        
                     }
                 }
+                self.showToast(message: "If you have an account with us, an email has been sent to the one provided.", font: .systemFont(ofSize: 12))
+            } else {
+                self.showToast(message: "Please enter your email address in the space above, and try again.", font: .systemFont(ofSize: 12))
             }
-            self.showToast(message: "If you have an account with us, an email has been sent to the one provided.", font: .systemFont(ofSize: 12))
         } else {
-            self.showToast(message: "Please enter your email address in the space above, and try again.", font: .systemFont(ofSize: 12))
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
         
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        if emailText.text!.isEmpty || passwordText.text!.isEmpty {
-            showToast(message: "Please enter your email and password in the allotted fields.", font: .systemFont(ofSize: 12))
-        } else {
-        Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
-          // ...
-            if authResult!.user.displayName! == "User" {
-                self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            if emailText.text!.isEmpty || passwordText.text!.isEmpty {
+                showToast(message: "Please enter your email and password in the allotted fields.", font: .systemFont(ofSize: 12))
             } else {
-                self!.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").getDocuments { documents, error in
-                    if error == nil {
-                        if documents != nil {
-                            if documents!.count > 0 {
-                                let changeRequest = authResult!.user.createProfileChangeRequest()
-                                changeRequest.displayName = "User"
-                                changeRequest.commitChanges { error in
-                                    // ...
+                Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { [weak self] authResult, error in
+                    guard let strongSelf = self else { return }
+                    // ...
+                    if authResult!.user.displayName! == "User" {
+                        self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
+                    } else {
+                        self!.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").getDocuments { documents, error in
+                            if error == nil {
+                                if documents != nil {
+                                    if documents!.count > 0 {
+                                        let changeRequest = authResult!.user.createProfileChangeRequest()
+                                        changeRequest.displayName = "User"
+                                        changeRequest.commitChanges { error in
+                                            // ...
+                                        }
+                                        self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
+                                    } else {
+                                        if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
+                                            vc.newChef = "yes"
+                                            self!.present(vc, animated: true, completion: nil)
+                                        }
+                                    }
+                                } else {
+                                    if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
+                                        vc.newChef = "yes"
+                                        self!.present(vc, animated: true, completion: nil)
+                                    }
                                 }
-                                self!.performSegue(withIdentifier: "LoginToUserTabSegue", sender: self)
                             } else {
-                                if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
-                                    vc.newChef = "yes"
-                                    self!.present(vc, animated: true, completion: nil)
-                                }
-                            }
-                        } else {
-                            if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "UserPersonal") as? UserPersonalViewController  {
-                                vc.newChef = "yes"
-                                self!.present(vc, animated: true, completion: nil)
+                                self!.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
                             }
                         }
-                    } else {
-                        self!.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+                        
+                        
                     }
+                    
+                    
                 }
-              
-                
             }
-            
-            
-        }
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
         
     }

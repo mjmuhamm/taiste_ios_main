@@ -60,8 +60,13 @@ class ChefPersonalViewController: UIViewController {
             self.password.isEnabled = false
             self.confirmPassword.isEnabled = false
         }
-        loadUsernames()
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
         
+        loadUsernames()
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     private func loadUsernames() {
@@ -125,6 +130,9 @@ class ChefPersonalViewController: UIViewController {
     }
     
     @IBAction func imageButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+       
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (handler) in
@@ -152,9 +160,15 @@ class ChefPersonalViewController: UIViewController {
             alert.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         if Auth.auth().currentUser != nil {
             if newUser == "Yes" {
                 if fullName.text == "" {
@@ -283,7 +297,9 @@ class ChefPersonalViewController: UIViewController {
                                 }}}}} else {
                                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
                             }
-        
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     func showToast(message : String, font: UIFont) {
         

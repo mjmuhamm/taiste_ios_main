@@ -133,6 +133,8 @@ class OwnersViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
         
         if newAccountOrEditedAccount == "new" {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChefBanking") as? ChefBankingViewController  {
@@ -177,6 +179,9 @@ class OwnersViewController: UIViewController {
             }
             
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     private func createPerson(representative: Representative, last: String) {

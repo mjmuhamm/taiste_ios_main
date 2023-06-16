@@ -27,13 +27,18 @@ class ChefBusinessViewController: UIViewController {
     var newOrEdit = "new"
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+       
         if newOrEdit == "new" {
             saveButton.setTitle("Continue", for: .normal)
         } else {
             loadBusinessInfo()
             saveButton.setTitle("Save", for: .normal)
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     private func loadBusinessInfo() {
@@ -79,6 +84,9 @@ class ChefBusinessViewController: UIViewController {
         
     }
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         if Auth.auth().currentUser != nil {
             if streetAddress.text == "" || city.text == "" || state.text == "" || zipCode.text == "" {
                 self.showToast(message: "Please enter your business street address.", font: .systemFont(ofSize: 12))
@@ -140,7 +148,9 @@ class ChefBusinessViewController: UIViewController {
         } else {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
-            
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         }
     
     

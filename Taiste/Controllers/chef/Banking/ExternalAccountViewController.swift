@@ -108,6 +108,9 @@ class ExternalAccountViewController: UIViewController {
     }
     
     @IBAction func bankingSaveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         if bankName.text == "" {
             self.showToast(message: "Please enter your bank name.", font: .systemFont(ofSize: 12))
         } else if accountHolderName.text == "" {
@@ -177,6 +180,9 @@ class ExternalAccountViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
             }
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     @IBAction func bankingDeleteButtonPressed(_ sender: Any) {

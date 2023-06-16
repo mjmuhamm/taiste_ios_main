@@ -56,11 +56,16 @@ class HomeViewController: UIViewController {
         
         homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeReusableCell")
         homeTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
             
+            loadCart()
+            loadFilter()
+            loadUsername()
+         } else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+         }
 
-        loadCart()
-        loadFilter()
-        loadUsername()
         // Do any additional setup after loading the view.
     }
     
@@ -381,7 +386,9 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func cateringButtonPressed(_ sender: MDCButton) {
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+           
         toggle = "Cater Items"
         loadItems(filter: self.filter!, go: "")
         cateringButton.setTitleColor(UIColor.white, for: .normal)
@@ -391,11 +398,16 @@ class HomeViewController: UIViewController {
         mealKitButton.backgroundColor = UIColor.white
         mealKitButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         
-        
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
     }
     
     @IBAction func personalChefButtonPressed(_ sender: MDCButton) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+   
         toggle = "Executive Items"
         loadExecutiveItems(filter: filter!, go: "")
         cateringButton.backgroundColor = UIColor.white
@@ -404,10 +416,16 @@ class HomeViewController: UIViewController {
         personalChefButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         mealKitButton.backgroundColor = UIColor.white
         mealKitButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+    } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+    }
     }
     
     
     @IBAction func mealKitButtonPressed(_ sender: MDCButton) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+   
         toggle = "MealKit Items"
         loadItems(filter: self.filter!, go: "")
         cateringButton.backgroundColor = UIColor.white
@@ -416,7 +434,9 @@ class HomeViewController: UIViewController {
         personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         mealKitButton.setTitleColor(UIColor.white, for: .normal)
         mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-        
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     
     }
     

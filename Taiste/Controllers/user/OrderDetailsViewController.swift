@@ -440,151 +440,171 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
     
     var no = ""
     @IBAction func locationOkButtonPressed(_ sender: Any) {
-        clearDatesButton.isHidden = true
-        seeAllDatesButton.isHidden = true
-        var locationI = ""
-        if streetAddressText.text!.isEmpty {
-            showToast(message: "Please enter a street address in the allotted field.", font: .systemFont(ofSize: 12))
-        } else if cityText.text!.isEmpty {
-            showToast(message: "Please enter a city in the allotted field.", font: .systemFont(ofSize: 12))
-        } else if stateText.text!.isEmpty {
-            showToast(message: "Please enter a state in the allotted field.", font: .systemFont(ofSize: 12))
-        } else if zipCode.text!.isEmpty {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            clearDatesButton.isHidden = true
+            seeAllDatesButton.isHidden = true
+            var locationI = ""
+            if streetAddressText.text!.isEmpty {
+                showToast(message: "Please enter a street address in the allotted field.", font: .systemFont(ofSize: 12))
+            } else if cityText.text!.isEmpty {
+                showToast(message: "Please enter a city in the allotted field.", font: .systemFont(ofSize: 12))
+            } else if stateText.text!.isEmpty {
+                showToast(message: "Please enter a state in the allotted field.", font: .systemFont(ofSize: 12))
+            } else if zipCode.text!.isEmpty {
                 showToast(message: "Please enter a zip code in the allotted field.", font: .systemFont(ofSize: 12))
-        } else {
-        if streetAddressText2.text == "" {
-            locationI = "\(streetAddressText.text!) \(cityText.text!), \(stateText.text!) \(zipCode.text!)"
-        } else {
-            locationI = "\(streetAddressText.text!) \(streetAddressText2.text!) \(cityText.text!), \(stateText.text!) \(zipCode.text!)"
-        }
-            let geoCoder1 = CLGeocoder()
-            let location2 = "\(self.item!.city) \(self.item!.state) \(self.item!.zipCode)"
-            var latitude1 : CLLocationDegrees?
-            var longitude1 : CLLocationDegrees?
-            
-            geoCoder1.geocodeAddressString(location2) { placemarks, error in
-                guard let placemarks = placemarks,
-                      let location1 = placemarks.first?.location
-                else {
-                    return
+            } else {
+                if streetAddressText2.text == "" {
+                    locationI = "\(streetAddressText.text!) \(cityText.text!), \(stateText.text!) \(zipCode.text!)"
+                } else {
+                    locationI = "\(streetAddressText.text!) \(streetAddressText2.text!) \(cityText.text!), \(stateText.text!) \(zipCode.text!)"
                 }
-                latitude1 = location1.coordinate.latitude
-                longitude1 = location1.coordinate.longitude
+                let geoCoder1 = CLGeocoder()
+                let location2 = "\(self.item!.city) \(self.item!.state) \(self.item!.zipCode)"
+                var latitude1 : CLLocationDegrees?
+                var longitude1 : CLLocationDegrees?
                 
-            
-            
-        let geoCoder = CLGeocoder()
-           geoCoder.geocodeAddressString(locationI) { (placemarks1, error) in
-               guard
-                   let placemarks1 = placemarks1,
-                   let location = placemarks1.first?.location
-               else {
-                   if self.no != "Yes" {
-                       self.showToast(message: "We were unable to find a location. Please check your information and try again.", font: .systemFont(ofSize: 12))
-                       self.no = "Yes"
-                   } else {
-                       
-                       self.showToast(message: "Please stay in close contact with your chef.", font: .systemFont(ofSize: 12))
-                       self.travelFeeExpenseOption = "Yes"
-                       self.locationOfEventText.text = locationI
-                       self.locationView.isHidden = true
-                       
-                       self.quantityOfEventText.isHidden = false
-                   }
-                   if self.eventDays.count > 2 {
-                       self.seeAllDatesButton.isHidden = false
-                   }
-                   if (!self.eventDays.isEmpty) {
-                       self.clearDatesButton.isHidden = false
-                   }
-                   // handle no location found
-                   return
-               }
-               
-               let latitude3 = location.coordinate.latitude
-               let longitude3 = location.coordinate.longitude
-               self.distance = "\(location.distance(from: CLLocation(latitude: latitude1!, longitude: longitude1!)) / 1609.34)"
-               
-               if (Double(self.distance)! > 45) {
-                   self.showToast(message: "Please note that the chef will be given a travel fee option to be negotiated with you due to the distance of your event.", font: .systemFont(ofSize: 12))
-                   self.travelFeeExpenseOption = "Yes"
-               } else {
-                   self.travelFeeExpenseOption = "No"
-               }
-               self.locationOfEventText.text = locationI
-               if self.eventDays.count > 2 {
-                   self.seeAllDatesButton.isHidden = false
-               }
-               if (!self.eventDays.isEmpty) {
-                   self.clearDatesButton.isHidden = false
-               }
-               self.locationView.isHidden = true
-               self.quantityOfEventText.isHidden = false
-               // Use your location
-               
-           }
+                geoCoder1.geocodeAddressString(location2) { placemarks, error in
+                    guard let placemarks = placemarks,
+                          let location1 = placemarks.first?.location
+                    else {
+                        return
+                    }
+                    latitude1 = location1.coordinate.latitude
+                    longitude1 = location1.coordinate.longitude
+                    
+                    
+                    
+                    let geoCoder = CLGeocoder()
+                    geoCoder.geocodeAddressString(locationI) { (placemarks1, error) in
+                        guard
+                            let placemarks1 = placemarks1,
+                            let location = placemarks1.first?.location
+                        else {
+                            if self.no != "Yes" {
+                                self.showToast(message: "We were unable to find a location. Please check your information and try again.", font: .systemFont(ofSize: 12))
+                                self.no = "Yes"
+                            } else {
+                                
+                                self.showToast(message: "Please stay in close contact with your chef.", font: .systemFont(ofSize: 12))
+                                self.travelFeeExpenseOption = "Yes"
+                                self.locationOfEventText.text = locationI
+                                self.locationView.isHidden = true
+                                
+                                self.quantityOfEventText.isHidden = false
+                            }
+                            if self.eventDays.count > 2 {
+                                self.seeAllDatesButton.isHidden = false
+                            }
+                            if (!self.eventDays.isEmpty) {
+                                self.clearDatesButton.isHidden = false
+                            }
+                            // handle no location found
+                            return
+                        }
+                        
+                        let latitude3 = location.coordinate.latitude
+                        let longitude3 = location.coordinate.longitude
+                        self.distance = "\(location.distance(from: CLLocation(latitude: latitude1!, longitude: longitude1!)) / 1609.34)"
+                        
+                        if (Double(self.distance)! > 45) {
+                            self.showToast(message: "Please note that the chef will be given a travel fee option to be negotiated with you due to the distance of your event.", font: .systemFont(ofSize: 12))
+                            self.travelFeeExpenseOption = "Yes"
+                        } else {
+                            self.travelFeeExpenseOption = "No"
+                        }
+                        self.locationOfEventText.text = locationI
+                        if self.eventDays.count > 2 {
+                            self.seeAllDatesButton.isHidden = false
+                        }
+                        if (!self.eventDays.isEmpty) {
+                            self.clearDatesButton.isHidden = false
+                        }
+                        self.locationView.isHidden = true
+                        self.quantityOfEventText.isHidden = false
+                        // Use your location
+                        
+                    }
+                }
+                locationOfEventText.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
             }
-        locationOfEventText.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
-        }
+        } else {
+            if self.eventDays.count > 2 {
+                self.seeAllDatesButton.isHidden = false
+            }
+            if (!self.eventDays.isEmpty) {
+                self.clearDatesButton.isHidden = false
+            }
+            self.locationView.isHidden = true
+            self.quantityOfEventText.isHidden = false
+               self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+           }
     }
     
     
     @IBAction func addEventButtonPressed(_ sender: MDCButton) {
-        if Auth.auth().currentUser != nil {
-            if newOrEdit != "edit" {
-                if typeOfEventText.text!.isEmpty {
-                    showToast(message: "Please select the type of your event above.", font: .systemFont(ofSize: 12))
-                } else if quantityOfEventText.text!.isEmpty {
-                    showToast(message: "Please select the quantity of your event above.", font: .systemFont(ofSize: 12))
-                } else if (eventDays.isEmpty) {
-                    showToast(message: "Please select the day(s) of your event above.", font: .systemFont(ofSize: 12))
-                } else if locationOfEventText.text == "Select a location for your event here." {
-                    showToast(message: "Please select the location of your event above.", font: .systemFont(ofSize: 12))
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            if Auth.auth().currentUser != nil {
+                if newOrEdit != "edit" {
+                    if typeOfEventText.text!.isEmpty {
+                        showToast(message: "Please select the type of your event above.", font: .systemFont(ofSize: 12))
+                    } else if quantityOfEventText.text!.isEmpty {
+                        showToast(message: "Please select the quantity of your event above.", font: .systemFont(ofSize: 12))
+                    } else if (eventDays.isEmpty) {
+                        showToast(message: "Please select the day(s) of your event above.", font: .systemFont(ofSize: 12))
+                    } else if locationOfEventText.text == "Select a location for your event here." {
+                        showToast(message: "Please select the location of your event above.", font: .systemFont(ofSize: 12))
+                    } else {
+                        
+                        let priceToChef = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))! * 0.07
+                        let totalCostOfEVent = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))!
+                        
+                        let documentId = UUID().uuidString
+                        
+                        let data : [String: Any] = ["chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "chefUsername" : item!.chefUsername, "city" : item!.city, "state" : item!.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item!.itemDescription, "itemTitle" : item!.itemTitle, "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item!.menuItemId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityOfEventText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : item!.itemType, "unitPrice" : item!.itemPrice, "user" : user, "imageCount" : item!.imageCount, "liked" : item!.liked, "itemOrders" : item!.itemOrders, "itemRating" : item!.itemRating, "itemCalories" : item!.itemCalories, "documentId" : documentId, "allergies" : "", "additionalMenuItems" : "", "signatureDishId" : ""]
+                        
+                        
+                        db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
+                        db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                            if error == nil {
+                                if document != nil {
+                                    let data = document!.data()
+                                    
+                                    let userNotification = data!["notificationToken"] as! String
+                                    let data1: [String: Any] = ["userNotificationToken" : userNotification]
+                                    self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                                }
+                            }
+                        }
+                        
+                        db.collection("Chef").document(item!.chefImageId).getDocument { document, error in
+                            if error == nil {
+                                if document != nil {
+                                    let data = document!.data()
+                                    
+                                    let chefNotification = data!["notificationToken"] as! String
+                                    let data1: [String: Any] = ["chefNotificationToken" : chefNotification]
+                                    self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
+                                }
+                            }
+                        }
+                        
+                        self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+                    }
                 } else {
-                    
-                    let priceToChef = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))! * 0.07
-                    let totalCostOfEVent = Double(eventTotalText.text!.suffix(eventTotalText.text!.count - 1))!
-                    
-                    let documentId = UUID().uuidString
-                    
-                    let data : [String: Any] = ["chefEmail" : item!.chefEmail, "chefImageId" : item!.chefImageId, "chefUsername" : item!.chefUsername, "city" : item!.city, "state" : item!.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item!.itemDescription, "itemTitle" : item!.itemTitle, "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item!.menuItemId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityOfEventText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : item!.itemType, "unitPrice" : item!.itemPrice, "user" : user, "imageCount" : item!.imageCount, "liked" : item!.liked, "itemOrders" : item!.itemOrders, "itemRating" : item!.itemRating, "itemCalories" : item!.itemCalories, "documentId" : documentId, "allergies" : "", "additionalMenuItems" : "", "signatureDishId" : ""]
-                    
-                    
-                    db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
-                    db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
-                        if error == nil {
-                            if document != nil {
-                                let data = document!.data()
-                                
-                                let userNotification = data!["notificationToken"] as! String
-                                let data1: [String: Any] = ["userNotificationToken" : userNotification]
-                                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
-                            }
-                        }
-                    }
-                    
-                    db.collection("Chef").document(item!.chefImageId).getDocument { document, error in
-                        if error == nil {
-                            if document != nil {
-                                let data = document!.data()
-                                
-                                let chefNotification = data!["notificationToken"] as! String
-                                let data1: [String: Any] = ["chefNotificationToken" : chefNotification]
-                                self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").document(documentId).updateData(data1)
-                            }
-                        }
-                    }
-                    
-                    self.showToastCompletion(message: "Item Saved.", font: .systemFont(ofSize: 12))
+                    db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).delete()
+                    self.showToastCompletion(message: "Item Cancelled.", font: .systemFont(ofSize: 12))
                 }
             } else {
-                db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).delete()
-                self.showToastCompletion(message: "Item Cancelled.", font: .systemFont(ofSize: 12))
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
+            
         } else {
-            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

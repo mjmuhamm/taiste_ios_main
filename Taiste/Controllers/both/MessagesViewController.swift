@@ -84,6 +84,9 @@ class MessagesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         if travelFeeOrMessages == "MessageRequests" {
             self.eventTypeAndQuantity.isHidden = true
             self.location.isHidden = true
@@ -152,7 +155,9 @@ class MessagesViewController: UIViewController {
         if travelFeeOrMessages == "messages" {
             self.travelFeeLabel.isHidden = true
         }
-        
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     private func loadUsername() {
@@ -442,7 +447,9 @@ class MessagesViewController: UIViewController {
     }
     
     @IBAction func sendMessageButtonPressed(_ sender: Any) {
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         if messageText.text != nil {
             if messageText.text!.isEmpty || messageText.text == "" {
                 self.showToast(message: "Please enter a message.", font: .systemFont(ofSize: 12))
@@ -560,6 +567,9 @@ class MessagesViewController: UIViewController {
             }
         }
         messageText.text = ""
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     private var user = ""

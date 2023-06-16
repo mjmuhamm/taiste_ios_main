@@ -66,8 +66,13 @@ class CheckoutViewController: UIViewController {
         
         payButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         payButton.layer.cornerRadius = 2
-
-        loadCart()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            loadCart()
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         // Do any additional setup after loading the view.
     }
     

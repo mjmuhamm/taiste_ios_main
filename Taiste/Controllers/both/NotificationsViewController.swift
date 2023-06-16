@@ -31,7 +31,13 @@ class NotificationsViewController: UIViewController {
         notificationsTableView.delegate = self
         notificationsTableView.dataSource = self
         notificationsTableView.register(UINib(nibName: "NotificationsTableViewCell", bundle: nil), forCellReuseIdentifier: "NotificationsReusableCell")
-        loadNotifications()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            loadNotifications()
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
+        
         
         // Do any additional setup after loading the view.
     }
@@ -106,21 +112,35 @@ class NotificationsViewController: UIViewController {
         
     }
     @IBAction func messagesButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+      
+      
         toggle = "Messages"
         loadNotifications()
         messagesButton.setTitleColor(UIColor.white, for: .normal)
         messagesButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         notificationsButton.backgroundColor = UIColor.white
         notificationsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     @IBAction func notificationsButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+      
         toggle = "Notifications"
         loadNotifications()
         notificationsButton.setTitleColor(UIColor.white, for: .normal)
         notificationsButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         messagesButton.backgroundColor = UIColor.white
         messagesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            
+              } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+             }
         
     }
     func showToast(message : String, font: UIFont) {

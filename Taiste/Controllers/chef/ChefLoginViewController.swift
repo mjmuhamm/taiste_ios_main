@@ -62,7 +62,9 @@ class ChefLoginViewController: UIViewController {
     }
     
     @IBAction func forgottonPasswordButtonPressed(_ sender: Any) {
-       
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         if !self.emailText.text!.isEmpty {
             db.collection("Usernames").getDocuments { documents, error in
                 if error == nil {
@@ -92,6 +94,9 @@ class ChefLoginViewController: UIViewController {
         } else {
             self.showToast(message: "Please enter your email address in the space above, and try again.", font: .systemFont(ofSize: 12))
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     
@@ -100,70 +105,77 @@ class ChefLoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: MDCButton) {
-//        LoginToChefTabSegue
-        if emailText.text!.isEmpty || passwordText.text!.isEmpty {
-            showToast(message: "Please enter your email and password in the allotted fields.", font: .systemFont(ofSize: 12))
-        } else {
-        Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
-          // ...
-            if error != nil {
-                self!.showToast(message: "An error has occured. \(error!.localizedDescription)", font: .systemFont(ofSize: 12))
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            //        LoginToChefTabSegue
+            if emailText.text!.isEmpty || passwordText.text!.isEmpty {
+                showToast(message: "Please enter your email and password in the allotted fields.", font: .systemFont(ofSize: 12))
             } else {
-                if authResult!.user.displayName == "User" {
-                    self!.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").getDocuments { documents, error in
-                        if error == nil {
-                            if documents != nil {
-                                if documents!.count > 0 {
-                                    let changeRequest = authResult!.user.createProfileChangeRequest()
-                                    changeRequest.displayName = "Chef"
-                                    changeRequest.commitChanges { error in
-                                        // ...
-                                    }
-                                    
-                                    self!.db.collection("Chef").document(authResult!.user.uid).collection("BankingInfo").getDocuments { documents, error in
-                                        if error == nil {
-                                            if documents!.count > 0 {
-                                                self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
-                                            } else {
-                                                self!.performSegue(withIdentifier: "ChefLoginToChefBanking", sender: self)
+                Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!) { [weak self] authResult, error in
+                    guard let strongSelf = self else { return }
+                    // ...
+                    if error != nil {
+                        self!.showToast(message: "An error has occured. \(error!.localizedDescription)", font: .systemFont(ofSize: 12))
+                    } else {
+                        if authResult!.user.displayName == "User" {
+                            self!.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").getDocuments { documents, error in
+                                if error == nil {
+                                    if documents != nil {
+                                        if documents!.count > 0 {
+                                            let changeRequest = authResult!.user.createProfileChangeRequest()
+                                            changeRequest.displayName = "Chef"
+                                            changeRequest.commitChanges { error in
+                                                // ...
+                                            }
+                                            
+                                            self!.db.collection("Chef").document(authResult!.user.uid).collection("BankingInfo").getDocuments { documents, error in
+                                                if error == nil {
+                                                    if documents!.count > 0 {
+                                                        self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
+                                                    } else {
+                                                        self!.performSegue(withIdentifier: "ChefLoginToChefBanking", sender: self)
+                                                    }
+                                                }
+                                            }
+                                            
+                                        } else {
+                                            if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController  {
+                                                vc.newOrEdit = "new"
+                                                vc.newUser = "yes"
+                                                self!.present(vc, animated: true, completion: nil)
                                             }
                                         }
+                                    } else {
+                                        if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController {
+                                            vc.newOrEdit = "new"
+                                            vc.newUser = "yes"
+                                            self!.present(vc, animated: true, completion: nil)
+                                        }
                                     }
-                                    
                                 } else {
-                                    if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController  {
-                                        vc.newOrEdit = "new"
-                                        vc.newUser = "yes"
-                                        self!.present(vc, animated: true, completion: nil)
-                                    }
-                                }
-                            } else {
-                                if let vc = self!.storyboard?.instantiateViewController(withIdentifier: "Disclaimer") as? DisclaimerViewController {
-                                    vc.newOrEdit = "new"
-                                    vc.newUser = "yes"
-                                    self!.present(vc, animated: true, completion: nil)
+                                    self!.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
                                 }
                             }
                         } else {
-                            self!.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+                            self!.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+                                if error == nil {
+                                    if documents?.documents.isEmpty == true {
+                                        self!.performSegue(withIdentifier: "ChefLoginToChefBanking", sender: self)
+                                    } else {
+                                        self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
+                                    }
+                                }
+                            }
                         }
+                        
                     }
-                } else {
-                self!.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
-                    if error == nil {
-                        if documents?.documents.isEmpty == true {
-                            self!.performSegue(withIdentifier: "ChefLoginToChefBanking", sender: self)
-                        } else {
-                            self!.performSegue(withIdentifier: "LoginToChefTabSegue", sender: self)
-                        }
-                    }
-                    }
+                    
                 }
                 
-            }
-            
-        }
+            }} else {
+                self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+               }
         }
         
         func showToast(message : String, font: UIFont) {

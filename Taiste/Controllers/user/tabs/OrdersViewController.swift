@@ -57,10 +57,15 @@ class OrdersViewController: UIViewController {
         ordersTableView.register(UINib(nibName: "UserOrderPostTableViewCell", bundle: nil), forCellReuseIdentifier: "UserOrderPostReusableCell")
         ordersTableView.delegate = self
         ordersTableView.dataSource = self
-        
-        loadOrders()
-        loadNotifications()
-        loadUsername()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            loadOrders()
+            loadNotifications()
+            loadUsername()
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
         
     }
@@ -279,6 +284,9 @@ class OrdersViewController: UIViewController {
     }
     
     @IBAction func pendingButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+          
         disclaimerText.text = "*Orders appear hear until the chef accepts, and will transfer to the 'Schedule' tab after. If you cancel here, a full refund will be dispersed immediately.*"
         toggle = "Pending"
         loadOrders()
@@ -288,9 +296,16 @@ class OrdersViewController: UIViewController {
         scheduledButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         completeButton.backgroundColor = UIColor.white
         completeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            
+         } else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+         }
     }
     
     @IBAction func scheduledButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+         
         disclaimerText.text = "*Orders appear hear when the chef accepts. If you cancel within 7 days of the event you will be refunded 85% of the total order cost, otherwise, you can expect 95% of the total order cost to be refunded.*"
         toggle = "Scheduled"
         loadOrders()
@@ -300,9 +315,16 @@ class OrdersViewController: UIViewController {
         scheduledButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         completeButton.backgroundColor = UIColor.white
         completeButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            
+         } else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+         }
     }
     
     @IBAction func completeButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+         
         disclaimerText.text = "*Orders appear after completion. Please consider reviewing each order to help other users best decide on their selections.*"
         toggle = "Complete"
         loadOrders()
@@ -312,6 +334,10 @@ class OrdersViewController: UIViewController {
         scheduledButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         completeButton.setTitleColor(UIColor.white, for: .normal)
         completeButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+            
+         } else {
+             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+         }
     }
     
     @IBAction func notificationsButtonPressed(_ sender: Any) {

@@ -99,10 +99,15 @@ class ChefMeViewController: UIViewController {
         contentCollectionView.register(UINib(nibName: "ChefContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ChefContentCollectionViewReusableCell")
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
         
         loadChefInfo()
         loadItems()
         loadNotifications()
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         
     }
     
@@ -617,6 +622,9 @@ class ChefMeViewController: UIViewController {
     }
     
     @IBAction func cateringButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+       
         toggle = "Cater Items"
         loadItems()
         addContentButton.isHidden = false
@@ -634,9 +642,15 @@ class ChefMeViewController: UIViewController {
         contentButton.setTitleColor(UIColor(red: 98/255,green: 99/255, blue: 72/255, alpha: 1), for:.normal)
         bankingButton.backgroundColor = UIColor.white
         bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     @IBAction func personalChefButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         toggle = "Executive Items"
         loadPersonalChefInfo()
         contentCollectionView.isHidden = true
@@ -653,9 +667,15 @@ class ChefMeViewController: UIViewController {
         contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         bankingButton.backgroundColor = UIColor.white
         bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         var abc = toggle
         toggle = "MealKit Items"
         loadItems()
@@ -674,11 +694,17 @@ class ChefMeViewController: UIViewController {
         contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         bankingButton.backgroundColor = UIColor.white
         bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
         
         
     }
     
     @IBAction func contentButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         toggle = "Content"
         loadContent()
         addContentButton.isHidden = false
@@ -696,10 +722,16 @@ class ChefMeViewController: UIViewController {
         contentButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         bankingButton.backgroundColor = UIColor.white
         bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     
     @IBAction func bankingButtonPressed(_ sender: MDCButton) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         toggle = "Banking"
         contentCollectionView.isHidden = true
         meTableView.isHidden = true
@@ -717,6 +749,9 @@ class ChefMeViewController: UIViewController {
         contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         bankingButton.setTitleColor(UIColor.white, for: .normal)
         bankingButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
        
     }
     

@@ -89,7 +89,9 @@ class ProfileAsUserViewController: UIViewController {
         itemTableView.register(UINib(nibName: "UserChefsTableViewCell", bundle: nil), forCellReuseIdentifier: "UserChefsReusableCell")
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         if chefOrUser == "chef" {
             toggle = "Cater Items"
         loadChefInfo()
@@ -105,6 +107,9 @@ class ProfileAsUserViewController: UIViewController {
             self.userToggleStack.isHidden = false
         }
         loadUsername()
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
 
         // Do any additional setup after loading the view.
@@ -730,6 +735,9 @@ class ProfileAsUserViewController: UIViewController {
     
     
     @IBAction func cateringButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        
         toggle = "Cater Items"
         loadChefItems()
         contentCollectionView.isHidden = true
@@ -743,9 +751,15 @@ class ProfileAsUserViewController: UIViewController {
         mealKitButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         contentButton.backgroundColor = UIColor.white
         contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func personalChefButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         toggle = "Executive Items"
         loadPersonalChefInfo()
         contentCollectionView.isHidden = true
@@ -759,9 +773,15 @@ class ProfileAsUserViewController: UIViewController {
         mealKitButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         contentButton.backgroundColor = UIColor.white
         contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func mealKitButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        
         toggle = "MealKit Items"
         loadChefItems()
         contentCollectionView.isHidden = true
@@ -775,9 +795,15 @@ class ProfileAsUserViewController: UIViewController {
         mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         contentButton.backgroundColor = UIColor.white
         contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func contentButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        
         loadContent()
         contentCollectionView.isHidden = false
         itemTableView.isHidden = true
@@ -790,9 +816,15 @@ class ProfileAsUserViewController: UIViewController {
         mealKitButton.backgroundColor = UIColor.white
         contentButton.setTitleColor(UIColor.white, for: .normal)
         contentButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func orderButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         toggle = "Orders"
         loadUserOrders()
         ordersButton.setTitleColor(UIColor.white, for: .normal)
@@ -803,10 +835,16 @@ class ProfileAsUserViewController: UIViewController {
         likesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         reviewsButton.backgroundColor = UIColor.white
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
     }
     
     @IBAction func chefsButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         toggle = "Chefs"
         loadUserChefs()
         ordersButton.backgroundColor = UIColor.white
@@ -817,9 +855,15 @@ class ProfileAsUserViewController: UIViewController {
         likesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         reviewsButton.backgroundColor = UIColor.white
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     @IBAction func likesButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        
         toggle = "Likes"
         loadUserLikes()
         ordersButton.backgroundColor = UIColor.white
@@ -830,6 +874,9 @@ class ProfileAsUserViewController: UIViewController {
         likesButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         reviewsButton.backgroundColor = UIColor.white
         reviewsButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     
@@ -852,6 +899,9 @@ class ProfileAsUserViewController: UIViewController {
     }
     
     @IBAction func reviewsButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+       
         toggle = "Reviews"
         loadUserReviews()
         ordersButton.backgroundColor = UIColor.white
@@ -862,6 +912,9 @@ class ProfileAsUserViewController: UIViewController {
         likesButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         reviewsButton.setTitleColor(UIColor.white, for: .normal)
         reviewsButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        } else {
+              self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     

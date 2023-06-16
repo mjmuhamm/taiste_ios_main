@@ -66,8 +66,13 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadFilter()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            
+            loadFilter()
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         // Do any additional setup after loading the view.
     }
     

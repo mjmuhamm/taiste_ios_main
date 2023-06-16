@@ -90,7 +90,9 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         self.sliderCollectionView.dataSource = self
         self.pageControl.currentPage = 0
         // Do any additional setup after loading the view.
-        
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         if newOrEdit == "edit" {
             loadEditedItem()
             titleLabel.text = typeOfitem
@@ -110,6 +112,10 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             titleLabel.text = "Option 4"
             loadEditedItem1()
         }
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
         
         
     }
@@ -362,6 +368,9 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
@@ -380,9 +389,16 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         }))
         
         present(alert, animated: true, completion: nil)
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     @IBAction func cancelImageButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
         if newOrEdit == "edit" {
             print("index \(self.currentIndex)")
             print("img \(self.imgArr)")
@@ -463,10 +479,16 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         self.pageControl.numberOfPages = imgArr.count
         self.sliderCollectionView.reloadData()
         }
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     @IBAction func addImageButtonPressed(_ sender: Any) {
-
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+     
             let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (handler) in
@@ -495,7 +517,10 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             }))
             present(alert, animated: true, completion: nil)
         
-        
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
     }
     
     @IBAction func burgerButtonPressed(_ sender: Any) {
@@ -645,6 +670,9 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+     
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         if itemTitle.text == "" {
@@ -711,6 +739,10 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         
         
         }
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
         
     }
     
