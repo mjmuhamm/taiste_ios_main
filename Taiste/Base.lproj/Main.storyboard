@@ -11093,9 +11093,9 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXw-Jg-VHM">
-                                                <rect key="frame" x="5" y="1440" width="404" height="134"/>
+                                                <rect key="frame" x="5" y="1440" width="404" height="145"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="134" id="EgK-ZM-Gpn"/>
+                                                    <constraint firstAttribute="height" constant="145" id="EgK-ZM-Gpn"/>
                                                 </constraints>
                                                 <string key="text">All purchases are made through the application, and Taïste, operates as the intermediary for the event, dispersing the payment to the chef exactly one hour after the scheduled event date and event time. Should any concerns arise to your trust of a fulfilling experience, please head to the ‘Settings’ -&gt; ‘Report An Issue’ tab. Here, be sure to describe your issues in detail, ensuring for our representative to handle any adjustments completely and efficiently.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -11103,28 +11103,27 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Cancellations" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suo-pg-7f3">
-                                                <rect key="frame" x="5" y="1577" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1588" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="Feg-VH-E2E"/>
+                                                    <constraint firstAttribute="height" constant="36" id="k1K-Ov-XZu"/>
                                                 </constraints>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oW-0V-ggi">
-                                                <rect key="frame" x="5" y="1616" width="404" height="150.5"/>
+                                                <rect key="frame" x="5" y="1627" width="404" height="150.5"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150.5" id="y1u-H8-Whl"/>
+                                                    <constraint firstAttribute="height" constant="150.5" id="PkC-eR-mS9"/>
                                                 </constraints>
-                                                <string key="text">All consumers are able to cancel any purchased event at any time. If the chef has not accepted your event request yet, upon cancellation, you will receive a full, tax included, refund. After the chef has accepted, if your cancellation occurs 7 days or more before the event is scheduled, you will receive 95% of your total event cost refunded. If your cancellation occurs within a 7 day time period of the event’s scheduling, you can expect to receive an 85% reimbursement.
-</string>
+                                                <string key="text">All consumers are able to cancel any purchased event at any time. If the chef has not accepted your event request yet, upon cancellation, you will receive a full, tax included, refund. After the chef has accepted, if your cancellation occurs 7 days or more before the event is scheduled, you will receive 95% of your total event cost refunded. If your cancellation occurs within a 7 day time period of the event’s scheduling, you can expect to receive an 85% reimbursement.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Travel Fee Payments" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yv7-YW-LoY">
-                                                <rect key="frame" x="5" y="1769.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1780.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="ilf-dc-EER"/>
@@ -11134,7 +11133,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LxH-H3-CZu">
-                                                <rect key="frame" x="5" y="1808.5" width="404" height="167.5"/>
+                                                <rect key="frame" x="5" y="1819.5" width="404" height="167.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="167.5" id="i8R-u1-6Qf"/>
                                                 </constraints>
@@ -11144,7 +11143,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Message Requests" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ZG-6f-NIA">
-                                                <rect key="frame" x="5" y="1979" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1990" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="T7R-KL-5aK"/>
@@ -11154,7 +11153,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MC0-Oc-mzD">
-                                                <rect key="frame" x="5" y="2018" width="404" height="100.5"/>
+                                                <rect key="frame" x="5" y="2029" width="404" height="100.5"/>
                                                 <string key="text">When visiting each chef profile, located at the top right of the screen, a message button will appear. Here, feel free to send your potential chef a message with menu item requests, and other questions about your potential hire. After sending an initial message, you must wait until the chef returns a message to continue the conversation.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -11228,10 +11227,10 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We know this process can be overwhelming, and we will be with you every step of the way." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sax-wq-ukW">
-                                                <rect key="frame" x="5" y="2121.5" width="404" height="72"/>
+                                                <rect key="frame" x="5" y="2133" width="404" height="52"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="72" id="bnM-zf-jzq"/>
+                                                    <constraint firstAttribute="height" constant="52" id="hgn-fr-Z1D"/>
                                                 </constraints>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
@@ -11256,20 +11255,19 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="1Py-nz-j3B"/>
+                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="1Be-pN-6AZ"/>
                                             <constraint firstItem="84s-uV-AUY" firstAttribute="top" secondItem="Zw7-z4-QQc" secondAttribute="bottom" constant="3" id="2Cl-re-mMv"/>
                                             <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="2m9-vD-5Ex"/>
                                             <constraint firstItem="jKj-Lm-XnL" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="2sH-fp-m8h"/>
                                             <constraint firstAttribute="trailing" secondItem="Dbd-mS-tyG" secondAttribute="trailing" constant="5" id="46I-79-t7i"/>
-                                            <constraint firstItem="sax-wq-ukW" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="68B-zl-0n7"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="6N3-Zf-bbr"/>
+                                            <constraint firstItem="sax-wq-ukW" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="6Of-vN-LQ7"/>
                                             <constraint firstAttribute="trailing" secondItem="jKj-Lm-XnL" secondAttribute="trailing" constant="5" id="6fy-nG-IFw"/>
                                             <constraint firstItem="Vlm-nV-AhB" firstAttribute="top" secondItem="iFm-6u-fJI" secondAttribute="bottom" constant="3" id="8c8-Mj-eq8"/>
-                                            <constraint firstItem="yv7-YW-LoY" firstAttribute="top" secondItem="9oW-0V-ggi" secondAttribute="bottom" constant="3" id="9q3-Fq-jTB"/>
+                                            <constraint firstItem="sax-wq-ukW" firstAttribute="top" secondItem="MC0-Oc-mzD" secondAttribute="bottom" constant="3.5" id="9Gc-U4-cKU"/>
                                             <constraint firstAttribute="trailing" secondItem="Zw7-z4-QQc" secondAttribute="trailing" constant="5" id="Acy-oO-VPq"/>
                                             <constraint firstAttribute="trailing" secondItem="m90-wf-oCk" secondAttribute="trailing" constant="5" id="CjU-CQ-eKh"/>
                                             <constraint firstItem="kXw-Jg-VHM" firstAttribute="top" secondItem="Yhb-m7-EM8" secondAttribute="bottom" constant="3" id="DTl-0A-avp"/>
-                                            <constraint firstAttribute="trailing" secondItem="9oW-0V-ggi" secondAttribute="trailing" constant="5" id="F7z-p8-Rpm"/>
                                             <constraint firstItem="iFm-6u-fJI" firstAttribute="top" secondItem="m90-wf-oCk" secondAttribute="bottom" constant="5" id="Gc6-jt-QvZ"/>
                                             <constraint firstItem="yv7-YW-LoY" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="K0Y-e0-egX"/>
                                             <constraint firstItem="MC0-Oc-mzD" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="KOY-d8-RYE"/>
@@ -11277,54 +11275,54 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             <constraint firstItem="eHN-Zu-DMj" firstAttribute="top" secondItem="84s-uV-AUY" secondAttribute="bottom" constant="5" id="LI5-mN-7Tz"/>
                                             <constraint firstAttribute="trailing" secondItem="6ZG-6f-NIA" secondAttribute="trailing" constant="5" id="Lel-mv-skH"/>
                                             <constraint firstAttribute="trailing" secondItem="2wx-De-o0H" secondAttribute="trailing" constant="5" id="MS6-2t-ObT"/>
-                                            <constraint firstItem="suo-pg-7f3" firstAttribute="top" secondItem="kXw-Jg-VHM" secondAttribute="bottom" constant="3" id="Mwm-G0-0zt"/>
                                             <constraint firstItem="Yhb-m7-EM8" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="NFr-ab-Cul"/>
                                             <constraint firstItem="kXw-Jg-VHM" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="NIc-Ux-Xwn"/>
                                             <constraint firstAttribute="trailing" secondItem="iFm-6u-fJI" secondAttribute="trailing" constant="5" id="Nr7-DA-zMV"/>
                                             <constraint firstAttribute="trailing" secondItem="Yhb-m7-EM8" secondAttribute="trailing" constant="5" id="O5H-kb-9Fj"/>
                                             <constraint firstItem="iFm-6u-fJI" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="OdM-dv-sUu"/>
                                             <constraint firstItem="m90-wf-oCk" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="PUK-eV-IER"/>
+                                            <constraint firstAttribute="trailing" secondItem="suo-pg-7f3" secondAttribute="trailing" constant="5" id="Q4g-7y-LG9"/>
                                             <constraint firstItem="Zw7-z4-QQc" firstAttribute="top" secondItem="Vlm-nV-AhB" secondAttribute="bottom" constant="3" id="QTW-JK-4su"/>
+                                            <constraint firstItem="suo-pg-7f3" firstAttribute="top" secondItem="kXw-Jg-VHM" secondAttribute="bottom" constant="3" id="SAt-wz-o8u"/>
                                             <constraint firstItem="6ZG-6f-NIA" firstAttribute="top" secondItem="LxH-H3-CZu" secondAttribute="bottom" constant="3" id="Tda-mr-3od"/>
+                                            <constraint firstItem="suo-pg-7f3" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Trh-Cl-X3q"/>
                                             <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="Twy-bA-52U"/>
                                             <constraint firstAttribute="trailing" secondItem="MC0-Oc-mzD" secondAttribute="trailing" constant="5" id="UAs-83-jgm"/>
                                             <constraint firstItem="hhI-Eb-UIM" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="V98-7i-zR1"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Voz-yx-N6G"/>
                                             <constraint firstItem="LxH-H3-CZu" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="WFc-Sp-6t3"/>
-                                            <constraint firstAttribute="trailing" secondItem="suo-pg-7f3" secondAttribute="trailing" constant="5" id="WpK-ZE-3ew"/>
                                             <constraint firstAttribute="trailing" secondItem="84s-uV-AUY" secondAttribute="trailing" constant="5" id="XhC-vK-4qo"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="Yij-qN-Vux"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="ZPt-yH-kwo"/>
                                             <constraint firstItem="eHN-Zu-DMj" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="aT4-sI-uiz"/>
                                             <constraint firstItem="m90-wf-oCk" firstAttribute="top" secondItem="Dbd-mS-tyG" secondAttribute="bottom" constant="10" id="ad2-Xs-6Dg"/>
+                                            <constraint firstItem="yv7-YW-LoY" firstAttribute="top" secondItem="9oW-0V-ggi" secondAttribute="bottom" constant="3" id="bVQ-9b-2YZ"/>
                                             <constraint firstAttribute="trailing" secondItem="Vlm-nV-AhB" secondAttribute="trailing" constant="5" id="bjH-UV-vk3"/>
                                             <constraint firstAttribute="trailing" secondItem="hhI-Eb-UIM" secondAttribute="trailing" constant="5" id="c73-No-2pl"/>
                                             <constraint firstItem="Dbd-mS-tyG" firstAttribute="top" secondItem="jgI-O3-sSk" secondAttribute="bottom" constant="5" id="cR1-wD-k7d"/>
-                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="top" secondItem="suo-pg-7f3" secondAttribute="bottom" constant="3" id="cxf-NQ-oX1"/>
                                             <constraint firstItem="jgI-O3-sSk" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="dbf-6Q-Crc"/>
+                                            <constraint firstAttribute="trailing" secondItem="sax-wq-ukW" secondAttribute="trailing" constant="5" id="ehN-x4-CAT"/>
                                             <constraint firstAttribute="trailing" secondItem="kXw-Jg-VHM" secondAttribute="trailing" constant="5" id="eiK-5n-6NA"/>
                                             <constraint firstAttribute="trailing" secondItem="LxH-H3-CZu" secondAttribute="trailing" constant="5" id="eoj-XQ-zYP"/>
                                             <constraint firstItem="Vlm-nV-AhB" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="f3F-XZ-XFH"/>
                                             <constraint firstItem="Zw7-z4-QQc" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="fI4-RS-GYZ"/>
                                             <constraint firstAttribute="trailing" secondItem="2wx-De-o0H" secondAttribute="trailing" constant="5" id="fI9-4O-yR1"/>
+                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="top" secondItem="suo-pg-7f3" secondAttribute="bottom" constant="3" id="fVq-uN-s2I"/>
                                             <constraint firstAttribute="trailing" secondItem="eHN-Zu-DMj" secondAttribute="trailing" constant="5" id="hnw-qI-asc"/>
-                                            <constraint firstItem="9oW-0V-ggi" firstAttribute="top" secondItem="suo-pg-7f3" secondAttribute="bottom" constant="3" id="hxQ-tx-Pce"/>
                                             <constraint firstItem="jgI-O3-sSk" firstAttribute="top" secondItem="CKR-co-kv0" secondAttribute="top" constant="5" id="i1W-2G-Fpr"/>
                                             <constraint firstAttribute="trailing" secondItem="yv7-YW-LoY" secondAttribute="trailing" constant="5" id="jVv-WB-N0f"/>
                                             <constraint firstItem="jKj-Lm-XnL" firstAttribute="top" secondItem="hhI-Eb-UIM" secondAttribute="bottom" constant="3" id="kA3-9z-ULW"/>
                                             <constraint firstItem="84s-uV-AUY" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="kl4-nG-Kin"/>
                                             <constraint firstItem="MC0-Oc-mzD" firstAttribute="top" secondItem="6ZG-6f-NIA" secondAttribute="bottom" constant="3" id="le0-4x-uNz"/>
-                                            <constraint firstAttribute="trailing" secondItem="sax-wq-ukW" secondAttribute="trailing" constant="5" id="lia-At-Kcb"/>
                                             <constraint firstAttribute="trailing" secondItem="jgI-O3-sSk" secondAttribute="trailing" constant="5" id="m4a-bh-eKd"/>
                                             <constraint firstItem="hhI-Eb-UIM" firstAttribute="top" secondItem="2wx-De-o0H" secondAttribute="bottom" constant="3" id="mSk-T4-lUM"/>
                                             <constraint firstItem="2wx-De-o0H" firstAttribute="top" secondItem="eHN-Zu-DMj" secondAttribute="bottom" constant="3" id="mkh-nX-37U"/>
                                             <constraint firstItem="MC0-Oc-mzD" firstAttribute="top" secondItem="6ZG-6f-NIA" secondAttribute="bottom" constant="3" id="o2a-JK-6QG"/>
-                                            <constraint firstItem="suo-pg-7f3" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="pbV-Ro-ekC"/>
                                             <constraint firstAttribute="height" constant="2260" id="sqZ-Ve-UUi"/>
                                             <constraint firstItem="LxH-H3-CZu" firstAttribute="top" secondItem="yv7-YW-LoY" secondAttribute="bottom" constant="3" id="tMM-I9-Ijz"/>
+                                            <constraint firstAttribute="trailing" secondItem="9oW-0V-ggi" secondAttribute="trailing" constant="5" id="wHl-LL-SPc"/>
                                             <constraint firstItem="Yhb-m7-EM8" firstAttribute="top" secondItem="jKj-Lm-XnL" secondAttribute="bottom" constant="3" id="x3b-6S-O3b"/>
                                             <constraint firstItem="6ZG-6f-NIA" firstAttribute="leading" secondItem="CKR-co-kv0" secondAttribute="leading" constant="5" id="yDB-u0-UuY"/>
-                                            <constraint firstItem="sax-wq-ukW" firstAttribute="top" secondItem="MC0-Oc-mzD" secondAttribute="bottom" constant="3" id="z9T-WC-33I"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -11513,8 +11511,11 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We know this process can be overwhelming, and we will be with you every step of the way." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTY-we-bMo">
-                                                <rect key="frame" x="5" y="2899" width="404" height="97"/>
+                                                <rect key="frame" x="5" y="2897" width="404" height="53"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="53" id="e4a-CA-m7D"/>
+                                                </constraints>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -11688,6 +11689,9 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTd-Gn-7pC">
                                                 <rect key="frame" x="5" y="2742.5" width="404" height="67"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="67" id="bJ4-7s-aeN"/>
+                                                </constraints>
                                                 <string key="text">We expect for all video content to be limited to food engagement content only. Any other content will be removed, and repeat offenses will result in the dismissal of your account and use of the Taïste platform.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -11735,7 +11739,6 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="3WU-Ea-t7C" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="5Vm-6C-wOf"/>
                                             <constraint firstAttribute="trailing" secondItem="UGK-zw-Wlx" secondAttribute="trailing" constant="5" id="7VB-DQ-UYd"/>
                                             <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="7XO-dH-qhP"/>
-                                            <constraint firstItem="GTY-we-bMo" firstAttribute="top" secondItem="ZsG-AB-Vgh" secondAttribute="bottom" constant="12" id="7nj-mZ-fLG"/>
                                             <constraint firstItem="kzg-VB-w0n" firstAttribute="top" secondItem="M2H-ob-juH" secondAttribute="bottom" constant="5" id="7qf-TQ-ehe"/>
                                             <constraint firstItem="5um-PJ-fej" firstAttribute="top" secondItem="EW3-UJ-3gS" secondAttribute="bottom" constant="3" id="8It-Jt-RnS"/>
                                             <constraint firstAttribute="trailing" secondItem="kzg-VB-w0n" secondAttribute="trailing" constant="5" id="8mD-bH-9tp"/>
@@ -11759,6 +11762,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="FNH-Q7-W81" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="FnG-tO-U3R"/>
                                             <constraint firstItem="M2H-ob-juH" firstAttribute="top" secondItem="t7O-Ne-3KR" secondAttribute="bottom" constant="3" id="GRE-HM-wjT"/>
                                             <constraint firstItem="j5l-fw-78s" firstAttribute="top" secondItem="qEa-On-c99" secondAttribute="bottom" constant="5" id="H0b-8t-jBr"/>
+                                            <constraint firstItem="GTY-we-bMo" firstAttribute="top" secondItem="ZsG-AB-Vgh" secondAttribute="bottom" constant="10" id="HMF-sa-v1q"/>
                                             <constraint firstAttribute="trailing" secondItem="sXr-rL-Nuk" secondAttribute="trailing" constant="5" id="HTj-dz-Bcz"/>
                                             <constraint firstItem="EW3-UJ-3gS" firstAttribute="top" secondItem="4VN-14-yVL" secondAttribute="bottom" constant="5" id="HnP-H1-Z6X"/>
                                             <constraint firstItem="QYR-jj-zlG" firstAttribute="top" secondItem="5um-PJ-fej" secondAttribute="bottom" constant="14" id="IrS-rf-4fb"/>
@@ -11783,7 +11787,6 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="Nfz-fl-fC0" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="T6Z-6t-P2F"/>
                                             <constraint firstAttribute="trailing" secondItem="fNy-IQ-cZI" secondAttribute="trailing" constant="5" id="TUb-gc-Pu0"/>
                                             <constraint firstAttribute="trailing" secondItem="bTd-Gn-7pC" secondAttribute="trailing" constant="5" id="VDX-PC-Ah8"/>
-                                            <constraint firstItem="GTY-we-bMo" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="VaK-7q-0Ti"/>
                                             <constraint firstItem="Qwp-6W-luL" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="WCZ-C4-OaN"/>
                                             <constraint firstItem="qEa-On-c99" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="WxC-eT-SXN"/>
                                             <constraint firstAttribute="trailing" secondItem="1mq-zq-VQM" secondAttribute="trailing" constant="5" id="X5Q-Tk-TNt"/>
@@ -11830,7 +11833,6 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstAttribute="trailing" secondItem="qEa-On-c99" secondAttribute="trailing" constant="5" id="ooV-1R-01s"/>
                                             <constraint firstItem="PRG-Xx-y3A" firstAttribute="top" secondItem="Nfz-fl-fC0" secondAttribute="bottom" constant="3" id="p1y-WE-sj7"/>
                                             <constraint firstItem="LqE-es-mYJ" firstAttribute="top" secondItem="1mq-zq-VQM" secondAttribute="bottom" constant="3" id="pin-AY-Tqi"/>
-                                            <constraint firstAttribute="trailing" secondItem="GTY-we-bMo" secondAttribute="trailing" constant="5" id="qHI-9e-heE"/>
                                             <constraint firstItem="bTd-Gn-7pC" firstAttribute="top" secondItem="Qwp-6W-luL" secondAttribute="bottom" constant="3" id="qSM-IH-bla"/>
                                             <constraint firstItem="d6Z-iX-jqi" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="qdC-XV-Krp"/>
                                             <constraint firstItem="gxE-jT-9ky" firstAttribute="top" secondItem="j5l-fw-78s" secondAttribute="bottom" constant="3" id="r5O-14-yg6"/>
@@ -11838,8 +11840,10 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="f1F-87-rlu" firstAttribute="top" secondItem="3WU-Ea-t7C" secondAttribute="bottom" constant="3" id="s7C-v6-Xjm"/>
                                             <constraint firstItem="1mq-zq-VQM" firstAttribute="top" secondItem="QYR-jj-zlG" secondAttribute="bottom" constant="5" id="sGc-Zd-s4I"/>
                                             <constraint firstItem="E9m-he-eJg" firstAttribute="top" secondItem="1Xm-TW-abB" secondAttribute="bottom" constant="10" id="siK-Bf-cZi"/>
+                                            <constraint firstItem="GTY-we-bMo" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="tAg-pJ-f3X"/>
                                             <constraint firstItem="ZsG-AB-Vgh" firstAttribute="top" secondItem="FNH-Q7-W81" secondAttribute="bottom" constant="3" id="tcj-Sv-n06"/>
                                             <constraint firstAttribute="trailing" secondItem="d6Z-iX-jqi" secondAttribute="trailing" constant="5" id="thy-ri-57q"/>
+                                            <constraint firstAttribute="trailing" secondItem="GTY-we-bMo" secondAttribute="trailing" constant="5" id="tmA-27-x37"/>
                                             <constraint firstAttribute="trailing" secondItem="4VN-14-yVL" secondAttribute="trailing" constant="5" id="tmC-a4-xrA"/>
                                             <constraint firstAttribute="trailing" secondItem="LqE-es-mYJ" secondAttribute="trailing" constant="5" id="tr8-mw-NGC"/>
                                             <constraint firstItem="bTd-Gn-7pC" firstAttribute="top" secondItem="Qwp-6W-luL" secondAttribute="bottom" constant="3" id="u9S-EM-pBs"/>
@@ -11854,7 +11858,6 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="djW-dQ-oNW" firstAttribute="top" secondItem="qJU-gY-VMS" secondAttribute="bottom" constant="3" id="wXg-vR-erV"/>
                                             <constraint firstItem="4VN-14-yVL" firstAttribute="top" secondItem="kZG-1w-BO3" secondAttribute="bottom" constant="3" id="wcO-ni-km3"/>
                                             <constraint firstAttribute="height" constant="3050" id="xBj-zu-0s6"/>
-                                            <constraint firstAttribute="bottom" secondItem="GTY-we-bMo" secondAttribute="bottom" constant="54" id="xGv-1e-Uan"/>
                                             <constraint firstItem="gxE-jT-9ky" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="yCe-dk-xeH"/>
                                             <constraint firstAttribute="trailing" secondItem="EW3-UJ-3gS" secondAttribute="trailing" constant="5" id="z8p-lN-lbd"/>
                                             <constraint firstItem="kzg-VB-w0n" firstAttribute="leading" secondItem="iKE-7S-bEC" secondAttribute="leading" constant="5" id="zFo-1c-0Fk"/>

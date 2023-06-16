@@ -100,14 +100,23 @@ class AccountSettingsChefViewController: UIViewController {
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+        
         try? Auth.auth().signOut()
         
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Start") as? StartViewController  {
             self.present(vc, animated: true, completion: nil)
         }
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     @IBAction func deleteAccountButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+      
         let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
@@ -134,6 +143,9 @@ class AccountSettingsChefViewController: UIViewController {
         }))
         
         present(alert, animated: true, completion: nil)
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     

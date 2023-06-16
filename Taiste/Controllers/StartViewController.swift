@@ -85,19 +85,19 @@ class StartViewController: UIViewController {
         
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
+            if Auth.auth().currentUser != nil {
             if Auth.auth().currentUser!.displayName! == "User" {
                 //your view controller
                 self.performSegue(withIdentifier: "StartToUserTabSegue", sender: self)
             } else {
                 self.performSegue(withIdentifier: "StartToChefTabSegue", sender: self)
             }
+            }
         }else{
             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
-        if Auth.auth().currentUser != nil {
-            
-          
-        }
+        
+         
     }
     
     func showToast(message : String, font: UIFont) {
