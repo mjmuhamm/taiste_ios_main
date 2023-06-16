@@ -173,7 +173,9 @@ class ChefLoginViewController: UIViewController {
                     
                 }
                 
-            }} else {
+            }
+            
+        } else {
                 self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
                }
         }
@@ -197,29 +199,12 @@ class ChefLoginViewController: UIViewController {
                 toastLabel.removeFromSuperview()
             })
         }
-    }
+    
 
     @IBAction func signUpButtonPressed(_ sender: MDCButton) {
        performSegue(withIdentifier: "ChefLoginToChefDisclaimerSegue", sender: self)
     }
     
-    func showToast(message : String, font: UIFont) {
-        
-        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 50))
-        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
-        toastLabel.textColor = UIColor.white
-        toastLabel.font = font
-        toastLabel.textAlignment = .center;
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 1;
-        toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-             toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
-    }
+  
     
 }

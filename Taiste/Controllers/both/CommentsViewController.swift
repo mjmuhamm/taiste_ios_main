@@ -16,7 +16,7 @@ class CommentsViewController: UIViewController {
     let df = DateFormatter()
     let db = Firestore.firestore()
     let storage = Storage.storage()
-
+    
     @IBOutlet weak var sendComment: UIButton!
     @IBOutlet weak var messageText: UITextField!
     
@@ -48,9 +48,9 @@ class CommentsViewController: UIViewController {
                             
                             
                             let index = self.comments.firstIndex(where: { $0.documentId == doc.documentID })
-                                if index == nil {
+                            if index == nil {
                                 self.comments.append(Comments(userImage: UIImage(), userImageId: userImageId, userEmail: userEmail, comment: comment, date: date, likes: likes, documentId: doc.documentID, chefOrUser: chefOrUser))
-                                    if self.comments.count == 1 {}
+                                if self.comments.count == 1 {}
                             }
                             
                         }
@@ -76,7 +76,7 @@ class CommentsViewController: UIViewController {
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-             toastLabel.alpha = 0.0
+            toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         })
@@ -88,19 +88,20 @@ class CommentsViewController: UIViewController {
     @IBAction func sendCommentButtonPressed(_ sender: Any) {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
+            
+            let data : [String : Any] = ["comment" : messageText.text!, "date" : df.string(from: Date()), "likes" : [], "userImageId" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "chefOrUser" : chefOrUser]
+            
+            let documentId = UUID().uuidString
+            self.db.collection("Videos").document(self.videoId).collection("UserComments").document(documentId).setData(data)
+            self.messageText.text = ""
+            self.showToast(message: "Comment Sent.", font: .systemFont(ofSize: 12))
+            self.comments.append(Comments(userImage: UIImage(), userImageId: Auth.auth().currentUser!.uid, userEmail: Auth.auth().currentUser!.email!, comment: self.messageText.text!, date: self.df.string(from: Date()), likes: [], documentId: documentId, chefOrUser: chefOrUser))
+            self.commentsTableView.reloadData()
+            
+        }  else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         
-        let data : [String : Any] = ["comment" : messageText.text!, "date" : df.string(from: Date()), "likes" : [], "userImageId" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "chefOrUser" : chefOrUser]
-        
-        let documentId = UUID().uuidString
-        self.db.collection("Videos").document(self.videoId).collection("UserComments").document(documentId).setData(data)
-        self.messageText.text = ""
-        self.showToast(message: "Comment Sent.", font: .systemFont(ofSize: 12))
-        self.comments.append(Comments(userImage: UIImage(), userImageId: Auth.auth().currentUser!.uid, userEmail: Auth.auth().currentUser!.email!, comment: self.messageText.text!, date: self.df.string(from: Date()), likes: [], documentId: documentId, chefOrUser: chefOrUser))
-        self.commentsTableView.reloadData()
-        
-    }
-    } else {
-          self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
     }
 }
 
