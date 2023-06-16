@@ -74,12 +74,6 @@ class AccountSettingsChefViewController: UIViewController {
         }
     }
     
-    @IBAction func guideToPurchasingPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToPurchasing") as? GuideToPurchasingViewController  {
-            self.present(vc, animated: true, completion: nil)
-        }
-    }
-    
     
     @IBAction func dataPrivacyButtonPressed(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicy") as? PrivacyPolicyViewController {

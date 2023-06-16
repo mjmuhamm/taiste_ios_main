@@ -43,6 +43,12 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.tintColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        self.tabBarController?.tabBar.barTintColor = UIColor.white
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else {
             return
@@ -75,31 +81,14 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
                             } else {
                                 chefOrUser1 = "chefs"
                             }
-                            
-                            storageRef.child("\(chefOrUser1)/\(email)/profileImage/\(doc.documentID).png").downloadURL { imageUrl, error in
-                                if error == nil {
-                                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                                        // Error handling...
-                                        guard let imageData = data else { return }
-                                        
-                                        print("happening itemdata")
-                                        DispatchQueue.main.async {
-                                            let image = UIImage(data: imageData)!
-                                            
-                                            
-                                            if self.data.isEmpty {
-                                                self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: image, pictureId: doc.documentID, chefOrUser: chefOrUser))
-                                            } else {
-                                                let index = self.data.firstIndex { $0.pictureId == doc.documentID }
-                                                if index == nil {
-                                                    self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: image, pictureId: doc.documentID, chefOrUser: chefOrUser))
-                                                    
-                                                }
-                                                
-                                            }
-                                            
-                                        }
-                                    }.resume()
+                            if self.data.isEmpty {
+                                self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: UIImage(), pictureId: doc.documentID, chefOrUser: chefOrUser))
+                            } else {
+                                let index = self.data.firstIndex { $0.pictureId == doc.documentID }
+                                   if index == nil {
+                                       self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: UIImage(), pictureId: doc.documentID, chefOrUser: chefOrUser))
+                                               
+                                                  
                                 }
                             }
                         }
@@ -151,10 +140,22 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource  {
         
         
         var chefOrUser = ""
-        if user.chefOrUser == "User" {
-            chefOrUser = "users"
-        } else {
-            chefOrUser = "chefs"
+        if user.chefOrUser == "User" { chefOrUser = "users" } else { chefOrUser = "chefs" }
+        
+        let storageRef = storage.reference()
+        
+        storageRef.child("\(chefOrUser)/\(user.userEmail)/profileImage/\(user.pictureId).png").downloadURL { imageUrl, error in
+            URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                // Error handling...
+                guard let imageData = data else { return }
+                
+                print("happening itemdata")
+                DispatchQueue.main.async {
+                    cell.userImage.image = UIImage(data: imageData)!
+                    
+                }
+            }.resume()
+            
         }
         
        

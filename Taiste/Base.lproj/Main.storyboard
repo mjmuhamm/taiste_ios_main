@@ -5063,7 +5063,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTz-zq-zK2">
-                                <rect key="frame" x="27" y="368.5" width="132" height="25.5"/>
+                                <rect key="frame" x="27" y="327.5" width="132" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5075,7 +5075,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H84-gM-zcS">
-                                <rect key="frame" x="27" y="413" width="153" height="25.5"/>
+                                <rect key="frame" x="27" y="372" width="153" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5087,7 +5087,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnb-GF-N7g">
-                                <rect key="frame" x="27" y="502" width="146" height="25.5"/>
+                                <rect key="frame" x="27" y="461" width="146" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5099,7 +5099,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVf-aa-fAd" customClass="MDCButton">
-                                <rect key="frame" x="30" y="560.5" width="48" height="30"/>
+                                <rect key="frame" x="30" y="519.5" width="48" height="30"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Logout"/>
@@ -5108,7 +5108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlq-H5-eKv" customClass="MDCButton">
-                                <rect key="frame" x="27" y="606.5" width="105" height="30"/>
+                                <rect key="frame" x="27" y="565.5" width="105" height="30"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Delete Account"/>
@@ -5129,7 +5129,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ps1-gl-rtr">
-                                <rect key="frame" x="27" y="457.5" width="192" height="25.5"/>
+                                <rect key="frame" x="27" y="416.5" width="192" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -5138,18 +5138,6 @@
                                 </state>
                                 <connections>
                                     <action selector="regulationAgreementPressed:" destination="UHJ-6K-3na" eventType="touchUpInside" id="hjM-Eg-lpj"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjE-VK-KJb">
-                                <rect key="frame" x="27" y="327.5" width="229" height="26"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="tintColor" systemColor="systemGray5Color"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title=" Taïste: Guide to Purchasing" image="square.and.pencil" catalog="system">
-                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="guideToPurchasingPressed:" destination="UHJ-6K-3na" eventType="touchUpInside" id="0mE-38-QBZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNV-ii-a3f">
@@ -5169,13 +5157,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="0A8-Fi-o4G" secondAttribute="trailing" constant="10" id="17Y-xU-RyS"/>
-                            <constraint firstItem="xjE-VK-KJb" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="1bJ-z2-FCy"/>
                             <constraint firstItem="0A8-Fi-o4G" firstAttribute="top" secondItem="QaQ-C8-YW7" secondAttribute="bottom" constant="8" symbolic="YES" id="21Q-60-usD"/>
+                            <constraint firstItem="WTz-zq-zK2" firstAttribute="top" secondItem="FNV-ii-a3f" secondAttribute="bottom" constant="15" id="2hH-A4-gOa"/>
                             <constraint firstItem="ps1-gl-rtr" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="2zE-Xa-mXU"/>
                             <constraint firstItem="nIp-NF-tlP" firstAttribute="leading" secondItem="DrC-3U-ZIY" secondAttribute="leading" id="4pz-qk-bgH"/>
-                            <constraint firstItem="xjE-VK-KJb" firstAttribute="top" secondItem="FNV-ii-a3f" secondAttribute="bottom" constant="15" id="67d-Td-NEK"/>
                             <constraint firstItem="qxE-e2-rdF" firstAttribute="top" secondItem="aM9-Ku-Wmr" secondAttribute="bottom" constant="15" id="77O-K7-36t"/>
-                            <constraint firstItem="WTz-zq-zK2" firstAttribute="top" secondItem="xjE-VK-KJb" secondAttribute="bottom" constant="15" id="APk-cf-n5i"/>
                             <constraint firstItem="nIp-NF-tlP" firstAttribute="top" secondItem="rXg-8Q-e78" secondAttribute="bottom" constant="19" id="D6H-J7-z9q"/>
                             <constraint firstItem="mXl-Zf-ubs" firstAttribute="leading" secondItem="DrC-3U-ZIY" secondAttribute="leading" constant="30" id="Ek8-ok-gNm"/>
                             <constraint firstItem="aM9-Ku-Wmr" firstAttribute="leading" secondItem="cUo-T7-GOB" secondAttribute="leading" constant="27" id="FA0-Yp-4CK"/>
@@ -11152,7 +11138,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="167.5" id="i8R-u1-6Qf"/>
                                                 </constraints>
-                                                <mutableString key="text">In the event of a chef being further than 50 miles of the event location, the chef will be awarded the option to request a traveling fee. This traveling fee, will be negotiated, and paid in full, with you and the chef after the event has been purchased, in the “Messages for Travel Fee” button, located in the ‘Orders’ -&gt;  ‘Pending’ tab. Here you will be able to communicate directly with the chef, and the chef, if need be, request a traveling fee. To purchase, a button in the message screen will appear showcasing a payment sheet resembling the payment sheet presented in the ‘Checkout’ location.</mutableString>
+                                                <string key="text">In the event of a chef being further than 50 miles of the event location, the chef will be awarded the option to request a traveling fee. This traveling fee, will be negotiated, and paid in full, with you and the chef after the event has been purchased, in the “Messages for Travel Fee” button, located in the ‘Orders’ -&gt;  ‘Pending’ tab. Here you will be able to communicate directly with the chef, and the chef, if need be, request a traveling fee. To purchase, a button in the message screen will appear showcasing a payment sheet resembling the payment sheet presented in the ‘Checkout’ location.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -11186,7 +11172,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84s-uV-AUY">
                                                 <rect key="frame" x="5" y="426.5" width="404" height="150.5"/>
-                                                <mutableString key="text">All Executive Items are scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired personal chef. Here you are able to detail a time allotment with the options of Trial Run, Weeks, and Months. You will also be able to describe allergies, additional menu item requests for additional days, and other notes and questions that may arise. Taïste operates as the intermediary for each payment, and the chef, will be paid after each day that is outlined in the purchase agreement.</mutableString>
+                                                <string key="text">All Executive Items are scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired personal chef. Here you are able to detail a time allotment with the options of Trial Run, Weeks, and Months. You will also be able to describe allergies, additional menu item requests for additional days, and other notes and questions that may arise. Taïste operates as the intermediary for each payment, and the chef, will be paid after each day that is outlined in the purchase agreement.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -11206,9 +11192,9 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="310" id="AVh-VS-Psz"/>
                                                 </constraints>
-                                                <mutableString key="text">All MealKit Requests will be scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired meal kit needs. Here you are able to outline the length of the meal kit order with a notes option to detail any ingredients to stay away from, and any other questions that may arise.
+                                                <string key="text">All MealKit Requests will be scheduled in the ‘Order Detail’ screen, with the necessary information required to fulfill you desired meal kit needs. Here you are able to outline the length of the meal kit order with a notes option to detail any ingredients to stay away from, and any other questions that may arise.
 
-Additionally, we include a $70 additional charge for the chef in the purchasing of meal kit containers and boxes to securely ship your meal kit purchase for a 30 day time window. If your meal kit purchase is only inclusive of one week, then a $45 additional charge will be accrued in your checkout price. Before shipping, we require each chef to take a picture showcasing how each meal kit item is prepared and how it will be shipped to your front door. These pictures will require approval by you and / or our internal staff, whichever sees the images first, to ensure quality control.</mutableString>
+Additionally, we include a $70 additional charge for the chef in the purchasing of meal kit containers and boxes to securely ship your meal kit purchase for a 30 day time window. If your meal kit purchase is only inclusive of one week, then a $45 additional charge will be accrued in your checkout price. Before shipping, we require each chef to take a picture showcasing how each meal kit item is prepared and how it will be shipped to your front door. These pictures will require approval by you and / or our internal staff, whichever sees the images first, to ensure quality control.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -11228,7 +11214,7 @@ Additionally, we include a $70 additional charge for the chef in the purchasing 
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="426" id="v7V-s0-8HE"/>
                                                 </constraints>
-                                                <mutableString key="text">We give full autonomy to the chef to consider their ingredient and preparation expenses before marketing an item price; but we have safeguarded windows of expectation for our customers to beware of any over-charged menu prices. Please be cautious. Although some chefs are premier, well-experienced and deserving of above average prices, we open our platform to all culinary enthusiasts, culinary students, chef entrepreneurs, restaurant chefs, and hobbyists. Please consider this in your decision making.
+                                                <string key="text">We give full autonomy to the chef to consider their ingredient and preparation expenses before marketing an item price; but we have safeguarded windows of expectation for our customers to beware of any over-charged menu prices. Please be cautious. Although some chefs are premier, well-experienced and deserving of above average prices, we open our platform to all culinary enthusiasts, culinary students, chef entrepreneurs, restaurant chefs, and hobbyists. Please consider this in your decision making.
 
 Cater Items price similarly to restaurant dishes and thus, you can expect to pay anywhere from $12 - $60 for per serving. As a courtesy, we have discounted the price for multiple day events.
 
@@ -11236,7 +11222,7 @@ Executive Chef’s can charge anywhere from $100 - $4,000 for one event. This ra
 
 Meal Kit prices can range anywhere from $8 - $15 per plate.
 
-Taïste platform fees are about 5% for consumers plus local and federal sales taxes which average to about 9%.</mutableString>
+Taïste platform fees are about 5% for consumers plus local and federal sales taxes which average to about 9%.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -11430,7 +11416,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="13" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXr-rL-Nuk">
                                                 <rect key="frame" x="5" y="46" width="404" height="217.5"/>
-                                                <mutableString key="text">Thank you for being here! Helping us take on the journey of servicing our communities, with culinary inspirations from around the world. Our goal is to make your business operate efficiently, effectively, and at scale. In this we have created a powerful Software-as-a-Service Solution to service your business. With powerful data modeling, and suggestion features, we dedicate ourselves to serving your business with advanced consumer insight, and nationwide leads, so that you can operate your entire business, with artificial intelligence, from your phone. In this, we have prepared a detailed posting schema to guide you in posting, and preparing your catering, executive chef, and meal kit events and disbursements. Please continue in reading the following, and welcome, to Taïste.</mutableString>
+                                                <string key="text">Thank you for being here! Helping us take on the journey of servicing our communities, with culinary inspirations from around the world. Our goal is to make your business operate efficiently, effectively, and at scale. In this we have created a powerful Software-as-a-Service Solution to service your business. With powerful data modeling, and suggestion features, we dedicate ourselves to serving your business with advanced consumer insight, and nationwide leads, so that you can operate your entire business, with artificial intelligence, from your phone. In this, we have prepared a detailed posting schema to guide you in posting, and preparing your catering, executive chef, and meal kit events and disbursements. Please continue in reading the following, and welcome, to Taïste.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -11466,9 +11452,9 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEa-On-c99">
-                                                <rect key="frame" x="5" y="1401.5" width="404" height="150.5"/>
+                                                <rect key="frame" x="5" y="1401.5" width="404" height="127"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150.5" id="Y7b-Us-CxC"/>
+                                                    <constraint firstAttribute="height" constant="127" id="Y7b-Us-CxC"/>
                                                 </constraints>
                                                 <string key="text">If you have not accepted the event, your cancellation will automatically reward a full refund to the user. If the event has been accepted, a 5% inconvenience fee, of the total event cost, will awarded to the user, at the expense of your next payout. If the event is scheduled for less than 7 days of the cancellation date, your inconvenience fee will graduate to 15% of the total order cost, to be awarded to the user.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -11487,7 +11473,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1F-87-rlu">
                                                 <rect key="frame" x="5" y="562.5" width="404" height="167.5"/>
-                                                <mutableString key="text">Your menu item pricing completely in your control; but please keep in mind that we advocate transparency with our users in weighing the value of cater items based on industry standards, and estimates in food preparation costs, and the number of users that have positively reviewed your cater item. We recommend to users that Cater Items be priced, per serving, in the ranges of $12-$65. Please try to follow this standard, as internal auditing will take place in the event that our team believes that your price is a bit overpriced, or if users begin reporting your cater item listings.</mutableString>
+                                                <string key="text">Your menu item pricing completely in your control; but please keep in mind that we advocate transparency with our users in weighing the value of cater items based on industry standards, and estimates in food preparation costs, and the number of users that have positively reviewed your cater item. We recommend to users that Cater Items be priced, per serving, in the ranges of $12-$65. Please try to follow this standard, as internal auditing will take place in the event that our team believes that your price is a bit overpriced, or if users begin reporting your cater item listings.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -11527,7 +11513,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We know this process can be overwhelming, and we will be with you every step of the way." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTY-we-bMo">
-                                                <rect key="frame" x="5" y="2922.5" width="404" height="73.5"/>
+                                                <rect key="frame" x="5" y="2899" width="404" height="97"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
@@ -11552,15 +11538,15 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLi-5d-pps">
                                                 <rect key="frame" x="5" y="868.5" width="404" height="184"/>
-                                                <mutableString key="text">If the event location is more than 45 miles of your business location, a travel fee option will be allotted to you, where in which you will be able to negotiate with the user on what you believe should adequately supplement your travel, and what the user can afford.  Upon payment, the event will automatically be accepted and will appear in your ‘Scheduled’ Orders tab. 
+                                                <string key="text">If the event location is more than 45 miles of your business location, a travel fee option will be allotted to you, where in which you will be able to negotiate with the user on what you believe should adequately supplement your travel, and what the user can afford.  Upon payment, the event will automatically be accepted and will appear in your ‘Scheduled’ Orders tab. 
 
-If the event is less than 45 miles, then normal operations will prompt, and you will have the option to accept or cancel the event based on your business and personal responsibilities. </mutableString>
+If the event is less than 45 miles, then normal operations will prompt, and you will have the option to accept or cancel the event based on your business and personal responsibilities. </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Executive Chef Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-fw-78s">
-                                                <rect key="frame" x="5" y="1557" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1533.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="XSi-q9-0Gv"/>
@@ -11570,14 +11556,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxE-jT-9ky">
-                                                <rect key="frame" x="5" y="1596" width="404" height="100.5"/>
+                                                <rect key="frame" x="5" y="1572.5" width="404" height="100.5"/>
                                                 <string key="text">Each consumer will be presented with a list of cater item suggestions, that cater to their personalized palates, from chefs across the United States, and the world. Your Cater Item Post will include an item title, maximum of 4 pictures, item description, calorie count, Price Point Per Serving / Guest, and the categories you believe your item best represents. </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Pricing" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZG-1w-BO3">
-                                                <rect key="frame" x="5" y="1701.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1678" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="x8W-au-rwf"/>
@@ -11587,14 +11573,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VN-14-yVL">
-                                                <rect key="frame" x="5" y="1740.5" width="404" height="117"/>
+                                                <rect key="frame" x="5" y="1717" width="404" height="117"/>
                                                 <string key="text">Pricing for your executive chef event will be presented to the user in a lump sum format, representing each day that will be serviced, per day (not per hour). We have prompted our user community that Executive Chef Pricing can range anywhere from $60-$4,000. Please charge for your comfortability,  and expertise. Similarly to Cater Items, All Chefs will be presented to the user in a feed, focusing on the user’s preferences. </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Payouts" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EW3-UJ-3gS">
-                                                <rect key="frame" x="5" y="1862.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="1839" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="Cgz-nD-Sug"/>
@@ -11604,20 +11590,20 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5um-PJ-fej">
-                                                <rect key="frame" x="5" y="1901.5" width="404" height="100.5"/>
+                                                <rect key="frame" x="5" y="1878" width="404" height="100.5"/>
                                                 <string key="text">Payouts for Executive Chef Events will disburse to your bank account exactly one hour of each day that is being serviced. For Example, if you are to receive $5,000 for an executive chef event scheduled for 7 days, that $5,000 payment will be divided by 7, representing each service day, and disbursed to you exactly one hour after each service day has completed.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Cancellation expectations apply similarly to Executive Chef Postings." lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-jj-zlG">
-                                                <rect key="frame" x="5" y="2016" width="404" height="33.5"/>
+                                                <rect key="frame" x="5" y="1992.5" width="404" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="MealKit Item Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mq-zq-VQM">
-                                                <rect key="frame" x="5" y="2054.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="2031" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="Res-Vu-Xp7"/>
@@ -11627,14 +11613,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LqE-es-mYJ">
-                                                <rect key="frame" x="5" y="2093.5" width="404" height="67"/>
+                                                <rect key="frame" x="5" y="2070" width="404" height="67"/>
                                                 <string key="text">Meal Kit Items represent a huge opportunity for our chef community, and as such, require a special regulation to associate with delivery expectations. Nonetheless, we are here to help you succeed, exceptionally.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7O-Ne-3KR">
-                                                <rect key="frame" x="5" y="2165.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="2142" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="i1P-au-4a4"/>
@@ -11644,14 +11630,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2H-ob-juH">
-                                                <rect key="frame" x="5" y="2204.5" width="404" height="134"/>
+                                                <rect key="frame" x="5" y="2181" width="404" height="134"/>
                                                 <string key="text">Meal Kit postings appear similarly to Cater Items. You are presented with an opportunity to present your item title, item pictures, description, calories, pricing, and categories of relevance. We have suggested to our user community that Meal Kit Items should reflect a price point of between $7-$14 per meal, to best compete with any external competitor, and to best service our user base. We prompt users to select from time frames, that represent Trial Runs, Weeks, and Months.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Preperation" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzg-VB-w0n">
-                                                <rect key="frame" x="5" y="2343.5" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="2320" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="SF8-oV-l3c"/>
@@ -11661,14 +11647,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdM-Rs-7lP">
-                                                <rect key="frame" x="5" y="2383" width="404" height="184"/>
-                                                <mutableString key="text">As the chef, we hold you to the responsibility of delivering exceptionally high meal-prepped items to your consumer. In this, we extract an additional $70 preparation charge from the user to supplement your preparation, shipping, and convenience costs; per $30 day period. With this extra $70, we hope for it to help in meal kit containers, averaging in price from $28-$40 for 30 day container allotments, and shipping expenses that can range from $8-$15. Before shipping, we require each chef to upload pictures of one meal prepped container, and the presentation of the meals-prepped inside of the shipping package, being delivered to the consumer.</mutableString>
+                                                <rect key="frame" x="5" y="2359.5" width="404" height="184"/>
+                                                <string key="text">As the chef, we hold you to the responsibility of delivering exceptionally high meal-prepped items to your consumer. In this, we extract an additional $70 preparation charge from the user to supplement your preparation, shipping, and convenience costs; per $30 day period. With this extra $70, we hope for it to help in meal kit containers, averaging in price from $28-$40 for 30 day container allotments, and shipping expenses that can range from $8-$15. Before shipping, we require each chef to upload pictures of one meal prepped container, and the presentation of the meals-prepped inside of the shipping package, being delivered to the consumer.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Payouts" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-P5-Dgh">
-                                                <rect key="frame" x="5" y="2572" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="2548.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="xpH-Oy-qBO"/>
@@ -11678,20 +11664,20 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xm-TW-abB">
-                                                <rect key="frame" x="5" y="2611" width="404" height="84"/>
+                                                <rect key="frame" x="5" y="2587.5" width="404" height="84"/>
                                                 <string key="text">After the item is shipped to your consumer, you will be expected to upload a picture of the tracking number, and tracking label from the shipping company, for the viewer and internal staff to verify. After verification, your payout will be disbursed.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Cancellation expectations apply similarly to MealKit Postings." lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9m-he-eJg">
-                                                <rect key="frame" x="5" y="2705" width="404" height="17"/>
+                                                <rect key="frame" x="5" y="2681.5" width="404" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Video Content Posting" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qwp-6W-luL">
-                                                <rect key="frame" x="5" y="2727" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="2703.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="AdX-Dv-IsL"/>
@@ -11701,14 +11687,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTd-Gn-7pC">
-                                                <rect key="frame" x="5" y="2766" width="404" height="67"/>
+                                                <rect key="frame" x="5" y="2742.5" width="404" height="67"/>
                                                 <string key="text">We expect for all video content to be limited to food engagement content only. Any other content will be removed, and repeat offenses will result in the dismissal of your account and use of the Taïste platform.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Taïste Fees" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNH-Q7-W81">
-                                                <rect key="frame" x="5" y="2838" width="404" height="36"/>
+                                                <rect key="frame" x="5" y="2814.5" width="404" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="Y7N-U1-FgY"/>
@@ -11718,7 +11704,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="We charge a 6% service fee for all orders. Local and Nationwide Sales Taxes are deducted accordingly." lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsG-AB-Vgh">
-                                                <rect key="frame" x="5" y="2877" width="404" height="33.5"/>
+                                                <rect key="frame" x="5" y="2853.5" width="404" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>

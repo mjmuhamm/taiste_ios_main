@@ -75,7 +75,6 @@
 		F4B90DE527C709AB004B1FB1 /* TaisteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90DE427C709AB004B1FB1 /* TaisteUITests.swift */; };
 		F4B90DE727C709AB004B1FB1 /* TaisteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90DE627C709AB004B1FB1 /* TaisteUITestsLaunchTests.swift */; };
 		F4B90E0127C70B52004B1FB1 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90E0027C70B52004B1FB1 /* FeedViewController.swift */; };
-		F4B90E0327C70B5A004B1FB1 /* SearcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90E0227C70B5A004B1FB1 /* SearcViewController.swift */; };
 		F4B90E0627C70B69004B1FB1 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90E0527C70B69004B1FB1 /* DashboardViewController.swift */; };
 		F4B90E0827C70B72004B1FB1 /* ChefOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90E0727C70B72004B1FB1 /* ChefOrdersViewController.swift */; };
 		F4B90E0A27C70B79004B1FB1 /* ChefMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B90E0927C70B79004B1FB1 /* ChefMeViewController.swift */; };
@@ -203,7 +202,6 @@
 		F4B90DE427C709AB004B1FB1 /* TaisteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaisteUITests.swift; sourceTree = "<group>"; };
 		F4B90DE627C709AB004B1FB1 /* TaisteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaisteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F4B90E0027C70B52004B1FB1 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		F4B90E0227C70B5A004B1FB1 /* SearcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearcViewController.swift; sourceTree = "<group>"; };
 		F4B90E0527C70B69004B1FB1 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		F4B90E0727C70B72004B1FB1 /* ChefOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefOrdersViewController.swift; sourceTree = "<group>"; };
 		F4B90E0927C70B79004B1FB1 /* ChefMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefMeViewController.swift; sourceTree = "<group>"; };
@@ -540,7 +538,6 @@
 				F4E44B1427C95160007F6295 /* ItemDetailViewController.swift */,
 				F4E44B1627C965AC007F6295 /* ProfileAsUserViewController.swift */,
 				F4A080C02A019D4500895938 /* MessagesViewController.swift */,
-				F4A080C92A01AF6000895938 /* SearchViewController.swift */,
 				F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */,
 				F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */,
 				F453662F2A21883200E18D9B /* ReportAnIssueViewController.swift */,
@@ -596,7 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				F4B90E0027C70B52004B1FB1 /* FeedViewController.swift */,
-				F4B90E0227C70B5A004B1FB1 /* SearcViewController.swift */,
+				F4A080C92A01AF6000895938 /* SearchViewController.swift */,
 			);
 			path = tabs;
 			sourceTree = "<group>";
@@ -853,7 +850,6 @@
 				F4A13EBC27CD882F00A63A00 /* UserOrderPostTableViewCell.swift in Sources */,
 				F481948C27C817DD002BB9D3 /* ChefLoginViewController.swift in Sources */,
 				F4A080BF2A002A9E00895938 /* Banking.swift in Sources */,
-				F4B90E0327C70B5A004B1FB1 /* SearcViewController.swift in Sources */,
 				F4572EF02A2D65C100EAC393 /* PersonalChefOrderDetailViewController.swift in Sources */,
 				F4B90E1027C70B90004B1FB1 /* MeViewController.swift in Sources */,
 				F4B3D76F27CAB64100AA5544 /* CheckoutItems.swift in Sources */,
