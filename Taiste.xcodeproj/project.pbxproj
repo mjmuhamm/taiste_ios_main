@@ -62,6 +62,8 @@
 		F4A13EBD27CD882F00A63A00 /* UserOrderPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4A13EBB27CD882F00A63A00 /* UserOrderPostTableViewCell.xib */; };
 		F4AE2FEE27CF9B6700F529C5 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AE2FEC27CF9B6700F529C5 /* FeedCollectionViewCell.swift */; };
 		F4AE2FEF27CF9B6700F529C5 /* FeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4AE2FED27CF9B6700F529C5 /* FeedCollectionViewCell.xib */; };
+		F4B3438D2A3CAA0C00D056D4 /* MealKitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3438B2A3CAA0C00D056D4 /* MealKitTableViewCell.swift */; };
+		F4B3438E2A3CAA0C00D056D4 /* MealKitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4B3438C2A3CAA0C00D056D4 /* MealKitTableViewCell.xib */; };
 		F4B3D76F27CAB64100AA5544 /* CheckoutItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3D76E27CAB64100AA5544 /* CheckoutItems.swift */; };
 		F4B3D77527CAB7F700AA5544 /* CheckoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B3D77327CAB7F700AA5544 /* CheckoutTableViewCell.swift */; };
 		F4B3D77627CAB7F700AA5544 /* CheckoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4B3D77427CAB7F700AA5544 /* CheckoutTableViewCell.xib */; };
@@ -185,6 +187,8 @@
 		F4A13EBB27CD882F00A63A00 /* UserOrderPostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserOrderPostTableViewCell.xib; sourceTree = "<group>"; };
 		F4AE2FEC27CF9B6700F529C5 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		F4AE2FED27CF9B6700F529C5 /* FeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCollectionViewCell.xib; sourceTree = "<group>"; };
+		F4B3438B2A3CAA0C00D056D4 /* MealKitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealKitTableViewCell.swift; sourceTree = "<group>"; };
+		F4B3438C2A3CAA0C00D056D4 /* MealKitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealKitTableViewCell.xib; sourceTree = "<group>"; };
 		F4B3D76E27CAB64100AA5544 /* CheckoutItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutItems.swift; sourceTree = "<group>"; };
 		F4B3D77327CAB7F700AA5544 /* CheckoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutTableViewCell.swift; sourceTree = "<group>"; };
 		F4B3D77427CAB7F700AA5544 /* CheckoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckoutTableViewCell.xib; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 				F43D90FC2A26209400AE248E /* ChefOrdersTableViewCell.xib */,
 				F4A13EBA27CD882F00A63A00 /* UserOrderPostTableViewCell.swift */,
 				F4A13EBB27CD882F00A63A00 /* UserOrderPostTableViewCell.xib */,
+				F4B3438B2A3CAA0C00D056D4 /* MealKitTableViewCell.swift */,
+				F4B3438C2A3CAA0C00D056D4 /* MealKitTableViewCell.xib */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -771,6 +777,7 @@
 				F4AE2FEF27CF9B6700F529C5 /* FeedCollectionViewCell.xib in Resources */,
 				F4E44B1B27C96DEF007F6295 /* ChefItemTableViewCell.xib in Resources */,
 				F4B90DCB27C709A9004B1FB1 /* Main.storyboard in Resources */,
+				F4B3438E2A3CAA0C00D056D4 /* MealKitTableViewCell.xib in Resources */,
 				F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */,
 				F4A080C62A01A11600895938 /* MessagesTableViewCell.xib in Resources */,
 			);
@@ -864,6 +871,7 @@
 				F4A080C12A019D4600895938 /* MessagesViewController.swift in Sources */,
 				F4A080B629FDA3CA00895938 /* ChefBusinessViewController.swift in Sources */,
 				F4B90E0A27C70B79004B1FB1 /* ChefMeViewController.swift in Sources */,
+				F4B3438D2A3CAA0C00D056D4 /* MealKitTableViewCell.swift in Sources */,
 				F4A080B829FDA3D300895938 /* ChefBankingViewController.swift in Sources */,
 				F4A080B429FDA3BF00895938 /* ChefPersonalViewController.swift in Sources */,
 				F4A080BD2A00020900895938 /* StripeTermsOfServiceViewController.swift in Sources */,

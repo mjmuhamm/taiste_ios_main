@@ -87,12 +87,22 @@ class ItemDetailViewController: UIViewController {
     private var expectationsData = 0
     private var qualityData = 0
     private var chefRatingData = 0
+    @IBOutlet weak var ratingStack: UIStackView!
     
     var personalChefInfo : PersonalChefInfo?
     var caterOrPersonal = ""
     var chefImageI : UIImage?
     var chefNameI = ""
     
+    
+    //MealKit
+    
+    @IBOutlet weak var denyButton: UIButton!
+    @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var acceptDenyStack: UIStackView!
+    @IBOutlet weak var mealKitView: UIView!
+    @IBOutlet weak var uploadButton: UIButton!
+    private var isMealKit = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +162,27 @@ class ItemDetailViewController: UIViewController {
         if item != nil {
             self.itemCalories.text = "Calories: \(item!.itemCalories)"
         }
+            
+            if isMealKit != "" {
+                
+                self.mealKitView.isHidden = false
+                self.itemCalories.isHidden = true
+                self.reviewButton.isHidden = true
+                self.ratingStack.isHidden = true
+              
+                if Auth.auth().currentUser!.displayName! == "Chef" {
+                    self.itemDescription.text = "Please upload pictures of your meal kit preperation, shipping containers, and shipping label, for your customer to approve."
+                    self.acceptDenyStack.isHidden = true
+                    self.uploadButton.isHidden = false
+                } else {
+                    self.itemDescription.text = "Here, you can expect pictures from  your chef of meal kit preperation, shipping containers, and shipping label, for you to approve. Please keep us informed with any problems."
+                    self.acceptDenyStack.isHidden = false
+                    self.uploadButton.isHidden = true
+                }
+                
+                
+            }
+            
         } else {
               self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
@@ -523,7 +554,16 @@ class ItemDetailViewController: UIViewController {
         }
     }
     
-
+    @IBAction func acceptButtonPressed(_ sender: Any) {
+    }
+    
+    
+    @IBAction func denyButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func uploadButtonPressed(_ sender: Any) {
+    }
 }
 
 extension ItemDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

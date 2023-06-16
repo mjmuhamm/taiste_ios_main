@@ -374,10 +374,13 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
         var service = ""
         if order.typeOfService == "Cater Items" {
             service = "Cater Item"
+            cell.messagesForTravelFeeButton.setTitle("Message For Travel Fee", for: .normal)
         } else if order.typeOfService == "Executive Item" {
             service = "Personal Chef Item"
+            cell.messagesForTravelFeeButton.setTitle("Message For Travel Fee", for: .normal)
             
         } else if order.typeOfService == "MealKit Items" {
+            cell.messagesForTravelFeeButton.setTitle("Meal Kit Delivery", for: .normal)
             service = "MealKit Item"
         }
         cell.itemType.text = service
@@ -387,7 +390,6 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
         cell.location.text = "Location: \(order.location)"
         
         if self.toggle == "Scheduled" {
-            
             cell.messagesForTravelFeeButton.isEnabled = false
         var newEventDates : [Date] = []
         var percent : Double?
@@ -487,27 +489,31 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.messagesForTravelFeeButtonTapped = {
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+            if self.toggle != "MealKit Items" {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+                    
+                    vc.travelFeeOrMessages = "travelFee"
+                    vc.travelFee = order.travelFee
+                    vc.menuItemId = order.menuItemId
+                    vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
+                    vc.itemTitle = order.itemTitle
+                    vc.eventType = order.eventType
+                    vc.eventQuantity = order.eventQuantity
+                    vc.locationText = order.location
+                    
+                    vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
+                    vc.orderMessageReceiverImageId = order.chefImageId
+                    vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
+                    vc.orderMessageDocumentId = order.orderId
+                    vc.orderMessageReceiverName = order.chefUsername
+                    vc.orderMessageSenderName = order.userName
+                    vc.orderMessageReceiverEmail = order.chefEmail
+                    vc.orderMessageReceiverChefOrUser = "Chef"
+                    
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
                 
-                vc.travelFeeOrMessages = "travelFee"
-                vc.travelFee = order.travelFee
-                vc.menuItemId = order.menuItemId
-                vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
-                vc.itemTitle = order.itemTitle
-                vc.eventType = order.eventType
-                vc.eventQuantity = order.eventQuantity
-                vc.locationText = order.location
-                
-                vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
-                vc.orderMessageReceiverImageId = order.chefImageId
-                vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
-                vc.orderMessageDocumentId = order.orderId
-                vc.orderMessageReceiverName = order.chefUsername
-                vc.orderMessageSenderName = order.userName
-                vc.orderMessageReceiverEmail = order.chefEmail
-                vc.orderMessageReceiverChefOrUser = "Chef"
-                
-                self.present(vc, animated: true, completion: nil)
             }
         }
         cell.messagesButtonTapped = {

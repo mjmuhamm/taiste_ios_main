@@ -2327,6 +2327,62 @@
                                     <action selector="payButtonPressed:" destination="Acn-ce-GKd" eventType="touchUpInside" id="27P-aK-pY9"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8IQ-fI-cgT">
+                                <rect key="frame" x="0.0" y="781" width="414" height="106"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="OAM-tz-2wo">
+                                        <rect key="frame" x="148" y="8" width="118" height="35"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZp-Q8-Zi0">
+                                                <rect key="frame" x="0.0" y="0.0" width="49" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="J3s-gz-iMb"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Accept">
+                                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="acceptButtonPressed:" destination="Acn-ce-GKd" eventType="touchUpInside" id="L2u-PJ-N30"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woJ-e4-Slf">
+                                                <rect key="frame" x="82" y="0.0" width="36" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="Gca-8r-MhB"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Deny">
+                                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="denyButtonPressed:" destination="Acn-ce-GKd" eventType="touchUpInside" id="C31-gD-8BM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siN-Gf-0xW">
+                                        <rect key="frame" x="182.5" y="8" width="49" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="Ih2-81-vZ1"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Upload">
+                                            <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="uploadButtonPressed:" destination="Acn-ce-GKd" eventType="touchUpInside" id="OsX-9s-4qM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="siN-Gf-0xW" firstAttribute="top" secondItem="8IQ-fI-cgT" secondAttribute="top" constant="8" id="5R9-SP-eGl"/>
+                                    <constraint firstItem="siN-Gf-0xW" firstAttribute="centerX" secondItem="8IQ-fI-cgT" secondAttribute="centerX" id="GgD-38-Bq8"/>
+                                    <constraint firstItem="OAM-tz-2wo" firstAttribute="centerX" secondItem="8IQ-fI-cgT" secondAttribute="centerX" id="YgK-M4-nct"/>
+                                    <constraint firstItem="OAM-tz-2wo" firstAttribute="top" secondItem="8IQ-fI-cgT" secondAttribute="top" constant="8" id="cBQ-v4-iLb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UQm-xc-ivc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2343,6 +2399,7 @@
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="bottom" secondItem="Bju-oC-pOg" secondAttribute="bottom" constant="28" id="J7I-vt-2Bb"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="r4e-LZ-PFW" secondAttribute="trailing" constant="5" id="Kma-uv-fQr"/>
                             <constraint firstItem="PkC-qg-5od" firstAttribute="top" secondItem="GCM-WN-unN" secondAttribute="bottom" constant="3" id="LY8-Cp-F5Q"/>
+                            <constraint firstItem="8IQ-fI-cgT" firstAttribute="leading" secondItem="UQm-xc-ivc" secondAttribute="leading" id="Nbm-Up-QmQ"/>
                             <constraint firstItem="ENO-DX-6iS" firstAttribute="top" secondItem="bbr-f8-TxZ" secondAttribute="bottom" constant="7.5" id="O02-dP-eFJ"/>
                             <constraint firstAttribute="trailing" secondItem="GCM-WN-unN" secondAttribute="trailing" id="OSe-R1-N7U"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="bottom" secondItem="R83-C2-d9a" secondAttribute="bottom" constant="20" id="Ol1-3u-vWE"/>
@@ -2351,9 +2408,11 @@
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="bottom" secondItem="PkC-qg-5od" secondAttribute="bottom" constant="20" id="SEo-aR-O3U"/>
                             <constraint firstItem="ENO-DX-6iS" firstAttribute="leading" secondItem="UQm-xc-ivc" secondAttribute="leading" id="Se8-5R-QY9"/>
                             <constraint firstItem="r4e-LZ-PFW" firstAttribute="top" secondItem="Piv-ss-ctz" secondAttribute="bottom" constant="24" id="VyE-op-IGZ"/>
+                            <constraint firstItem="UQm-xc-ivc" firstAttribute="bottom" secondItem="8IQ-fI-cgT" secondAttribute="bottom" constant="9" id="XDA-ck-Dop"/>
                             <constraint firstItem="JLh-Fp-aKp" firstAttribute="top" secondItem="UQm-xc-ivc" secondAttribute="top" constant="9" id="alA-Og-Klg"/>
                             <constraint firstItem="2B1-J3-t9N" firstAttribute="leading" secondItem="8q5-Qj-1yu" secondAttribute="leading" id="anD-V4-zaM"/>
                             <constraint firstItem="ENO-DX-6iS" firstAttribute="trailing" secondItem="UQm-xc-ivc" secondAttribute="trailing" id="bDN-hl-cdv"/>
+                            <constraint firstItem="8IQ-fI-cgT" firstAttribute="trailing" secondItem="UQm-xc-ivc" secondAttribute="trailing" id="eAO-tr-HGr"/>
                             <constraint firstItem="NvK-5z-8Va" firstAttribute="trailing" secondItem="UQm-xc-ivc" secondAttribute="trailing" id="fpf-sw-Nb0"/>
                             <constraint firstItem="GCM-WN-unN" firstAttribute="leading" secondItem="8q5-Qj-1yu" secondAttribute="leading" id="iVe-yK-WUp"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="bbr-f8-TxZ" secondAttribute="trailing" constant="15" id="k8X-cb-SwE"/>
@@ -2366,12 +2425,15 @@
                             <constraint firstItem="2B1-J3-t9N" firstAttribute="top" secondItem="JLh-Fp-aKp" secondAttribute="bottom" constant="8" symbolic="YES" id="qwH-CA-Mkf"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="R83-C2-d9a" secondAttribute="trailing" constant="34" id="r6y-iz-oyA"/>
                             <constraint firstItem="GCM-WN-unN" firstAttribute="top" secondItem="RyB-iP-F0w" secondAttribute="bottom" constant="8" id="sbG-kw-C6M"/>
+                            <constraint firstItem="8IQ-fI-cgT" firstAttribute="top" secondItem="r4e-LZ-PFW" secondAttribute="bottom" constant="8" id="t6h-j4-kvq"/>
                             <constraint firstItem="r4e-LZ-PFW" firstAttribute="top" secondItem="ENO-DX-6iS" secondAttribute="bottom" constant="13" id="vJy-fn-Huz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cM5-jZ-TIJ"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="acceptButton" destination="QZp-Q8-Zi0" id="4Wy-77-lra"/>
+                        <outlet property="acceptDenyStack" destination="OAM-tz-2wo" id="Ixr-NM-oHb"/>
                         <outlet property="availableText" destination="CPT-r1-F8m" id="Dua-KO-TdD"/>
                         <outlet property="briefIntroduction" destination="iDa-wj-4kP" id="P1i-Uc-3zn"/>
                         <outlet property="chefRating1" destination="b8u-kz-mW8" id="0Hl-kq-YnH"/>
@@ -2379,6 +2441,7 @@
                         <outlet property="chefRating3" destination="b8D-1N-Ec6" id="Ynf-Nn-4dR"/>
                         <outlet property="chefRating4" destination="bQg-Qn-Y5V" id="W4q-E7-dR4"/>
                         <outlet property="chefRating5" destination="L9l-V9-7Ba" id="Ex8-Eb-B93"/>
+                        <outlet property="denyButton" destination="woJ-e4-Slf" id="LKM-HN-1J0"/>
                         <outlet property="expecations3" destination="Dzz-CC-8o1" id="Eyh-Tc-S1K"/>
                         <outlet property="expecations4" destination="8aq-Ma-YQR" id="Yh8-Dx-quS"/>
                         <outlet property="expecations5" destination="mhH-MC-lUS" id="I2s-6s-KOh"/>
@@ -2388,6 +2451,7 @@
                         <outlet property="itemCalories" destination="R7Z-vx-uaw" id="CDs-b7-dR2"/>
                         <outlet property="itemDescription" destination="r4e-LZ-PFW" id="nph-o9-0vw"/>
                         <outlet property="itemTitle" destination="bbr-f8-TxZ" id="cyb-BF-q9s"/>
+                        <outlet property="mealKitView" destination="8IQ-fI-cgT" id="VXJ-AB-K0g"/>
                         <outlet property="mostPrizedAccomplishment" destination="XjO-aY-9pa" id="DnX-Er-kxO"/>
                         <outlet property="openToMenuRequests" destination="u4J-ug-cIr" id="xZw-sc-K5R"/>
                         <outlet property="option1Button" destination="XlA-Rz-PBD" id="OO6-rP-foq"/>
@@ -2408,11 +2472,13 @@
                         <outlet property="quality3" destination="h0q-sY-Ft2" id="7wy-tA-s0g"/>
                         <outlet property="quality4" destination="fhO-F1-JcU" id="upc-4G-6QW"/>
                         <outlet property="quality5" destination="fIX-dK-eAd" id="gGM-EU-zY6"/>
+                        <outlet property="ratingStack" destination="RyB-iP-F0w" id="7VP-eU-UyS"/>
                         <outlet property="reviewButton" destination="PkC-qg-5od" id="afg-5q-xog"/>
                         <outlet property="signatureImage" destination="ryS-mH-Tjs" id="4Yd-h9-szF"/>
                         <outlet property="signatureTitle" destination="9Pm-ao-Ry7" id="rId-4M-mQ8"/>
                         <outlet property="sliderCollectionView" destination="ENO-DX-6iS" id="591-PN-lR0"/>
                         <outlet property="specialty" destination="7wl-RZ-D06" id="v3c-4C-NYc"/>
+                        <outlet property="uploadButton" destination="siN-Gf-0xW" id="5St-UU-vNO"/>
                         <outlet property="whatHelpsYouExcel" destination="SbL-gj-vnU" id="YSm-HR-x17"/>
                     </connections>
                 </viewController>
