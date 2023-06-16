@@ -465,6 +465,7 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         } else if order.typeOfService == "Executive Item" {
             service = "Personal Chef Item"
         } else if order.typeOfService == "MealKit Items" {
+            cell.messagesForTravelFeeButton.setTitle("Meal Kit Delivery", for: .normal)
             service = "MealKit Item"
         }
         cell.itemType.text = service
@@ -538,6 +539,9 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
 //            cell.cancelConstraint.constant = 48
 //            cell.messageConstraint.constant = 48
         }
+        if order.eventType == "MealKit Items" {
+            cell.messagesForTravelFeeButton.isHidden = false
+        }
         
         if toggle == "Pending" {
             cell.messagesButton.setTitle("Accept", for: .normal)
@@ -577,27 +581,38 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         
         cell.messagesForTravelFeeButtonTapped = {
             print("user \(order.user)")
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-              
-                
-                vc.travelFeeOrMessages = "travelFee"
-                vc.travelFee = order.travelFee
-                vc.menuItemId = order.menuItemId
-                vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
-                vc.itemTitle = order.itemTitle
-                vc.eventType = order.eventType
-                vc.eventQuantity = order.eventQuantity
-                vc.locationText = order.location
-                
-                vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
-                vc.orderMessageReceiverImageId = order.userImageId
-                vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
-                vc.orderMessageDocumentId = order.orderId
-                vc.orderMessageReceiverName = order.userName
-                vc.orderMessageSenderName = order.chefUsername
-                vc.orderMessageReceiverEmail = order.userEmail
-                vc.orderMessageReceiverChefOrUser = "User"
-                self.present(vc, animated: true, completion: nil)
+            if order.eventType != "MealKit Items" {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+                    
+                    
+                    vc.travelFeeOrMessages = "travelFee"
+                    vc.travelFee = order.travelFee
+                    vc.menuItemId = order.menuItemId
+                    vc.totalCostOfEvent = "\(order.totalCostOfEvent)"
+                    vc.itemTitle = order.itemTitle
+                    vc.eventType = order.eventType
+                    vc.eventQuantity = order.eventQuantity
+                    vc.locationText = order.location
+                    
+                    vc.orderMessageSenderImageId = Auth.auth().currentUser!.uid
+                    vc.orderMessageReceiverImageId = order.userImageId
+                    vc.orderMessageChefOrUser = Auth.auth().currentUser!.displayName!
+                    vc.orderMessageDocumentId = order.orderId
+                    vc.orderMessageReceiverName = order.userName
+                    vc.orderMessageSenderName = order.chefUsername
+                    vc.orderMessageReceiverEmail = order.userEmail
+                    vc.orderMessageReceiverChefOrUser = "User"
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
+                    vc.isMealKit = "yes"
+                    vc.mealKitOrderId = order.orderId
+                    vc.receiverImageId = order.userImageId
+                    vc.receiverUserName = order.userName
+                    vc.mealKitItemTitle = order.itemTitle
+                    self.present(vc, animated: true, completion: nil)
+                }
             }
             //        ChefOrdersToMessagesSegue
         }

@@ -1768,7 +1768,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbr-f8-TxZ">
-                                <rect key="frame" x="15" y="47.5" width="384" height="34"/>
+                                <rect key="frame" x="14" y="47.5" width="385" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="sr3-U1-j4q"/>
                                 </constraints>
@@ -1996,8 +1996,8 @@
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-5z-8Va">
-                                <rect key="frame" x="0.0" y="42" width="414" height="731"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-5z-8Va">
+                                <rect key="frame" x="0.0" y="45" width="414" height="729"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ryS-mH-Tjs">
                                         <rect key="frame" x="10" y="69" width="253" height="253"/>
@@ -2383,6 +2383,42 @@
                                     <constraint firstItem="OAM-tz-2wo" firstAttribute="top" secondItem="8IQ-fI-cgT" secondAttribute="top" constant="8" id="cBQ-v4-iLb"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qh4-eK-B1c" customClass="MDCButton">
+                                <rect key="frame" x="375.5" y="76" width="24.5" height="23.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="plus.app.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="uploadImageButtonPressed:" destination="Acn-ce-GKd" eventType="touchUpInside" id="8Xa-du-Z7U"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSm-id-odx" customClass="MDCButton">
+                                <rect key="frame" x="14" y="75" width="24.5" height="23.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="xmark.app.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="regular"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelImageButtonPressed:" destination="Acn-ce-GKd" eventType="touchUpInside" id="tWU-sx-S77"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UQm-xc-ivc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2419,14 +2455,18 @@
                             <constraint firstItem="bbr-f8-TxZ" firstAttribute="top" secondItem="2B1-J3-t9N" secondAttribute="bottom" constant="10.5" id="krY-hm-LW7"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="Bju-oC-pOg" secondAttribute="trailing" constant="37.5" id="l0g-X8-6Zy"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="bottom" secondItem="R7Z-vx-uaw" secondAttribute="bottom" constant="19" id="mCC-ec-Bwj"/>
+                            <constraint firstItem="XSm-id-odx" firstAttribute="top" secondItem="2B1-J3-t9N" secondAttribute="bottom" constant="38" id="mFf-yt-Dpd"/>
                             <constraint firstItem="r4e-LZ-PFW" firstAttribute="leading" secondItem="UQm-xc-ivc" secondAttribute="leading" constant="5" id="mUl-3X-vae"/>
-                            <constraint firstItem="bbr-f8-TxZ" firstAttribute="leading" secondItem="UQm-xc-ivc" secondAttribute="leading" constant="15" id="pKI-xB-wBN"/>
+                            <constraint firstItem="Qh4-eK-B1c" firstAttribute="top" secondItem="2B1-J3-t9N" secondAttribute="bottom" constant="39" id="nFd-je-EmT"/>
+                            <constraint firstItem="bbr-f8-TxZ" firstAttribute="leading" secondItem="UQm-xc-ivc" secondAttribute="leading" constant="14" id="pKI-xB-wBN"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="R7Z-vx-uaw" secondAttribute="trailing" constant="44" id="qfH-6w-eZn"/>
                             <constraint firstItem="2B1-J3-t9N" firstAttribute="top" secondItem="JLh-Fp-aKp" secondAttribute="bottom" constant="8" symbolic="YES" id="qwH-CA-Mkf"/>
                             <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="R83-C2-d9a" secondAttribute="trailing" constant="34" id="r6y-iz-oyA"/>
                             <constraint firstItem="GCM-WN-unN" firstAttribute="top" secondItem="RyB-iP-F0w" secondAttribute="bottom" constant="8" id="sbG-kw-C6M"/>
                             <constraint firstItem="8IQ-fI-cgT" firstAttribute="top" secondItem="r4e-LZ-PFW" secondAttribute="bottom" constant="8" id="t6h-j4-kvq"/>
                             <constraint firstItem="r4e-LZ-PFW" firstAttribute="top" secondItem="ENO-DX-6iS" secondAttribute="bottom" constant="13" id="vJy-fn-Huz"/>
+                            <constraint firstItem="XSm-id-odx" firstAttribute="leading" secondItem="UQm-xc-ivc" secondAttribute="leading" constant="14" id="wRC-B2-fRM"/>
+                            <constraint firstItem="UQm-xc-ivc" firstAttribute="trailing" secondItem="Qh4-eK-B1c" secondAttribute="trailing" constant="14" id="zHC-ma-2y2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cM5-jZ-TIJ"/>
@@ -2436,6 +2476,7 @@
                         <outlet property="acceptDenyStack" destination="OAM-tz-2wo" id="Ixr-NM-oHb"/>
                         <outlet property="availableText" destination="CPT-r1-F8m" id="Dua-KO-TdD"/>
                         <outlet property="briefIntroduction" destination="iDa-wj-4kP" id="P1i-Uc-3zn"/>
+                        <outlet property="cancelButton" destination="XSm-id-odx" id="GNr-TI-fdM"/>
                         <outlet property="chefRating1" destination="b8u-kz-mW8" id="0Hl-kq-YnH"/>
                         <outlet property="chefRating2" destination="dye-EA-TIe" id="eNa-X0-dxU"/>
                         <outlet property="chefRating3" destination="b8D-1N-Ec6" id="Ynf-Nn-4dR"/>
@@ -2479,6 +2520,8 @@
                         <outlet property="sliderCollectionView" destination="ENO-DX-6iS" id="591-PN-lR0"/>
                         <outlet property="specialty" destination="7wl-RZ-D06" id="v3c-4C-NYc"/>
                         <outlet property="uploadButton" destination="siN-Gf-0xW" id="5St-UU-vNO"/>
+                        <outlet property="uploadImageButton" destination="Qh4-eK-B1c" id="L07-5Z-iNZ"/>
+                        <outlet property="viewLabel" destination="JLh-Fp-aKp" id="vc4-U0-HUL"/>
                         <outlet property="whatHelpsYouExcel" destination="SbL-gj-vnU" id="YSm-HR-x17"/>
                     </connections>
                 </viewController>
@@ -4650,7 +4693,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="gCW-K7-8BB">
                                                 <rect key="frame" x="0.0" y="32" width="202" height="26"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fF8-Nx-S99" customClass="MDCButton">
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fF8-Nx-S99" customClass="MDCButton">
                                                         <rect key="frame" x="0.0" y="0.0" width="31" height="26"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -4667,7 +4710,7 @@
                                                             <action selector="pastaButtonPressed:" destination="FNM-ZN-2tz" eventType="touchUpInside" id="0t9-KB-Twz"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ScA-vd-Glp" customClass="MDCButton">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ScA-vd-Glp" customClass="MDCButton">
                                                         <rect key="frame" x="49" y="0.0" width="40" height="26"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -4684,7 +4727,7 @@
                                                             <action selector="healthyButtonPressed:" destination="FNM-ZN-2tz" eventType="touchUpInside" id="1X2-Zb-vcw"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fh-MC-wwc" customClass="MDCButton">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fh-MC-wwc" customClass="MDCButton">
                                                         <rect key="frame" x="107" y="0.0" width="33" height="26"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -4701,7 +4744,7 @@
                                                             <action selector="veganButtonPressed:" destination="FNM-ZN-2tz" eventType="touchUpInside" id="FeZ-JO-oDZ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-xX-L5M" customClass="MDCButton">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-xX-L5M" customClass="MDCButton">
                                                         <rect key="frame" x="158" y="0.0" width="44" height="26"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -11970,7 +12013,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <segue reference="o3x-XZ-YkT"/>
         <segue reference="tkP-ld-7rs"/>
         <segue reference="gmU-Hz-wfQ"/>
-        <segue reference="ngW-4j-MLJ"/>
+        <segue reference="jEP-Gm-UqI"/>
         <segue reference="BS6-oY-CaB"/>
         <segue reference="ZY9-bO-EIZ"/>
         <segue reference="KUI-PT-pbS"/>

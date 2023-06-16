@@ -489,7 +489,7 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.messagesForTravelFeeButtonTapped = {
-            if self.toggle != "MealKit Items" {
+            if order.eventType != "MealKit Items" {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
                     
                     vc.travelFeeOrMessages = "travelFee"
@@ -513,7 +513,14 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
                     self.present(vc, animated: true, completion: nil)
                 }
             } else {
-                
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetail") as? ItemDetailViewController  {
+                    vc.isMealKit = "yes"
+                    vc.mealKitOrderId = order.orderId
+                    vc.receiverImageId = order.chefImageId
+                    vc.receiverUserName = order.chefUsername
+                    vc.mealKitItemTitle = order.itemTitle
+                    self.present(vc, animated: true, completion: nil)
+                }
             }
         }
         cell.messagesButtonTapped = {

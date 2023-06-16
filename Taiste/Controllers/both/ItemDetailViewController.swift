@@ -9,7 +9,8 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
-
+import MaterialComponents.MaterialButtons
+import MaterialComponents
 
 class ItemDetailViewController: UIViewController {
 
@@ -102,7 +103,19 @@ class ItemDetailViewController: UIViewController {
     @IBOutlet weak var acceptDenyStack: UIStackView!
     @IBOutlet weak var mealKitView: UIView!
     @IBOutlet weak var uploadButton: UIButton!
-    private var isMealKit = ""
+    @IBOutlet weak var cancelButton: MDCButton!
+    @IBOutlet weak var uploadImageButton: MDCButton!
+    
+    @IBOutlet weak var viewLabel: UILabel!
+    private var imgArr1 : [MenuItemImage] = []
+    private var imgArrData : [Data] = []
+    var isMealKit = ""
+    var mealKitOrderId = ""
+    var receiverImageId = ""
+    var receiverUserName = ""
+    var mealKitItemTitle = ""
+    var mealKitNewOrEdit = ""
+    private var acceptOrDeny = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,10 +140,46 @@ class ItemDetailViewController: UIViewController {
             
             loadImages()
             loadReviews(itemType: item!.itemType, documentId: item!.menuItemId)
+            self.pageControl.numberOfPages = self.imgArr.count
+            self.pageControl.currentPage = 0
+            sliderCollectionView.reloadData()
+        
         } else if caterOrPersonal == "personal" {
             loadExecutiveItem()
             
+        } else if isMealKit != "" {
+            
+            self.mealKitView.isHidden = false
+            self.itemCalories.isHidden = true
+            self.reviewButton.isHidden = true
+            self.ratingStack.isHidden = true
+            loadMealKitDeliveryImages()
+            if Auth.auth().currentUser!.displayName! == "Chef" {
+                self.itemDescription.text = "Please upload pictures of your meal kit preperation, shipping containers, and shipping label, for your customer to approve."
+                if Auth.auth().currentUser!.displayName! == "Chef" {
+                    self.uploadButton.isHidden = false
+                } else {
+                    self.acceptDenyStack.isHidden = false
+                }
+                self.acceptButton.isEnabled = false
+                self.denyButton.isEnabled = false
+                self.cancelButton.isHidden = false
+                self.uploadImageButton.isHidden = false
+                self.itemTitle.isHidden = true
+                self.viewLabel.text = "MealKit Delivery"
+            } else {
+                self.itemDescription.text = "Here, you can expect pictures from  your chef of meal kit preperation, shipping containers, and shipping label, for you to approve. Please keep us informed with any problems."
+                self.acceptDenyStack.isHidden = false
+                self.uploadButton.isHidden = true
+                
+            }
+            self.pageControl.numberOfPages = self.imgArr.count
+            self.pageControl.currentPage = 0
+            sliderCollectionView.reloadData()
+        
+            
         } else {
+                //personal chef dish view
             self.reviewButton.isHidden = true
             self.personalChefView.isHidden = true
             self.payStack.isHidden = true
@@ -151,37 +200,15 @@ class ItemDetailViewController: UIViewController {
             }
             
             loadDish()
-       
+                self.pageControl.numberOfPages = self.imgArr.count
+                self.pageControl.currentPage = 0
+                sliderCollectionView.reloadData()
+            
         }
-        
-        
-        self.pageControl.numberOfPages = self.imgArr.count
-        self.pageControl.currentPage = 0
-        sliderCollectionView.reloadData()
-        print("item \(item)")
+            
         if item != nil {
             self.itemCalories.text = "Calories: \(item!.itemCalories)"
         }
-            
-            if isMealKit != "" {
-                
-                self.mealKitView.isHidden = false
-                self.itemCalories.isHidden = true
-                self.reviewButton.isHidden = true
-                self.ratingStack.isHidden = true
-              
-                if Auth.auth().currentUser!.displayName! == "Chef" {
-                    self.itemDescription.text = "Please upload pictures of your meal kit preperation, shipping containers, and shipping label, for your customer to approve."
-                    self.acceptDenyStack.isHidden = true
-                    self.uploadButton.isHidden = false
-                } else {
-                    self.itemDescription.text = "Here, you can expect pictures from  your chef of meal kit preperation, shipping containers, and shipping label, for you to approve. Please keep us informed with any problems."
-                    self.acceptDenyStack.isHidden = false
-                    self.uploadButton.isHidden = true
-                }
-                
-                
-            }
             
         } else {
               self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
@@ -480,6 +507,156 @@ class ItemDetailViewController: UIViewController {
         }
     }
     
+    private func loadMealKitDeliveryImages() {
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).getDocument { document, error in
+            if error == nil {
+                if document != nil {
+                    let data = document!.data()
+                    self.mealKitNewOrEdit = "edit"
+                    if let imageCount = data?["imageCount"] as? Int {
+                        self.acceptButton.isEnabled = true
+                        self.denyButton.isEnabled = true
+                        self.uploadButton.isEnabled = true
+                        self.uploadButton.setTitle("Save", for: .normal)
+                        for i in 0..<imageCount {
+                            var path = "mealKitDelivery/\(self.mealKitOrderId)\(i).png"
+                            self.storage.reference().child(path).downloadURL { url, error in
+                                URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                                          // Error handling...
+                                          guard let imageData = data else { return }
+
+                                    print("happening itemdata")
+                                          DispatchQueue.main.async {
+                                              let img = MenuItemImage(img: UIImage(data: imageData)!, imgPath: path)
+                                              self.imgArr1.append(img)
+                                              self.pageControl.numberOfPages = self.imgArr1.count
+                                              self.sliderCollectionView.reloadData()
+                                          }
+                                        }.resume()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func subscribeToTopic(userNotification: String, chefNotification: String, orderId: String, itemTitle: String) {
+        let json: [String: Any] = ["notificationToken1": userNotification, "notificationToken2" : chefNotification, "topic" : orderId]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/subscribe-to-topic")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+               
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              if Auth.auth().currentUser!.displayName == "Chef" {
+                  if self.acceptOrDeny == "accepted" {
+                      self.sendMessage(title: "Meal Kit Delivery Notification", notification: "\(self.receiverUserName) has accepted your image upload! Payout is on its way.", topic: orderId)
+                  } else {
+                      self.sendMessage(title: "Meal Kit Delivery Notification", notification: "\(self.receiverUserName) has denied your image upload. Our internal team will review this. In the meantime, please try again with new methods.", topic: orderId)
+                  }
+              } else {
+                  self.sendMessage(title: "Meal Kit Delivery Notification", notification: "New images uploaded for your \(self.mealKitItemTitle) order; awaiting your approval.", topic: orderId)
+              }
+              
+          }
+        })
+        task.resume()
+    }
+    
+    private func sendMessage(title: String, notification: String, topic: String) {
+        let json: [String: Any] = ["title": title, "notification" : notification, "topic" : topic]
+        
+    
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/send-message")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+          guard let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                
+                let self = self else {
+            // Handle error
+            return
+          }
+            
+          DispatchQueue.main.async {
+              
+          }
+        })
+        task.resume()
+    }
+    
+    private func notify() {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "MM-dd-yyyy hh:mm:ss a"
+        db.collection(Auth.auth().currentUser!.displayName!).document(Auth.auth().currentUser!.uid).getDocument { document, error in
+            if error == nil {
+                if document != nil {
+                let data = document!.data()
+                
+                    if let token = data?["notificationToken"] as? String {
+                        var a = ""
+                        if Auth.auth().currentUser!.displayName! == "Chef" {
+                            self.db.collection("User").document(self.receiverImageId).getDocument { document, error in
+                                if error == nil {
+                                    if document != nil {
+                                        let data = document!.data()
+                                        if let token1 = data?["notificationToken"] as? String {
+                                            self.subscribeToTopic(userNotification: token, chefNotification: token1, orderId: self.mealKitOrderId, itemTitle: self.mealKitItemTitle)
+                                        }
+                                    }
+                                }
+                            }
+                            let data3: [String: Any] = ["notifications" : "yes"]
+                            let data4: [String: Any] = ["notification" : "New images uploaded for your \(self.mealKitItemTitle) order.", "date" :  df.string(from: Date())]
+                            self.db.collection("User").document(self.receiverImageId).updateData(data3)
+                            self.db.collection("User").document(self.receiverImageId).collection("Notifications").document().setData(data4)
+                        } else {
+                            self.db.collection("Chef").document(self.receiverImageId).getDocument { document, error in
+                                if error == nil {
+                                    if document != nil {
+                                        let data = document!.data()
+                                        if let token1 = data?["notificationToken"] as? String {
+                                            self.subscribeToTopic(userNotification: token, chefNotification: token1, orderId: self.mealKitOrderId, itemTitle: self.acceptOrDeny)
+                                        }
+                                    }
+                                }
+                            }
+                            let data3: [String: Any] = ["notifications" : "yes"]
+                            self.db.collection("Chef").document(self.receiverImageId).updateData(data3)
+                            if self.acceptOrDeny == "accepted" {
+                                let data4: [String: Any] = ["notification" : "\(self.receiverUserName) has accepted your image uploads! Your payout is on its way.", "date" :  df.string(from: Date())]
+                                self.db.collection("Chef").document(self.receiverImageId).collection("Notifications").document().setData(data4)
+                            } else if self.acceptOrDeny == "denied" {
+                                let data4: [String: Any] = ["notification" : "\(self.receiverUserName) has denied your image upload. Our internal team will review this. In the meantime, please try again with new methods.", "date" : df.string(from: Date())]
+                                self.db.collection("Chef").document(self.receiverImageId).collection("Notifications").document().setData(data4)
+                            } else {
+                                let data4: [String: Any] = ["notification" : "Your meal kit purchase, \(self.mealKitItemTitle), has new images to approve. ", "date" : df.string(from: Date())]
+                                self.db.collection("User").document(self.receiverImageId).collection("Notifications").document().setData(data4)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -554,27 +731,213 @@ class ItemDetailViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func cancelImageButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+    
+        if mealKitNewOrEdit == "edit" {
+            let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                let storageRef = self.storage.reference()
+                let renewRef = self.storage.reference()
+                var path = self.imgArr1[self.currentIndex].imgPath
+                
+                for i in 0..<self.imgArr1.count {
+                    Task {
+                    try? await storageRef.child(self.imgArr1[i].imgPath).delete()
+                    }
+                    
+                }
+                self.imgArr1.remove(at: self.currentIndex)
+                self.imgArrData.remove(at: self.currentIndex)
+                if self.imgArr1.count == 0 {
+                    self.cancelButton.isHidden = true
+                }
+                self.pageControl.numberOfPages = self.imgArr.count
+                self.sliderCollectionView.reloadData()
+                
+                for i in 0..<self.imgArr.count {
+                    renewRef.child("mealKitDelivery/\(self.mealKitOrderId)\(i).png").putData(self.imgArrData[i])
+                }
+                let data: [String: Any] = ["imageCount" : self.imgArr.count]
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                self.db.collection("User").document(self.receiverImageId).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
+            }))
+            
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            present(alert, animated: true, completion: nil)
+        } else {
+        imgArr1.remove(at: currentIndex)
+        imgArrData.remove(at: currentIndex)
+            if self.imgArr1.count == 0 {
+                self.cancelButton.isHidden = true
+            }
+        self.pageControl.numberOfPages = imgArr1.count
+        self.sliderCollectionView.reloadData()
+        }
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
+    }
+    @IBAction func uploadImageButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+     
+            let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (handler) in
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    let image = UIImagePickerController()
+                    image.allowsEditing = true
+                    image.sourceType = .camera
+                    image.delegate = self
+                    //                image.mediaTypes = [UTType.image.identifier]
+                    self.present(image, animated: true, completion: nil)
+                }
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (handler) in
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                    let image = UIImagePickerController()
+                    image.allowsEditing = true
+                    image.delegate = self
+                    self.present(image, animated: true, completion: nil)
+                    
+                }
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (handler) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            present(alert, animated: true, completion: nil)
+        
+            
+    } else {
+    self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+   }
+        
+    }
+    
     @IBAction func acceptButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+            
+                let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
+                
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                    self.acceptOrDeny = "accepted"
+                    let data : [String: Any] = ["acceptOrDeny" : "accept"]
+                    self.notify()
+                    self.db.collection("Chef").document(self.receiverImageId).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTab") as? UserTabViewController {
+                        self.showToast(message: "Item Accepted. Your items should arrive soon.", font: .systemFont(ofSize: 12))
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                    
+                    
+                }))
+                
+                alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                    alert.dismiss(animated: true, completion: nil)
+                }))
+                
+                present(alert, animated: true, completion: nil)
+       
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
     
     @IBAction func denyButtonPressed(_ sender: Any) {
-        
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+            let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                self.acceptOrDeny = "denied"
+                self.notify()
+                let data : [String: Any] = ["acceptOrDeny" : "deny"]
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                self.db.collection("User").document(self.receiverImageId).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTab") as? UserTabViewController {
+                    self.showToast(message: "Item Denied.", font: .systemFont(ofSize: 12))
+                    self.present(vc, animated: true, completion: nil)
+                }
+                
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            
+            present(alert, animated: true, completion: nil)
+      
+        } else {
+        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+       }
     }
     
+    
+    
     @IBAction func uploadButtonPressed(_ sender: Any) {
+        if Reachability.isConnectedToNetwork(){
+        print("Internet Connection Available!")
+            if imgArr1.count > 0 {
+                if mealKitNewOrEdit != "edit" {
+                    let data : [String: Any] = ["imageCount" : imgArr1.count, "acceptOrDeny" : ""]
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).setData(data)
+                    self.db.collection("User").document(self.receiverImageId).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).setData(data)
+                    for i in 0..<imgArr1.count {
+                        self.storage.reference().child("mealKitDelivery/\(self.mealKitOrderId)\(self.imgArr.count - 1).png").putData(imgArrData[i])
+                    }
+                } else {
+                    let data : [String: Any] = ["imageCount" : imgArr1.count]
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                    self.db.collection("User").document(self.receiverImageId).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+                }
+                self.showToast(message: "Images Saved.", font: .systemFont(ofSize: 12))
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTab") as? UserTabViewController {
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
+                self.showToast(message: "Please upload your images of containers, shipping box, and shipping label.", font: .systemFont(ofSize: 12))
+            }
+            
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+           }
     }
+    
+    
+    
 }
 
 extension ItemDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imgArr.count
+        if self.isMealKit != "" {
+            return imgArr1.count
+        } else {
+            return imgArr.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = sliderCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if let vc = cell.viewWithTag(111) as? UIImageView {
-            vc.image = imgArr[indexPath.row]
+            if self.isMealKit != "" {
+                vc.image = imgArr1[indexPath.row].img
+            } else {
+                vc.image = imgArr[indexPath.row]
+            }
             
         }
        
@@ -605,6 +968,41 @@ extension ItemDetailViewController: UICollectionViewDelegate, UICollectionViewDa
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentIndex = Int(scrollView.contentOffset.x / sliderCollectionView.frame.size.width)
         pageControl.currentPage = currentIndex
+        
+    }
+}
+
+extension ItemDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        self.imgArr1.append(MenuItemImage(img: image, imgPath: ""))
+        self.imgArrData.append(image.pngData()!)
+        self.cancelButton.isHidden = false
+        self.pageControl.numberOfPages = self.imgArr1.count
+        var path = "mealKitDelivery/\(self.mealKitOrderId)\(self.imgArr.count - 1).png"
+        if mealKitNewOrEdit == "edit" {
+            let storageRef = self.storage.reference()
+            storageRef.child(path).putData(image.pngData()!)
+            
+            let data: [String: Any] = ["imageCount" : self.imgArr1.count]
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+            self.db.collection("User").document(self.receiverImageId).collection("Orders").document(self.mealKitOrderId).collection("MealKit Delivery").document(self.mealKitOrderId).updateData(data)
+            
+            self.showToast(message: "Image Added.", font: .systemFont(ofSize: 12))
+        }
+        self.sliderCollectionView.reloadData()
+//        imageView.image = image
+        print("image arr count\(self.imgArr.count)")
+        picker.dismiss(animated: true, completion: nil)
         
     }
     

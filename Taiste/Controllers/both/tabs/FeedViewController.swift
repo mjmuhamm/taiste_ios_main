@@ -118,6 +118,7 @@ class FeedViewController: UIViewController {
                           
                           if self.content.isEmpty {
                               self.content.append(newVideo)
+                              self.content.shuffle()
                               self.collectionView.reloadData()
                               
                           } else {
@@ -125,6 +126,7 @@ class FeedViewController: UIViewController {
                               }
                               if index == nil {
                                   self.content.append(newVideo)
+                                  self.content.shuffle()
                                   self.collectionView.reloadData()
                               }
                           }
