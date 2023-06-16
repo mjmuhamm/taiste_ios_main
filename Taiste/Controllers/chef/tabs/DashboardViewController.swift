@@ -85,20 +85,21 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
        }
         itemMenu.anchorView = itemText
         if Reachability.isConnectedToNetwork(){
-        print("Internet Connection Available!")
-        
-        itemMenu.selectionAction = { index, item in
-            self.itemText.text = item
-            if self.time == "Weekly" {
-                print("weekly \(self.items)")
-                self.loadItemWeeklyData(itemTitle: item)
-            } else if self.time == "Monthly" {
-                self.loadItemMonthlyData(itemTitle: item)
+            print("Internet Connection Available!")
+            
+            itemMenu.selectionAction = { index, item in
+                self.itemText.text = item
+                if self.time == "Weekly" {
+                    print("weekly \(self.items)")
+                    self.loadItemWeeklyData(itemTitle: item)
+                } else if self.time == "Monthly" {
+                    self.loadItemMonthlyData(itemTitle: item)
+                }
             }
         } else {
-        self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
-       }
-        }
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+           }
+        
         
         // Date
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
