@@ -521,7 +521,7 @@ class ProfileAsUserViewController: UIViewController {
                                     if let liked = data!["liked"] as? [String], let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double] {
                               
                               
-                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb)
+                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: "")
                                         
                                         if self.toggle == "Cater Items" {
                                             if self.cateringItems.isEmpty {
@@ -981,6 +981,20 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.itemPrice.text = "$\(item.itemPrice)"
                 cell.likeText.text = "\(item.liked.count)"
                 cell.orderText.text = "\(item.itemOrders)"
+                
+                if self.toggle == "MealKit Items" {
+                    cell.liveLabel.isHidden = false
+                    if item.live != "yes" {
+                        cell.liveLabel.text = "not live"
+                        cell.liveLabel.textColor = UIColor.red
+                    } else {
+                        cell.liveLabel.text = "live"
+                        cell.liveLabel.textColor = UIColor.green
+                    }
+                } else {
+                    cell.liveLabel.isHidden = true
+                }
+                
                 var num = 0.0
                 for i in 0..<item.itemRating.count {
                     num += item.itemRating[i]
@@ -1311,7 +1325,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     cell.orderButtonTapped = {
                         let item = order
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
-                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
                             self.present(vc, animated: true, completion: nil)
                         }}
                     
@@ -1333,7 +1347,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                             vc.itemDescriptionI = order.itemDescription
                             vc.itemImage = order.itemImage
                             vc.caterOrPersonal = "cater"
-                            vc.item = FeedMenuItems(chefEmail: order.chefEmail, chefPassion: "", chefUsername: order.chefEmail, chefImageId: order.chefImageId, menuItemId: order.menuItemId, itemTitle: order.itemTitle, itemDescription: order.itemDescription, itemPrice: order.itemPrice, liked: order.liked, itemOrders: order.itemOrders, itemRating: order.itemRating, date: order.orderDate, imageCount: order.imageCount, itemCalories: "\(order.itemCalories)", itemType: order.typeOfService, city: order.city, state: order.state, zipCode: order.zipCode, user: order.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            vc.item = FeedMenuItems(chefEmail: order.chefEmail, chefPassion: "", chefUsername: order.chefEmail, chefImageId: order.chefImageId, menuItemId: order.menuItemId, itemTitle: order.itemTitle, itemDescription: order.itemDescription, itemPrice: order.itemPrice, liked: order.liked, itemOrders: order.itemOrders, itemRating: order.itemRating, date: order.orderDate, imageCount: order.imageCount, itemCalories: "\(order.itemCalories)", itemType: order.typeOfService, city: order.city, state: order.state, zipCode: order.zipCode, user: order.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
                             self.present(vc, animated: true, completion: nil)
                             
                         }}
@@ -1508,7 +1522,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         if Auth.auth().currentUser!.displayName! == "Chef" {
                             let item = order
                             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
-                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
                                 self.present(vc, animated: true, completion: nil)
                             }} else {
                                 self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
@@ -1542,6 +1556,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
             var cell = itemTableView.dequeueReusableCell(withIdentifier: "UserChefsReusableCell", for: indexPath) as! UserChefsTableViewCell
                 
                 var item = userChefs[indexPath.row]
+                
                 
                 cell.chefPassion.text = item.chefPassion
                 cell.likeText.text = "\(item.chefLiked.count)"
@@ -1645,7 +1660,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     cell.orderButtonTapped = {
                         if Auth.auth().currentUser!.displayName! == "Chef" {
                             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
-                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
                                 self.present(vc, animated: true, completion: nil)
                             }
                         } else {
@@ -1670,7 +1685,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                             vc.itemDescriptionI = item.itemDescription
                             vc.itemImage = item.itemImage
                             vc.caterOrPersonal = "cater"
-                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefEmail, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0)
+                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefEmail, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
                             self.present(vc, animated: true, completion: nil)
                         }
                     }

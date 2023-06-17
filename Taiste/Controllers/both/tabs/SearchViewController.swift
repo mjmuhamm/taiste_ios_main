@@ -93,16 +93,32 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
                             } else {
                                 chefOrUser1 = "chefs"
                             }
-                            if self.data.isEmpty {
-                                self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: UIImage(), pictureId: doc.documentID, chefOrUser: chefOrUser))
-                            } else {
-                                let index = self.data.firstIndex { $0.pictureId == doc.documentID }
-                                   if index == nil {
-                                       self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: UIImage(), pictureId: doc.documentID, chefOrUser: chefOrUser))
-                                               
-                                                  
+                            
+                            storageRef.child("\(chefOrUser)/\(email)/profileImage/\(doc.documentID).png").downloadURL { imageUrl, error in
+                                if imageUrl != nil {
+                                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                                        // Error handling...
+                                        guard let imageData = data else { return }
+                                        
+                                        print("happening itemdata")
+                                        DispatchQueue.main.async {
+                                            
+                                            if self.data.isEmpty {
+                                                self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: UIImage(data: imageData)!, pictureId: doc.documentID, chefOrUser: chefOrUser))
+                                            } else {
+                                                let index = self.data.firstIndex { $0.pictureId == doc.documentID }
+                                                   if index == nil {
+                                                       self.data.append(Search(userName: username, userEmail: email, userFullName: fullName, userImage: UIImage(data: imageData)!, pictureId: doc.documentID, chefOrUser: chefOrUser))
+                                                               
+                                                                  
+                                                }
+                                            }
+                                        }
+                                    }.resume()
                                 }
+                                
                             }
+                           
                         }
                     }
                 }
@@ -155,20 +171,10 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource  {
         if user.chefOrUser == "User" { chefOrUser = "users" } else { chefOrUser = "chefs" }
         
         let storageRef = storage.reference()
+        print("cheforuser \(chefOrUser)")
+        print("\(user.userEmail)")
+        print("\(user.pictureId)")
         
-        storageRef.child("\(chefOrUser)/\(user.userEmail)/profileImage/\(user.pictureId).png").downloadURL { imageUrl, error in
-            URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                // Error handling...
-                guard let imageData = data else { return }
-                
-                print("happening itemdata")
-                DispatchQueue.main.async {
-                    cell.userImage.image = UIImage(data: imageData)!
-                    
-                }
-            }.resume()
-            
-        }
         
        
         

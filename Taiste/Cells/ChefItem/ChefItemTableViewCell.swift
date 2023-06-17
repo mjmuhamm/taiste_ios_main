@@ -22,6 +22,7 @@ class ChefItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingText: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
     
+    @IBOutlet weak var liveLabel: UILabel!
     var editButtonTapped : (() -> ()) = {}
     var itemImageButtonTapped : (() -> ()) = {}
     var likeImageButtonTapped : (() -> ()) = {}

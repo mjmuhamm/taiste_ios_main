@@ -40,6 +40,7 @@ struct FeedMenuItems {
     let workout: Int
     let lowCal: Int
     let lowCarb: Int
+    let live: String
 }
 
 struct PersonalChefInfo {

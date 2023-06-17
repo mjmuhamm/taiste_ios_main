@@ -25,5 +25,6 @@ pod 'DropDown'
 pod 'Stripe'
 pod 'StripePaymentSheet'
 pod 'Charts'
+pod 'youtube-ios-player-helper'
 
 end

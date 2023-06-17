@@ -34,6 +34,8 @@
 		F466D9D22A20186A000E6E38 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F466D9D12A20186A000E6E38 /* FilterViewController.swift */; };
 		F46F205A2A1C0D2100A7C8C0 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */; };
 		F46F205C2A1C0D7E00A7C8C0 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */; };
+		F46FC9462A3E22BE001B6B74 /* MenuItemAdditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46FC9452A3E22BE001B6B74 /* MenuItemAdditionsViewController.swift */; };
+		F46FC9482A3E2988001B6B74 /* GuideToMealKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46FC9472A3E2988001B6B74 /* GuideToMealKitViewController.swift */; };
 		F481948327C80252002BB9D3 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481948127C80252002BB9D3 /* HomeTableViewCell.swift */; };
 		F481948427C80252002BB9D3 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F481948227C80252002BB9D3 /* HomeTableViewCell.xib */; };
 		F481948627C80A95002BB9D3 /* FeedMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481948527C80A95002BB9D3 /* FeedMenuItems.swift */; };
@@ -86,6 +88,7 @@
 		F4C5E7E92A1ABAB60063A5E1 /* AccountSettingsChefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C5E7E82A1ABAB60063A5E1 /* AccountSettingsChefViewController.swift */; };
 		F4C5E7EC2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C5E7EA2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift */; };
 		F4C5E7ED2A1ABB2F0063A5E1 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C5E7EB2A1ABB2F0063A5E1 /* PrivacyPolicyViewController.swift */; };
+		F4CDB5112A3D26F800BBB0FF /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */; };
 		F4DA73202A056A66004FE58F /* UserReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */; };
 		F4DA73222A05AC8D004FE58F /* TravelFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */; };
 		F4E44B1127C940F3007F6295 /* UserTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1027C940F3007F6295 /* UserTabViewController.swift */; };
@@ -159,6 +162,8 @@
 		F467B99E2A33499200336947 /* Taiste.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taiste.entitlements; sourceTree = "<group>"; };
 		F46F20592A1C0D2100A7C8C0 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		F46F205B2A1C0D7E00A7C8C0 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		F46FC9452A3E22BE001B6B74 /* MenuItemAdditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemAdditionsViewController.swift; sourceTree = "<group>"; };
+		F46FC9472A3E2988001B6B74 /* GuideToMealKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideToMealKitViewController.swift; sourceTree = "<group>"; };
 		F481948127C80252002BB9D3 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		F481948227C80252002BB9D3 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		F481948527C80A95002BB9D3 /* FeedMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMenuItems.swift; sourceTree = "<group>"; };
@@ -215,6 +220,7 @@
 		F4C5E7E82A1ABAB60063A5E1 /* AccountSettingsChefViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsChefViewController.swift; sourceTree = "<group>"; };
 		F4C5E7EA2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
 		F4C5E7EB2A1ABB2F0063A5E1 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
 		F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewViewController.swift; sourceTree = "<group>"; };
 		F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelFeeViewController.swift; sourceTree = "<group>"; };
 		F4E44B1027C940F3007F6295 /* UserTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabViewController.swift; sourceTree = "<group>"; };
@@ -521,6 +527,7 @@
 		F4B90DF827C70B27004B1FB1 /* chef */ = {
 			isa = PBXGroup;
 			children = (
+				F4CDB5122A3D2B8300BBB0FF /* MealKits */,
 				F4A080B929FFDE6300895938 /* Banking */,
 				F4A080B029FDA36F00895938 /* SignUp */,
 				F4B90DFD27C70B40004B1FB1 /* tabs */,
@@ -532,6 +539,7 @@
 				F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */,
 				F429F0D32A24D3B100D22271 /* DisclaimerViewController.swift */,
 				F4572EE72A2D2AB100EAC393 /* PersonalChefViewController.swift */,
+				F46FC9452A3E22BE001B6B74 /* MenuItemAdditionsViewController.swift */,
 			);
 			path = chef;
 			sourceTree = "<group>";
@@ -620,6 +628,15 @@
 				F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */,
 			);
 			path = Reviews;
+			sourceTree = "<group>";
+		};
+		F4CDB5122A3D2B8300BBB0FF /* MealKits */ = {
+			isa = PBXGroup;
+			children = (
+				F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */,
+				F46FC9472A3E2988001B6B74 /* GuideToMealKitViewController.swift */,
+			);
+			path = MealKits;
 			sourceTree = "<group>";
 		};
 		F4ED0D602A27EA16000B166B /* Notifications */ = {
@@ -863,6 +880,7 @@
 				F429F0D42A24D3B100D22271 /* DisclaimerViewController.swift in Sources */,
 				F4A080D32A02843900895938 /* Search.swift in Sources */,
 				F4FDB63F27CEAD110078E563 /* VideoModel.swift in Sources */,
+				F46FC9462A3E22BE001B6B74 /* MenuItemAdditionsViewController.swift in Sources */,
 				F4F8DA0029CFCAA200D6831C /* AccountSettingsViewController.swift in Sources */,
 				F4B90E0627C70B69004B1FB1 /* DashboardViewController.swift in Sources */,
 				F4B90E0827C70B72004B1FB1 /* ChefOrdersViewController.swift in Sources */,
@@ -888,8 +906,10 @@
 				F4E44B1127C940F3007F6295 /* UserTabViewController.swift in Sources */,
 				F4568E982A3B9E6E00B64E9B /* GuideToPurchasingViewController.swift in Sources */,
 				F4572EE82A2D2AB100EAC393 /* PersonalChefViewController.swift in Sources */,
+				F46FC9482A3E2988001B6B74 /* GuideToMealKitViewController.swift in Sources */,
 				F4B3D77527CAB7F700AA5544 /* CheckoutTableViewCell.swift in Sources */,
 				F4FDB63C27CE838C0078E563 /* UserReviewsTableViewCell.swift in Sources */,
+				F4CDB5112A3D26F800BBB0FF /* YoutubeViewController.swift in Sources */,
 				F4A080AF29FD6B6500895938 /* AddContentViewController.swift in Sources */,
 				F423AC102A1D138F009E9600 /* OwnersViewController.swift in Sources */,
 				F43D91012A2621CC00AE248E /* Reviews.swift in Sources */,

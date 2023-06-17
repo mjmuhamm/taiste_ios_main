@@ -79,6 +79,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     var newPersonalOrEdit = ""
     var documentId = UUID().uuidString
     var personalChefItem : PersonalChefInfo?
+    var live = ""
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -129,8 +130,9 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                 if document != nil {
                     let data = document!.data()
                     self.deleteButton.isHidden = false
-                    if let itemTitle = data!["itemTitle"] as? String, let imageCount = data!["imageCount"] as? Int, let itemDescription = data!["itemDescription"] as? String, let itemLikes = data!["itemLikes"] as? Int, let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let itemPrice = data!["itemPrice"] as? String, let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int {
+                    if let itemTitle = data!["itemTitle"] as? String, let imageCount = data!["imageCount"] as? Int, let itemDescription = data!["itemDescription"] as? String, let itemLikes = data!["itemLikes"] as? Int, let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let itemPrice = data!["itemPrice"] as? String, let burger = data!["burger"] as? Int, let creative = data!["creative"] as? Int, let lowCal = data!["lowCal"] as? Int, let lowCarb = data!["lowCarb"] as? Int, let pasta = data!["pasta"] as? Int, let healthy = data!["healthy"] as? Int, let vegan = data!["vegan"] as? Int, let seafood = data!["seafood"] as? Int, let workout = data!["workout"] as? Int, let live = data!["live"] as? String {
                         
+                        self.live = live
                         for i in 0..<imageCount {
                             var path = "chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png"
                             storageRef.child(path).downloadURL { imageUrl, error in
@@ -689,7 +691,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         let storageRef = storage.reference()
         
         
-            let data: [String: Any] = ["available" : "Yes", "burger" : burger, "chefEmail" : Auth.auth().currentUser!.email!, "chefPassion" : chefPassion, "chefUsername" : chefUsername, "city" : city, "creative" : creative, "date" : Date(), "healthy" : healthy, "imageCount" : imgArr.count, "itemCalories" : itemCalories.text!, "itemDescription" : itemDescription.text!, "itemLikes" : self.itemLikes, "itemOrders" : self.itemOrders, "itemPrice" : itemPrice.text!, "itemRating" : self.itemRating, "itemTitle" : itemTitle.text!, "itemType" : typeOfitem, "liked" : [], "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "profileImageId" : Auth.auth().currentUser!.uid, "quantityLimit" : "No Limit", "randomVariable" : menuItemId, "seafood" : seafood, "state" : state, "typeOfService" : typeOfitem, "user" : Auth.auth().currentUser!.email!, "vegan" : vegan, "workout" : workout, "zipCode" : zipCode]
+            let data: [String: Any] = ["available" : "Yes", "burger" : burger, "chefEmail" : Auth.auth().currentUser!.email!, "chefPassion" : chefPassion, "chefUsername" : chefUsername, "city" : city, "creative" : creative, "date" : Date(), "healthy" : healthy, "imageCount" : imgArr.count, "itemCalories" : itemCalories.text!, "itemDescription" : itemDescription.text!, "itemLikes" : self.itemLikes, "itemOrders" : self.itemOrders, "itemPrice" : itemPrice.text!, "itemRating" : self.itemRating, "itemTitle" : itemTitle.text!, "itemType" : typeOfitem, "liked" : [], "lowCal" : lowCal, "lowCarb" : lowCarb, "pasta" : pasta, "profileImageId" : Auth.auth().currentUser!.uid, "quantityLimit" : "No Limit", "randomVariable" : menuItemId, "seafood" : seafood, "state" : state, "typeOfService" : typeOfitem, "user" : Auth.auth().currentUser!.email!, "vegan" : vegan, "workout" : workout, "zipCode" : zipCode, "live" : self.live]
         
         if newOrEdit == "new" {
             db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(typeOfitem).document(menuItemId).setData(data)
@@ -763,9 +765,21 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
              toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             if self.newOrEdit == "new" || self.newOrEdit == "edit" {
-                self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuItemAdditions") as? MenuItemAdditionsViewController  {
+                    vc.typeOfItem = self.typeOfitem
+                    vc.documentId = self.menuItemId
+                    vc.itemTitle = self.itemTitle.text!
+                    self.present(vc, animated: true, completion: nil)
+                }
+                
             } else {
-                self.performSegue(withIdentifier: "MenuItemToPersonalChefViewControllerSegue", sender: self)
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuItemAdditions") as? MenuItemAdditionsViewController  {
+                    vc.typeOfItem = "Executive Items"
+                    vc.documentId = self.menuItemId
+                    vc.itemTitle = self.itemTitle.text!
+                    self.present(vc, animated: true, completion: nil)
+                }
+                
             }
             toastLabel.removeFromSuperview()
         })

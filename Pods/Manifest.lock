@@ -1008,6 +1008,7 @@ PODS:
   - StripeUICore (23.9.0):
     - StripeCore (= 23.9.0)
   - SwiftAlgorithms (1.0.0)
+  - youtube-ios-player-helper (1.0.4)
 
 DEPENDENCIES:
   - Charts
@@ -1029,6 +1030,7 @@ DEPENDENCIES:
   - "MaterialComponents/TextControls+OutlinedTextFieldsTheming"
   - Stripe
   - StripePaymentSheet
+  - youtube-ios-player-helper
 
 SPEC REPOS:
   trunk:
@@ -1068,6 +1070,7 @@ SPEC REPOS:
     - StripePaymentsUI
     - StripeUICore
     - SwiftAlgorithms
+    - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
@@ -1106,7 +1109,8 @@ SPEC CHECKSUMS:
   StripePaymentsUI: c4f25ecba61aa1c57a5c57d2fed3da4af3aa9712
   StripeUICore: bc85209b2537e2c24201a7355cd6f911533dc3fc
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 292e08465af9eba7298f4d544eb7ac778d434acc
+PODFILE CHECKSUM: e55798480190cdc11147cc9d89162ad480388291
 
 COCOAPODS: 1.11.2

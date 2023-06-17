@@ -42,8 +42,6 @@ class ItemDetailViewController: UIViewController {
     @IBOutlet weak var chefRating5: UIImageView!
     
     @IBOutlet weak var reviewButton: UIButton!
-    @IBOutlet weak var itemCalories: UILabel!
-    
     private var imgArr : [UIImage] = []
     
     @IBOutlet weak var personalChefView: UIView!
@@ -70,8 +68,10 @@ class ItemDetailViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
     
+    @IBOutlet weak var additionalButton: UIButton!
     private var started = "Yes"
     var item : FeedMenuItems?
+    
     
     var imageCount = 0
     var chefEmail = ""
@@ -127,7 +127,7 @@ class ItemDetailViewController: UIViewController {
             self.personalChefView.isHidden = true
             self.payStack.isHidden = true
             self.payButton.isHidden = true
-            self.itemCalories.isHidden = false
+            self.additionalButton.isHidden = false
             if item != nil {
                 itemTitle.text = item!.itemTitle
                 itemDescription.text = item!.itemDescription
@@ -150,7 +150,8 @@ class ItemDetailViewController: UIViewController {
         } else if isMealKit != "" {
             
             self.mealKitView.isHidden = false
-            self.itemCalories.isHidden = true
+            
+            self.additionalButton.isHidden = true
             self.reviewButton.isHidden = true
             self.ratingStack.isHidden = true
             loadMealKitDeliveryImages()
@@ -184,7 +185,8 @@ class ItemDetailViewController: UIViewController {
             self.personalChefView.isHidden = true
             self.payStack.isHidden = true
             self.payButton.isHidden = true
-            self.itemCalories.isHidden = false
+            
+            self.additionalButton.isHidden = false
             self.itemTitle.isHidden = false
             self.sliderCollectionView.isHidden = false
             self.itemDescription.isHidden = false
@@ -206,9 +208,7 @@ class ItemDetailViewController: UIViewController {
             
         }
             
-        if item != nil {
-            self.itemCalories.text = "Calories: \(item!.itemCalories)"
-        }
+        
             
         } else {
               self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
@@ -264,7 +264,7 @@ class ItemDetailViewController: UIViewController {
                             self.personalChefView.isHidden = false
                             self.payStack.isHidden = false
                             self.payButton.isHidden = false
-                            self.itemCalories.isHidden = true
+                            self.additionalButton.isHidden = true
                             self.openToMenuRequests.text = openToMenuRequests
                             
                             
@@ -730,6 +730,16 @@ class ItemDetailViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func additionButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "AdditionalMenuItems") as? MenuItemAdditionsViewController {
+            vc.typeOfItem = self.item!.itemType
+            vc.chefOrUser = "chef"
+            vc.chefImageId = self.item!.chefImageId
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
     
     @IBAction func cancelImageButtonPressed(_ sender: Any) {

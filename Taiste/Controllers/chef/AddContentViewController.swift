@@ -41,11 +41,30 @@ class AddContentViewController: UIViewController {
     let storage = Storage.storage()
     var videoId = UUID().uuidString
     var videoUrl : URL?
+    private var chefName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         actiityIndicator.isHidden = true
+        
+        loadUsername()
         // Do any additional setup after loading the view.
+    }
+    
+    private func loadUsername() {
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+            if error == nil {
+                if documents != nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        if let chefName = data["chefName"] as? String {
+                            self.chefName = chefName
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private func saveVideo(name: String, description: String, videoUrl: URL) {
@@ -144,24 +163,32 @@ class AddContentViewController: UIViewController {
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        
-        let storageRef = storage.reference()
-        if videoUrl != nil {
-            actiityIndicator.isHidden = false
-            actiityIndicator.startAnimating()
-
-            storageRef.child("chefs/malik@cheftesting.com/Content/\(videoId).png").putFile(from: videoUrl!, metadata: nil, completion: { storage, error in
-
-                storageRef.child("chefs/malik@cheftesting.com/Content/\(self.videoId).png").downloadURL(completion: { url, error in
+        var description = ""
+        if  contentDescription.text != nil && !self.contentDescription.text!.isEmpty {
+            description = self.contentDescription.text!
+        }
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            let storageRef = storage.reference()
+            if videoUrl != nil {
+                actiityIndicator.isHidden = false
+                actiityIndicator.startAnimating()
+                
+                storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/Content/\(videoId).png").putFile(from: videoUrl!, metadata: nil, completion: { storage, error in
                     
-                    if error == nil {
-                            self.saveVideo(name: "malik@cheftesting2.com", description: "test description 2", videoUrl: url!)
-                    }
+                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/Content/\(self.videoId).png").downloadURL(completion: { url, error in
+                        
+                        if error == nil {
+                            self.saveVideo(name: self.chefName, description: description, videoUrl: url!)
+                        }
+                    })
+                    
+                    
                 })
-
-
-            })
-            
+                
+            }
+        }  else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
         
     }
