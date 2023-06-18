@@ -27,7 +27,6 @@ class GuideToMealKitViewController: UIViewController {
     @IBAction func mealKitDeliveryExample(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MealKitVideo") as? YoutubeViewController  {
             vc.example = "fullMealKitVideo"
-            
             self.present(vc, animated: true, completion: nil)
         }
     }

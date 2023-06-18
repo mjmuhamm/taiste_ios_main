@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
     
     private var toggle = "Cater Items"
     
-    
+    private var happened = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +98,7 @@ class HomeViewController: UIViewController {
   
     private func loadCart() {
         if Auth.auth().currentUser != nil {
-        db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").getDocuments { documents, error in
+        db.collection("User").document(Auth.auth().currentUser!.uid).collection("Cart").addSnapshotListener { documents, error in
             if error == nil {
                 for doc in documents!.documents {
                     let data = doc.data()
@@ -172,7 +172,7 @@ class HomeViewController: UIViewController {
            itemsI = mealKitItems
         }
         if itemsI.isEmpty {
-        
+        happened = ""
         db.collection(toggle).getDocuments { documents, error in
             if error == nil {
                 for doc in documents!.documents {
@@ -234,6 +234,7 @@ class HomeViewController: UIViewController {
                                         if index == nil {
                                             self.cateringItems.append(newItem)
                                             self.items = self.cateringItems
+                                            self.items.shuffle()
                                             self.homeTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
                                         }
                                     }
@@ -247,6 +248,7 @@ class HomeViewController: UIViewController {
                                         if index == nil {
                                             self.mealKitItems.append(newItem)
                                             self.items = self.mealKitItems
+                                            self.items.shuffle()
                                             self.homeTableView.insertRows(at: [IndexPath(item: self.mealKitItems.count - 1, section: 0)], with: .fade)
                                         }
                                     }
@@ -265,6 +267,7 @@ class HomeViewController: UIViewController {
             } else {
                 self.items = self.mealKitItems
             }
+            self.happened = "yes"
             self.homeTableView.reloadData()
             if self.homeTableView.numberOfRows(inSection: 0) != 0 {
                 self.homeTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -361,6 +364,7 @@ class HomeViewController: UIViewController {
                                     } else {
                                         if let index = self.personalChefItems.firstIndex(where: { $0.chefImageId == chefImageId }) {} else {
                                             self.personalChefItems.append(item)
+                                            self.personalChefItems.shuffle()
                                             self.homeTableView.insertRows(at: [IndexPath(item: self.personalChefItems.count - 1, section: 0)], with: .fade)
                                         }
                                     }
@@ -426,14 +430,15 @@ class HomeViewController: UIViewController {
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
    
-        toggle = "MealKit Items"
-        loadItems(filter: self.filter!, go: "")
-        cateringButton.backgroundColor = UIColor.white
-        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        personalChefButton.backgroundColor = UIColor.white
-        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        mealKitButton.setTitleColor(UIColor.white, for: .normal)
-        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+//        toggle = "MealKit Items"
+        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+//        loadItems(filter: self.filter!, go: "")
+//        cateringButton.backgroundColor = UIColor.white
+//        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        personalChefButton.backgroundColor = UIColor.white
+//        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        mealKitButton.setTitleColor(UIColor.white, for: .normal)
+//        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         } else {
             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
@@ -514,40 +519,53 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             
             let chefRef = storage.reference()
             let itemRef = storage.reference()
-            
-           
-            
-            chefRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
-                
-                
-                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                    // Error handling...
-                    guard let imageData = data else { return }
+            if indexPath.row == 0 {
+                cell.itemImage.image = UIImage()
+                cell.chefImage.image = UIImage()
+            }
+                chefRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
                     
-                    print("happening itemdata")
-                    DispatchQueue.main.async {
-                        cell.chefImage.image = UIImage(data: imageData)!
+                    
+                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
                         
-                    }
-                }.resume()
-                
-            }
-            
-            
-            itemRef.child("chefs/\(item.chefEmail)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { imageUrl, error in
-                
-                URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-                    // Error handling...
-                    guard let imageData = data else { return }
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            cell.chefImage.image = UIImage(data: imageData)!
+                            if self.toggle == "Cater Items" {
+                                self.cateringItems[indexPath.row].chefImage = UIImage(data: imageData)!
+                            } else {
+                                self.mealKitItems[indexPath.row].chefImage = UIImage(data: imageData)!
+                            }
+                            item.chefImage = UIImage(data: imageData)!
+                            
+                        }
+                    }.resume()
                     
-                    print("happening itemdata")
-                    DispatchQueue.main.async {
-                        cell.itemImage.image = UIImage(data: imageData)!
-                        item.itemImage = UIImage(data: imageData)!
-                    }
-                }.resume()
+                }
                 
-            }
+                
+                itemRef.child("chefs/\(item.chefEmail)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { imageUrl, error in
+                    
+                    URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
+                        // Error handling...
+                        guard let imageData = data else { return }
+                        
+                        print("happening itemdata")
+                        DispatchQueue.main.async {
+                            cell.itemImage.image = UIImage(data: imageData)!
+                            if self.toggle == "Cater Items" {
+                                self.cateringItems[indexPath.row].itemImage = UIImage(data: imageData)!
+                            } else {
+                                self.mealKitItems[indexPath.row].itemImage = UIImage(data: imageData)!
+                            }
+                            item.itemImage = UIImage(data: imageData)!
+                        }
+                    }.resume()
+                    
+                }
+            
             
             
             cell.itemTitle.text = item.itemTitle

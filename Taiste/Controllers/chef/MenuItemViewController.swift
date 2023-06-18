@@ -94,9 +94,9 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
     
+            titleLabel.text = typeOfitem
         if newOrEdit == "edit" {
             loadEditedItem()
-            titleLabel.text = typeOfitem
         } else if newOrEdit == "signature" {
             titleLabel.text = "Signature Dish"
             loadEditedItem1()
@@ -401,87 +401,88 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
     
-        if newOrEdit == "edit" {
-            print("index \(self.currentIndex)")
-            print("img \(self.imgArr)")
-            let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
-            
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
-                let storageRef = self.storage.reference()
-                let renewRef = self.storage.reference()
-                var path = self.imgArr[self.currentIndex].imgPath
-                
-                for i in 0..<self.imgArr.count {
-                    Task {
-                    try? await storageRef.child(self.imgArr[i].imgPath).delete()
-                    }
+            if imgArr.count > 0 {
+                if newOrEdit == "edit" {
+                    print("index \(self.currentIndex)")
+                    print("img \(self.imgArr)")
+                    let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
                     
-                }
-                self.imgArr.remove(at: self.currentIndex)
-                self.imgArrData.remove(at: self.currentIndex)
-                if self.imgArr.count == 0 {
-                    self.cancelImageButton.isHidden = true
-                }
-                self.pageControl.numberOfPages = self.imgArr.count
-                self.sliderCollectionView.reloadData()
-                
-                for i in 0..<self.imgArr.count {
-                    renewRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png").putData(self.imgArrData[i])
-                }
-                let data: [String: Any] = ["imageCount" : self.imgArr.count]
-                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).updateData(data)
-                self.db.collection(self.typeOfitem).document(self.menuItemId).updateData(data)
-                self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
-            }))
-            
-            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
-                alert.dismiss(animated: true, completion: nil)
-            }))
-            present(alert, animated: true, completion: nil)
-        } else if newPersonalOrEdit == "edit" {
-            let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
-            
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
-                let storageRef = self.storage.reference()
-                let renewRef = self.storage.reference()
-                
-                for i in 0..<self.imgArr.count {
-                    Task {
-                    try? await storageRef.child(self.imgArr[i].imgPath).delete()
-                    }
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                        let storageRef = self.storage.reference()
+                        let renewRef = self.storage.reference()
+                        var path = self.imgArr[self.currentIndex].imgPath
+                        
+                        for i in 0..<self.imgArr.count {
+                            Task {
+                                try? await storageRef.child(self.imgArr[i].imgPath).delete()
+                            }
+                            
+                        }
+                        self.imgArr.remove(at: self.currentIndex)
+                        self.imgArrData.remove(at: self.currentIndex)
+                        if self.imgArr.count == 0 {
+                            self.cancelImageButton.isHidden = true
+                        }
+                        self.pageControl.numberOfPages = self.imgArr.count
+                        self.sliderCollectionView.reloadData()
+                        
+                        for i in 0..<self.imgArr.count {
+                            renewRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfitem)/\(self.menuItemId)\(i).png").putData(self.imgArrData[i])
+                        }
+                        let data: [String: Any] = ["imageCount" : self.imgArr.count]
+                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+                        self.db.collection(self.typeOfitem).document(self.menuItemId).updateData(data)
+                        self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
+                    }))
                     
+                    alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                        alert.dismiss(animated: true, completion: nil)
+                    }))
+                    present(alert, animated: true, completion: nil)
+                } else if newPersonalOrEdit == "edit" {
+                    let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .actionSheet)
+                    
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                        let storageRef = self.storage.reference()
+                        let renewRef = self.storage.reference()
+                        
+                        for i in 0..<self.imgArr.count {
+                            Task {
+                                try? await storageRef.child(self.imgArr[i].imgPath).delete()
+                            }
+                            
+                        }
+                        self.imgArr.remove(at: self.currentIndex)
+                        self.imgArrData.remove(at: self.currentIndex)
+                        if self.imgArr.count == 0 {
+                            self.cancelImageButton.isHidden = true
+                        }
+                        self.pageControl.numberOfPages = self.imgArr.count
+                        self.sliderCollectionView.reloadData()
+                        
+                        for i in 0..<self.imgArr.count {
+                            renewRef.child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(self.documentId)\(i).png").putData(self.imgArrData[i])
+                        }
+                        let data: [String: Any] = ["imageCount" : self.imgArr.count]
+                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(self.documentId).updateData(data)
+                        self.db.collection("Executive Items").document(self.documentId).updateData(data)
+                        self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
+                    }))
+                    
+                    alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
+                        alert.dismiss(animated: true, completion: nil)
+                    }))
+                    present(alert, animated: true, completion: nil)
+                } else {
+                    imgArr.remove(at: currentIndex)
+                    imgArrData.remove(at: currentIndex)
+                    if self.imgArr.count == 0 {
+                        self.cancelImageButton.isHidden = true
+                    }
+                    self.pageControl.numberOfPages = imgArr.count
+                    self.sliderCollectionView.reloadData()
                 }
-                self.imgArr.remove(at: self.currentIndex)
-                self.imgArrData.remove(at: self.currentIndex)
-                if self.imgArr.count == 0 {
-                    self.cancelImageButton.isHidden = true
-                }
-                self.pageControl.numberOfPages = self.imgArr.count
-                self.sliderCollectionView.reloadData()
-                
-                for i in 0..<self.imgArr.count {
-                    renewRef.child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(self.documentId)\(i).png").putData(self.imgArrData[i])
-                }
-                let data: [String: Any] = ["imageCount" : self.imgArr.count]
-                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").document(self.documentId).updateData(data)
-                self.db.collection("Executive Items").document(self.documentId).updateData(data)
-                self.showToast(message: "Image deleted.", font: .systemFont(ofSize: 12))
-            }))
-            
-            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
-                alert.dismiss(animated: true, completion: nil)
-            }))
-            present(alert, animated: true, completion: nil)
-        } else {
-        imgArr.remove(at: currentIndex)
-        imgArrData.remove(at: currentIndex)
-            if self.imgArr.count == 0 {
-                self.cancelImageButton.isHidden = true
             }
-        self.pageControl.numberOfPages = imgArr.count
-        self.sliderCollectionView.reloadData()
-        }
-            
     } else {
     self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
    }

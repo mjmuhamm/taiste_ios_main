@@ -188,6 +188,7 @@ class ChefMeViewController: UIViewController {
             
             let storageRef = storage.reference()
             if !items.isEmpty {
+                items.removeFirst()
                 items.removeAll()
                 meTableView.reloadData()
             }
@@ -662,24 +663,25 @@ class ChefMeViewController: UIViewController {
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
         
-        var abc = toggle
-        toggle = "MealKit Items"
-        loadItems()
-        addContentButton.isHidden = false
-        comingSoon.isHidden = true
-        contentCollectionView.isHidden = true
-        meTableView.isHidden = false
-        bankingView.isHidden = true
-        cateringButton.backgroundColor = UIColor.white
-        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        personalChefButton.backgroundColor = UIColor.white
-        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        mealKitButton.setTitleColor(UIColor.white, for: .normal)
-        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-        contentButton.backgroundColor = UIColor.white
-        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        bankingButton.backgroundColor = UIColor.white
-        bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        var abc = toggle
+            self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+//        toggle = "MealKit Items"
+//        loadItems()
+//        addContentButton.isHidden = false
+//        comingSoon.isHidden = true
+//        contentCollectionView.isHidden = true
+//        meTableView.isHidden = false
+//        bankingView.isHidden = true
+//        cateringButton.backgroundColor = UIColor.white
+//        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        personalChefButton.backgroundColor = UIColor.white
+//        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        mealKitButton.setTitleColor(UIColor.white, for: .normal)
+//        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+//        contentButton.backgroundColor = UIColor.white
+//        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        bankingButton.backgroundColor = UIColor.white
+//        bankingButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         } else {
         self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
        }
@@ -742,19 +744,21 @@ class ChefMeViewController: UIViewController {
     }
     
     @IBAction func addContentButtonPressed(_ sender: MDCButton) {
-        if toggle == "Cater Items" || toggle == "MealKit Items" {
-            if toggle == "MealKit Items" {
+        if toggle == "MealKit Items" {
                 if self.mealKitItems.count == 0 {
-                    
                     if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToMealKits") as? GuideToMealKitViewController  {
                         self.present(vc, animated: true, completion: nil)
                     }
-                }
             } else {
                 performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
             }
         
         } else if toggle == "Executive Items" {
+            if self.personalChefItem == nil {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToExecutiveItems") as? GuideToExecutiveItemsViewController  {
+                    self.present(vc, animated: true, completion: nil)
+                }
+        } else {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChef") as? PersonalChefViewController  {
                 vc.chefImageI = self.chefImage.image
                 vc.chefName = self.chefName.text!
@@ -767,6 +771,15 @@ class ChefMeViewController: UIViewController {
                 
                 self.present(vc, animated: true, completion: nil)
             }
+        }
+        } else if toggle == "Cater Items" {
+            if self.cateringItems.count == 0 {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToCaterItems") as? GuideToCaterItemsViewController  {
+                    self.present(vc, animated: true, completion: nil)
+                }
+        } else {
+            performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
+        }
         }
     }
     
@@ -870,7 +883,9 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
             } else {
                 cell.liveLabel.isHidden = true
             }
-        
+            if indexPath.row == 0 {
+                cell.itemImage.image = UIImage()
+            }
             let storageRef = storage.reference()
             storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { itemUrl, error in
                 if itemUrl != nil {
@@ -881,6 +896,7 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.itemImage.image = UIImage(data: imageData)!
+                            item.itemImage = UIImage(data: imageData)!
                         }
                     }.resume()
                 }

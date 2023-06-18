@@ -311,8 +311,16 @@ class CheckoutViewController: UIViewController {
         }
     }
     
+    var happened = ""
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        if happened != "" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTab") as? UserTabViewController  {
+                vc.whereTo = "home"
+                self.present(vc, animated: true, completion: nil)
+            }
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func payButtonPressed(_ sender: Any) {
@@ -457,6 +465,7 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }
             cell.cancelButtonTapped = {
+                self.happened = "yes"
                 let foodTotal = self.foodTotalText.text!.suffix(self.foodTotalText.text!.count - 1)
                 let newTotal = Double(foodTotal)! - item.totalCostOfEvent
                 let taxes = Double(newTotal) * 0.125

@@ -99,6 +99,24 @@ class AccountSettingsChefViewController: UIViewController {
         }
     }
     
+    @IBAction func caterItemsButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToCaterItems") as? GuideToCaterItemsViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func executiveItemButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToExecutiveItems") as? GuideToExecutiveItemsViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func mealKitsButtonPressed(_ sender: Any) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToMealKits") as? GuideToMealKitViewController  {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func logoutButtonPressed(_ sender: Any) {
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")

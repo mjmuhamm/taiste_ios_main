@@ -30,6 +30,7 @@ class MenuItemAdditionsViewController: UIViewController {
     private var contentVideo = ""
     
     var chefOrUser = ""
+    var chefEmail = ""
     var chefImageId = ""
     
     var typeOfItem = ""
@@ -44,21 +45,31 @@ class MenuItemAdditionsViewController: UIViewController {
     @IBOutlet weak var saveButton: MDCButton!
     
     @IBOutlet weak var ingredientsButton: UIButton!
+    @IBOutlet weak var promotionalContentVideoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadUsername()
+        if chefOrUser != "user" {
+            loadUsername()
+            chefEmail = Auth.auth().currentUser!.email!
+        }
         if chefOrUser != "" {
             saveButton.isHidden = true
             self.ingredientsButton.isEnabled = false
             self.preperationGuideButton.isEnabled = false
             self.uploadPreperationContentButton.isEnabled = false
         }
+        if typeOfItem == "MealKit Items" {
+            promotionalContentVideoLabel.text = "Preperation Guide Content Video"
+        }
         loadItems()
         ingredientsLabel.text = "No Ingredients Uploaded"
+        ingredientsLabel.textColor = UIColor.systemGray4
         preperationLabel.text = "No Preperation Guide Uploaded"
+        preperationLabel.textColor = UIColor.systemGray4
         preperationContentLabel.text = "No Video Content Uploaded"
+        preperationContentLabel.textColor = UIColor.systemGray4
         
         
         
@@ -93,8 +104,10 @@ class MenuItemAdditionsViewController: UIViewController {
                             let data = doc.data()
                             if let documentId = data["documentId"] as? String {
                                 if a[i] == "Ingredients" {
-                                    self.ingredientsId = doc.documentID
-                                    self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png").downloadURL { url, error in
+                                    
+                                    print("chefs chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png")
+                                    self.storage.reference().child("chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png").downloadURL { url, error in
+                                        
                                         if error == nil {
                                             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                                                 // Error handling...
@@ -102,17 +115,20 @@ class MenuItemAdditionsViewController: UIViewController {
                                                 
                                                 print("happening itemdata")
                                                 DispatchQueue.main.async {
+                                                    self.ingredientsId = doc.documentID
+                                                    self.ingredientsLabel.text = "Added"
                                                     self.ingredientsImage = UIImage(data: imageData)!
+                                                    self.ingredientsButton.isEnabled = true
                                                     
                                                 }
                                             }.resume()
                                         }
                                     }
-                                    self.ingredientsButton.isEnabled = true
-                                    self.ingredientsLabel.text = "Added"
+                                    
+                                    
                                     self.ingredientsLabel.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
                                 } else if a[i] == "Preperation" {
-                                    self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(doc.documentID).png").downloadURL { url, error in
+                                    self.storage.reference().child("chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(doc.documentID).png").downloadURL { url, error in
                                         if error == nil {
                                             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                                                 // Error handling...
@@ -120,21 +136,21 @@ class MenuItemAdditionsViewController: UIViewController {
                                                 
                                                 print("happening itemdata")
                                                 DispatchQueue.main.async {
-                                                    self.ingredientsImage = UIImage(data: imageData)!
+                                                    self.preperationId = doc.documentID
+                                                    self.preperationLabel.text = "Added"
+                                                    self.preperationGuideButton.isEnabled = true
+                                                    self.preperationImage = UIImage(data: imageData)!
                                                     
                                                 }
                                             }.resume()
                                         }
                                     }
-                                    self.preperationId = doc.documentID
-                                    self.preperationGuideButton.isEnabled = true
-                                    self.preperationLabel.text = "Added"
+                                    
+                                    
+                                    
                                     
                                     self.preperationLabel.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
                                 } else if a[i] == "Content" {
-                                    self.contentId = doc.documentID
-                                    self.uploadPreperationContentButton.isEnabled = true
-                                    self.preperationContentLabel.text = "Added"
                                     self.contentVideo = self.getVideo(id: doc.documentID)
                                     self.preperationContentLabel.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
                                 }
@@ -151,13 +167,21 @@ class MenuItemAdditionsViewController: UIViewController {
         var dataUri = ""
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
-            let storageRef = storage.reference()
-            let json: [String: Any] = ["name": "\(Auth.auth().currentUser!.email!)"]
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let name = data["chefName"] as? String {
+                 
+                                let storageRef = self.storage.reference()
+            let json: [String: Any] = ["name": "\(name)"]
             
             
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/get-user-videos")!)
+            var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/get-user-videos")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
@@ -171,12 +195,19 @@ class MenuItemAdditionsViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.showToast(message: "Content Added.", font: .systemFont(ofSize: 12))
-                    
+                    print("id \(id)")
                     for i in 0..<videos.count {
+                        
                         var id2 = "\(videos[i]["id"]!)"
+                        print("id2  \(id2)")
+                        
                         
                          
                         if id == id2 {
+                            self.contentVideo = "\(videos[i]["dataUrl"]!)"
+                            self.contentId = id2
+                            self.preperationContentLabel.text = "Added"
+                            self.uploadPreperationContentButton.isEnabled = true
                             dataUri = "\(videos[i]["dataUrl"]!)"
                         }
                         
@@ -188,7 +219,12 @@ class MenuItemAdditionsViewController: UIViewController {
                 
             })
             task.resume()
-            
+                                
+                            }
+                        }
+                    }
+                }
+            }
             
         } else {
             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
@@ -206,6 +242,7 @@ class MenuItemAdditionsViewController: UIViewController {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MealKitVideo") as? YoutubeViewController  {
                     vc.example = "uploadIngredient"
                     vc.image = self.ingredientsImage!
+                    vc.typeOfDisplay = "Ingredients Guide"
                     self.present(vc, animated: true, completion: nil)
                 }
             } else {
@@ -253,6 +290,7 @@ class MenuItemAdditionsViewController: UIViewController {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MealKitVideo") as? YoutubeViewController  {
                     vc.example = "prepGuide"
                     vc.image = self.preperationImage!
+                    vc.typeOfDisplay = "Preperation Guide"
                     self.present(vc, animated: true, completion: nil)
                 }
             } else {
@@ -299,6 +337,11 @@ class MenuItemAdditionsViewController: UIViewController {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MealKitVideo") as? YoutubeViewController  {
                 vc.example = "videoContent"
                 vc.videoUrl = self.contentVideo
+                if self.typeOfItem == "MealKit Items" {
+                    vc.typeOfDisplay = "Preperation Content Guide"
+                } else {
+                    vc.typeOfDisplay = "Promotional Content"
+                }
                 self.present(vc, animated: true, completion: nil)
             }
         } else {
@@ -343,7 +386,7 @@ class MenuItemAdditionsViewController: UIViewController {
             
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/upload-video")!)
+            var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/upload-video")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
@@ -357,10 +400,11 @@ class MenuItemAdditionsViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.showToast(message: "Content Added.", font: .systemFont(ofSize: 12))
-                    
+                    self.saveButton.isEnabled = true
                     self.contentId = entryId
                     let data: [String: Any] = ["documentId" : entryId]
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Content").document(entryId).setData(data)
+                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Content").document(entryId).setData(data)
                     self.db.collection("Videos").document(entryId).setData(data)
                     
                    
@@ -399,7 +443,7 @@ class MenuItemAdditionsViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     
-                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("MealKit Items").document(self.menuItemId).collection("Content").document(entryId).delete()
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Content").document(entryId).delete()
                     self.db.collection("Videos").document(entryId).delete()
                     
                     //                storageRef.child("chefs/malik@cheftesting.com/Content/\(self.videoId).png").delete { error in
@@ -464,10 +508,13 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                     ingredientsLabel.text = "Added"
                     ingredientsId = documentId
                     let data: [String: Any] = ["documentId" : documentId]
+                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Ingredients").document(documentId).setData(data)
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Ingredients").document(documentId).setData(data)
-                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/MealKit Items/\(self.menuItemId)/Ingredients/\(documentId).png").putData(image.pngData()!)
+                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(documentId).png").putData(image.pngData()!)
                     ingredientsLabel.textColor = UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1)
                 } else {
+                    let data: [String: Any] = ["documentId" : self.ingredientsId]
+                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Ingredients").document(documentId).updateData(data)
                     storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(self.ingredientsId).png").putData(image.pngData()!)
                 }
             } else if toggle == "preperation" {
@@ -476,11 +523,14 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                     preperationLabel.text = "Added"
                     preperationId = documentId
                     let data: [String: Any] = ["documentId" : documentId]
+                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Preperation").document(documentId).setData(data)
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Preperation").document(documentId).setData(data)
                     storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(documentId).png").putData(image.pngData()!)
                     preperationLabel.textColor = UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1)
                 }
             } else {
+                let data: [String: Any] = ["documentId" : self.preperationId]
+                self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Preperation").document(documentId).updateData(data)
                 storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(self.preperationId).png").putData(image.pngData()!)
             }
             self.showToast(message: "Image Added.", font: .systemFont(ofSize: 12))
@@ -494,7 +544,7 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                     contentVideo = "\(video.absoluteURL!)"
                     let documentId = UUID().uuidString
                     let name = Auth.auth().currentUser!.email!
-                    preperationContentLabel.text = documentId
+                    preperationContentLabel.text = "Added"
                     contentId = documentId
                     preperationContentLabel.textColor = UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1)
                     let storageRef = self.storage.reference()
@@ -503,6 +553,8 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                         storageRef.child("chefs/\(name)/\(self.typeOfItem)/\(self.menuItemId)/Content/\(documentId).png").downloadURL(completion: { url, error in
                             
                             if error == nil {
+                                self.saveButton.isEnabled = false
+                                print("url \(url!)")
                                 self.saveVideo(name: self.chefName, description: "Content Video for \(self.itemTitle)", videoUrl: url!, documentId: documentId)
                             }
                         })
@@ -510,11 +562,11 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                         
                     })
                 } else {
-                    self.deleteVideo(entryId: self.contentId)
+                    self.deleteVideo(entryId: self.contentVideo)
                     contentVideo = "\(video.absoluteURL!)"
                     let documentId = UUID().uuidString
                     let name = Auth.auth().currentUser!.email!
-                    preperationContentLabel.text = documentId
+                    preperationContentLabel.text = "Added"
                     preperationContentLabel.textColor = UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1)
                     let storageRef = self.storage.reference()
                     storageRef.child("chefs/\(name)/\(self.typeOfItem)/\(self.menuItemId)/Content/\(documentId).png").putFile(from: URL(string: self.contentVideo)!, metadata: nil, completion: { storage, error in
@@ -522,7 +574,10 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                         storageRef.child("chefs/\(name)/\(self.typeOfItem)/\(self.menuItemId)/Content/\(documentId).png").downloadURL(completion: { url, error in
                             
                             if error == nil {
+                                print("content happening")
                                 self.saveVideo(name: self.chefName, description: "Content Video for \(self.itemTitle)", videoUrl: url!, documentId: documentId)
+                            } else {
+                                print("error content \(error?.localizedDescription)")
                             }
                         })
                         

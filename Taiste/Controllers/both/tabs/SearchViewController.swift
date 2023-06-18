@@ -94,7 +94,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
                                 chefOrUser1 = "chefs"
                             }
                             
-                            storageRef.child("\(chefOrUser)/\(email)/profileImage/\(doc.documentID).png").downloadURL { imageUrl, error in
+                            storageRef.child("\(chefOrUser1)/\(email)/profileImage/\(doc.documentID).png").downloadURL { imageUrl, error in
                                 if imageUrl != nil {
                                     URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
                                         // Error handling...

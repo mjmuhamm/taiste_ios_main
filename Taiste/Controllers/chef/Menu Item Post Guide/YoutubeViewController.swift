@@ -27,9 +27,16 @@ class YoutubeViewController: UIViewController {
     
     @IBOutlet weak var contentView: UIView!
     
+    @IBOutlet weak var playPauseImage: UIImageView!
+    
+    @IBOutlet weak var itemLabel: UILabel!
+    var typeOfDisplay = ""
     @IBOutlet weak var playPauseButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        if typeOfDisplay != "" {
+            itemLabel.text = typeOfDisplay
+        }
         if example == "fullMealKitVideo" {
             playerView.isHidden = false
             imageView.isHidden = true
@@ -81,12 +88,14 @@ class YoutubeViewController: UIViewController {
     }
     
     @IBAction func playPauseButtonPressed(_ sender: Any) {
-        if playPauseButton.imageView?.image == UIImage(systemName: "play.fill") {
-            playPauseButton.imageView?.image = UIImage()
+        playPauseButton.isSelected = !playPauseButton.isSelected
+        if playPauseButton.isSelected {
+            playPauseImage.isHidden = true
             player.play()
         } else {
-            playPauseButton.imageView?.image = UIImage(systemName: "play.fill")
+            playPauseImage.isHidden = false
             player.pause()
+            
         }
         
     }

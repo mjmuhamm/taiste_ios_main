@@ -509,11 +509,11 @@ class ProfileAsUserViewController: UIViewController {
                     
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
+                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let live = data["live"] as? String {
                         
                         
                         
-                        self.db.collection("Cater Items").document(menuItemId).getDocument { document, error in
+                        self.db.collection(self.toggle).document(menuItemId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
                                     let data = document!.data()
@@ -521,7 +521,7 @@ class ProfileAsUserViewController: UIViewController {
                                     if let liked = data!["liked"] as? [String], let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double] {
                               
                               
-                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: "")
+                                        let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: live)
                                         
                                         if self.toggle == "Cater Items" {
                                             if self.cateringItems.isEmpty {
@@ -781,20 +781,20 @@ class ProfileAsUserViewController: UIViewController {
     @IBAction func mealKitButtonPressed(_ sender: Any) {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
-        
-        toggle = "MealKit Items"
-        loadChefItems()
-        contentCollectionView.isHidden = true
-        itemTableView.isHidden = false
-        comingSoon.isHidden = true
-        cateringButton.backgroundColor = UIColor.white
-        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        personalChefButton.backgroundColor = UIColor.white
-        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
-        mealKitButton.setTitleColor(UIColor.white, for: .normal)
-        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
-        contentButton.backgroundColor = UIColor.white
-        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+            self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+//        toggle = "MealKit Items"
+//        loadChefItems()
+//        contentCollectionView.isHidden = true
+//        itemTableView.isHidden = false
+//        comingSoon.isHidden = true
+//        cateringButton.backgroundColor = UIColor.white
+//        cateringButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        personalChefButton.backgroundColor = UIColor.white
+//        personalChefButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+//        mealKitButton.setTitleColor(UIColor.white, for: .normal)
+//        mealKitButton.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+//        contentButton.backgroundColor = UIColor.white
+//        contentButton.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
         } else {
               self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
@@ -982,18 +982,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 cell.likeText.text = "\(item.liked.count)"
                 cell.orderText.text = "\(item.itemOrders)"
                 
-                if self.toggle == "MealKit Items" {
-                    cell.liveLabel.isHidden = false
-                    if item.live != "yes" {
-                        cell.liveLabel.text = "not live"
-                        cell.liveLabel.textColor = UIColor.red
-                    } else {
-                        cell.liveLabel.text = "live"
-                        cell.liveLabel.textColor = UIColor.green
-                    }
-                } else {
-                    cell.liveLabel.isHidden = true
-                }
+                
                 
                 var num = 0.0
                 for i in 0..<item.itemRating.count {

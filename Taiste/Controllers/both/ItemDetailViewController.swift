@@ -117,6 +117,8 @@ class ItemDetailViewController: UIViewController {
     var mealKitNewOrEdit = ""
     private var acceptOrDeny = ""
     
+    private var chefImageId = ""
+    @IBOutlet weak var itemCalories: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         if Reachability.isConnectedToNetwork(){
@@ -132,6 +134,7 @@ class ItemDetailViewController: UIViewController {
                 itemTitle.text = item!.itemTitle
                 itemDescription.text = item!.itemDescription
                 imgArr.append(item!.itemImage!)
+                itemCalories.text = "Calories: \(item!.itemCalories)"
             } else {
                 itemTitle.text = itemTitleI
                 itemDescription.text = itemDescriptionI
@@ -195,6 +198,7 @@ class ItemDetailViewController: UIViewController {
                 itemTitle.text = item!.itemTitle
                 itemDescription.text = item!.itemDescription
                 imgArr.append(item!.itemImage!)
+                itemCalories.text = "Calories: \(item!.itemCalories)"
             } else {
                 itemTitle.text = itemTitleI
                 itemDescription.text = itemDescriptionI
@@ -271,6 +275,7 @@ class ItemDetailViewController: UIViewController {
                             self.signatureImage.image = self.personalChefInfo!.signatureDishImage
                             self.signatureImage.layer.cornerRadius = 6
                             
+                            
                             self.briefIntroduction.text = self.personalChefInfo!.briefIntroduction
                             self.howLongBeenAChef.text = lengthOfPersonalChef
                             self.specialty.text = specialty
@@ -327,12 +332,17 @@ class ItemDetailViewController: UIViewController {
                     print("cater or personal \(self.caterOrPersonal)")
                     if typeOfInfo == self.caterOrPersonal {
                         print("type of info happening")
-                        if let itemTitle = data["itemTitle"] as? String, let imageCount = data["imageCount"] as? Int, let chefEmail = data["chefEmail"] as? String, let itemDescription = data["itemDescription"] as? String {
+                        if let itemTitle = data["itemTitle"] as? String, let imageCount = data["imageCount"] as? Int, let chefEmail = data["chefEmail"] as? String, let itemDescription = data["itemDescription"] as? String, let itemCalories = data["itemCalories"] as? String {
                             
+                            self.itemCalories.text = "Calories: \(itemCalories)"
                             self.itemTitle.text = itemTitle
                             self.itemDescription.text = itemDescription
                             self.reviewButton.isHidden = true
                             self.payStack.isHidden = true
+                            self.itemType = "Executive Items"
+                            self.chefImageId = self.personalChefInfo!.chefImageId
+                            self.menuItemId = doc.documentID
+                            
                             
                             for i in 0..<imageCount {
                                 self.storage.reference().child("chefs/\(chefEmail)/Executive Items/\(doc.documentID)\(i).png").downloadURL { imageUrl, error in
@@ -732,12 +742,24 @@ class ItemDetailViewController: UIViewController {
     }
     
     @IBAction func additionButtonPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "AdditionalMenuItems") as? MenuItemAdditionsViewController {
-            vc.typeOfItem = self.item!.itemType
-            vc.chefOrUser = "chef"
-            vc.chefImageId = self.item!.chefImageId
-            self.present(vc, animated: true, completion: nil)
-        }
+        
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuItemAdditions") as? MenuItemAdditionsViewController {
+                if self.item != nil {
+                    vc.typeOfItem = self.item!.itemType
+                    vc.chefOrUser = "user"
+                    vc.chefImageId = self.item!.chefImageId
+                    vc.menuItemId = self.item!.menuItemId
+                    vc.chefEmail = self.item!.chefEmail
+                } else {
+                    vc.typeOfItem = self.itemType
+                    vc.chefOrUser = "user"
+                    vc.chefImageId = self.personalChefInfo!.chefImageId
+                    vc.menuItemId = self.menuItemId
+                    vc.chefEmail = self.personalChefInfo!.chefEmail
+                }
+                self.present(vc, animated: true, completion: nil)
+            }
+        
     }
     
     
