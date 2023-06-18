@@ -767,7 +767,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             if self.newOrEdit == "new" || self.newOrEdit == "edit" {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuItemAdditions") as? MenuItemAdditionsViewController  {
                     vc.typeOfItem = self.typeOfitem
-                    vc.documentId = self.menuItemId
+                    vc.menuItemId = self.menuItemId
                     vc.itemTitle = self.itemTitle.text!
                     self.present(vc, animated: true, completion: nil)
                 }
@@ -775,7 +775,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
             } else {
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuItemAdditions") as? MenuItemAdditionsViewController  {
                     vc.typeOfItem = "Executive Items"
-                    vc.documentId = self.menuItemId
+                    vc.menuItemId = self.menuItemId
                     vc.itemTitle = self.itemTitle.text!
                     self.present(vc, animated: true, completion: nil)
                 }
