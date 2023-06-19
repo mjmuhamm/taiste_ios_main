@@ -523,6 +523,8 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                 cell.itemImage.image = UIImage()
                 cell.chefImage.image = UIImage()
             }
+            print("chefEmail \(item.chefEmail)")
+            print("\(item.chefImageId)")
                 chefRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
                     
                     
@@ -604,8 +606,12 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             }
             
             cell.orderButtonTapped = {
-                self.item = item
-                self.performSegue(withIdentifier: "HomeToOrderDetailSegue", sender: self)
+                if item.chefUsername != "chefTest" {
+                    self.item = item
+                    self.performSegue(withIdentifier: "HomeToOrderDetailSegue", sender: self)
+                } else {
+                    self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                }
             }
             
             cell.likeImageButtonTapped = {
@@ -823,9 +829,13 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             }
             
             cell.orderButtonTapped = {
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
-                    vc.personalChefInfo = item
-                    self.present(vc, animated: true, completion: nil)
+                if item.chefName != "chefTest" {
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+                        vc.personalChefInfo = item
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                } else {
+                    self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
                 }
             }
             

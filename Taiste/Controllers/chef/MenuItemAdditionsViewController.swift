@@ -63,7 +63,12 @@ class MenuItemAdditionsViewController: UIViewController {
         if typeOfItem == "MealKit Items" {
             promotionalContentVideoLabel.text = "Preperation Guide Content Video"
         }
-        loadItems()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            loadItems()
+        } else {
+            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
         ingredientsLabel.text = "No Ingredients Uploaded"
         ingredientsLabel.textColor = UIColor.systemGray4
         preperationLabel.text = "No Preperation Guide Uploaded"
@@ -95,7 +100,7 @@ class MenuItemAdditionsViewController: UIViewController {
     private func loadItems() {
         var b = ""
         if chefOrUser != "" {b = chefImageId } else { b = Auth.auth().currentUser!.uid }
-        let a : [String] = ["Ingredients", "Preperation", "Content"]
+        let a : [String] = ["Ingredients", "Preparation", "Content"]
         for i in 0..<3 {
             db.collection("Chef").document(b).collection(typeOfItem).document(menuItemId).collection(a[i]).getDocuments { documents, error in
                 if error == nil {
@@ -105,53 +110,77 @@ class MenuItemAdditionsViewController: UIViewController {
                             if let documentId = data["documentId"] as? String {
                                 if a[i] == "Ingredients" {
                                     
-                                    print("chefs chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png")
-                                    self.storage.reference().child("chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png").downloadURL { url, error in
-                                        
-                                        if error == nil {
-                                            URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                                                // Error handling...
-                                                guard let imageData = data else { return }
-                                                
-                                                print("happening itemdata")
-                                                DispatchQueue.main.async {
-                                                    self.ingredientsId = doc.documentID
-                                                    self.ingredientsLabel.text = "Added"
-                                                    self.ingredientsImage = UIImage(data: imageData)!
-                                                    self.ingredientsButton.isEnabled = true
+                                    if self.chefOrUser != "" {
+                                        print("chefs chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png")
+                                        self.storage.reference().child("chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(doc.documentID).png").downloadURL { url, error in
+                                            
+                                            if error == nil {
+                                                URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                                                    // Error handling...
+                                                    guard let imageData = data else { return }
                                                     
-                                                }
-                                            }.resume()
+                                                    print("happening itemdata")
+                                                    DispatchQueue.main.async {
+                                                        self.ingredientsId = doc.documentID
+                                                        self.ingredientsLabel.text = "Added"
+                                                        self.ingredientsImage = UIImage(data: imageData)!
+                                                        self.ingredientsButton.isEnabled = true
+                                                        
+                                                    }
+                                                }.resume()
+                                            }
+                                        }
+                                    } else {
+                                        if documents!.count > 0 {
+                                            self.ingredientsId = doc.documentID
+                                            self.ingredientsLabel.text = "Added"
+                                            self.ingredientsButton.isEnabled = true
                                         }
                                     }
                                     
                                     
                                     self.ingredientsLabel.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
-                                } else if a[i] == "Preperation" {
-                                    self.storage.reference().child("chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(doc.documentID).png").downloadURL { url, error in
-                                        if error == nil {
-                                            URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                                                // Error handling...
-                                                guard let imageData = data else { return }
-                                                
-                                                print("happening itemdata")
-                                                DispatchQueue.main.async {
-                                                    self.preperationId = doc.documentID
-                                                    self.preperationLabel.text = "Added"
-                                                    self.preperationGuideButton.isEnabled = true
-                                                    self.preperationImage = UIImage(data: imageData)!
+                                } else if a[i] == "Preparation" {
+                                    if self.chefOrUser != "" {
+                                        self.storage.reference().child("chefs/\(self.chefEmail)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(doc.documentID).png").downloadURL { url, error in
+                                            if error == nil {
+                                                URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                                                    // Error handling...
+                                                    guard let imageData = data else { return }
                                                     
-                                                }
-                                            }.resume()
+                                                    print("happening itemdata")
+                                                    DispatchQueue.main.async {
+                                                        self.preperationId = doc.documentID
+                                                        self.preperationLabel.text = "Added"
+                                                        self.preperationGuideButton.isEnabled = true
+                                                        self.preperationImage = UIImage(data: imageData)!
+                                                        
+                                                    }
+                                                }.resume()
+                                            }
+                                        }
+                                        
+                                    } else {
+                                        if documents!.count > 0 {
+                                            self.preperationId = doc.documentID
+                                            self.preperationLabel.text = "Added"
+                                            self.preperationGuideButton.isEnabled = true
                                         }
                                     }
                                     
                                     
-                                    
-                                    
                                     self.preperationLabel.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
                                 } else if a[i] == "Content" {
-                                    self.contentVideo = self.getVideo(id: doc.documentID)
+                                    if self.chefOrUser != "" {
+                                        self.contentVideo = self.getVideo(id: doc.documentID)
+                                    } else {
+                                        if documents!.count > 0 {
+                                            self.contentId = doc.documentID
+                                            self.preperationContentLabel.text = "Added"
+                                            self.uploadPreperationContentButton.isEnabled = true
+                                          
+                                        }
+                                    }
                                     self.preperationContentLabel.textColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
                                 }
                             }
@@ -283,7 +312,7 @@ class MenuItemAdditionsViewController: UIViewController {
     }
     
     @IBAction func uploadPreperationGuideButtonPressed(_ sender: Any) {
-        toggle = "preperation"
+        toggle = "preparation"
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
             if chefOrUser != "" {
@@ -406,6 +435,18 @@ class MenuItemAdditionsViewController: UIViewController {
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Content").document(entryId).setData(data)
                     self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Content").document(entryId).setData(data)
                     self.db.collection("Videos").document(entryId).setData(data)
+                    self.db.collection("Videos").document("Total").getDocument { document, error in
+                        if error == nil {
+                            if document != nil {
+                                let data = document!.data()
+                                
+                                if let total = data!["Total"] as? Int {
+                                    let data5: [String: Any] = ["total" : total + 1]
+                                    self.db.collection("Videos").document("Total").updateData(data5)
+                                }
+                            }
+                        }
+                    }
                     
                    
                 }
@@ -514,24 +555,26 @@ extension MenuItemAdditionsViewController: UIImagePickerControllerDelegate, UINa
                     ingredientsLabel.textColor = UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1)
                 } else {
                     let data: [String: Any] = ["documentId" : self.ingredientsId]
-                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Ingredients").document(documentId).updateData(data)
+                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Ingredients").document(self.preperationId).updateData(data)
+                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Ingredients").document(ingredientsId).updateData(data)
                     storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Ingredients/\(self.ingredientsId).png").putData(image.pngData()!)
                 }
-            } else if toggle == "preperation" {
+            } else if toggle == "preparation" {
                 if preperationId == "" {
                     preperationImage = image
                     preperationLabel.text = "Added"
                     preperationId = documentId
                     let data: [String: Any] = ["documentId" : documentId]
-                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Preperation").document(documentId).setData(data)
+                    self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Preparation").document(documentId).setData(data)
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Preperation").document(documentId).setData(data)
-                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(documentId).png").putData(image.pngData()!)
+                    storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preparation/\(documentId).png").putData(image.pngData()!)
                     preperationLabel.textColor = UIColor(red:98/255, green: 99/255, blue: 72/255, alpha:1)
                 }
             } else {
                 let data: [String: Any] = ["documentId" : self.preperationId]
-                self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Preperation").document(documentId).updateData(data)
-                storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preperation/\(self.preperationId).png").putData(image.pngData()!)
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfItem).document(self.menuItemId).collection("Preparation").document(self.preperationId).updateData(data)
+                self.db.collection(self.typeOfItem).document(self.menuItemId).collection("Preparation").document(preperationId).updateData(data)
+                storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.typeOfItem)/\(self.menuItemId)/Preparation/\(self.preperationId).png").putData(image.pngData()!)
             }
             self.showToast(message: "Image Added.", font: .systemFont(ofSize: 12))
             picker.dismiss(animated: true, completion: nil)

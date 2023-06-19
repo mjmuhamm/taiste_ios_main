@@ -46,7 +46,7 @@ class AddContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         actiityIndicator.isHidden = true
-        
+       
         loadUsername()
         // Do any additional setup after loading the view.
     }
@@ -71,13 +71,17 @@ class AddContentViewController: UIViewController {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
             
+            var description = "no description"
+            if self.contentDescription.text != nil || !self.contentDescription.text!.isEmpty {
+                description = self.contentDescription.text!
+            }
             let storageRef = storage.reference()
             let json: [String: Any] = ["name": "\(name)", "description" : "\(description)", "videoUrl" : "\(videoUrl)"]
             
             
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/upload-video")!)
+            var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/upload-video")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData

@@ -47,6 +47,9 @@ class FeedCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        userName.text = ""
+        videoDescription.text = ""
+        
         
         
     }

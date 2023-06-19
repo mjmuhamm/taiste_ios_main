@@ -21,6 +21,9 @@ class CommentsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        thoughtsText.text = ""
+        date.text = ""
+        
         
         userImage.layer.borderWidth = 1
         userImage.layer.masksToBounds = false

@@ -656,66 +656,75 @@ class ProfileAsUserViewController: UIViewController {
             return
           }
             
-          DispatchQueue.main.async {
-              
-              if videos.count == 0 {
-                  
-              } else {
-                  for i in 0..<videos.count {
-                      let id = videos[i]["id"]!
-                      let createdAtI = videos[i]["createdAt"]!
-                      if i == videos.count - 1 {
-                          self.createdAt = createdAtI as! Int
-                      }
-                      var views = 0
-                      var liked : [String] = []
-                      var comments = 0
-                      var shared = 0
-                      
-                      self.db.collection("Videos").document("\(id)").getDocument { document, error in
-                          if error == nil {
-                              
-                              if document!.exists {
-                                  let data = document!.data()
-                                  
-                                  if data!["views"] != nil {
-                                      views = data!["views"] as! Int
-                                  }
-                                  
-                                  if data!["liked"] != nil {
-                                      liked = data!["liked"] as! [String]
-                                  }
-                                  
-                                  if data!["shared"] != nil {
-                                      shared = data!["shared"] as! Int
-                                  }
-                                  
-                                  if data!["comments"] != nil {
-                                      comments = data!["comments"] as! Int
-                                  }
-                              }
-                      }
-                          print("videos \(videos)")
-                          print("dataUri \(videos[i]["dataUrl"]! as! String)")
-                          
-                          let newVideo = VideoModel(dataUri: videos[i]["dataUrl"]! as! String, id: videos[i]["id"]! as! String, videoDate: String(createdAtI as! Int), user: videos[i]["name"]! as! String, description: videos[i]["description"]! as! String, views: views, liked: liked, comments: comments, shared: shared, thumbNailUrl: videos[i]["thumbnailUrl"]! as! String)
-                          
-                          if self.content.isEmpty {
-                              self.content.append(newVideo)
-                              self.contentCollectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
-                              
-                          } else {
-                              let index = self.content.firstIndex { $0.id == id as! String
-                              }
-                              if index == nil {
-                                  self.content.append(newVideo)
-                                  self.contentCollectionView.insertItems(at: [IndexPath(item: self.content.count - 1, section: 0)])
-                              }
-                          }
-                      }
-                  }
-              }
-          }
+            DispatchQueue.main.async {
+                
+                if videos.count == 0 {
+                    
+                } else {
+                    for i in 0..<videos.count {
+                        let id = videos[i]["id"]!
+                        let createdAtI = videos[i]["createdAt"]!
+                        if i == videos.count - 1 {
+                            self.createdAt = createdAtI as! Int
+                        }
+                        var views = 0
+                        var liked : [String] = []
+                        var comments = 0
+                        var shared = 0
+                        
+                        
+                        let name = videos[i]["name"]! as! String
+                        
+                        if name != "sample" && name != "sample1" {
+                            var description = ""
+                            if videos[i]["description"]! as! String == "no description" {
+                                description = ""
+                            }
+                            self.db.collection("Videos").document("\(id)").getDocument { document, error in
+                                if error == nil {
+                                    
+                                    if document!.exists {
+                                        let data = document!.data()
+                                        
+                                        if data!["views"] != nil {
+                                            views = data!["views"] as! Int
+                                        }
+                                        
+                                        if data!["liked"] != nil {
+                                            liked = data!["liked"] as! [String]
+                                        }
+                                        
+                                        if data!["shared"] != nil {
+                                            shared = data!["shared"] as! Int
+                                        }
+                                        
+                                        if data!["comments"] != nil {
+                                            comments = data!["comments"] as! Int
+                                        }
+                                    }
+                                }
+                                print("videos \(videos)")
+                                print("dataUri \(videos[i]["dataUrl"]! as! String)")
+                                
+                                let newVideo = VideoModel(dataUri: videos[i]["dataUrl"]! as! String, id: videos[i]["id"]! as! String, videoDate: String(createdAtI as! Int), user: videos[i]["name"]! as! String, description: description, views: views, liked: liked, comments: comments, shared: shared, thumbNailUrl: videos[i]["thumbnailUrl"]! as! String)
+                                
+                                if self.content.isEmpty {
+                                    self.content.append(newVideo)
+                                    self.contentCollectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+                                    
+                                } else {
+                                    let index = self.content.firstIndex { $0.id == id as! String
+                                    }
+                                    if index == nil {
+                                        self.content.append(newVideo)
+                                        self.contentCollectionView.insertItems(at: [IndexPath(item: self.content.count - 1, section: 0)])
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         })
         task.resume()
     }
@@ -881,20 +890,24 @@ class ProfileAsUserViewController: UIViewController {
     
     
     @IBAction func messagesButtonPressed(_ sender: Any) {
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
-            
-            vc.messageRequestReceiverUsername = self.userName.text!
-            vc.messageRequestSenderUsername = guserName
-            vc.messageRequestSenderImageId = Auth.auth().currentUser!.uid
-            vc.messageRequestReceiverImageId = self.user
-            vc.messageRequestChefOrUser = Auth.auth().currentUser!.displayName!
-            vc.messageRequestDocumentId = self.user
-            vc.messageRequestSenderEmail = Auth.auth().currentUser!.email!
-            vc.messageRequestReceiverEmail = self.userEmail
-            vc.messageRequestReceiverChefOrUser = self.receiverChefOrUser
-            vc.travelFeeOrMessages = "MessageRequests"
-            
-            self.present(vc, animated: true, completion: nil)
+        if self.userName.text != "@chefTest" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Messages") as? MessagesViewController  {
+                
+                vc.messageRequestReceiverUsername = self.userName.text!
+                vc.messageRequestSenderUsername = guserName
+                vc.messageRequestSenderImageId = Auth.auth().currentUser!.uid
+                vc.messageRequestReceiverImageId = self.user
+                vc.messageRequestChefOrUser = Auth.auth().currentUser!.displayName!
+                vc.messageRequestDocumentId = self.user
+                vc.messageRequestSenderEmail = Auth.auth().currentUser!.email!
+                vc.messageRequestReceiverEmail = self.userEmail
+                vc.messageRequestReceiverChefOrUser = self.receiverChefOrUser
+                vc.travelFeeOrMessages = "MessageRequests"
+                
+                self.present(vc, animated: true, completion: nil)
+            }
+        } else {
+            self.showToast(message: "This is a test profile.", font: .systemFont(ofSize: 12))
         }
     }
     
@@ -1031,11 +1044,15 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 }
                 
                 cell.orderButtonTapped = {
-                    if Auth.auth().currentUser!.displayName! != "Chef" {
-                        self.item = item
-                        self.performSegue(withIdentifier: "ProfileAsUserToOrderDetailsSegue", sender: self)
+                    if item.chefUsername != "chefTest" {
+                        if Auth.auth().currentUser!.displayName! != "Chef" {
+                            self.item = item
+                            self.performSegue(withIdentifier: "ProfileAsUserToOrderDetailsSegue", sender: self)
+                        } else {
+                            self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                        }
                     } else {
-                        self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                        self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
                     }
                 }
                 
@@ -1238,15 +1255,19 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 
                 
                 cell.orderButtonTapped = {
-                    if Auth.auth().currentUser!.displayName! == "Chef" {
-                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
-                            vc.personalChefInfo = item
-                            
-                            self.present(vc, animated: true, completion: nil)
+                    if item.chefName != "chefTest" {
+                        if Auth.auth().currentUser!.displayName! == "Chef" {
+                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+                                vc.personalChefInfo = item
+                                
+                                self.present(vc, animated: true, completion: nil)
+                            }
+                        }  else {
+                            self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
                         }
-                    }  else {
-                        self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
-                }
+                    } else {
+                        self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                    }
                 }
                 
                 cell.detailButtonTapped = {
@@ -1312,11 +1333,16 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     }
                     
                     cell.orderButtonTapped = {
-                        let item = order
-                        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
-                            vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
-                            self.present(vc, animated: true, completion: nil)
-                        }}
+                        if order.chefName != "chefTest" {
+                            let item = order
+                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
+                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
+                                self.present(vc, animated: true, completion: nil)
+                            }} else {
+                                self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                            }
+                        
+                    }
                     
                     cell.chefImageButtonTapped = {
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
@@ -1508,14 +1534,17 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         }.resume()
                     }
                     cell.orderButtonTapped = {
-                        if Auth.auth().currentUser!.displayName! == "Chef" {
-                            let item = order
-                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
-                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
-                                self.present(vc, animated: true, completion: nil)
-                            }} else {
-                                self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
-                            }}
+                        if order.chefName != "chefTest" {
+                            if Auth.auth().currentUser!.displayName! == "Chef" {
+                                let item = order
+                                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                                    vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.typeOfService, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
+                                    self.present(vc, animated: true, completion: nil)
+                                }} else {
+                                    self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                                }} else {
+                                    self.showToast(message: "This is a test profile.", font: .systemFont(ofSize: 12))
+                                }}
                     
                     
                     cell.chefImageButtonTapped = {
@@ -1647,14 +1676,17 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                         }.resume()
                     }
                     cell.orderButtonTapped = {
-                        if Auth.auth().currentUser!.displayName! == "Chef" {
-                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
-                                vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
-                                self.present(vc, animated: true, completion: nil)
-                            }
-                        } else {
-                            self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
-                        }}
+                        if item.chefName != "chefTest" {
+                            if Auth.auth().currentUser!.displayName! == "Chef" {
+                                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OrderDetail") as? OrderDetailsViewController  {
+                                    vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
+                                    self.present(vc, animated: true, completion: nil)
+                                }
+                            } else {
+                                self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                            }} else {
+                                self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                            }}
                     
                     cell.chefImageButtonTapped = {
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {
@@ -1856,14 +1888,17 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                     }
                     
                     cell.orderButtonTapped = {
-                        if Auth.auth().currentUser!.displayName! == "Chef" {
-                            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
-                                vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, zipCode: item.zipCode, signatureDishImage: item.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: [0.0], expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId, openToMenuRequests: "")
-                                self.present(vc, animated: true, completion: nil)
-                            }
-                        } else {
-                            self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
-                        }}
+                        if item.chefName != "chefTest" {
+                            if Auth.auth().currentUser!.displayName! == "Chef" {
+                                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController  {
+                                    vc.personalChefInfo = PersonalChefInfo(chefName: item.chefName, chefEmail: item.chefEmail, chefImageId: item.chefImageId, chefImage: item.chefImage!, city: item.city, state: item.state, zipCode: item.zipCode, signatureDishImage: item.itemImage!, signatureDishId: "", option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: item.itemDescription, howLongBeenAChef: "", specialty: "", whatHelpesYouExcel: "", mostPrizedAccomplishment: "", availabilty: "", hourlyOrPerSession: "", servicePrice: item.itemPrice, trialRun: 0, weeks: 0, months: 0, liked: item.liked, itemOrders: Int(exactly: item.itemOrders)!, itemRating: [0.0], expectations: item.expectations, chefRating: item.chefRating, quality: item.quality, documentId: item.documentId, openToMenuRequests: "")
+                                    self.present(vc, animated: true, completion: nil)
+                                }
+                            } else {
+                                self.showToast(message: "Please create a user account to order.", font: .systemFont(ofSize: 12))
+                            }} else {
+                                self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                            }}
                     
                     cell.chefImageButtonTapped = {
                         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileAsUser") as? ProfileAsUserViewController  {

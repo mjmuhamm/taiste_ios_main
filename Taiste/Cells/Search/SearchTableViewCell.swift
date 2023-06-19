@@ -18,6 +18,8 @@ class SearchTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        userName.text = ""
+        userFullName.text = ""
         // Initialization code
         userImage.layer.borderWidth = 1
         userImage.layer.masksToBounds = false

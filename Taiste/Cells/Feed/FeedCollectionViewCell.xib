@@ -26,14 +26,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Yk-HJ-7MP">
                         <rect key="frame" x="0.0" y="739" width="576" height="135"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a video description. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9S-h9-DBt">
-                                <rect key="frame" x="18" y="80" width="475" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9S-h9-DBt">
+                                <rect key="frame" x="18" y="98" width="475" height="0.0"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mjmuhamm93" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMi-HE-Jqj">
-                                <rect key="frame" x="18" y="36" width="113.5" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMi-HE-Jqj">
+                                <rect key="frame" x="18" y="72" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -199,8 +199,8 @@
                             <action selector="backButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="OBk-Q4-gc1"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUY-8V-g7N">
-                        <rect key="frame" x="509" y="-1" width="57" height="96"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUY-8V-g7N">
+                        <rect key="frame" x="499" y="9" width="57" height="96"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="96" id="dwM-wP-NXe"/>
@@ -222,7 +222,7 @@
                 <constraint firstAttribute="bottom" secondItem="6Yk-HJ-7MP" secondAttribute="bottom" id="2BD-Nm-ALB"/>
                 <constraint firstAttribute="trailing" secondItem="oAw-rw-YDa" secondAttribute="trailing" constant="100" id="59a-Su-hU0"/>
                 <constraint firstItem="yzc-Lw-xsc" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="9c6-XM-YdA"/>
-                <constraint firstAttribute="trailing" secondItem="MUY-8V-g7N" secondAttribute="trailing" constant="10" id="GWF-hb-GmF"/>
+                <constraint firstAttribute="trailing" secondItem="MUY-8V-g7N" secondAttribute="trailing" constant="20" id="GWF-hb-GmF"/>
                 <constraint firstItem="oAw-rw-YDa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="HUM-x3-0PA"/>
                 <constraint firstAttribute="trailing" secondItem="x7o-ap-j0h" secondAttribute="trailing" id="N3l-cj-kTr"/>
                 <constraint firstItem="6Yk-HJ-7MP" firstAttribute="top" secondItem="oAw-rw-YDa" secondAttribute="bottom" constant="17" id="Nbk-cU-EUm"/>
@@ -231,7 +231,7 @@
                 <constraint firstItem="6Xr-fE-qhb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="9" id="aMH-NH-Ekp"/>
                 <constraint firstAttribute="bottom" secondItem="XrB-Dl-MB5" secondAttribute="bottom" id="agN-KC-2cR"/>
                 <constraint firstItem="6Xr-fE-qhb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cQC-gt-FwG"/>
-                <constraint firstItem="MUY-8V-g7N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-1" id="eJB-Nj-mh3"/>
+                <constraint firstItem="MUY-8V-g7N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="9" id="eJB-Nj-mh3"/>
                 <constraint firstAttribute="bottom" secondItem="x7o-ap-j0h" secondAttribute="bottom" id="hg7-jC-jPd"/>
                 <constraint firstItem="yzc-Lw-xsc" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="iAO-dc-zYU"/>
                 <constraint firstAttribute="trailing" secondItem="XrB-Dl-MB5" secondAttribute="trailing" id="jca-ld-22S"/>

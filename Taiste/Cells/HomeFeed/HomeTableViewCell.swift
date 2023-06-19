@@ -27,7 +27,9 @@ class HomeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        itemTitle.text = ""
+        itemDescription.text = ""
+        itemPrice.text = ""
         chefImage.layer.borderWidth = 1
         chefImage.layer.masksToBounds = false
         chefImage.layer.borderColor = UIColor.white.cgColor

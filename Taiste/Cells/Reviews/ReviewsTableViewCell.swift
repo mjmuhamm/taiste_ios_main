@@ -33,6 +33,11 @@ class ReviewsTableViewCell: UITableViewCell {
         userImage.layer.borderColor = UIColor.white.cgColor
         userImage.layer.cornerRadius = userImage.frame.height/2
         userImage.clipsToBounds = true
+        
+        thoughtsText.text = ""
+        expectectationsText.text = ""
+        qualityText.text = ""
+        reviewDate.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

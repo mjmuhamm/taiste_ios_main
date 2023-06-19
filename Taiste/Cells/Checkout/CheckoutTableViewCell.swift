@@ -33,6 +33,12 @@ class CheckoutTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        itemTitle.text = ""
+        eventTypeAndQuantity.text = ""
+        location.text = ""
+        dates.text = ""
+        noteToChef.text = ""
+        eventCost.text = ""
         // Initialization code
     }
 

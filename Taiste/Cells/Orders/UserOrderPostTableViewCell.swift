@@ -51,6 +51,13 @@ class UserOrderPostTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        itemType.text = ""
+        orderDate.text = ""
+        itemTitle.text = ""
+        eventTypeAndQuantity.text = ""
+        location.text = ""
+        showInfoText.text = ""
+        showInfoLabel.text = ""
         showDatesButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         showNotesButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         showDatesButton.layer.cornerRadius = 2

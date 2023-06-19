@@ -109,6 +109,8 @@ class ChefMeViewController: UIViewController {
         self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
        }
         
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +151,7 @@ class ChefMeViewController: UIViewController {
                             
                             print("email \(Auth.auth().currentUser!.email!)")
                             print("uid \(Auth.auth().currentUser!.uid)")
+                           
                             
                             storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { itemUrl, error in
                                 
@@ -780,6 +783,10 @@ class ChefMeViewController: UIViewController {
         } else {
             performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
         }
+        } else if toggle == "Content" {
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentItem") as? AddContentViewController  {
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
@@ -1136,6 +1143,7 @@ extension ChefMeViewController: UICollectionViewDelegate, UICollectionViewDataSo
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Feed") as? FeedViewController  {
                 vc.chefOrFeed = "chef"
                 vc.content = cont
+                vc.yes = "Yes"
                 vc.index = indexPath.row
                 self.present(vc, animated: true, completion: nil)
             }

@@ -57,6 +57,9 @@ class PersonalChefTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        chefName.text = ""
+        servicePrice.text = ""
+        briefIntro.text = ""
         // Initialization code
         signatureImage.alpha = 0.5
         signatureImage.layer.cornerRadius = 6

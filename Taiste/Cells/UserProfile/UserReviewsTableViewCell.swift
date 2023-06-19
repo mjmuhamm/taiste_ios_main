@@ -27,6 +27,11 @@ class UserReviewsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        reviewDate.text = ""
+        itemTitle.text = ""
+        review.text = ""
+        recommend.text = ""
+        
         
         chefImage.layer.borderWidth = 1
         chefImage.layer.masksToBounds = false

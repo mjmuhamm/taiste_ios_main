@@ -987,7 +987,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="YX4-fI-9tn">
                                 <rect key="frame" x="30" y="322" width="354" height="105"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="malik@testing.com" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="EDM-MT-D6i" customClass="MDCOutlinedTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="EDM-MT-D6i" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="41"/>
                                         <color key="tintColor" red="0.2839735894" green="0.34146658660000001" blue="0.26186505850000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -997,7 +997,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="i110228ME!" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ggO-TK-noe" customClass="MDCOutlinedTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ggO-TK-noe" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="0.0" y="62" width="354" height="43"/>
                                         <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1645,7 +1645,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="qwO-EF-av6">
                                 <rect key="frame" x="30" y="283" width="354" height="105"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="mjmuhamm93@gmail.com" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="UTH-tg-iLh" customClass="MDCOutlinedTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="UTH-tg-iLh" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="41"/>
                                         <color key="tintColor" red="0.2839735894" green="0.34146658660000001" blue="0.26186505850000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1655,7 +1655,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="i110228ME!" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="j3L-DA-Iem" customClass="MDCOutlinedTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="j3L-DA-Iem" customClass="MDCOutlinedTextField">
                                         <rect key="frame" x="0.0" y="62" width="354" height="43"/>
                                         <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -6213,7 +6213,7 @@
         <!--Add Content View Controller-->
         <scene sceneID="P9f-Vx-x6y">
             <objects>
-                <viewController storyboardIdentifier="ContentItem" id="jCI-5A-Tfa" customClass="AddContentViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="jCI-5A-Tfa" customClass="AddContentViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmE-tV-oUa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6245,17 +6245,18 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Content Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rjr-Hd-eGa">
-                                <rect key="frame" x="6" y="748" width="402" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="bGJ-3t-f2l"/>
-                                </constraints>
+                                <rect key="frame" x="6" y="760" width="402" height="16"/>
                                 <color key="textColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPH-LY-Him" customClass="MDCButton">
-                                <rect key="frame" x="192" y="797" width="30" height="26"/>
+                                <rect key="frame" x="162" y="784" width="90" height="39"/>
                                 <color key="backgroundColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="Afy-mr-eep"/>
+                                    <constraint firstAttribute="width" constant="90" id="BPS-zw-tQJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -6271,12 +6272,16 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Vi-bV-V5q">
-                                <rect key="frame" x="0.0" y="99" width="414" height="641"/>
+                                <rect key="frame" x="0.0" y="99" width="414" height="653"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9W2-fK-Zad" customClass="MDCButton">
-                                <rect key="frame" x="180" y="54" width="54" height="26"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9W2-fK-Zad" customClass="MDCButton">
+                                <rect key="frame" x="162" y="54" width="90" height="39"/>
                                 <color key="backgroundColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="UG9-d6-oh3"/>
+                                    <constraint firstAttribute="width" constant="90" id="iGz-Yx-nh8"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -6301,7 +6306,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qjz-qS-dA3">
-                                <rect key="frame" x="0.0" y="117" width="414" height="613"/>
+                                <rect key="frame" x="0.0" y="107" width="414" height="631"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="631" id="8PT-uk-uh2"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title=""/>
@@ -6321,35 +6329,34 @@
                         <viewLayoutGuide key="safeArea" id="TU0-Oq-vD9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hPH-LY-Him" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="1ly-iK-LFh"/>
                             <constraint firstAttribute="trailing" secondItem="VvD-cX-Fg9" secondAttribute="trailing" id="23y-ZN-Oe0"/>
                             <constraint firstItem="xT1-Ob-0N0" firstAttribute="centerY" secondItem="vmE-tV-oUa" secondAttribute="centerY" constant="-41" id="28y-iJ-VqC"/>
-                            <constraint firstItem="rjr-Hd-eGa" firstAttribute="leading" secondItem="TU0-Oq-vD9" secondAttribute="leading" constant="6" id="67P-23-myR"/>
                             <constraint firstItem="TU0-Oq-vD9" firstAttribute="trailing" secondItem="ARz-yh-OCw" secondAttribute="trailing" constant="6" id="6tt-nK-LFf"/>
+                            <constraint firstItem="rjr-Hd-eGa" firstAttribute="leading" secondItem="TU0-Oq-vD9" secondAttribute="leading" constant="6" id="7to-Yy-p6L"/>
                             <constraint firstItem="JD0-VS-4UY" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="9cc-QY-0VL"/>
                             <constraint firstItem="Q04-eo-qWk" firstAttribute="leading" secondItem="TU0-Oq-vD9" secondAttribute="leading" constant="13" id="CrB-tu-7Zv"/>
-                            <constraint firstItem="Qjz-qS-dA3" firstAttribute="trailing" secondItem="TU0-Oq-vD9" secondAttribute="trailing" id="E9O-oE-UXA"/>
-                            <constraint firstItem="Qjz-qS-dA3" firstAttribute="leading" secondItem="TU0-Oq-vD9" secondAttribute="leading" id="Eoh-B0-RAQ"/>
+                            <constraint firstItem="9W2-fK-Zad" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="D50-MO-VuQ"/>
                             <constraint firstItem="Q04-eo-qWk" firstAttribute="centerY" secondItem="vav-0K-Tsk" secondAttribute="centerY" id="GII-1L-8tW"/>
+                            <constraint firstItem="TU0-Oq-vD9" firstAttribute="trailing" secondItem="rjr-Hd-eGa" secondAttribute="trailing" constant="6" id="GYG-Oc-hzL"/>
+                            <constraint firstItem="Qjz-qS-dA3" firstAttribute="leading" secondItem="TU0-Oq-vD9" secondAttribute="leading" id="I5C-Sa-Y50"/>
                             <constraint firstItem="VvD-cX-Fg9" firstAttribute="top" secondItem="Q04-eo-qWk" secondAttribute="bottom" constant="12.5" id="Ljd-Q1-j0D"/>
+                            <constraint firstItem="Qjz-qS-dA3" firstAttribute="trailing" secondItem="TU0-Oq-vD9" secondAttribute="trailing" id="PI1-eA-8Av"/>
                             <constraint firstItem="xT1-Ob-0N0" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="Q8T-De-SnH"/>
                             <constraint firstItem="1Vi-bV-V5q" firstAttribute="leading" secondItem="TU0-Oq-vD9" secondAttribute="leading" id="QDd-xF-v6N"/>
-                            <constraint firstItem="TU0-Oq-vD9" firstAttribute="trailing" secondItem="rjr-Hd-eGa" secondAttribute="trailing" constant="6" id="SIj-lf-0X0"/>
+                            <constraint firstItem="hPH-LY-Him" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="QRm-sl-627"/>
                             <constraint firstItem="ARz-yh-OCw" firstAttribute="top" secondItem="TU0-Oq-vD9" secondAttribute="top" constant="1" id="SLN-7S-6js"/>
-                            <constraint firstItem="Qjz-qS-dA3" firstAttribute="top" secondItem="vmE-tV-oUa" secondAttribute="top" constant="117" id="SwR-IB-arK"/>
+                            <constraint firstItem="9W2-fK-Zad" firstAttribute="top" secondItem="VvD-cX-Fg9" secondAttribute="bottom" constant="12" id="VqG-KH-Vn2"/>
                             <constraint firstItem="VvD-cX-Fg9" firstAttribute="leading" secondItem="vmE-tV-oUa" secondAttribute="leading" id="XcI-Ba-ojw"/>
-                            <constraint firstItem="1Vi-bV-V5q" firstAttribute="top" secondItem="9W2-fK-Zad" secondAttribute="bottom" constant="19" id="Z3N-av-PCO"/>
-                            <constraint firstAttribute="bottom" secondItem="Qjz-qS-dA3" secondAttribute="bottom" constant="166" id="ZXV-bv-FaF"/>
+                            <constraint firstItem="1Vi-bV-V5q" firstAttribute="top" secondItem="9W2-fK-Zad" secondAttribute="bottom" constant="6" id="YtO-F7-CI3"/>
                             <constraint firstItem="JD0-VS-4UY" firstAttribute="centerY" secondItem="vmE-tV-oUa" secondAttribute="centerY" constant="-41" id="b6P-Y6-umb"/>
-                            <constraint firstItem="9W2-fK-Zad" firstAttribute="top" secondItem="VvD-cX-Fg9" secondAttribute="bottom" constant="12" id="cfH-W7-qVM"/>
-                            <constraint firstItem="hPH-LY-Him" firstAttribute="top" secondItem="rjr-Hd-eGa" secondAttribute="bottom" constant="11" id="cfZ-4F-HSk"/>
-                            <constraint firstItem="TU0-Oq-vD9" firstAttribute="bottom" secondItem="hPH-LY-Him" secondAttribute="bottom" constant="73" id="enL-Ge-aCG"/>
+                            <constraint firstItem="hPH-LY-Him" firstAttribute="top" secondItem="rjr-Hd-eGa" secondAttribute="bottom" constant="8" id="dJj-ay-NgK"/>
+                            <constraint firstItem="Qjz-qS-dA3" firstAttribute="top" secondItem="9W2-fK-Zad" secondAttribute="bottom" constant="14" id="eNq-zS-K2b"/>
                             <constraint firstItem="vav-0K-Tsk" firstAttribute="top" secondItem="TU0-Oq-vD9" secondAttribute="top" constant="9" id="fnV-Ks-6NH"/>
                             <constraint firstItem="Q04-eo-qWk" firstAttribute="centerY" secondItem="ARz-yh-OCw" secondAttribute="centerY" id="geu-zb-e0j"/>
                             <constraint firstItem="Q04-eo-qWk" firstAttribute="top" secondItem="TU0-Oq-vD9" secondAttribute="top" constant="8" id="po9-iO-YTf"/>
-                            <constraint firstItem="rjr-Hd-eGa" firstAttribute="top" secondItem="1Vi-bV-V5q" secondAttribute="bottom" constant="8" id="sPF-Z3-cSK"/>
+                            <constraint firstItem="rjr-Hd-eGa" firstAttribute="top" secondItem="1Vi-bV-V5q" secondAttribute="bottom" constant="8" symbolic="YES" id="q5c-cc-bm0"/>
                             <constraint firstItem="1Vi-bV-V5q" firstAttribute="trailing" secondItem="TU0-Oq-vD9" secondAttribute="trailing" id="tiR-Qb-agI"/>
-                            <constraint firstItem="9W2-fK-Zad" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="ts4-hi-Vph"/>
+                            <constraint firstItem="TU0-Oq-vD9" firstAttribute="bottom" secondItem="hPH-LY-Him" secondAttribute="bottom" constant="73" id="yu2-rr-jZZ"/>
                             <constraint firstItem="vav-0K-Tsk" firstAttribute="centerX" secondItem="vmE-tV-oUa" secondAttribute="centerX" id="z6d-ay-y9Y"/>
                         </constraints>
                     </view>
@@ -12101,7 +12108,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                     <action selector="uploadPreperationGuideButtonPressed:" destination="wDV-P5-3YK" eventType="touchUpInside" id="da9-EY-YDZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Preperation Guide Snapshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htu-ID-Ifa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Preparation Guide Snapshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htu-ID-Ifa">
                                 <rect key="frame" x="53" y="219" width="217" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemGray4Color"/>
@@ -12156,7 +12163,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preperation Guide Snapshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k1-YF-5uB">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparation Guide Snapshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k1-YF-5uB">
                                 <rect key="frame" x="20" y="183" width="194" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -12276,8 +12283,8 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Create a Preperation Guide for your customer." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOc-cF-jLg">
-                                                <rect key="frame" x="17" y="213" width="300.5" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Create a Preparation Guide for your customer." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOc-cF-jLg">
+                                                <rect key="frame" x="17" y="213" width="300" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -12295,7 +12302,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preperation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yez-9B-8G9">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yez-9B-8G9">
                                                 <rect key="frame" x="12" y="20" width="79" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -12307,10 +12314,11 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLz-4a-2gK">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLz-4a-2gK">
                                                 <rect key="frame" x="12" y="47" width="231.5" height="0.5"/>
                                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="width" constant="231.5" id="rhH-gl-u3k"/>
                                                     <constraint firstAttribute="height" constant="0.5" id="znB-Ap-eaw"/>
                                                 </constraints>
                                             </view>
@@ -12436,7 +12444,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGv-d8-zlW" customClass="MDCButton">
-                                                <rect key="frame" x="326" y="200" width="20.5" height="42"/>
+                                                <rect key="frame" x="325.5" y="200" width="20.5" height="42"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="pdK-FL-KNL"/>
@@ -12671,6 +12679,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="qLz-4a-2gK" firstAttribute="top" secondItem="yez-9B-8G9" secondAttribute="bottom" constant="10" id="NT8-T2-YAC"/>
                                             <constraint firstItem="Ph8-bc-Ncv" firstAttribute="leading" secondItem="cAc-SQ-Rej" secondAttribute="leading" constant="22" id="Nry-94-PmS"/>
                                             <constraint firstItem="aCK-2h-Wc2" firstAttribute="leading" secondItem="cAc-SQ-Rej" secondAttribute="leading" constant="11" id="Ono-pT-YD5"/>
+                                            <constraint firstItem="qLz-4a-2gK" firstAttribute="leading" secondItem="cAc-SQ-Rej" secondAttribute="leading" constant="12" id="PSq-EN-OLd"/>
                                             <constraint firstItem="hxH-Vn-hAr" firstAttribute="leading" secondItem="cAc-SQ-Rej" secondAttribute="leading" constant="17" id="Psr-YJ-tvR"/>
                                             <constraint firstItem="4jH-gb-1E2" firstAttribute="top" secondItem="8Mz-9b-hFC" secondAttribute="bottom" constant="9" id="R26-6Z-DVP"/>
                                             <constraint firstItem="4jH-gb-1E2" firstAttribute="leading" secondItem="cAc-SQ-Rej" secondAttribute="leading" constant="17" id="RBZ-ye-9qW"/>
@@ -12961,7 +12970,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Create a Preperation Guide for your customer." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sh-FB-Ftq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Create a Preparation Guide for your customer." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sh-FB-Ftq">
                                                 <rect key="frame" x="18" y="260" width="300.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -12980,7 +12989,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preperation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGl-it-0Zt">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGl-it-0Zt">
                                                 <rect key="frame" x="13" y="20" width="79" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -13326,7 +13335,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2a. Create a Preperation Guide for your customer." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-G1-Hy5">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2a. Create a Preparation Guide for your customer." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-G1-Hy5">
                                                 <rect key="frame" x="17" y="486" width="308" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -13345,7 +13354,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preperation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thl-k7-6jH">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thl-k7-6jH">
                                                 <rect key="frame" x="12" y="20" width="79" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -13726,14 +13735,14 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tjO-v4-2Va"/>
+        <segue reference="IKH-yz-VW2"/>
         <segue reference="nDc-ga-NWH"/>
         <segue reference="o3x-XZ-YkT"/>
         <segue reference="tkP-ld-7rs"/>
         <segue reference="gmU-Hz-wfQ"/>
-        <segue reference="jEP-Gm-UqI"/>
+        <segue reference="Rso-l9-LlW"/>
         <segue reference="BS6-oY-CaB"/>
-        <segue reference="K6P-qp-kmw"/>
+        <segue reference="S4F-HQ-YjE"/>
         <segue reference="KUI-PT-pbS"/>
     </inferredMetricsTieBreakers>
     <resources>

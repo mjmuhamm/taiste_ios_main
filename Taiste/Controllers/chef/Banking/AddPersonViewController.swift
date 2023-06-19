@@ -373,7 +373,7 @@ class AddPersonViewController: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://ruh.herokuapp.com/delete-person")!)
+        var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/delete-person")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData

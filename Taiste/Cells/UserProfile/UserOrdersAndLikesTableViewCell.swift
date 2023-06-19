@@ -33,6 +33,8 @@ class UserOrdersAndLikesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        itemTitle.text = ""
+        itemDescription.text = ""
         
         
         userImage.layer.borderWidth = 1

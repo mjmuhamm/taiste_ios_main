@@ -81,6 +81,8 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
     var personalChefItem : PersonalChefInfo?
     var live = ""
     
+    
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,18 +102,23 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         } else if newOrEdit == "signature" {
             titleLabel.text = "Signature Dish"
             loadEditedItem1()
+            self.itemPrice.isHidden = true
         } else if newOrEdit == "option1" {
             titleLabel.text = "Option 1"
             loadEditedItem1()
+            self.itemPrice.isHidden = true
         } else if newOrEdit == "option2" {
             titleLabel.text = "Option 2"
             loadEditedItem1()
+            self.itemPrice.isHidden = true
         } else if newOrEdit == "option3" {
             titleLabel.text = "Option 3"
             loadEditedItem1()
+            self.itemPrice.isHidden = true
         } else if newOrEdit == "option4" {
             titleLabel.text = "Option 4"
             loadEditedItem1()
+            self.itemPrice.isHidden = true
         }
             
     } else {
@@ -242,6 +249,8 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                         if data != nil {
                             let typeOfService = data["typeOfService"] as? String
                             if typeOfService == self.typeOfitem {
+                                self.deleteButton.isHidden = false
+                                self.menuItemId = doc.documentID
                                 if let itemTitle = data["itemTitle"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemLikes = data["itemLikes"] as? Int, let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let itemCalories = data["itemCalories"] as? String, let itemPrice = data["itemPrice"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int {
                                     
                                     
@@ -277,6 +286,7 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
                                     self.itemDescription.text = itemDescription
                                     self.itemCalories.text = itemCalories
                                     self.itemPrice.text = itemPrice
+                                    self.itemPrice.isHidden = true
                                     self.itemLikes = itemLikes
                                     self.itemOrders = itemOrders
                                     self.itemRating = itemRating
@@ -376,14 +386,25 @@ class MenuItemViewController: UIViewController, UITextViewDelegate {
         let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).delete()
-            self.db.collection(self.typeOfitem).document(self.menuItemId).delete()
-            let storageRef = self.storage.reference()
-            Task {
-               try? await storageRef.child("chefs/\(Auth.auth().currentUser!.email)/\(self.typeOfitem)/\(self.menuItemId)").delete()
-                
+            
+                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(self.typeOfitem).document(self.menuItemId).delete()
+                self.db.collection(self.typeOfitem).document(self.menuItemId).delete()
+                let storageRef = self.storage.reference()
+                Task {
+                    try? await storageRef.child("chefs/\(Auth.auth().currentUser!.email)/\(self.typeOfitem)/\(self.menuItemId)").delete()
+                    
+                }
+            if self.personalChefItem == nil {
+                self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
+            } else {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChef") as? PersonalChefViewController {
+                    
+                    vc.personalChefItem = self.personalChefItem
+                    vc.city = self.city
+                    vc.state = self.state
+                    self.present(vc, animated: true, completion: nil)
+                }
             }
-            self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in

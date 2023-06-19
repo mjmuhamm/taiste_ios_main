@@ -23,6 +23,7 @@ class ChefContentCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        
     }
     
     public func configure(model: VideoModel) {

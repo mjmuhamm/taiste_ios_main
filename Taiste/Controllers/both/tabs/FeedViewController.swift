@@ -17,6 +17,7 @@ class FeedViewController: UIViewController {
     var chefOrFeed = ""
     var index = 0
     @IBOutlet weak var collectionView: UICollectionView!
+    var yes = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,78 +65,93 @@ class FeedViewController: UIViewController {
         request.httpMethod = "POST"
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-          guard let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                let videos = json["videos"] as? [[String:Any]],
-                let self = self else {
-            // Handle error
-            return
-          }
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                  let videos = json["videos"] as? [[String:Any]],
+                  let self = self else {
+                // Handle error
+                return
+            }
             
-          DispatchQueue.main.async {
-              
-              if videos.count == 0 {
-                  
-              } else {
-                  for i in 0..<videos.count {
-                      let id = videos[i]["id"]!
-                      let createdAtI = videos[i]["createdAt"]!
-                      if i == videos.count - 1 {
-                          self.createdAt = createdAtI as! Int
-                      }
-                      var views = 0
-                      var liked : [String] = []
-                      var comments = 0
-                      var shared = 0
+            DispatchQueue.main.async {
+                
+                if videos.count == 0 {
+                    
+                } else {
+                    for i in 0..<videos.count {
+                        let id = videos[i]["id"]!
+                        let createdAtI = videos[i]["createdAt"]!
+                        if i == videos.count - 1 {
+                            self.createdAt = createdAtI as! Int
+                        }
+                        var views = 0
+                        var liked : [String] = []
+                        var comments = 0
+                        var shared = 0
+                        
+                        
                       
-                      self.db.collection("Videos").document("\(id)").getDocument { document, error in
-                          if error == nil {
-                              
-                              if document!.exists {
-                                  let data = document!.data()
-                                  
-                                  if data!["views"] != nil {
-                                      views = data!["views"] as! Int
-                                  }
-                                  
-                                  if data!["liked"] != nil {
-                                      liked = data!["liked"] as! [String]
-                                  }
-                                  
-                                  if data!["shared"] != nil {
-                                      shared = data!["shared"] as! Int
-                                  }
-                                  
-                                  if data!["comments"] != nil {
-                                      comments = data!["comments"] as! Int
-                                  }
-                              }
-                      }
-                          print("videos \(videos)")
-                          print("dataUri \(videos[i]["dataUrl"]! as! String)")
-                          
-                          let newVideo = VideoModel(dataUri: videos[i]["dataUrl"]! as! String, id: videos[i]["id"]! as! String, videoDate: String(createdAtI as! Int), user: videos[i]["name"]! as! String, description: videos[i]["description"]! as! String, views: views, liked: liked, comments: comments, shared: shared, thumbNailUrl: videos[i]["thumbnailUrl"]! as! String)
-                          
-                          if self.content.isEmpty {
-                              self.content.append(newVideo)
-                              self.content.shuffle()
-                              self.collectionView.reloadData()
-                              
-                          } else {
-                              let index = self.content.firstIndex { $0.id == id as! String
-                              }
-                              if index == nil {
-                                  self.content.append(newVideo)
-                                  self.content.shuffle()
-                                  self.collectionView.reloadData()
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-        })
-        task.resume()
+                        var name = "\(videos[i]["name"]!)"
+                        if name == "malik@cheftesting.com" || name == "malik@cheftesting2.com" {
+                            name = "@chefTest"
+                        }
+                        print("name \(name)")
+                        if name != "sample" && name != "sample1" {
+                            var description = videos[i]["description"]! as! String
+                            if videos[i]["description"]! as! String == "no description" {
+                                description = ""
+                            }
+                            self.db.collection("Videos").document("\(id)").getDocument { document, error in
+                                if error == nil {
+                                    
+                                    if document!.exists {
+                                        let data = document!.data()
+                                        
+                                        if data!["views"] != nil {
+                                            views = data!["views"] as! Int
+                                        }
+                                        
+                                        if data!["liked"] != nil {
+                                            liked = data!["liked"] as! [String]
+                                        }
+                                        
+                                        if data!["shared"] != nil {
+                                            shared = data!["shared"] as! Int
+                                        }
+                                        
+                                        if data!["comments"] != nil {
+                                            comments = data!["comments"] as! Int
+                                        }
+                                    }
+                                }
+                                print("videos \(videos)")
+                                print("dataUri \(videos[i]["dataUrl"]! as! String)")
+                                
+                                let newVideo = VideoModel(dataUri: videos[i]["dataUrl"]! as! String, id: videos[i]["id"]! as! String, videoDate: String(createdAtI as! Int), user: name, description: description, views: views, liked: liked, comments: comments, shared: shared, thumbNailUrl: videos[i]["thumbnailUrl"]! as! String)
+                                
+                                if self.content.isEmpty {
+                                    self.content.append(newVideo)
+                                    self.content.shuffle()
+                                    self.collectionView.reloadData()
+                                    
+                                } else {
+                                    let index = self.content.firstIndex { $0.id == id as! String
+                                    }
+                                    if index == nil {
+                                        self.content.append(newVideo)
+                                        self.content.shuffle()
+                                        self.collectionView.reloadData()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            })
+        
+            task.resume()
+        
     }
     
     private func deleteVideo(id: String) {
@@ -222,6 +238,9 @@ extension FeedViewController : UICollectionViewDelegate, UICollectionViewDataSou
         cell.likeText.text = "\(model.liked.count)"
         cell.commentText.text = "\(model.comments)"
         cell.shareText.text = "\(model.shared)"
+        cell.userName.text = model.user
+        cell.videoDescription.text = model.description
+        
         
         if chefOrFeed != "" {
             cell.backButton.isHidden = false
@@ -239,7 +258,11 @@ extension FeedViewController : UICollectionViewDelegate, UICollectionViewDataSou
             self.dismiss(animated: true)
         }
         
+        if yes != "" {
+            cell.deleteButton.isHidden = false
+        }
         cell.deleteButtonTapped = {
+            
             let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: nil, preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in

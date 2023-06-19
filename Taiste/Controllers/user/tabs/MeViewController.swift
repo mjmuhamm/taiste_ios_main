@@ -341,7 +341,7 @@ class MeViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let signatureDishId = data["signatureDishId"] as? String  {
+                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int  {
                                 print("likes happening")
                                 
                                 
@@ -353,7 +353,7 @@ class MeViewController: UIViewController {
                                             
                                             if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
                                                 
-                                                let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: signatureDishId)
+                                                let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: "")
                                                 
                                                 if self.userLikes.isEmpty {
                                                     self.userLikes.append(newItem)
@@ -596,12 +596,14 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 let storageRef = storage.reference()
                 let itemRef = storage.reference()
                 
+                print("chefemail \(order.chefEmail)")
+                print("\(order.chefImageId)")
                 storageRef.child("chefs/\(order.chefEmail)/profileImage/\(order.chefImageId).png").downloadURL { itemUrl, error in
-                    
+
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
                         guard let imageData = data else { return }
-                        
+
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.userImage.image = UIImage(data: imageData)!
@@ -610,11 +612,11 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 itemRef.child("chefs/\(order.chefEmail)/\(order.typeOfService)/\(order.menuItemId)0.png").downloadURL { itemUrl, error in
-                    
+
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...
                         guard let imageData = data else { return }
-                        
+
                         print("happening itemdata")
                         DispatchQueue.main.async {
                             cell.itemImage.image = UIImage(data: imageData)!
@@ -853,6 +855,7 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
             cell.ratingText.text = "\(num)"
             cell.chefImage.image = item.chefImage
             let storageRef = storage.reference()
+            
             storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { itemUrl, error in
                 
                 URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in

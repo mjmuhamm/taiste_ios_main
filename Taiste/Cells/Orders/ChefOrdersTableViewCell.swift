@@ -60,6 +60,14 @@ class ChefOrdersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        showInfoText.text = ""
+        itemTitle.text = ""
+        eventTypeAndQauntity.text = ""
+        location.text = ""
+        costOfEventText.text = ""
+        taxesAndFeesText.text = ""
+        takeHomeText.text = ""
+        
         
         showDatesButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         showNotesButton.applyOutlinedTheme(withScheme: globalContainerScheme())

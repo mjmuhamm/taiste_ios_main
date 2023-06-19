@@ -27,6 +27,10 @@ class MessagesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        awayMessage.text = ""
+        awayDate.text = ""
+        homeMessage.text = ""
+        homeDate.text = ""
         
         awayImage.layer.borderWidth = 1
         awayImage.layer.masksToBounds = false

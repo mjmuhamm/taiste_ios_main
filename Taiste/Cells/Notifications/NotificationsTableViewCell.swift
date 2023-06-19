@@ -25,6 +25,11 @@ class NotificationsTableViewCell: UITableViewCell {
         userImage.layer.borderColor = UIColor.white.cgColor
         userImage.layer.cornerRadius = userImage.frame.height/2
         userImage.clipsToBounds = true
+        
+        message.text = ""
+        message2.text = ""
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

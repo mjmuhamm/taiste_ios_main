@@ -27,6 +27,7 @@ class UserChefsTableViewCell: UITableViewCell {
     @IBOutlet weak var timesLikedText: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        chefPassion.text = ""
         
         likeImage.isHighlighted = true
     }

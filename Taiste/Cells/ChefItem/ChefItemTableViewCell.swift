@@ -30,6 +30,10 @@ class ChefItemTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        itemTitle.text = ""
+        itemDescription.text = ""
+        itemPrice.text = ""
+        
         // Initialization code
         itemImage.layer.cornerRadius = 4
     }
