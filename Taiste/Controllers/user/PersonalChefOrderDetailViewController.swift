@@ -73,6 +73,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     private var longitude : CLLocationDegrees?
     
     private var eventDays : [String] = []
+    private var eventDaysForUser : [String] = []
     private var eventTimes : [String] = []
     
     @IBOutlet weak var deleteButton: MDCButton!
@@ -102,12 +103,13 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         typeOfEventDropDown.selectionAction = { index, item in
             self.typeOfEventText.text = item
             self.quantityText.text = ""
+            self.dateOfEventViewText.text = ""
             self.eventDays.removeAll()
             self.eventTimes.removeAll()
             self.clearDatesButton.isHidden = true
             self.seeAllDatesButton.isHidden = true
             self.dateOfEventText.textColor = UIColor.systemGray2
-            self.dateOfEventText.text = " Select the date(s) for your service here."
+            self.dateOfEventText.text = "Select the date(s) for your service here."
         }
         
         
@@ -264,12 +266,13 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     func textFieldDidBeginEditing(_ textField: UITextField) {
         eventDays.removeAll()
         eventTimes.removeAll()
+        eventDaysForUser.removeAll()
         seeAllDatesText.text = ""
         clearDatesButton.isHidden = true
         seeAllDatesButton.isHidden = true
-        dateOfEventText.text = " Select the date(s) for your service here."
+        dateOfEventText.text = "Select the date(s) for your service here."
         eventTotalText.text = ""
-        dateOfEventViewText.text = "Date(s) of Service"
+        dateOfEventViewText.text = ""
         addDateViewButton.setTitle("Add", for: .normal)
         addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
         addDateViewButton.isUppercaseTitle = false
@@ -277,10 +280,19 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        var days = Double(self.eventDays.count)
-        if days == 0 {
-            days = 1.0
-        }
+        eventDays.removeAll()
+        eventTimes.removeAll()
+        eventDaysForUser.removeAll()
+        seeAllDatesText.text = ""
+        dateOfEventText.text = "Select the date(s) for your service here."
+        dateOfEventViewText.text = ""
+        eventTotalText.text = ""
+        clearDatesButton.isHidden = true
+        seeAllDatesButton.isHidden = true
+        addDateViewButton.setTitle("Add", for: .normal)
+        addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
+        addDateViewButton.isUppercaseTitle = false
+        dateOfEventText.textColor = UIColor.systemGray2
        
     }
     
@@ -343,8 +355,8 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
                 addDateViewButton.isUppercaseTitle = false
                 
-                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count))"
-                    self.showToast(message: "Please order this item again with the remaining quantity amount.", font: .systemFont(ofSize: 12))
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * Double(quantityText.text!)!)"
+                    
                     
                 
                 } else {
@@ -398,34 +410,63 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 var startOfWeek = "\(datePicker.date.getWeekDates().thisWeek[0])".prefix(10)
                 var endOfWeek = "\(datePicker.date.getWeekDates().thisWeek[6])".prefix(10)
                 
+            
+            
                 
                 print("these are the dates \(startOfWeek) through \(endOfWeek)")
                 let df = DateFormatter()
                 
                 df.dateFormat = "yyyy-MM-dd"
-                
-                let x = df.date(from: "2023-01-05")
-                print("datesss \(x!.getWeekDates().thisWeek)")
-                
+            let x = df.string(from: Date())
+            let today = df.date(from: x)
+            let startOW = df.date(from: "\(startOfWeek)")
+            
+           
                 let newTime = "\(newHour):\(minute) \(amOrPm)"
                 let newWeek = "\(startOfWeek) \(newTime) through \(endOfWeek) \(newTime)"
+            
+            let startOfThisWeek = "\(Date().getWeekDates().thisWeek[0])".prefix(10)
+            let endOfWeek1 = "\(Date().getWeekDates().thisWeek[6])".prefix(10)
+            let week = "\(startOfWeek) \(newTime) through \(endOfWeek1) \(newTime)"
                 
+            if newWeek != week {
                 
-                if (!eventDays.contains(where: { $0 == newWeek })) {
-                    if eventDays.isEmpty {
+                if (!eventDaysForUser.contains(where: { $0 == newWeek })) {
+                    
+                    if today!.timeIntervalSince1970 > startOW!.timeIntervalSince1970 {
+                        
+                        for i in datePicker.date.dayNumberOfWeek()!..<7 {
+                            let day = "\(datePicker.date.getWeekDates().thisWeek[i])".prefix(10)
+                            eventDays.append("\(day)")
+                            eventTimes.append("\(newHour):\(minute) \(amOrPm)")
+                        }
+                    } else {
+                        for i in 0..<7 {
+                            
+                            let day = "\(datePicker.date.getWeekDates().thisWeek[i])".prefix(10)
+                                eventDays.append("\(day)")
+                                eventTimes.append("\(newHour):\(minute) \(amOrPm)")
+                            
+                        }
+                    }
+                    if eventDaysForUser.isEmpty {
                         dateOfEventViewText.text = newWeek
+                        
                     } else {
                         dateOfEventViewText.text = "\(dateOfEventViewText.text!), \(newWeek)"
                     }
+                    eventDaysForUser.append(newWeek)
                     
-                    eventDays.append(newWeek)
-                    eventTimes.append(newTime)
-                   
-                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * 7)"
-                        
+                    
+                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * Double(self.quantityText.text!)!)"
+                    
+                    
                 } else {
                     self.showToast(message: "This week has already been selected.", font: .systemFont(ofSize: 12))
                 }
+            } else {
+                self.showToast(message: "Please select the following week.", font: .systemFont(ofSize: 12))
+            }
             
             
         } else if typeOfEventText.text == "Months" {
@@ -469,31 +510,66 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                 var newMonth = "\(month)"
                 let newTime = "\(newHour):\(minute) \(amOrPm)"
                 
-                let item = "\(newMonth), \(newTime)"
                 
-                if (!eventDays.contains(where: { $0 == newMonth })) {
-                    if eventDays.isEmpty {
-                        dateOfEventViewText.text = item
+                
+                let df = DateFormatter()
+                df.dateFormat = "yyyy-MM-dd"
+                
+                let df1 = DateFormatter()
+                df1.dateFormat = "MM-dd"
+                let x = df1.string(from: Date())
+                let today = df1.date(from: x)
+                
+                let df2 = DateFormatter()
+                df2.dateFormat = "MM"
+                let y = df2.string(from: datePicker.date)
+                
+                let df3 = DateFormatter()
+                df3.dateFormat = "dd"
+                
+                let df4 = DateFormatter()
+                df4.dateFormat = "yyyy"
+                
+                
+                var a = ""
+                if (month == "1") { a = "January" } else if (month == "2") { a = "February" } else if month == "3" { a = "March" } else if month == "4" { a = "April" } else if month == "5" { a = "May" } else if a == "6" { a = "June" } else if month == "7" { a = "July" } else if month == "8" { a = "August" } else if month == "9" { a = "September" } else if month == "10" { a = "October" } else if month == "11" { a = "November" } else if month == "12" { a = "December" }
+                
+                let time = "\(newHour):\(minute) \(amOrPm)"
+                if (!eventDaysForUser.contains(where: { $0 == newMonth })) {
+                    let item = "\(a), \(newTime)"
+                    
+                    if Int(y)! == Int(x.prefix(2))! {
+                    
+                        self.showToast(message: "Please select the following month.", font: .systemFont(ofSize: 12))
                     } else {
-                        dateOfEventViewText.text = "\(dateOfEventViewText.text!) | \(item)"
+                        for i in 1..<Int(exactly: datePicker.date.getDaysInMonth())! + 1 {
+                            var day = "\(i)"
+                            if Int(exactly: i)! < 10 {
+                                day = "0\(i)"
+                            }
+                            let month = df2.string(from: datePicker.date)
+                            let year = df4.string(from: datePicker.date)
+                            let date = "\(year)-\(month)-\(day)"
+                            
+                        eventDays.append(date)
+                        eventTimes.append(time)
                     }
-                    var a = ""
-                    if (month == "1") { a = "January" } else if (month == "2") { a = "February" } else if month == "3" { a = "March" } else if month == "4" { a = "April" } else if month == "5" { a = "May" } else if a == "6" { a = "June" } else if month == "7" { a = "July" } else if month == "8" { a = "August" } else if month == "9" { a = "September" } else if month == "10" { a = "October" } else if month == "11" { a = "November" } else if month == "12" { a == "December" }
+                        let item = "\(df.string(from: datePicker.date)) \(time)"
+                        if eventDaysForUser.isEmpty {
+                            dateOfEventViewText.text = item
+                        } else {
+                            dateOfEventViewText.text = "\(dateOfEventViewText.text!) | \(item)"
+                        }
+                       
+                        eventDaysForUser.append(item)
+                        
+                        addDateViewButton.setTitle("Add Another", for: .normal)
+                        addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
+                        addDateViewButton.isUppercaseTitle = false
+                        
+                        self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * Double(self.quantityText.text!)!)"
+                }
                     
-                    eventDays.append(a)
-                    eventTimes.append(newTime)
-                    
-                
-                
-                addDateViewButton.setTitle("Add Another", for: .normal)
-                addDateViewButton.titleLabel?.font = .systemFont(ofSize: 15)
-                addDateViewButton.isUppercaseTitle = false
-              
-                    self.eventTotalText.text = "\(Double(personalChefInfo!.servicePrice)! * Double(eventDays.count) * 30)"
-                    
-                    
-                    
-                
                 } else {
                     showToast(message: "This month has already been selected.", font: .systemFont(ofSize: 12))
                 }
@@ -540,9 +616,10 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
     @IBAction func clearDatesButtonPressed(_ sender: Any) {
         eventDays.removeAll()
         eventTimes.removeAll()
+        eventDaysForUser.removeAll()
         seeAllDatesText.text = ""
-        dateOfEventText.text = " Select the date(s) for your service here."
-        dateOfEventViewText.text = "Date(s) of Service"
+        dateOfEventText.text = "Select the date(s) for your service here."
+        dateOfEventViewText.text = ""
         eventTotalText.text = ""
         clearDatesButton.isHidden = true
         seeAllDatesButton.isHidden = true
@@ -754,7 +831,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                         
                         let documentId = UUID().uuidString
                         let item = personalChefInfo!
-                        let data : [String: Any] = ["chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefName, "city" : item.city, "state" : item.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item.briefIntroduction, "itemTitle" : "Executive Chef", "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item.documentId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : "Executive Item", "unitPrice" : item.servicePrice, "user" : item.chefImageId, "imageCount" : 1, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "0", "documentId" : item.documentId, "allergies" : allergies.text!, "additionalMenuItems" : additionalMenuItems.text!, "signatureDishId" : item.signatureDishId]
+                        let data : [String: Any] = ["chefEmail" : item.chefEmail, "chefImageId" : item.chefImageId, "chefUsername" : item.chefName, "city" : item.city, "state" : item.state, "datesOfEvent" : eventDays, "distance" : distance, "itemDescription" : item.briefIntroduction, "itemTitle" : "Executive Chef", "latitudeOfEvent" : "\(latitude)", "longitudeOfEvent" : "\(longitude)", "location" : locationOfEventText.text!, "menuItemId" : item.documentId, "notesToChef" : notesToChefText.text!, "priceToChef" : priceToChef, "quantityOfEvent" : quantityText.text!, "timesForDatesOfEvent" : eventTimes, "totalCostOfEvent" : totalCostOfEVent, "travelExpenseOption" : travelFeeExpenseOption, "typeOfEvent" : typeOfEventText.text!, "typeOfService" : "Executive Item", "unitPrice" : item.servicePrice, "user" : item.chefImageId, "imageCount" : 1, "liked" : item.liked, "itemOrders" : item.itemOrders, "itemRating" : item.itemRating, "itemCalories" : "0", "documentId" : item.documentId, "allergies" : allergies.text!, "additionalMenuItems" : additionalMenuItems.text!, "signatureDishId" : item.signatureDishId, "eventDaysForUser" : eventDaysForUser]
                         
                         db.collection("User").document("\(Auth.auth().currentUser!.uid)").collection("Cart").document(documentId).setData(data)
                         db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
@@ -896,5 +973,17 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.string(from: self)
+    }
+    
+    func getDaysInMonth() -> Int{
+        let calendar = Calendar.current
+
+        let dateComponents = DateComponents(year: calendar.component(.year, from: self), month: calendar.component(.month, from: self))
+        let date = calendar.date(from: dateComponents)!
+
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays = range.count
+
+        return numDays
     }
 }

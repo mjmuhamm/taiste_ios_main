@@ -96,12 +96,13 @@ class ChefMeViewController: UIViewController {
         meTableView.dataSource = self
        
         
+        
         contentCollectionView.register(UINib(nibName: "ChefContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ChefContentCollectionViewReusableCell")
         contentCollectionView.delegate = self
         contentCollectionView.dataSource = self
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
-        
+            payout()
         loadChefInfo()
         loadItems()
         loadNotifications()
@@ -120,65 +121,76 @@ class ChefMeViewController: UIViewController {
     }
     
     private func loadNotifications() {
-        if Auth.auth().currentUser != nil {
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).addSnapshotListener { document, error in
-                if error == nil {
-                    if document != nil {
-                        let data = document!.data()
-                        if let notifications = data?["notifications"] as? String {
-                            if notifications == "yes" {
-                                self.newNotificationImage.isHidden = false
-                            } else {
-                                self.newNotificationImage.isHidden = true
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            if Auth.auth().currentUser != nil {
+                db.collection("Chef").document(Auth.auth().currentUser!.uid).addSnapshotListener { document, error in
+                    if error == nil {
+                        if document != nil {
+                            let data = document!.data()
+                            if let notifications = data?["notifications"] as? String {
+                                if notifications == "yes" {
+                                    self.newNotificationImage.isHidden = false
+                                } else {
+                                    self.newNotificationImage.isHidden = true
+                                }
                             }
                         }
                     }
                 }
+            } else {
+                self.showToast(message: "Something went wrong. Please check connection.", font: .systemFont(ofSize: 12))
             }
         } else {
-            self.showToast(message: "Something went wrong. Please check connection.", font: .systemFont(ofSize: 12))
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
     private func loadChefInfo() {
-        if Auth.auth().currentUser != nil {
-            let storageRef = storage.reference()
-            db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").addSnapshotListener { documents, error in
-                if error == nil {
-                    for doc in documents!.documents {
-                        let data = doc.data()
-                        
-                        if let chefPassion = data["chefPassion"] as? String, let city = data["city"] as? String, let education = data["education"] as? String, let fullName = data["fullName"] as? String, let state = data["state"] as? String, let username = data["chefName"] as? String, let zipCode = data["zipCode"] as? String {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            if Auth.auth().currentUser != nil {
+                let storageRef = storage.reference()
+                db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").addSnapshotListener { documents, error in
+                    if error == nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
                             
-                            print("email \(Auth.auth().currentUser!.email!)")
-                            print("uid \(Auth.auth().currentUser!.uid)")
-                           
-                            
-                            storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { itemUrl, error in
+                            if let chefPassion = data["chefPassion"] as? String, let city = data["city"] as? String, let education = data["education"] as? String, let fullName = data["fullName"] as? String, let state = data["state"] as? String, let username = data["chefName"] as? String, let zipCode = data["zipCode"] as? String, let email = data["email"] as? String {
                                 
-                                URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
-                                    // Error handling...
-                                    guard let imageData = data else { return }
+                                print("email \(Auth.auth().currentUser!.email!)")
+                                print("uid \(Auth.auth().currentUser!.uid)")
+                                
+                                
+                                
+                                storageRef.child("chefs/\(email)/profileImage/\(Auth.auth().currentUser!.uid).png").downloadURL { itemUrl, error in
                                     
-                                    print("happening itemdata")
-                                    DispatchQueue.main.async {
-                                        self.chefImage.image = UIImage(data: imageData)!
-                                    }
-                                }.resume()
+                                    URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
+                                        // Error handling...
+                                        guard let imageData = data else { return }
+                                        
+                                        print("happening itemdata")
+                                        DispatchQueue.main.async {
+                                            self.chefImage.image = UIImage(data: imageData)!
+                                        }
+                                    }.resume()
+                                }
+                                
+                                self.educationText.text = "Education: \(education)"
+                                self.chefPassion.text = chefPassion
+                                self.location.text = "Location: \(city), \(state)"
+                                self.chefName.text = "@\(username)"
+                                gChefName = username
+                                self.city = city
+                                self.state = state
+                                self.zipCode = zipCode
+                                self.profileImageId = Auth.auth().currentUser!.uid
+                                
                             }
-                            
-                            self.educationText.text = "Education: \(education)"
-                            self.chefPassion.text = chefPassion
-                            self.location.text = "Location: \(city), \(state)"
-                            self.chefName.text = "@\(username)"
-                            gChefName = username
-                            self.city = city
-                            self.state = state
-                            self.zipCode = zipCode
-                            self.profileImageId = Auth.auth().currentUser!.uid
-                            
                         }
                     }
                 }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         } else {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
@@ -186,84 +198,238 @@ class ChefMeViewController: UIViewController {
     }
     
     private func loadItems() {
-        if Auth.auth().currentUser != nil {
-            meTableView.register(UINib(nibName: "ChefItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefItemReusableCell")
-            
-            let storageRef = storage.reference()
-            if !items.isEmpty {
-                items.removeFirst()
-                items.removeAll()
-                meTableView.reloadData()
-            }
-            
-            
-            var itemsI : [FeedMenuItems]
-            
-            if toggle == "Cater Items" {
-                itemsI = cateringItems
-            } else {
-                itemsI = mealKitItems
-            }
-            if itemsI.isEmpty {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            if Auth.auth().currentUser != nil {
+                meTableView.register(UINib(nibName: "ChefItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefItemReusableCell")
                 
-                db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(toggle).addSnapshotListener { documents, error in
-                    if error == nil {
-                        for doc in documents!.documents {
-                            
-                            let data = doc.data()
-                            
-                            if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let live = data["live"] as? String {
-                                
-                                var image = UIImage()
-                                
-                                
-                                
-                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: live)
-                                
-                                if itemType == "Cater Items" {
-                                    if self.cateringItems.isEmpty {
-                                        self.cateringItems.append(newItem)
-                                        self.items = self.cateringItems
-                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                    } else {
-                                        let index = self.cateringItems.firstIndex { $0.menuItemId == menuItemId }
-                                        if index == nil {
-                                            self.cateringItems.append(newItem)
-                                            self.items = self.cateringItems
-                                            self.meTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
-                                        }
-                                    }
-                                } else if itemType == "MealKit Items" {
-                                    if self.mealKitItems.isEmpty {
-                                        self.mealKitItems.append(newItem)
-                                        self.items = self.mealKitItems
-                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                    } else {
-                                        let index = self.mealKitItems.firstIndex { $0.menuItemId == menuItemId }
-                                        if index == nil {
-                                            self.mealKitItems.append(newItem)
-                                            self.items = self.mealKitItems
-                                            self.meTableView.insertRows(at: [IndexPath(item: self.mealKitItems.count - 1, section: 0)], with: .fade)
-                                        }
-                                    }
-                                }}}
-                    }
+                let storageRef = storage.reference()
+                if !items.isEmpty {
+                    items.removeFirst()
+                    items.removeAll()
+                    meTableView.reloadData()
                 }
-            } else {
+                
+                
+                var itemsI : [FeedMenuItems]
                 
                 if toggle == "Cater Items" {
-                    items = cateringItems
+                    itemsI = cateringItems
                 } else {
-                    items = mealKitItems
+                    itemsI = mealKitItems
                 }
-                
-                meTableView.reloadData()
-                
+                if itemsI.isEmpty {
+                    
+                    db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(toggle).addSnapshotListener { documents, error in
+                        if error == nil {
+                            for doc in documents!.documents {
+                                
+                                let data = doc.data()
+                                
+                                if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let live = data["live"] as? String {
+                                    
+                                    var image = UIImage()
+                                    
+                                    
+                                    
+                                    let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: live)
+                                    
+                                    if itemType == "Cater Items" {
+                                        if self.cateringItems.isEmpty {
+                                            self.cateringItems.append(newItem)
+                                            self.items = self.cateringItems
+                                            self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                        } else {
+                                            let index = self.cateringItems.firstIndex { $0.menuItemId == menuItemId }
+                                            if index == nil {
+                                                self.cateringItems.append(newItem)
+                                                self.items = self.cateringItems
+                                                self.meTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
+                                            }
+                                        }
+                                    } else if itemType == "MealKit Items" {
+                                        if self.mealKitItems.isEmpty {
+                                            self.mealKitItems.append(newItem)
+                                            self.items = self.mealKitItems
+                                            self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+                                        } else {
+                                            let index = self.mealKitItems.firstIndex { $0.menuItemId == menuItemId }
+                                            if index == nil {
+                                                self.mealKitItems.append(newItem)
+                                                self.items = self.mealKitItems
+                                                self.meTableView.insertRows(at: [IndexPath(item: self.mealKitItems.count - 1, section: 0)], with: .fade)
+                                            }
+                                        }
+                                    }}}
+                        }
+                    }
+                } else {
+                    
+                    if toggle == "Cater Items" {
+                        items = cateringItems
+                    } else {
+                        items = mealKitItems
+                    }
+                    
+                    meTableView.reloadData()
+                    
+                }
+            } else {
+                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
         } else {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
+    var owe = 0.0
+    ///------------
+    private func payout() {
+        let db = Firestore.firestore()
+        let date = Date()
+        let dfCompare = DateFormatter()
+        dfCompare.dateFormat = "MM-dd-yyyy HH:mm"
+        
+        
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").addSnapshotListener { documents, error in
+            if error == nil {
+                if documents != nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        if var eventDates = data["eventDates"] as? [String], var eventTimes = data["eventTimes"] as? [String], let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let orderUpdate = data["orderUpdate"] as? String, let typeOfService = data["typeOfService"] as? String, let menuItemId = data["menuItemId"] as? String, let userImageId = data["userImageId"] as? String, let chefImageId = data["chefImageId"] as? String, var payoutDates = data["payoutDates"] as? [String] {
+                            
+                                
+                            if orderUpdate == "Scheduled" {
+                                var newEventDates : [Date] = []
+                                var percent : Double?
+                                for i in 0..<eventDates.count {
+                                    var eventHour = Int(eventTimes[i].prefix(2))!
+                                    var eventTime = ""
+                                    if eventTimes[i].suffix(2) == "PM" {
+                                        eventHour = eventHour + 12
+                                    }
+                                    
+                                    eventTime = "\(eventHour):\(eventTimes[i].suffix(5).prefix(2))"
+                                    let newTime = dfCompare.date(from: "\(eventDates[i]) \(eventTime)")
+                                    
+                                    print("eventTime \(eventDates[i]) \(eventTime)")
+                                    
+                                    newEventDates.append(newTime!)
+                                    newEventDates = newEventDates.sorted(by: { $0.compare($1) == .orderedAscending })
+                                
+                                    }
+                                for i in 0..<newEventDates.count {
+                                    let tod = dfCompare.string(from: Date())
+                                    let today = dfCompare.date(from: tod)
+                                    
+                                    let x = today!.distance(to: newEventDates[i]) / 3600
+                                    let hourAfterEventEnds = x + 1
+                                    
+                                        if hourAfterEventEnds <= 0 {
+                                            if !payoutDates.contains("\(newEventDates[i])") {
+                                                let data5: [String: Any] = ["payoutDates" : newEventDates[i]]
+                                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(menuItemId).updateData(["payoutDates" : FieldValue.arrayUnion(["\(newEventDates[i])"])])
+                                                self.db.collection("Orders").document(menuItemId).updateData(["payoutDates" : FieldValue.arrayUnion(["\(newEventDates[i])"])])
+                                                self.transfer(transferAmount: (totalCostOfEvent - (totalCostOfEvent * 0.05)) / Double(eventDates.count), orderId: doc.documentID, userImageId: userImageId, chefImageId: chefImageId, type: typeOfService, eventDate: "", complete: "")
+                                                if payoutDates.count + 1 == eventDates.count {
+                                                    let data4: [String: Any] = ["orderUpdate" : "complete"]
+                                                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(menuItemId).updateData(data4)
+                                                    self.db.collection("Orders").document(menuItemId).updateData(data4)
+                                                } else {
+                                                    payoutDates.append("123")
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                            }
+                            }
+                    }
+                }
+            }
+        
+        }
+    private func transfer(transferAmount: Double, orderId: String, userImageId: String, chefImageId: String, type: String, eventDate: String, complete: String) {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let df1 = DateFormatter()
+        df1.dateFormat = "MM-dd-yyyy hh:mm a"
+        if Auth.auth().currentUser != nil {
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        if let owe = data!["chargeForPayout"] as? Double {
+                            if transferAmount - owe < 0 {
+                                let amountOwed = owe - transferAmount
+                                let owe : [String : Any] = ["chargeForPayout" : amountOwed]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(owe)
+                                let data4: [String: Any] = ["notification" : "You still owed $\(owe) from cancellations. Your new amount owed is $\(amountOwed).", "date": df.string(from: Date())]
+                                let data5: [String: Any] = ["notifications" : "yes"]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Notifications").document().setData(data4)
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data5)
+                            } else {
+                        
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let stripeAccountId = data["stripeAccountId"] as? String {
+                                let a = (transferAmount - owe) * 100
+                                
+                                let amount = String(format: "%.0f", a)
+                                
+                                let json: [String: Any] = ["amount": amount, "stripeAccountId" : stripeAccountId]
+                                
+                                let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                                // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+                                var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/transfer")!)
+                                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                                request.httpMethod = "POST"
+                                request.httpBody = jsonData
+                                let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data,response, error) in
+                                    guard let data = data,
+                                          let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                                          let transferId = json["transferId"], let self = self else {
+                                        // Handle error
+                                        return
+                                    }
+                                    
+                                    DispatchQueue.main.async {
+                                        
+                                        let data : [String: Any] = ["transferId" : transferId, "orderId" : orderId, "date" : df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
+                                        self.db.collection("Transfers").document(orderId).setData(data)
+                                        let data1: [String: Any] = ["notifications" : "yes"]
+                                        let data2: [String: Any] = ["notification" : "a payout of $\(String(format: "%.2f", transferAmount)) is on its way for \(eventDate).", "date" : df1.string(from: Date())]
+                                        self.db.collection("Chef").document(chefImageId).updateData(data1)
+                                        self.db.collection("Chef").document(chefImageId).collection("Notifications").document().setData(data2)
+                                        if type != "Executive Items" || complete == "yes" {
+                                            let data2 : [String : Any] = ["orderUpdate" : "complete"]
+                                            self.db.collection("Chef").document(chefImageId).collection("Orders").document(orderId).updateData(data2)
+                                            self.db.collection("User").document(userImageId).collection("Orders").document(orderId).updateData(data2)
+                                            self.db.collection("Orders").document(orderId).updateData(data2)
+                                        }
+                                        
+                                        self.showToast(message: "$\(String(format: "%.2f", transferAmount)) payout on the way.", font: .systemFont(ofSize: 12))
+                                    }
+                                })
+                                task.resume()
+                            }
+                            
+                        }
+                    }
+                    }
+                }}}}
+                }
+            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
+    }
+    ///--------------
     private func loadPersonalChefInfo() {
         if Auth.auth().currentUser != nil {
             if !items.isEmpty {
@@ -307,7 +473,8 @@ class ChefMeViewController: UIViewController {
                             }
                             if typeOfInfo == "Signature Dish" {
                                 print("happening personal chef 2")
-                                self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)/Executive Items/\(doc.documentID)0.png").downloadURL { imageUrl, error in
+                                let email = data["chefEmail"] as! String
+                                self.storage.reference().child("chefs/\(email)/Executive Items/\(doc.documentID)0.png").downloadURL { imageUrl, error in
                                     if error == nil {
                                         URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
                                             // Error handling...
@@ -893,8 +1060,9 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
             if indexPath.row == 0 {
                 cell.itemImage.image = UIImage()
             }
+            
             let storageRef = storage.reference()
-            storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { itemUrl, error in
+            storageRef.child("chefs/\(item.chefEmail)/\(self.toggle)/\(item.menuItemId)0.png").downloadURL { itemUrl, error in
                 if itemUrl != nil {
                     URLSession.shared.dataTask(with: itemUrl!) { (data, response, error) in
                         // Error handling...

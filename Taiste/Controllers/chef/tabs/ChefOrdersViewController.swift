@@ -34,6 +34,7 @@ class ChefOrdersViewController: UIViewController {
     private var completeOrders : [Orders] = []
     
     private var orders : [Orders] = []
+    var owe = 0.0
     
     @IBOutlet weak var orderTableView: UITableView!
     
@@ -43,6 +44,7 @@ class ChefOrdersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         disclaimerText.text = "*Orders appear hear until the you accept, and will transfer to the 'Schedule' tab after. If you cancel here, no worries.*"
+        
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dfCompare.dateFormat = "MM-dd-yyyy HH:mm"
         orderTableView.register(UINib(nibName: "ChefOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefOrdersReusableCell")
@@ -57,6 +59,8 @@ class ChefOrdersViewController: UIViewController {
         } else {
         self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
        }
+        
+        payout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,10 +137,10 @@ class ChefOrdersViewController: UIViewController {
                                 
                                 print("orders happening 2")
                                 
-                                if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String, let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let userName = data["userName"] as? String, let userEmail = data["userEmail"] as? String {
+                                if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String, let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let userName = data["userName"] as? String, let userEmail = data["userEmail"] as? String, let eventDaysForUser = data["eventDaysForUser"] as? [String] {
                                     
                                     print("orders happening 3")
-                                    let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems, userName: userName, userEmail: userEmail)
+                                    let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems, userName: userName, userEmail: userEmail, eventDaysForUser: eventDaysForUser)
                                     print("happening 1")
                                     if orderUpdate == "pending" {
                                         print("happening")
@@ -210,16 +214,110 @@ class ChefOrdersViewController: UIViewController {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
-    private func payout(transferAmount: Double, orderId: String, userImageId: String, chefImageId: String) {
+    
+    
+    
+    
+    
+    ///------------
+    private func payout() {
+        let db = Firestore.firestore()
+        let date = Date()
+        let dfCompare = DateFormatter()
+        dfCompare.dateFormat = "MM-dd-yyyy HH:mm"
+        
+        
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").addSnapshotListener { documents, error in
+            if error == nil {
+                if documents != nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        if var eventDates = data["eventDates"] as? [String], var eventTimes = data["eventTimes"] as? [String], let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let orderUpdate = data["orderUpdate"] as? String, let typeOfService = data["typeOfService"] as? String, let menuItemId = data["menuItemId"] as? String, let userImageId = data["userImageId"] as? String, let chefImageId = data["chefImageId"] as? String, var payoutDates = data["payoutDates"] as? [String] {
+                            
+                                
+                            if orderUpdate == "Scheduled" {
+                                var newEventDates : [Date] = []
+                                var percent : Double?
+                                for i in 0..<eventDates.count {
+                                    var eventHour = Int(eventTimes[i].prefix(2))!
+                                    var eventTime = ""
+                                    if eventTimes[i].suffix(2) == "PM" {
+                                        eventHour = eventHour + 12
+                                    }
+                                    
+                                    eventTime = "\(eventHour):\(eventTimes[i].suffix(5).prefix(2))"
+                                    let newTime = dfCompare.date(from: "\(eventDates[i]) \(eventTime)")
+                                    
+                                    print("eventTime \(eventDates[i]) \(eventTime)")
+                                    
+                                    newEventDates.append(newTime!)
+                                    newEventDates = newEventDates.sorted(by: { $0.compare($1) == .orderedAscending })
+                                
+                                    }
+                                for i in 0..<newEventDates.count {
+                                    let tod = dfCompare.string(from: Date())
+                                    let today = dfCompare.date(from: tod)
+                                    
+                                    let x = today!.distance(to: newEventDates[i]) / 3600
+                                    let hourAfterEventEnds = x + 1
+                                    
+                                        if hourAfterEventEnds <= 0 {
+                                            if !payoutDates.contains("\(newEventDates[i])") {
+                                                let data5: [String: Any] = ["payoutDates" : newEventDates[i]]
+                                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(menuItemId).updateData(["payoutDates" : FieldValue.arrayUnion(["\(newEventDates[i])"])])
+                                                self.db.collection("Orders").document(menuItemId).updateData(["payoutDates" : FieldValue.arrayUnion(["\(newEventDates[i])"])])
+                                                self.transfer(transferAmount: (totalCostOfEvent - (totalCostOfEvent * 0.05)) / Double(eventDates.count), orderId: doc.documentID, userImageId: userImageId, chefImageId: chefImageId, type: typeOfService, eventDate: "", complete: "")
+                                                if payoutDates.count + 1 == eventDates.count {
+                                                    let data4: [String: Any] = ["orderUpdate" : "complete"]
+                                                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(menuItemId).updateData(data4)
+                                                    self.db.collection("Orders").document(menuItemId).updateData(data4)
+                                                } else {
+                                                    payoutDates.append("123")
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                            }
+                            }
+                    }
+                }
+            }
+        
+        }
+    
+    private func transfer(transferAmount: Double, orderId: String, userImageId: String, chefImageId: String, type: String, eventDate: String, complete: String) {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let df1 = DateFormatter()
+        df1.dateFormat = "MM-dd-yyyy hh:mm a"
         if Auth.auth().currentUser != nil {
-            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        if let owe = data!["chargeForPayout"] as? Double {
+                            if transferAmount - owe < 0 {
+                                let amountOwed = owe - transferAmount
+                                let owe : [String : Any] = ["chargeForPayout" : amountOwed]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(owe)
+                                let data4: [String: Any] = ["notification" : "You still owed $\(owe) from cancellations. Your new amount owed is $\(amountOwed).", "date": df.string(from: Date())]
+                                let data5: [String: Any] = ["notifications" : "yes"]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Notifications").document().setData(data4)
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data5)
+                            } else {
+                        
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
                 if error == nil {
                     if documents != nil {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
                             if let stripeAccountId = data["stripeAccountId"] as? String {
-                                let a = transferAmount * 100
+                                let a = (transferAmount - owe) * 100
+                                
                                 let amount = String(format: "%.0f", a)
                                 
                                 let json: [String: Any] = ["amount": amount, "stripeAccountId" : stripeAccountId]
@@ -233,20 +331,25 @@ class ChefOrdersViewController: UIViewController {
                                 let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data,response, error) in
                                     guard let data = data,
                                           let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                                          let transferId = json["transferId"],
-                                          let self = self else {
+                                          let transferId = json["transferId"], let self = self else {
                                         // Handle error
                                         return
                                     }
                                     
                                     DispatchQueue.main.async {
                                         
-                                        let data : [String: Any] = ["transferId" : transferId, "orderId" : orderId, "date" : self.df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
-                                        let data2 : [String : Any] = ["orderUpdate" : "complete"]
+                                        let data : [String: Any] = ["transferId" : transferId, "orderId" : orderId, "date" : df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
                                         self.db.collection("Transfers").document(orderId).setData(data)
-                                        self.db.collection("Chef").document(chefImageId).collection("Orders").document(orderId).updateData(data2)
-                                        self.db.collection("User").document(userImageId).collection("Orders").document(orderId).updateData(data2)
-                                        self.db.collection("Orders").document(orderId).updateData(data2)
+                                        let data1: [String: Any] = ["notifications" : "yes"]
+                                        let data2: [String: Any] = ["notification" : "a payout of $\(String(format: "%.2f", transferAmount)) is on its way for \(eventDate).", "date" : df1.string(from: Date())]
+                                        self.db.collection("Chef").document(chefImageId).updateData(data1)
+                                        self.db.collection("Chef").document(chefImageId).collection("Notifications").document().setData(data2)
+                                        if type != "Executive Items" || complete == "yes" {
+                                            let data2 : [String : Any] = ["orderUpdate" : "complete"]
+                                            self.db.collection("Chef").document(chefImageId).collection("Orders").document(orderId).updateData(data2)
+                                            self.db.collection("User").document(userImageId).collection("Orders").document(orderId).updateData(data2)
+                                            self.db.collection("Orders").document(orderId).updateData(data2)
+                                        }
                                         
                                         self.showToast(message: "$\(String(format: "%.2f", transferAmount)) payout on the way.", font: .systemFont(ofSize: 12))
                                     }
@@ -256,12 +359,19 @@ class ChefOrdersViewController: UIViewController {
                             
                         }
                     }
+                    }
+                }}}}
                 }
             }
         } else {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
+
+    ///--------------
+
+    
+    
     
     private func refundOrder(paymentId: String, amount: String, orderId: String, userImageId: String, chefImageId: String, chargeForPayout : Double) {
         if Auth.auth().currentUser != nil {
@@ -482,50 +592,7 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
             cell.messagesButton.isEnabled = false
             cell.messagesForTravelFeeButton.isEnabled = false
         }
-        if self.toggle == "Scheduled" {
-        var newEventDates : [Date] = []
-        var percent : Double?
-        for i in 0..<order.eventDates.count {
-            var eventHour = Int(order.eventTimes[i].prefix(2))!
-            var eventTime = ""
-            if order.eventTimes[i].suffix(2) == "PM" {
-                eventHour = eventHour + 12
-                }
-            
-            eventTime = "\(eventHour):\(order.eventTimes[i].suffix(5).prefix(2))"
-            let newTime = self.dfCompare.date(from: "\(order.eventDates[i]) \(eventTime)")
-
-            print("eventTime \(order.eventDates[i]) \(eventTime)")
-            
-            newEventDates.append(newTime!)
-            newEventDates = newEventDates.sorted(by: { $0.compare($1) == .orderedAscending })
-            if i == order.eventDates.count - 1 {
-                let tod = self.dfCompare.string(from: Date())
-                let today = self.dfCompare.date(from: tod)
-                
-                let x = today!.distance(to: newEventDates[0]) / 3600
-                let hourAfterEventEnds = x + 1
-                
-                
-              if hourAfterEventEnds <= 0 {
-                    cell.showInfoView.isHidden = false
-                    cell.showInfoLabel.text = "Order Complete"
-                    cell.showInfoText.text = "Payout is on its way."
-                    cell.cancelButton.isHidden = true
-                    cell.messagesButton.isHidden = true
-                    cell.showNotesButton.isHidden = true
-                  
-                  self.payout(transferAmount: (order.totalCostOfEvent - (order.totalCostOfEvent * 0.05)), orderId: order.documentId, userImageId: order.userImageId, chefImageId: order.chefImageId)
-                  
-                  if let index = self.orders.firstIndex(where: { $0.documentId == order.documentId }) {
-                      self.orders.remove(at: index)
-                      self.scheduledOrders.remove(at: index)
-                      self.orderTableView.deleteRows(at: [IndexPath(item:index, section: 0)], with: .fade)
-                  }
-              }
-            }
-        }
-        }
+       
             
         
         if order.travelFeeOption == "No" {
@@ -569,11 +636,21 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         cell.showDatesButtonTapped = {
             cell.showInfoView.isHidden = false
             cell.showInfoLabel.text = "Date(s) of Event"
-            for i in 0..<order.eventDates.count {
-                if i == 0 {
-                    cell.showInfoText.text = "Dates: \(order.eventDates[i]) \(order.eventTimes[i])"
-                } else {
-                    cell.showInfoText.text = "\(cell.showInfoText.text!), \(order.eventDates[i]) \(order.eventTimes[i])"
+            if order.typeOfService != "Executive Items" {
+                for i in 0..<order.eventDates.count {
+                    if i == 0 {
+                        cell.showInfoText.text = "Dates: \(order.eventDates[i]) \(order.eventTimes[i])"
+                    } else {
+                        cell.showInfoText.text = "\(cell.showInfoText.text!), \(order.eventDates[i]) \(order.eventTimes[i])"
+                    }
+                }
+            } else {
+                for i in 0..<order.eventDaysForUser.count {
+                    if i == 0 {
+                        cell.showInfoText.text = "Dates: \(order.eventDaysForUser[i])"
+                    } else {
+                        cell.showInfoText.text = "\(cell.showInfoText.text!), \(order.eventDaysForUser[i])"
+                    }
                 }
             }
             
@@ -863,6 +940,29 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                     
                     
                     alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                     
+                        let date = Date()
+                        let df = DateFormatter()
+                        df.dateFormat = "MM-dd-yyyy hh:mm a"
+                        let date1 =  df.string(from: Date())
+                        let data3: [String: Any] = ["notification" : "\(guserName) has just cancelled your order (\(order.typeOfService)) \(order.itemTitle). You will receive a full refund.", "date" : date1]
+                        let data4: [String: Any] = ["notifications" : "yes"]
+                        self.db.collection("User").document(order.userImageId).collection("Notifications").document().setData(data3)
+                        self.db.collection("User").document(order.userImageId).updateData(data4)
+                        
+                        self.db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                            if error == nil {
+                                let data = document!.data()
+                                
+                                if let chargeForPayout1 = data!["chargeForPayout"] as? Double {
+                                    let owe = chargeForPayout1 + chargeForPayout
+                                    let data4: [String: Any] = ["chargeForPayout" : owe]
+                                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data4)
+                                }
+                                
+                            }
+                        }
+                        
                         self.db.collection("Orders").document(order.documentId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
@@ -870,6 +970,7 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                                     
                                     if let paymentIntent = data!["paymentIntent"] as? String {
                                         self.refundOrder(paymentId: paymentIntent, amount: String(format: "%.0f", order.totalCostOfEvent + order.taxesAndFees), orderId: order.documentId, userImageId: order.userImageId, chefImageId: order.chefImageId, chargeForPayout: chargeForPayout)
+                                       
                                         
                                         if let index = self.orders.firstIndex(where: { $0.documentId == order.documentId }) {
                                             self.orders.remove(at: index)
@@ -880,14 +981,6 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
                                 }
                             }
                         }
-                        let date = Date()
-                        let df = DateFormatter()
-                        df.dateFormat = "MM-dd-yyyy hh:mm a"
-                        let date1 =  df.string(from: Date())
-                        let data3: [String: Any] = ["notification" : "\(guserName) has just cancelled your order (\(order.typeOfService)) \(order.itemTitle). You will receive a full refund.", "date" : date1]
-                        let data4: [String: Any] = ["notifications" : "yes"]
-                        self.db.collection("User").document(order.userImageId).collection("Notifications").document().setData(data3)
-                        self.db.collection("User").document(order.userImageId).updateData(data4)
                     }))
                     
                     alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in
@@ -901,4 +994,8 @@ extension ChefOrdersViewController : UITableViewDataSource, UITableViewDelegate 
         return cell
     }
 }
+
+
+
+    
 

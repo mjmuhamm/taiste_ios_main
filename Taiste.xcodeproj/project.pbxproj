@@ -201,7 +201,7 @@
 		F4B3D76E27CAB64100AA5544 /* CheckoutItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutItems.swift; sourceTree = "<group>"; };
 		F4B3D77327CAB7F700AA5544 /* CheckoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutTableViewCell.swift; sourceTree = "<group>"; };
 		F4B3D77427CAB7F700AA5544 /* CheckoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckoutTableViewCell.xib; sourceTree = "<group>"; };
-		F4B90DC027C709A9004B1FB1 /* Taïste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Taïste.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4B90DC027C709A9004B1FB1 /* Taiste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taiste.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B90DC327C709A9004B1FB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B90DC527C709A9004B1FB1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F4B90DC727C709A9004B1FB1 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -448,7 +448,7 @@
 		F4B90DC127C709A9004B1FB1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F4B90DC027C709A9004B1FB1 /* Taïste.app */,
+				F4B90DC027C709A9004B1FB1 /* Taiste.app */,
 				F4B90DD627C709AB004B1FB1 /* TaisteTests.xctest */,
 				F4B90DE027C709AB004B1FB1 /* TaisteUITests.xctest */,
 			);
@@ -695,7 +695,7 @@
 			);
 			name = Taiste;
 			productName = Taiste;
-			productReference = F4B90DC027C709A9004B1FB1 /* Taïste.app */;
+			productReference = F4B90DC027C709A9004B1FB1 /* Taiste.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F4B90DD527C709AB004B1FB1 /* TaisteTests */ = {
@@ -1129,11 +1129,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Taiste/Taiste.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A8QVKKQPMX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = A8QVKKQPMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Taiste/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Taiste;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to media library for this item.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture for this item.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photo library for this item.";
@@ -1149,10 +1154,15 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruh.ai.Taiste;
-				PRODUCT_NAME = "Taïste";
+				PRODUCT_NAME = Taiste;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Malik;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1163,11 +1173,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Taiste/Taiste.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A8QVKKQPMX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = A8QVKKQPMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Taiste/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Taiste;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to media library for this item.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture for this item.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photo library for this item.";
@@ -1183,10 +1198,15 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruh.ai.Taiste;
-				PRODUCT_NAME = "Taïste";
+				PRODUCT_NAME = Taiste;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Malik;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

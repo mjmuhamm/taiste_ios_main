@@ -17,8 +17,8 @@ struct Orders {
     let chefUsername: String
     let city: String
     let distance: String
-    let eventDates: [String]
-    let eventTimes: [String]
+    var eventDates: [String]
+    var eventTimes: [String]
     let eventNotes: String
     let eventType: String
     let eventQuantity: String
@@ -50,4 +50,5 @@ struct Orders {
     let additionalMenuItems: String
     let userName: String
     let userEmail: String
+    let eventDaysForUser: [String]
 }

@@ -34,8 +34,9 @@ class StartViewController: UIViewController {
         chefButton.layer.cornerRadius = 2
         
         
+        
+        
         var normalText = "Please review our "
-
         var boldText  = "Terms of Service"
         
         var secondNormalText = " and "

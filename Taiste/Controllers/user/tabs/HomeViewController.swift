@@ -495,6 +495,35 @@ class HomeViewController: UIViewController {
         })
     }
     
+    var personalChefItem : PersonalChefInfo?
+    func showToastCompletion(message : String, font: UIFont) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: 0, y: self.view.frame.size.height-180, width: (self.view.frame.width), height: 70))
+        toastLabel.backgroundColor = UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.numberOfLines = 4
+        toastLabel.layer.cornerRadius = 1;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            if self.toggle != "Executive Items" {
+                self.performSegue(withIdentifier: "HomeToOrderDetailSegue", sender: self)
+            } else {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChefOrderDetail") as? PersonalChefOrderDetailViewController {
+                    vc.personalChefInfo = self.personalChefItem!
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+            toastLabel.removeFromSuperview()
+        })
+    }
+    
 }
 
 extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
@@ -508,7 +537,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if toggle == "Cater Items" || toggle == "MealKit Items" {
+        if toggle == "Cater Items"  {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "HomeReusableCell", for: indexPath) as! HomeTableViewCell
             var item = items[indexPath.row]
             if toggle == "Cater Items" {
@@ -537,10 +566,9 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                             cell.chefImage.image = UIImage(data: imageData)!
                             if self.toggle == "Cater Items" {
                                 self.cateringItems[indexPath.row].chefImage = UIImage(data: imageData)!
-                            } else {
-                                self.mealKitItems[indexPath.row].chefImage = UIImage(data: imageData)!
+                                item.chefImage = UIImage(data: imageData)!
                             }
-                            item.chefImage = UIImage(data: imageData)!
+                            
                             
                         }
                     }.resume()
@@ -559,10 +587,9 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                             cell.itemImage.image = UIImage(data: imageData)!
                             if self.toggle == "Cater Items" {
                                 self.cateringItems[indexPath.row].itemImage = UIImage(data: imageData)!
-                            } else {
-                                self.mealKitItems[indexPath.row].itemImage = UIImage(data: imageData)!
+                                item.itemImage = UIImage(data: imageData)!
                             }
-                            item.itemImage = UIImage(data: imageData)!
+                            
                         }
                     }.resume()
                     
@@ -610,7 +637,9 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                     self.item = item
                     self.performSegue(withIdentifier: "HomeToOrderDetailSegue", sender: self)
                 } else {
-                    self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                    self.showToastCompletion(message: "This is a test account. You will not be able to purchase this item.", font: .systemFont(ofSize: 12))
+                    self.item = item
+                    
                 }
             }
             
@@ -835,7 +864,8 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                         self.present(vc, animated: true, completion: nil)
                     }
                 } else {
-                    self.showToast(message: "This is a test account.", font: .systemFont(ofSize: 12))
+                    self.showToastCompletion(message: "This is a test account. You will not be able to purchase this item.", font: .systemFont(ofSize: 12))
+                    self.personalChefItem = item
                 }
             }
             

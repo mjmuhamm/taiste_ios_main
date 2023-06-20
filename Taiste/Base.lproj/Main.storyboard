@@ -14,7 +14,7 @@
         <!--Start View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="Start" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="StartViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Start" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="StartViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -144,7 +144,7 @@
         <!--User Tab View Controller-->
         <scene sceneID="CyB-7F-9ew">
             <objects>
-                <tabBarController storyboardIdentifier="UserTab" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="kr3-rW-0mV" customClass="UserTabViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="UserTab" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="kr3-rW-0mV" customClass="UserTabViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="44Y-6y-Fyl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -168,7 +168,7 @@
         <!--Home View Controller-->
         <scene sceneID="FNg-iy-LYy">
             <objects>
-                <viewController id="g6N-EO-dG3" customClass="HomeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="g6N-EO-dG3" customClass="HomeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iN3-Zg-BLm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -407,7 +407,7 @@
         <!--Me View Controller-->
         <scene sceneID="9RL-2d-x6M">
             <objects>
-                <viewController id="72S-Af-iag" customClass="MeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="72S-Af-iag" customClass="MeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ad-FS-bID">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -608,7 +608,7 @@
         <!--Orders View Controller-->
         <scene sceneID="A9U-7P-67V">
             <objects>
-                <viewController id="MQz-cP-RTd" customClass="OrdersViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MQz-cP-RTd" customClass="OrdersViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CAi-hP-6dL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -758,7 +758,7 @@
         <!--Feed View Controller-->
         <scene sceneID="Eci-jP-MHp">
             <objects>
-                <viewController storyboardIdentifier="Feed" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="xQU-Ts-FXV" customClass="FeedViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Feed" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="xQU-Ts-FXV" customClass="FeedViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cWT-10-IxQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -806,7 +806,7 @@
         <!--Chef Tab View Controller-->
         <scene sceneID="BdF-HO-M9k">
             <objects>
-                <tabBarController storyboardIdentifier="ChefTab" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="qkw-nc-3h8" customClass="ChefTabViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="ChefTab" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="qkw-nc-3h8" customClass="ChefTabViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yy5-rS-Z8R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -921,7 +921,7 @@
         <!--Login View Controller-->
         <scene sceneID="jqS-Xo-CoA">
             <objects>
-                <viewController id="V7j-3n-LfI" customClass="LoginViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V7j-3n-LfI" customClass="LoginViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tNS-Xl-sas">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1069,7 +1069,7 @@
         <!--User Personal View Controller-->
         <scene sceneID="0NF-OJ-97E">
             <objects>
-                <viewController storyboardIdentifier="UserPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="pa7-mr-3DM" customClass="UserPersonalViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="pa7-mr-3DM" customClass="UserPersonalViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fwO-2V-Rxs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1588,7 +1588,7 @@
         <!--Chef Login View Controller-->
         <scene sceneID="vC0-Rs-bLJ">
             <objects>
-                <viewController id="WS4-dx-SX0" customClass="ChefLoginViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WS4-dx-SX0" customClass="ChefLoginViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JRP-ld-o7k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1740,7 +1740,7 @@
         <!--Item Detail View Controller-->
         <scene sceneID="emI-lD-yQw">
             <objects>
-                <viewController storyboardIdentifier="ItemDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Acn-ce-GKd" customClass="ItemDetailViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Acn-ce-GKd" customClass="ItemDetailViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8q5-Qj-1yu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2547,7 +2547,7 @@
         <!--Profile As User View Controller-->
         <scene sceneID="F1a-qR-1AQ">
             <objects>
-                <viewController storyboardIdentifier="ProfileAsUser" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7X-fF-rpK" customClass="ProfileAsUserViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileAsUser" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7X-fF-rpK" customClass="ProfileAsUserViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="erO-Uj-3Py">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2879,7 +2879,7 @@
         <!--Order Details View Controller-->
         <scene sceneID="AVu-7W-6QO">
             <objects>
-                <viewController storyboardIdentifier="OrderDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BEi-mZ-8p3" customClass="OrderDetailsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrderDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BEi-mZ-8p3" customClass="OrderDetailsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aOb-5N-0nf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3037,7 +3037,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fkl-Hw-i69">
-                                <rect key="frame" x="15" y="133" width="396" height="703"/>
+                                <rect key="frame" x="15" y="332" width="396" height="505"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date(s) of Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQD-gp-vOb">
                                         <rect key="frame" x="8" y="8" width="118.5" height="18"/>
@@ -3247,17 +3247,6 @@
                                     <constraint firstItem="cZZ-Pm-BVa" firstAttribute="leading" secondItem="EWy-P4-5ci" secondAttribute="leading" constant="19" id="waq-Nv-fWW"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Atb-Kx-RVb">
-                                <rect key="frame" x="30" y="193" width="178" height="41"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="Dp3-pk-eyi"/>
-                                    <constraint firstAttribute="width" constant="178" id="QvL-rz-XNz"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <connections>
-                                    <action selector="quantityOfEventButton:" destination="BEi-mZ-8p3" eventType="touchUpInside" id="6ea-me-1aF"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dLG-wq-aKJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -3266,7 +3255,6 @@
                             <constraint firstItem="dLG-wq-aKJ" firstAttribute="trailing" secondItem="Q1W-An-47y" secondAttribute="trailing" constant="10" id="4MU-Sd-ODa"/>
                             <constraint firstItem="noA-Ud-N6b" firstAttribute="top" secondItem="2rM-zJ-cfX" secondAttribute="bottom" constant="16" id="5G1-PX-1IR"/>
                             <constraint firstItem="dLG-wq-aKJ" firstAttribute="trailing" secondItem="hh7-jF-CNV" secondAttribute="trailing" constant="25" id="7W3-9R-vSx"/>
-                            <constraint firstItem="Atb-Kx-RVb" firstAttribute="leading" secondItem="dLG-wq-aKJ" secondAttribute="leading" constant="30" id="8fe-tK-LTa"/>
                             <constraint firstItem="BIQ-tg-vO8" firstAttribute="centerY" secondItem="RJ6-f4-eXe" secondAttribute="centerY" id="8od-0k-Aqf"/>
                             <constraint firstItem="Tla-6e-YHd" firstAttribute="leading" secondItem="dLG-wq-aKJ" secondAttribute="leading" constant="30" id="BUZ-Z9-gl1"/>
                             <constraint firstItem="Q1W-An-47y" firstAttribute="leading" secondItem="d0h-0t-AuK" secondAttribute="trailing" constant="1" id="Bjg-WI-clk"/>
@@ -3314,7 +3302,6 @@
                             <constraint firstItem="dLG-wq-aKJ" firstAttribute="bottom" secondItem="Fkl-Hw-i69" secondAttribute="bottom" constant="62" id="nKo-zy-YVs"/>
                             <constraint firstItem="BIQ-tg-vO8" firstAttribute="leading" secondItem="5cQ-OW-wOc" secondAttribute="leading" id="oCm-2Q-WZH"/>
                             <constraint firstItem="Fkl-Hw-i69" firstAttribute="leading" secondItem="dLG-wq-aKJ" secondAttribute="leading" constant="15" id="pGW-Yy-v6d"/>
-                            <constraint firstItem="Atb-Kx-RVb" firstAttribute="top" secondItem="Qle-Md-59k" secondAttribute="bottom" constant="34.5" id="ppI-ph-Bsm"/>
                             <constraint firstItem="8YN-W6-Wvz" firstAttribute="top" secondItem="SJx-uj-p3r" secondAttribute="bottom" constant="10.5" id="qk4-ur-MFb"/>
                             <constraint firstItem="dLG-wq-aKJ" firstAttribute="trailing" secondItem="BIQ-tg-vO8" secondAttribute="trailing" constant="158" id="rsH-Uy-pqg"/>
                             <constraint firstItem="dLG-wq-aKJ" firstAttribute="trailing" secondItem="Bmv-Hw-8oc" secondAttribute="trailing" constant="10" id="sLe-WI-ZdG"/>
@@ -3369,7 +3356,7 @@
         <!--Checkout View Controller-->
         <scene sceneID="Uka-Wm-bfJ">
             <objects>
-                <viewController id="gYL-KL-7m2" customClass="CheckoutViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gYL-KL-7m2" customClass="CheckoutViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PMU-pw-2ub">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3533,7 +3520,7 @@
         <!--Dashboard View Controller-->
         <scene sceneID="Q1k-l5-ejY">
             <objects>
-                <viewController id="ISg-SE-8Fx" customClass="DashboardViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ISg-SE-8Fx" customClass="DashboardViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KuJ-Q5-dqa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3756,7 +3743,7 @@
         <!--Chef Me View Controller-->
         <scene sceneID="UHx-fv-5vE">
             <objects>
-                <viewController id="0gC-7J-coo" customClass="ChefMeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0gC-7J-coo" customClass="ChefMeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RWP-U5-Tgk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4246,7 +4233,7 @@
         <!--Messages View Controller-->
         <scene sceneID="bkH-vp-1nR">
             <objects>
-                <viewController storyboardIdentifier="Messages" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="WFT-2O-fuq" customClass="MessagesViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Messages" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="WFT-2O-fuq" customClass="MessagesViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qzw-8a-iHJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4395,7 +4382,7 @@
         <!--Travel Fee View Controller-->
         <scene sceneID="DbN-o2-tmN">
             <objects>
-                <viewController storyboardIdentifier="TravelFee" id="QD4-c3-dg6" customClass="TravelFeeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TravelFee" id="QD4-c3-dg6" customClass="TravelFeeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sua-Nd-34M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4505,7 +4492,7 @@
         <!--Search View Controller-->
         <scene sceneID="bZH-Ee-zZo">
             <objects>
-                <viewController id="3D4-TS-tEq" customClass="SearchViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3D4-TS-tEq" customClass="SearchViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Aj-ew-LQS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4536,7 +4523,7 @@
         <!--Menu Item View Controller-->
         <scene sceneID="3AA-oY-YQ2">
             <objects>
-                <viewController storyboardIdentifier="MenuItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="FNM-ZN-2tz" customClass="MenuItemViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="FNM-ZN-2tz" customClass="MenuItemViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwk-l7-fpK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4958,7 +4945,7 @@
         <!--Chef Orders View Controller-->
         <scene sceneID="dG7-Iw-9eH">
             <objects>
-                <viewController id="mMG-Qo-Op4" customClass="ChefOrdersViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mMG-Qo-Op4" customClass="ChefOrdersViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K6d-47-Gf1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5108,7 +5095,7 @@
         <!--Account Settings Chef View Controller-->
         <scene sceneID="jNC-lF-fcD">
             <objects>
-                <viewController id="UHJ-6K-3na" customClass="AccountSettingsChefViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UHJ-6K-3na" customClass="AccountSettingsChefViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DrC-3U-ZIY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5422,7 +5409,7 @@
         <!--Account Settings View Controller-->
         <scene sceneID="0Wa-3K-2Ad">
             <objects>
-                <viewController id="3gr-eD-A3r" customClass="AccountSettingsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3gr-eD-A3r" customClass="AccountSettingsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="akG-QW-sXN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5661,7 +5648,7 @@
         <!--User Review View Controller-->
         <scene sceneID="csa-4l-sQr">
             <objects>
-                <viewController storyboardIdentifier="UserReviews" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="QFC-Bo-Waa" customClass="UserReviewViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserReviews" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="QFC-Bo-Waa" customClass="UserReviewViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ut-PZ-fIi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6213,7 +6200,7 @@
         <!--Add Content View Controller-->
         <scene sceneID="P9f-Vx-x6y">
             <objects>
-                <viewController storyboardIdentifier="ContentItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="jCI-5A-Tfa" customClass="AddContentViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentItem" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="jCI-5A-Tfa" customClass="AddContentViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmE-tV-oUa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6378,7 +6365,7 @@
         <!--Chef Personal View Controller-->
         <scene sceneID="tG8-YT-4dE">
             <objects>
-                <viewController storyboardIdentifier="ChefPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="tZA-tA-HQx" customClass="ChefPersonalViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChefPersonal" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="tZA-tA-HQx" customClass="ChefPersonalViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fKJ-bl-rN5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6626,7 +6613,7 @@
         <!--Chef Business View Controller-->
         <scene sceneID="Aqu-rZ-GCK">
             <objects>
-                <viewController storyboardIdentifier="ChefBusiness" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="sDp-aM-7fJ" customClass="ChefBusinessViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChefBusiness" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="sDp-aM-7fJ" customClass="ChefBusinessViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sDz-vt-PB5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6761,7 +6748,7 @@
         <!--Chef Banking View Controller-->
         <scene sceneID="yQC-4o-ISX">
             <objects>
-                <viewController storyboardIdentifier="ChefBanking" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gVL-LH-Wan" customClass="ChefBankingViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChefBanking" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gVL-LH-Wan" customClass="ChefBankingViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gs3-2f-N0p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7815,7 +7802,7 @@
         <!--Add Person View Controller-->
         <scene sceneID="GC5-Ko-zUk">
             <objects>
-                <viewController storyboardIdentifier="AddPerson" id="MJQ-a4-EBI" customClass="AddPersonViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPerson" id="MJQ-a4-EBI" customClass="AddPersonViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8LD-oe-rrA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8296,7 +8283,7 @@
         <!--Stripe Terms Of Service View Controller-->
         <scene sceneID="8v6-yx-dmA">
             <objects>
-                <viewController id="YI4-zN-pyN" customClass="StripeTermsOfServiceViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YI4-zN-pyN" customClass="StripeTermsOfServiceViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G3C-FM-Hlu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8361,7 +8348,7 @@
         <!--Terms Of Service View Controller-->
         <scene sceneID="zfr-dQ-LYz">
             <objects>
-                <viewController storyboardIdentifier="TermsOfService" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="NI0-sP-0QP" customClass="TermsOfServiceViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TermsOfService" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="NI0-sP-0QP" customClass="TermsOfServiceViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G9e-bQ-HBu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8630,7 +8617,7 @@ b. Any dispute arising out of or relating to this Agreement shall be subject to 
         <!--Privacy Policy View Controller-->
         <scene sceneID="xXb-go-9eB">
             <objects>
-                <viewController storyboardIdentifier="PrivacyPolicy" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7K-rY-C65" customClass="PrivacyPolicyViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivacyPolicy" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="O7K-rY-C65" customClass="PrivacyPolicyViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5lw-aM-Tlk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8850,7 +8837,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Comments View Controller-->
         <scene sceneID="Hsf-iI-Ov1">
             <objects>
-                <viewController id="h3p-CT-G4S" customClass="CommentsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="h3p-CT-G4S" customClass="CommentsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iew-LI-qwo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8951,7 +8938,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Reviews View Controller-->
         <scene sceneID="8Lt-vS-ZJR">
             <objects>
-                <viewController storyboardIdentifier="Reviews" id="cA5-tP-6jc" customClass="ReviewsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Reviews" id="cA5-tP-6jc" customClass="ReviewsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hv1-9g-fIV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9023,7 +9010,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--External Account View Controller-->
         <scene sceneID="Umm-8x-w3i">
             <objects>
-                <viewController storyboardIdentifier="ExternalAccount" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="xCJ-kp-5xe" customClass="ExternalAccountViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExternalAccount" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="xCJ-kp-5xe" customClass="ExternalAccountViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Aig-On-bij">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9168,7 +9155,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Owners View Controller-->
         <scene sceneID="PRb-zb-7aR">
             <objects>
-                <viewController storyboardIdentifier="Owners" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Jpv-ei-aRT" customClass="OwnersViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Owners" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Jpv-ei-aRT" customClass="OwnersViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GV5-Yp-8Nw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9342,7 +9329,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Filter View Controller-->
         <scene sceneID="ogY-gn-lDL">
             <objects>
-                <viewController storyboardIdentifier="Filter" id="GRx-fP-qwI" customClass="FilterViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Filter" id="GRx-fP-qwI" customClass="FilterViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gcl-RP-s9X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9722,7 +9709,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Report An Issue View Controller-->
         <scene sceneID="gKC-1p-w4a">
             <objects>
-                <viewController storyboardIdentifier="ReportAnIssue" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="rsN-le-tdd" customClass="ReportAnIssueViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReportAnIssue" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="rsN-le-tdd" customClass="ReportAnIssueViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kG1-47-5aB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9926,7 +9913,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Disclaimer View Controller-->
         <scene sceneID="9Y2-qd-hIe">
             <objects>
-                <viewController storyboardIdentifier="Disclaimer" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DiS-K0-uwX" customClass="DisclaimerViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Disclaimer" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DiS-K0-uwX" customClass="DisclaimerViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j8L-4v-6ep">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -10003,7 +9990,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Notifications View Controller-->
         <scene sceneID="iaE-cF-UDE">
             <objects>
-                <viewController id="v6P-4a-ROr" customClass="NotificationsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="v6P-4a-ROr" customClass="NotificationsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="clo-97-ufk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -10064,7 +10051,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Personal Chef View Controller-->
         <scene sceneID="OCE-Yu-hVl">
             <objects>
-                <viewController storyboardIdentifier="PersonalChef" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gdA-kq-KyV" customClass="PersonalChefViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PersonalChef" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gdA-kq-KyV" customClass="PersonalChefViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="F4w-qv-rHp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -10618,26 +10605,19 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Personal Chef Order Detail View Controller-->
         <scene sceneID="Ko7-dW-vsJ">
             <objects>
-                <viewController storyboardIdentifier="PersonalChefOrderDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="o0h-1M-Cbg" customClass="PersonalChefOrderDetailViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PersonalChefOrderDetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="o0h-1M-Cbg" customClass="PersonalChefOrderDetailViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zuL-LT-Sir">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1EV-Xh-lbG">
-                                <rect key="frame" x="0.0" y="101.5" width="414" height="0.5"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="Oio-BK-eXs"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Order Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klv-tR-bJi">
-                                <rect key="frame" x="160" y="59" width="94" height="19.5"/>
+                                <rect key="frame" x="160" y="59" width="94" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yS-WN-GHJ">
-                                <rect key="frame" x="13" y="59" width="25" height="31.5"/>
+                                <rect key="frame" x="13" y="59" width="25" height="20.5"/>
                                 <color key="tintColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="arrow.backward" catalog="system"/>
@@ -10646,13 +10626,13 @@ Taïste may contain links to third-party websites or services that are not contr
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dG3-gE-UZt">
-                                <rect key="frame" x="15" y="112.5" width="384" height="17"/>
+                                <rect key="frame" x="15" y="105.5" width="384" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="This is an item description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxl-1N-XR5">
-                                <rect key="frame" x="10" y="139.5" width="394" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="This is an item description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxl-1N-XR5">
+                                <rect key="frame" x="10" y="132.5" width="394" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -10722,7 +10702,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes to Chef" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmL-nN-OU0">
-                                <rect key="frame" x="30" y="637" width="89" height="16"/>
+                                <rect key="frame" x="30" y="617" width="89" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Qhc-Vc-g0P"/>
                                 </constraints>
@@ -10731,7 +10711,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes to chef." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CNc-Ob-GEq">
-                                <rect key="frame" x="30" y="665" width="354" height="34"/>
+                                <rect key="frame" x="30" y="645" width="354" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="zDe-Iz-IEA"/>
                                 </constraints>
@@ -10740,7 +10720,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="O6P-CG-yfy">
-                                <rect key="frame" x="266" y="710" width="118" height="50"/>
+                                <rect key="frame" x="266" y="690" width="118" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISD-gF-1HB">
                                         <rect key="frame" x="0.0" y="0.0" width="56" height="50"/>
@@ -10985,13 +10965,13 @@ Taïste may contain links to third-party websites or services that are not contr
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Any Allergies?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRU-i9-P0a">
-                                <rect key="frame" x="29" y="478" width="93" height="16"/>
+                                <rect key="frame" x="29" y="458" width="93" height="16"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="List allergies here." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QNv-P6-zjg">
-                                <rect key="frame" x="29" y="510" width="354" height="34"/>
+                                <rect key="frame" x="29" y="490" width="354" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="qyQ-g9-JJz"/>
                                 </constraints>
@@ -11000,7 +10980,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Additional Menu Items or Categories Requested" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgD-fk-d3k">
-                                <rect key="frame" x="29" y="559" width="308" height="16"/>
+                                <rect key="frame" x="29" y="539" width="308" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="bDZ-oZ-cq7"/>
                                 </constraints>
@@ -11009,7 +10989,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please list exact menu item titles or categories." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dce-AR-GNg">
-                                <rect key="frame" x="29" y="587" width="354" height="34"/>
+                                <rect key="frame" x="29" y="567" width="354" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="esx-yF-YaI"/>
                                 </constraints>
@@ -11028,25 +11008,32 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOv-Aj-MDR">
+                                <rect key="frame" x="0.0" y="94" width="414" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="8C8-3L-Ven"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="kvq-E3-MfC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="b60-g5-2Ct"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="a0P-0a-YGP" firstAttribute="top" secondItem="4Wf-JJ-Obs" secondAttribute="bottom" constant="25.5" id="0UM-aW-zRk"/>
+                            <constraint firstItem="dG3-gE-UZt" firstAttribute="leading" secondItem="zCh-3S-Lgz" secondAttribute="leading" id="0sj-cU-mwO"/>
+                            <constraint firstAttribute="trailing" secondItem="AOv-Aj-MDR" secondAttribute="trailing" id="1fc-b7-gpD"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="dce-AR-GNg" secondAttribute="trailing" constant="31" id="1fp-Ns-Nsf"/>
                             <constraint firstItem="Saz-Yg-uwq" firstAttribute="top" secondItem="4Wf-JJ-Obs" secondAttribute="top" id="2C2-wp-qOQ"/>
                             <constraint firstItem="QNv-P6-zjg" firstAttribute="top" secondItem="qRU-i9-P0a" secondAttribute="bottom" constant="16" id="3qM-kO-dm0"/>
                             <constraint firstItem="CNc-Ob-GEq" firstAttribute="top" secondItem="bmL-nN-OU0" secondAttribute="bottom" constant="12" id="4Ai-Bs-uj4"/>
                             <constraint firstItem="jGF-EQ-gm1" firstAttribute="leading" secondItem="Arj-ba-Yb4" secondAttribute="trailing" constant="5" id="4aA-ag-MT8"/>
-                            <constraint firstItem="1EV-Xh-lbG" firstAttribute="top" secondItem="4yS-WN-GHJ" secondAttribute="bottom" constant="11" id="5vg-Cl-BUh"/>
                             <constraint firstItem="bO1-19-1ix" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="25" id="6MQ-02-EtV"/>
-                            <constraint firstItem="4yS-WN-GHJ" firstAttribute="top" secondItem="b60-g5-2Ct" secondAttribute="top" constant="11" id="6Vb-eW-5Kp"/>
                             <constraint firstItem="bO1-19-1ix" firstAttribute="centerY" secondItem="zCh-3S-Lgz" secondAttribute="centerY" constant="24.5" id="7Gb-ZS-UYb"/>
                             <constraint firstItem="z9J-KS-V9q" firstAttribute="trailing" secondItem="b60-g5-2Ct" secondAttribute="trailing" id="8a9-rx-wDG"/>
                             <constraint firstItem="a0P-0a-YGP" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="8op-sw-Hiq"/>
                             <constraint firstItem="z9J-KS-V9q" firstAttribute="top" secondItem="zuL-LT-Sir" secondAttribute="top" constant="215" id="8pV-ri-5Ge"/>
-                            <constraint firstItem="bxl-1N-XR5" firstAttribute="top" secondItem="dG3-gE-UZt" secondAttribute="bottom" constant="10" id="9a2-02-C8n"/>
-                            <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="dG3-gE-UZt" secondAttribute="trailing" constant="15" id="Bmg-9N-qeM"/>
+                            <constraint firstItem="4yS-WN-GHJ" firstAttribute="top" secondItem="Klv-tR-bJi" secondAttribute="top" id="B3h-Pd-O8W"/>
                             <constraint firstItem="rff-Rm-Zai" firstAttribute="top" secondItem="JnW-1G-lDG" secondAttribute="bottom" constant="15" id="Btc-k8-e6n"/>
                             <constraint firstItem="Arj-ba-Yb4" firstAttribute="top" secondItem="zlI-gj-LWP" secondAttribute="bottom" constant="8" id="Bwh-af-Yxf"/>
                             <constraint firstItem="JnW-1G-lDG" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="C2K-Xd-xWj"/>
@@ -11055,16 +11042,17 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="qRU-i9-P0a" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="29" id="Dou-Db-yiF"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="QNv-P6-zjg" secondAttribute="trailing" constant="31" id="F9G-qx-JCp"/>
                             <constraint firstItem="O6P-CG-yfy" firstAttribute="top" secondItem="CNc-Ob-GEq" secondAttribute="bottom" constant="11" id="HE2-3d-Vxt"/>
-                            <constraint firstItem="dG3-gE-UZt" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="15" id="Ja1-7r-a1E"/>
+                            <constraint firstItem="4yS-WN-GHJ" firstAttribute="centerY" secondItem="Klv-tR-bJi" secondAttribute="centerY" id="JcL-CN-4Uo"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="jGF-EQ-gm1" secondAttribute="trailing" constant="10" id="L5C-lR-LRr"/>
+                            <constraint firstItem="4yS-WN-GHJ" firstAttribute="top" secondItem="b60-g5-2Ct" secondAttribute="top" constant="11" id="LXL-7F-8gx"/>
                             <constraint firstItem="JnW-1G-lDG" firstAttribute="top" secondItem="Arj-ba-Yb4" secondAttribute="bottom" constant="19" id="LaT-lH-x5r"/>
                             <constraint firstItem="QNv-P6-zjg" firstAttribute="top" secondItem="qRU-i9-P0a" secondAttribute="bottom" constant="16" id="MDT-pi-YZJ"/>
-                            <constraint firstItem="qRU-i9-P0a" firstAttribute="bottom" secondItem="bO1-19-1ix" secondAttribute="bottom" constant="-266" id="MPQ-rO-l6u"/>
                             <constraint firstItem="bO1-19-1ix" firstAttribute="top" secondItem="a0P-0a-YGP" secondAttribute="bottom" constant="44" id="MWc-rR-Gqp"/>
                             <constraint firstAttribute="bottom" secondItem="z9J-KS-V9q" secondAttribute="bottom" constant="136" id="NAu-TM-MfL"/>
                             <constraint firstItem="zlI-gj-LWP" firstAttribute="top" secondItem="a0P-0a-YGP" secondAttribute="bottom" constant="30" id="Nal-Bm-5x4"/>
                             <constraint firstItem="fgD-fk-d3k" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="29" id="Nul-WO-YDZ"/>
                             <constraint firstItem="bxl-1N-XR5" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="10" id="OFg-Wt-i04"/>
+                            <constraint firstItem="4yS-WN-GHJ" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="13" id="Oeh-So-W0w"/>
                             <constraint firstItem="22E-ol-4L3" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="29" id="Oor-Tn-b7t"/>
                             <constraint firstItem="4Wf-JJ-Obs" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="POa-ii-R3T"/>
                             <constraint firstItem="22E-ol-4L3" firstAttribute="top" secondItem="JnW-1G-lDG" secondAttribute="bottom" constant="7" id="QBz-Dc-HMy"/>
@@ -11073,35 +11061,36 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JnW-1G-lDG" secondAttribute="trailing" symbolic="YES" id="TFk-am-fRd"/>
                             <constraint firstItem="CNc-Ob-GEq" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="Twp-e1-QfT"/>
                             <constraint firstItem="LwK-JM-PMA" firstAttribute="leading" secondItem="SIA-Vo-Vhz" secondAttribute="trailing" constant="10" id="Ucq-r1-aO9"/>
+                            <constraint firstItem="Klv-tR-bJi" firstAttribute="centerX" secondItem="zuL-LT-Sir" secondAttribute="centerX" id="Uev-f9-7ai"/>
                             <constraint firstItem="dce-AR-GNg" firstAttribute="top" secondItem="fgD-fk-d3k" secondAttribute="bottom" constant="12" id="WB9-YW-rE5"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="bO1-19-1ix" secondAttribute="trailing" constant="25" id="XPL-zp-Uhr"/>
-                            <constraint firstItem="4yS-WN-GHJ" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="13" id="a1e-0d-srd"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Wf-JJ-Obs" secondAttribute="trailing" symbolic="YES" id="alT-Be-Pno"/>
+                            <constraint firstItem="qRU-i9-P0a" firstAttribute="top" secondItem="rff-Rm-Zai" secondAttribute="bottom" constant="34" id="b1S-2p-h4y"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="SIA-Vo-Vhz" secondAttribute="trailing" constant="158" id="bpm-W9-8Cn"/>
                             <constraint firstItem="z9J-KS-V9q" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" id="dPe-LZ-RoI"/>
                             <constraint firstItem="LwK-JM-PMA" firstAttribute="centerY" secondItem="SIA-Vo-Vhz" secondAttribute="centerY" constant="1" id="ela-mS-tfb"/>
+                            <constraint firstItem="AOv-Aj-MDR" firstAttribute="top" secondItem="b60-g5-2Ct" secondAttribute="top" constant="46" id="fQs-jF-EcS"/>
                             <constraint firstItem="fgD-fk-d3k" firstAttribute="top" secondItem="QNv-P6-zjg" secondAttribute="bottom" constant="15" id="gJz-QD-ArI"/>
-                            <constraint firstItem="4Wf-JJ-Obs" firstAttribute="top" secondItem="bxl-1N-XR5" secondAttribute="bottom" constant="10" id="gLi-rs-hVM"/>
+                            <constraint firstItem="4Wf-JJ-Obs" firstAttribute="top" secondItem="bxl-1N-XR5" secondAttribute="bottom" constant="17" id="gLi-rs-hVM"/>
                             <constraint firstItem="Saz-Yg-uwq" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="hPn-5g-Thu"/>
                             <constraint firstItem="zlI-gj-LWP" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="i14-eT-TIP"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="zCh-3S-Lgz" secondAttribute="trailing" constant="3" id="ihP-ir-zMO"/>
                             <constraint firstItem="Arj-ba-Yb4" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="25" id="j36-3q-2YH"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rff-Rm-Zai" secondAttribute="trailing" symbolic="YES" id="kMk-20-m3h"/>
                             <constraint firstItem="zCh-3S-Lgz" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="15" id="mS3-Vu-7Go"/>
-                            <constraint firstItem="dG3-gE-UZt" firstAttribute="top" secondItem="1EV-Xh-lbG" secondAttribute="bottom" constant="10.5" id="mpG-Sm-kNp"/>
+                            <constraint firstItem="bxl-1N-XR5" firstAttribute="top" secondItem="dG3-gE-UZt" secondAttribute="bottom" constant="10" id="mu4-rF-q5d"/>
                             <constraint firstItem="bmL-nN-OU0" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="30" id="pvw-jD-PmT"/>
-                            <constraint firstItem="Klv-tR-bJi" firstAttribute="top" secondItem="b60-g5-2Ct" secondAttribute="top" constant="11" id="qnO-Dc-RmZ"/>
+                            <constraint firstItem="AOv-Aj-MDR" firstAttribute="leading" secondItem="zuL-LT-Sir" secondAttribute="leading" id="quT-As-nLk"/>
                             <constraint firstItem="bmL-nN-OU0" firstAttribute="top" secondItem="dce-AR-GNg" secondAttribute="bottom" constant="16" id="rRd-Hw-I0G"/>
                             <constraint firstItem="dce-AR-GNg" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="29" id="rz6-Vk-Wcy"/>
-                            <constraint firstItem="Klv-tR-bJi" firstAttribute="centerX" secondItem="zuL-LT-Sir" secondAttribute="centerX" id="s9k-2C-vhw"/>
-                            <constraint firstAttribute="trailing" secondItem="1EV-Xh-lbG" secondAttribute="trailing" id="toP-m5-vfI"/>
-                            <constraint firstItem="1EV-Xh-lbG" firstAttribute="leading" secondItem="zuL-LT-Sir" secondAttribute="leading" id="tqk-kp-hAQ"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bmL-nN-OU0" secondAttribute="trailing" symbolic="YES" id="v9C-qc-bPv"/>
                             <constraint firstItem="rff-Rm-Zai" firstAttribute="leading" secondItem="22E-ol-4L3" secondAttribute="trailing" constant="10" id="wbv-Lg-blb"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="O6P-CG-yfy" secondAttribute="trailing" constant="30" id="wir-6p-KNx"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="trailing" secondItem="CNc-Ob-GEq" secondAttribute="trailing" constant="30" id="x0j-ny-506"/>
+                            <constraint firstItem="dG3-gE-UZt" firstAttribute="top" secondItem="b60-g5-2Ct" secondAttribute="top" constant="57.5" id="xoh-s2-ZxU"/>
                             <constraint firstItem="QNv-P6-zjg" firstAttribute="leading" secondItem="b60-g5-2Ct" secondAttribute="leading" constant="29" id="yLc-C9-nGm"/>
                             <constraint firstItem="b60-g5-2Ct" firstAttribute="bottom" secondItem="zCh-3S-Lgz" secondAttribute="bottom" id="yNB-65-lBa"/>
+                            <constraint firstItem="dG3-gE-UZt" firstAttribute="centerX" secondItem="zuL-LT-Sir" secondAttribute="centerX" id="yvg-cX-rTz"/>
                             <constraint firstItem="bO1-19-1ix" firstAttribute="top" secondItem="zuL-LT-Sir" secondAttribute="top" constant="317" id="zSz-MD-v2U"/>
                         </constraints>
                     </view>
@@ -11150,7 +11139,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Notifications View Controller-->
         <scene sceneID="0om-4Y-1aA">
             <objects>
-                <viewController storyboardIdentifier="Notifications" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y7f-58-WiD" customClass="NotificationsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Notifications" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Y7f-58-WiD" customClass="NotificationsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CRt-XV-FkG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -11243,7 +11232,7 @@ Taïste may contain links to third-party websites or services that are not contr
         <!--Guide To Purchasing View Controller-->
         <scene sceneID="eVq-dt-sq7">
             <objects>
-                <viewController storyboardIdentifier="GuideToPurchasing" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="zQb-gf-lud" customClass="GuideToPurchasingViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GuideToPurchasing" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="zQb-gf-lud" customClass="GuideToPurchasingViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0b8-J7-Lcd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -11580,7 +11569,7 @@ Taïste platform fees are about 5% for consumers plus local and federal sales ta
         <!--Guide To Posting View Controller-->
         <scene sceneID="Fm7-yX-LYo">
             <objects>
-                <viewController storyboardIdentifier="GuideToPosting" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DSk-eU-Xw6" customClass="GuideToPostingViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GuideToPosting" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="DSk-eU-Xw6" customClass="GuideToPostingViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gOn-Uz-Xas">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -12045,7 +12034,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <!--Menu Item Additions View Controller-->
         <scene sceneID="mji-JX-3xr">
             <objects>
-                <viewController storyboardIdentifier="MenuItemAdditions" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="wDV-P5-3YK" customClass="MenuItemAdditionsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuItemAdditions" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="wDV-P5-3YK" customClass="MenuItemAdditionsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ycl-bm-RbF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -12230,7 +12219,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <!--Guide To Meal Kit View Controller-->
         <scene sceneID="Gbq-gv-hQg">
             <objects>
-                <viewController storyboardIdentifier="GuideToMealKits" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dAr-eY-HCn" customClass="GuideToMealKitViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GuideToMealKits" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dAr-eY-HCn" customClass="GuideToMealKitViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1B8-9a-jJu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -12799,7 +12788,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <!--Youtube View Controller-->
         <scene sceneID="tuv-JL-fNT">
             <objects>
-                <viewController storyboardIdentifier="MealKitVideo" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Z0x-LX-csr" customClass="YoutubeViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MealKitVideo" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Z0x-LX-csr" customClass="YoutubeViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="x8U-iK-PQN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -12917,7 +12906,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <!--Guide To Cater Items View Controller-->
         <scene sceneID="rdz-RJ-aqb">
             <objects>
-                <viewController storyboardIdentifier="GuideToCaterItems" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Rz9-n2-Uqd" customClass="GuideToCaterItemsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GuideToCaterItems" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Rz9-n2-Uqd" customClass="GuideToCaterItemsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k1R-9p-qOA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -13283,7 +13272,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <!--Guide To Executive Items View Controller-->
         <scene sceneID="H6b-b6-WA7">
             <objects>
-                <viewController storyboardIdentifier="GuideToExecutiveItems" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="t32-Lt-dfi" customClass="GuideToExecutiveItemsViewController" customModule="Taïste" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GuideToExecutiveItems" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="t32-Lt-dfi" customClass="GuideToExecutiveItemsViewController" customModule="Taiste" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J7Z-aU-NQe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -13742,7 +13731,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <segue reference="gmU-Hz-wfQ"/>
         <segue reference="Rso-l9-LlW"/>
         <segue reference="BS6-oY-CaB"/>
-        <segue reference="S4F-HQ-YjE"/>
+        <segue reference="pLy-kt-z7b"/>
         <segue reference="KUI-PT-pbS"/>
     </inferredMetricsTieBreakers>
     <resources>

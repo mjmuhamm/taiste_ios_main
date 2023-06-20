@@ -141,9 +141,9 @@ class OrdersViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String,let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let userEmail = data["userEmail"] as? String, let userName = data["userName"] as? String {
+                            if let cancelled = data["cancelled"] as? String, let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefUsername = data["chefUsername"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let distance = data["distance"] as? String, let eventDates = data["eventDates"] as? [String], let eventTimes = data["eventTimes"] as? [String], let eventNotes = data["eventNotes"] as? String, let eventQuantity = data["eventQuantity"] as? String, let eventType = data["eventType"] as? String, let itemDescription = data["itemDescription"] as? String, let itemTitle = data["itemTitle"] as? String, let location = data["location"] as? String,let menuItemId = data["menuItemId"] as? String, let numberOfEvents = data["numberOfEvents"] as? Int, let orderDate = data["orderDate"] as? String, let orderId = data["orderId"] as? String, let orderUpdate = data["orderUpdate"] as? String, let priceToChef = data["priceToChef"] as? Double, let taxesAndFees = data["taxesAndFees"] as? Double, let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let travelFeeExpenseOption = data["travelExpenseOption"] as? String, let travelFee = data["travelFee"] as? String, let travelFeeAccepted = data["travelFeeAccepted"] as? String, let travelFeeRequested = data["travelFeeRequested"] as? String, let typeOfService = data["typeOfService"] as? String, let unitPrice = data["unitPrice"] as? String, let user = data["user"] as? String, let userImageId = data["userImageId"] as? String, let creditsApplied = data["creditsApplied"] as? String, let creditIds = data["creditIds"] as? [String], let userNotificationToken = data["userNotificationToken"] as? String, let allergies = data["allergies"] as? String, let additionalMenuItems = data["additionalMenuItems"] as? String, let userEmail = data["userEmail"] as? String, let userName = data["userName"] as? String, let eventDaysForUser = data["eventDaysForUser"] as? [String]{
                                 
-                                let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems, userName: userName, userEmail: userEmail)
+                                let newOrder = Orders(cancelled: cancelled, chefEmail: chefEmail, chefImageId: chefImageId, chefNotificationToken: "chefNotificationToken", chefUsername: chefUsername, city: city, distance: distance, eventDates: eventDates, eventTimes: eventTimes, eventNotes: eventNotes, eventType: eventType, eventQuantity: eventQuantity, itemDescription: itemDescription, itemTitle: itemTitle, location: location, menuItemId: menuItemId, numberOfEvents: numberOfEvents, orderDate: orderDate, orderId: orderId, orderUpdate: orderUpdate, priceToChef: priceToChef, state: state, taxesAndFees: taxesAndFees, totalCostOfEvent: totalCostOfEvent, travelFeeOption: travelFeeExpenseOption, travelFee: travelFee, travelFeeApproved: travelFeeAccepted, travelFeeRequested: travelFeeRequested, typeOfService: typeOfService, unitPrice: unitPrice, user: user, userImageId: userImageId, userNotificationToken: userNotificationToken, documentId: doc.documentID, creditsApplied: creditsApplied, creditIds: creditIds, allergies: allergies, additionalMenuItems: additionalMenuItems, userName: userName, userEmail: userEmail, eventDaysForUser: eventDaysForUser)
                                 
                                 if orderUpdate == "pending" {
                                     if self.toggle == "Pending" {
@@ -258,6 +258,62 @@ class OrdersViewController: UIViewController {
             })
             task.resume()
             
+    }
+    
+    private func transfer(transferAmount: Double, chefImageId: String, orderId: String, eventDate: String) {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let df1 = DateFormatter()
+        df1.dateFormat = "MM-dd-yyyy hh:mm a"
+        if Auth.auth().currentUser != nil {
+            db.collection("Chef").document(chefImageId).collection("BankingInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let stripeAccountId = data["stripeAccountId"] as? String {
+                                let a = transferAmount * 100
+                                let amount = String(format: "%.0f", a)
+                                
+                                let json: [String: Any] = ["amount": amount, "stripeAccountId" : stripeAccountId]
+                                
+                                let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                                // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+                                var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/transfer")!)
+                                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                                request.httpMethod = "POST"
+                                request.httpBody = jsonData
+                                let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data,response, error) in
+                                    guard let data = data,
+                                          let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                                          let transferId = json["transferId"], let self = self else {
+                                        // Handle error
+                                        return
+                                    }
+                                    
+                                    DispatchQueue.main.async {
+                                        
+                                        let data : [String: Any] = ["transferId" : transferId, "orderId" : orderId, "date" : df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
+                                        self.db.collection("Transfers").document(orderId).setData(data)
+                                        let data1: [String: Any] = ["notifications" : "yes"]
+                                        let data2: [String: Any] = ["notification" : "a payout of $\(String(format: "%.2f", transferAmount)) is on its way for \(eventDate).", "date" : df1.string(from: Date())]
+                                        self.db.collection("Chef").document(chefImageId).updateData(data1)
+                                        self.db.collection("Chef").document(chefImageId).collection("Notifications").document().setData(data2)
+                                       
+                                    }
+                                })
+                                task.resume()
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
     }
     
     func showToast(message : String, font: UIFont) {
@@ -418,9 +474,7 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
               if hourAfterEventEnds <= 0 {
                   
                   let data2 : [String : Any] = ["orderUpdate" : "complete"]
-                  self.db.collection("Chef").document(order.chefImageId).collection("Orders").document(order.orderId).updateData(data2)
                   self.db.collection("User").document(order.userImageId).collection("Orders").document(order.orderId).updateData(data2)
-                  self.db.collection("Orders").document(order.orderId).updateData(data2)
                   if let index = self.orders.firstIndex(where: { $0.documentId == order.documentId }) {
                       self.orders.remove(at: index)
                       self.scheduledOrders.remove(at: index)
@@ -469,11 +523,21 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
         cell.showDatesButtonTapped = {
             cell.showInfoView.isHidden = false
             cell.showInfoLabel.text = "Date(s) of Event"
-            for i in 0..<order.eventDates.count {
-                if i == 0 {
-                    cell.showInfoText.text = "Dates: \(order.eventDates[i]) \(order.eventTimes[i])"
-                } else {
-                    cell.showInfoText.text = "\(cell.showInfoText.text!), \(order.eventDates[i]) \(order.eventTimes[i])"
+            if order.typeOfService != "Executive Items" {
+                for i in 0..<order.eventDates.count {
+                    if i == 0 {
+                        cell.showInfoText.text = "Dates: \(order.eventDates[i]) \(order.eventTimes[i])"
+                    } else {
+                        cell.showInfoText.text = "\(cell.showInfoText.text!), \(order.eventDates[i]) \(order.eventTimes[i])"
+                    }
+                }
+            } else {
+                for i in 0..<order.eventDaysForUser.count {
+                    if i == 0 {
+                        cell.showInfoText.text = "Dates: \(order.eventDaysForUser[i])"
+                    } else {
+                        cell.showInfoText.text = "\(cell.showInfoText.text!), \(order.eventDaysForUser[i])"
+                    }
                 }
             }
         }
@@ -656,6 +720,30 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
                     
                     
                     alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
+                      
+                        let date = Date()
+                        let df = DateFormatter()
+                        df.dateFormat = "MM-dd-yyyy hh:mm a"
+                        let date1 =  df.string(from: Date())
+                        let data3: [String: Any] = ["notification" : "\(guserName) has just cancelled your item (\(order.typeOfService)) about \(order.itemTitle). You will receive $\(chargeForPayout * 0.90) for this inconvenience unless you owe from cancellations.", "date" : date1]
+                        let data4: [String: Any] = ["notifications" : "yes"]
+                        self.db.collection("Chef").document(order.chefImageId).collection("Notifications").document().setData(data3)
+                        self.db.collection("Chef").document(order.chefImageId).updateData(data4)
+                        
+                        self.db.collection("Chef").document(order.chefImageId).getDocument { document, error in
+                            if error == nil {
+                                let data = document!.data()
+                                if let chargeForPayout1 = data!["chargeForPayout"] as? Double {
+                                    let pay = chargeForPayout * 0.90
+                                    if pay - chargeForPayout1 > 0 {
+                                        let data4: [String: Any] = ["chargeForPayout" : 0]
+                                        self.db.collection("Chef").document(order.chefImageId).updateData(data4)
+                                        self.transfer(transferAmount: pay - chargeForPayout1, chefImageId: order.chefImageId, orderId: order.orderId, eventDate: order.itemTitle)
+                                    }
+                                }
+                            }
+                        }
+                        
                         self.db.collection("Orders").document(order.documentId).getDocument { document, error in
                             if error == nil {
                                 if document != nil {
@@ -673,14 +761,6 @@ extension OrdersViewController : UITableViewDataSource, UITableViewDelegate {
                                 }
                             }
                         }
-                        let date = Date()
-                        let df = DateFormatter()
-                        df.dateFormat = "MM-dd-yyyy hh:mm a"
-                        let date1 =  df.string(from: Date())
-                        let data3: [String: Any] = ["notification" : "\(guserName) has just cancelled your item (\(order.typeOfService)) about \(order.itemTitle)", "date" : date1]
-                        let data4: [String: Any] = ["notifications" : "yes"]
-                        self.db.collection("Chef").document(order.chefImageId).collection("Notifications").document().setData(data3)
-                        self.db.collection("Chef").document(order.chefImageId).updateData(data4)
                     }))
                     
                     alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (handler) in

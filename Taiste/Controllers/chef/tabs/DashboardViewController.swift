@@ -62,6 +62,7 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         itemButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         itemTypeButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         itemButton.setBorderColor(.clear, for: .normal)
@@ -71,7 +72,7 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
         itemTypeMenu.anchorView = itemTypeText
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
-       
+            payout()
         itemTypeMenu.selectionAction = { index, item in
             self.itemTypeText.text = item
             if self.time != "Yearly" {
@@ -210,6 +211,157 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
             self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
         }
     }
+    
+    ///------------
+    ///
+    private func payout() {
+        let db = Firestore.firestore()
+        let date = Date()
+        let dfCompare = DateFormatter()
+        dfCompare.dateFormat = "MM-dd-yyyy HH:mm"
+        
+        
+        db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").addSnapshotListener { documents, error in
+            if error == nil {
+                if documents != nil {
+                    for doc in documents!.documents {
+                        let data = doc.data()
+                        
+                        if var eventDates = data["eventDates"] as? [String], var eventTimes = data["eventTimes"] as? [String], let totalCostOfEvent = data["totalCostOfEvent"] as? Double, let orderUpdate = data["orderUpdate"] as? String, let typeOfService = data["typeOfService"] as? String, let menuItemId = data["menuItemId"] as? String, let userImageId = data["userImageId"] as? String, let chefImageId = data["chefImageId"] as? String, var payoutDates = data["payoutDates"] as? [String] {
+                            
+                                
+                            if orderUpdate == "Scheduled" {
+                                var newEventDates : [Date] = []
+                                var percent : Double?
+                                for i in 0..<eventDates.count {
+                                    var eventHour = Int(eventTimes[i].prefix(2))!
+                                    var eventTime = ""
+                                    if eventTimes[i].suffix(2) == "PM" {
+                                        eventHour = eventHour + 12
+                                    }
+                                    
+                                    eventTime = "\(eventHour):\(eventTimes[i].suffix(5).prefix(2))"
+                                    let newTime = dfCompare.date(from: "\(eventDates[i]) \(eventTime)")
+                                    
+                                    print("eventTime \(eventDates[i]) \(eventTime)")
+                                    
+                                    newEventDates.append(newTime!)
+                                    newEventDates = newEventDates.sorted(by: { $0.compare($1) == .orderedAscending })
+                                
+                                    }
+                                for i in 0..<newEventDates.count {
+                                    let tod = dfCompare.string(from: Date())
+                                    let today = dfCompare.date(from: tod)
+                                    
+                                    let x = today!.distance(to: newEventDates[i]) / 3600
+                                    let hourAfterEventEnds = x + 1
+                                    
+                                        if hourAfterEventEnds <= 0 {
+                                            if !payoutDates.contains("\(newEventDates[i])") {
+                                                let data5: [String: Any] = ["payoutDates" : newEventDates[i]]
+                                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(menuItemId).updateData(["payoutDates" : FieldValue.arrayUnion(["\(newEventDates[i])"])])
+                                                self.db.collection("Orders").document(menuItemId).updateData(["payoutDates" : FieldValue.arrayUnion(["\(newEventDates[i])"])])
+                                                self.transfer(transferAmount: (totalCostOfEvent - (totalCostOfEvent * 0.05)) / Double(eventDates.count), orderId: doc.documentID, userImageId: userImageId, chefImageId: chefImageId, type: typeOfService, eventDate: "", complete: "")
+                                                if payoutDates.count + 1 == eventDates.count {
+                                                    let data4: [String: Any] = ["orderUpdate" : "complete"]
+                                                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Orders").document(menuItemId).updateData(data4)
+                                                    self.db.collection("Orders").document(menuItemId).updateData(data4)
+                                                } else {
+                                                    payoutDates.append("123")
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                            }
+                            }
+                    }
+                }
+            }
+        
+        }
+    private func transfer(transferAmount: Double, orderId: String, userImageId: String, chefImageId: String, type: String, eventDate: String, complete: String) {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let df1 = DateFormatter()
+        df1.dateFormat = "MM-dd-yyyy hh:mm a"
+        if Auth.auth().currentUser != nil {
+            self.db.collection("Chef").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+                if error == nil {
+                    if document != nil {
+                        let data = document!.data()
+                        if let owe = data!["chargeForPayout"] as? Double {
+                            if transferAmount - owe < 0 {
+                                let amountOwed = owe - transferAmount
+                                let owe : [String : Any] = ["chargeForPayout" : amountOwed]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(owe)
+                                let data4: [String: Any] = ["notification" : "You still owed $\(owe) from cancellations. Your new amount owed is $\(amountOwed).", "date": df.string(from: Date())]
+                                let data5: [String: Any] = ["notifications" : "yes"]
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Notifications").document().setData(data4)
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data5)
+                            } else {
+                        
+                                self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("BankingInfo").getDocuments { documents, error in
+                if error == nil {
+                    if documents != nil {
+                        for doc in documents!.documents {
+                            let data = doc.data()
+                            
+                            if let stripeAccountId = data["stripeAccountId"] as? String {
+                                let a = (transferAmount - owe) * 100
+                                
+                                let amount = String(format: "%.0f", a)
+                                
+                                let json: [String: Any] = ["amount": amount, "stripeAccountId" : stripeAccountId]
+                                
+                                let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                                // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
+                                var request = URLRequest(url: URL(string: "https://taiste-payments.onrender.com/transfer")!)
+                                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                                request.httpMethod = "POST"
+                                request.httpBody = jsonData
+                                let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data,response, error) in
+                                    guard let data = data,
+                                          let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                                          let transferId = json["transferId"], let self = self else {
+                                        // Handle error
+                                        return
+                                    }
+                                    
+                                    DispatchQueue.main.async {
+                                        
+                                        let data : [String: Any] = ["transferId" : transferId, "orderId" : orderId, "date" : df.string(from: Date()), "userImageId" : userImageId, "chefImageId" : chefImageId]
+                                        self.db.collection("Transfers").document(orderId).setData(data)
+                                        let data1: [String: Any] = ["notifications" : "yes"]
+                                        let data2: [String: Any] = ["notification" : "a payout of $\(String(format: "%.2f", transferAmount)) is on its way for \(eventDate).", "date" : df1.string(from: Date())]
+                                        self.db.collection("Chef").document(chefImageId).updateData(data1)
+                                        self.db.collection("Chef").document(chefImageId).collection("Notifications").document().setData(data2)
+                                        if type != "Executive Items" || complete == "yes" {
+                                            let data2 : [String : Any] = ["orderUpdate" : "complete"]
+                                            self.db.collection("Chef").document(chefImageId).collection("Orders").document(orderId).updateData(data2)
+                                            self.db.collection("User").document(userImageId).collection("Orders").document(orderId).updateData(data2)
+                                            self.db.collection("Orders").document(orderId).updateData(data2)
+                                        }
+                                        
+                                        self.showToast(message: "$\(String(format: "%.2f", transferAmount)) payout on the way.", font: .systemFont(ofSize: 12))
+                                    }
+                                })
+                                task.resume()
+                            }
+                            
+                        }
+                    }
+                    }
+                }}}}
+                }
+            }
+        } else {
+            self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
+        }
+    }
+
+    ///--------------
     
     private func loadItemWeeklyData(itemTitle: String) {
         if Auth.auth().currentUser != nil {
@@ -411,7 +563,7 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
                             if error == nil {
                                 if document != nil {
                                     if let total = document!.get("totalPay") {
-                                        pieChartData.append(PieChartDataEntry(value: Double("\(total)")!, label: array1[i]))
+                                        pieChartData.append(PieChartDataEntry(value: Double(String(format: "%2.f", Double("\(total)")!))!, label: array1[i]))
                                         
                                         let set = PieChartDataSet(entries: pieChartData)
                                         set.colors = ChartColorTemplates.pastel()
@@ -445,7 +597,7 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
                                                         print("total \(total)")
                                                         print("item title \(itemTitle)")
                                                         
-                                                        pieChartData.append(PieChartDataEntry(value: Double("\(total)")!, label: itemTitle))
+                                                        pieChartData.append(PieChartDataEntry(value: Double(String(format: "%2.f", Double("\(total)")!))!, label: itemTitle))
                                                         self.pieChart.entryLabelColor = .clear
                                                         
                                                         let set = PieChartDataSet(entries: pieChartData)
