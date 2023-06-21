@@ -10443,28 +10443,8 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <color key="textColor" systemColor="systemGray4Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMb-rf-Miz" customClass="MDCButton">
-                                <rect key="frame" x="69" y="844" width="35" height="38"/>
-                                <color key="backgroundColor" red="0.62745098040000002" green="0.63529411759999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="Xsu-o8-EhL"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Hourly">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <state key="selected">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="hourlyButtonPressed:" destination="gdA-kq-KyV" eventType="touchUpInside" id="5hX-EI-QbF"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-Hd-yuy" customClass="MDCButton">
-                                <rect key="frame" x="112" y="844" width="62" height="38"/>
+                                <rect key="frame" x="73" y="844" width="62" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="L5b-6d-7oI"/>
@@ -10490,7 +10470,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nei-bm-HqT">
-                                <rect key="frame" x="175" y="844" width="72" height="38"/>
+                                <rect key="frame" x="136" y="844" width="93" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="gqI-gp-rTN"/>
                                 </constraints>
@@ -10529,6 +10509,7 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="K0i-J0-nyk" firstAttribute="top" secondItem="eHo-CM-v8F" secondAttribute="bottom" constant="9" id="8Yu-Zw-NkB"/>
                             <constraint firstItem="OCA-2O-dXR" firstAttribute="top" secondItem="peL-Uu-4jZ" secondAttribute="bottom" constant="9" id="9Aq-Hk-2Kz"/>
                             <constraint firstItem="vaq-M3-mH5" firstAttribute="top" secondItem="djI-7y-b0K" secondAttribute="bottom" constant="6" id="9BU-wM-Xak"/>
+                            <constraint firstItem="xk2-Hd-yuy" firstAttribute="leading" secondItem="pXv-PO-VW5" secondAttribute="trailing" constant="24" id="BO5-94-GWX"/>
                             <constraint firstItem="K0i-J0-nyk" firstAttribute="leading" secondItem="hYj-cY-r36" secondAttribute="trailing" constant="10" id="Duy-tZ-XJ1"/>
                             <constraint firstItem="Gcv-fq-4k1" firstAttribute="top" secondItem="tvZ-az-bEE" secondAttribute="bottom" constant="14" id="E2e-1z-l9w"/>
                             <constraint firstItem="peL-Uu-4jZ" firstAttribute="leading" secondItem="hYj-cY-r36" secondAttribute="trailing" constant="10" id="Exc-V2-pU9"/>
@@ -10540,12 +10521,11 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="XUs-CQ-dxF" firstAttribute="top" secondItem="bap-rj-3CE" secondAttribute="bottom" constant="23" id="Kfq-YD-hZG"/>
                             <constraint firstItem="GMI-Wa-OBa" firstAttribute="trailing" secondItem="NSi-Tk-fd5" secondAttribute="trailing" constant="17" id="L5g-Au-oFr"/>
                             <constraint firstItem="bap-rj-3CE" firstAttribute="leading" secondItem="peL-Uu-4jZ" secondAttribute="trailing" constant="15" id="M5V-CB-8a7"/>
-                            <constraint firstItem="xk2-Hd-yuy" firstAttribute="leading" secondItem="SMb-rf-Miz" secondAttribute="trailing" constant="8" symbolic="YES" id="O83-yK-VyR"/>
                             <constraint firstItem="IQS-ZX-JpW" firstAttribute="top" secondItem="djI-7y-b0K" secondAttribute="bottom" constant="11" id="Omf-If-meC"/>
+                            <constraint firstItem="nei-bm-HqT" firstAttribute="leading" secondItem="xk2-Hd-yuy" secondAttribute="trailing" constant="1" id="PKs-CM-vP3"/>
                             <constraint firstItem="tvZ-az-bEE" firstAttribute="top" secondItem="NSi-Tk-fd5" secondAttribute="bottom" constant="2" id="QTL-zh-UpM"/>
                             <constraint firstItem="pXv-PO-VW5" firstAttribute="leading" secondItem="GMI-Wa-OBa" secondAttribute="leading" constant="20" id="RFp-yy-GZv"/>
                             <constraint firstItem="4PD-xw-uC3" firstAttribute="centerX" secondItem="F4w-qv-rHp" secondAttribute="centerX" id="S4c-et-eA8"/>
-                            <constraint firstItem="SMb-rf-Miz" firstAttribute="leading" secondItem="pXv-PO-VW5" secondAttribute="trailing" constant="20" id="Wsz-SA-ToI"/>
                             <constraint firstItem="bap-rj-3CE" firstAttribute="top" secondItem="8LL-gH-MG1" secondAttribute="bottom" constant="23" id="Xen-vc-xyY"/>
                             <constraint firstItem="djI-7y-b0K" firstAttribute="leading" secondItem="F4w-qv-rHp" secondAttribute="leading" id="aTO-q7-bHG"/>
                             <constraint firstItem="GMI-Wa-OBa" firstAttribute="trailing" secondItem="Gcv-fq-4k1" secondAttribute="trailing" constant="17" id="c5Z-Xo-NAT"/>
@@ -10564,7 +10544,6 @@ Taïste may contain links to third-party websites or services that are not contr
                             <constraint firstItem="4PD-xw-uC3" firstAttribute="top" secondItem="GMI-Wa-OBa" secondAttribute="top" constant="9" id="uXP-pz-Fzu"/>
                             <constraint firstItem="hYj-cY-r36" firstAttribute="top" secondItem="IQS-ZX-JpW" secondAttribute="bottom" constant="11" id="udG-NH-ERe"/>
                             <constraint firstItem="8LL-gH-MG1" firstAttribute="leading" secondItem="K0i-J0-nyk" secondAttribute="trailing" constant="14" id="umx-cv-8wk"/>
-                            <constraint firstItem="SMb-rf-Miz" firstAttribute="top" secondItem="tvZ-az-bEE" secondAttribute="bottom" constant="14" id="vRu-ZH-Jbu"/>
                             <constraint firstItem="Gcv-fq-4k1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GMI-Wa-OBa" secondAttribute="leading" symbolic="YES" id="vU6-aL-CsM"/>
                             <constraint firstItem="GMI-Wa-OBa" firstAttribute="trailing" secondItem="IQS-ZX-JpW" secondAttribute="trailing" constant="218" id="vY3-zQ-Fch"/>
                             <constraint firstItem="XUs-CQ-dxF" firstAttribute="leading" secondItem="OCA-2O-dXR" secondAttribute="trailing" constant="14" id="wxj-gD-sfV"/>
@@ -10574,7 +10553,6 @@ Taïste may contain links to third-party websites or services that are not contr
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="briefIntroduction" destination="NSi-Tk-fd5" id="5mo-SX-2jB"/>
-                        <outlet property="hourlyButton" destination="SMb-rf-Miz" id="llP-k9-QjZ"/>
                         <outlet property="lengthOfPersonalChef" destination="SOq-Wi-Rnb" id="gx2-eW-Ql6"/>
                         <outlet property="menuRequestsNoButton" destination="7ZU-mv-Cvq" id="Nj9-KU-qaZ"/>
                         <outlet property="menuRequestsYesButton" destination="6dt-1r-Ass" id="12F-va-QAn"/>
@@ -13729,7 +13707,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <segue reference="o3x-XZ-YkT"/>
         <segue reference="tkP-ld-7rs"/>
         <segue reference="gmU-Hz-wfQ"/>
-        <segue reference="Rso-l9-LlW"/>
+        <segue reference="iYy-ep-a24"/>
         <segue reference="BS6-oY-CaB"/>
         <segue reference="pLy-kt-z7b"/>
         <segue reference="KUI-PT-pbS"/>

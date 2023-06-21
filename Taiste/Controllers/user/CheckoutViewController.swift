@@ -340,7 +340,7 @@ func didTapCheckoutButton() {
       switch paymentResult {
       case .completed:
           if self.cant == "cant" {
-              self.showToast(message: "This is a test profile. Please cancel this order.", font: .systemFont(ofSize: 12))
+              self.showToast(message: "You have orders from test profiles in this order. Please cancel this order.", font: .systemFont(ofSize: 12))
           } else {
               self.saveInfo()
           }
