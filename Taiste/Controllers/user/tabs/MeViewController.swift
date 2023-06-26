@@ -93,7 +93,7 @@ class MeViewController: UIViewController {
                 if error == nil {
                     if document != nil {
                         let data = document!.data()
-                        if let notifications = data!["notifications"] as? String {
+                        if let notifications = data?["notifications"] as? String {
                             if notifications == "yes" {
                                 self.newNotificationImage.isHidden = false
                             } else {
@@ -194,7 +194,6 @@ class MeViewController: UIViewController {
         meTableView.reloadData()
        
         
-        if self.orders.isEmpty {
             if Auth.auth().currentUser != nil {
                 db.collection("User").document(Auth.auth().currentUser!.uid).collection("Orders").getDocuments { documents, error in
                     if documents != nil {
@@ -254,11 +253,6 @@ class MeViewController: UIViewController {
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        } else {
-            self.userOrders = self.orders
-            self.meTableView.reloadData()
-            meTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-        }
     }
     
     private func loadChefs() {
@@ -270,7 +264,7 @@ class MeViewController: UIViewController {
         meTableView.reloadData()
         
         
-        if self.chefs.isEmpty {
+        
             if Auth.auth().currentUser != nil {
                 db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
                     
@@ -278,7 +272,7 @@ class MeViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["profileImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
+                            if let chefEmail = data["chefEmail"] as? String, let chefImageId = data["chefImageId"] as? String, let chefName = data["chefUsername"] as? String, let chefPassion = data["chefPassion"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double] {
                                 
                                 
                                 if let index = self.chefs.firstIndex(where: { $0.chefEmail == chefEmail }) {
@@ -316,11 +310,7 @@ class MeViewController: UIViewController {
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        } else {
-            self.userChefs = self.chefs
-            self.meTableView.reloadData()
-            meTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-        }
+        
     }
     
     private func loadLikes() {
@@ -333,7 +323,7 @@ class MeViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         meTableView.reloadData()
-        if self.likes.isEmpty {
+        
             if Auth.auth().currentUser != nil {
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in
                 if error == nil {
@@ -341,7 +331,7 @@ class MeViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["profileImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int  {
+                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["chefImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int  {
                                 print("likes happening")
                                 
                                 
@@ -380,11 +370,7 @@ class MeViewController: UIViewController {
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        } else {
-            self.userLikes = self.likes
-            self.meTableView.reloadData()
-            meTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-        }
+        
     }
     
     private func loadReviews() {
@@ -396,7 +382,6 @@ class MeViewController: UIViewController {
         userReviews.removeAll()
         meTableView.reloadData()
         
-        if self.reviews.isEmpty {
             if Auth.auth().currentUser != nil {
                 db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserReviews").getDocuments { documents, error in
                     if error == nil {
@@ -432,11 +417,7 @@ class MeViewController: UIViewController {
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        } else {
-            self.userReviews = self.reviews
-            self.meTableView.reloadData()
-            meTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-        }
+      
     }
     
     

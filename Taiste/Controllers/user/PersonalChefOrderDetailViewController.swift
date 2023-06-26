@@ -20,8 +20,6 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 
 class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var itemTitle: UILabel!
-    @IBOutlet weak var itemDescription: UILabel!
     @IBOutlet weak var typeOfEventText: MDCOutlinedTextField!
     
     @IBOutlet weak var typeOfEventButton: UIButton!
@@ -95,11 +93,7 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         }
         typeOfEventDropDown.dataSource = ["Trial Run", "Weeks", "Months"]
        
-        itemTitle.text = "Executive Chef"
-        if personalChefInfo != nil {
-            itemDescription.text = personalChefInfo!.briefIntroduction
-        }
-        
+       
         typeOfEventDropDown.selectionAction = { index, item in
             self.typeOfEventText.text = item
             self.quantityText.text = ""
@@ -131,10 +125,6 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
         locationOkButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         locationOkButton.layer.cornerRadius = 2
         
-        if item != nil {
-            itemTitle.text = item!.itemTitle
-            itemDescription.text = item!.itemDescription
-        }
         
         addDateViewButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         okDateViewButton.applyOutlinedTheme(withScheme: globalContainerScheme())
@@ -195,8 +185,6 @@ class PersonalChefOrderDetailViewController: UIViewController, UITextFieldDelega
                     
                     if let chefEmail = data!["chefEmail"] as? String, let chefImageId = data!["chefImageId"] as? String, let chefUsername = data!["chefUsername"] as? String, let menuItemId = data!["menuItemId"] as? String, let itemDescription = data!["itemDescription"] as? String, let itemTitle = data!["itemTitle"] as? String, let datesOfEvent = data!["datesOfEvent"] as? [String], let timesForDatesOfEvent = data!["timesForDatesOfEvent"] as? [String], let travelExpenseOption = data!["travelExpenseOption"] as? String, let totalCostOfEvent = data!["totalCostOfEvent"] as? Double, let priceToChef = data!["priceToChef"] as? Double, let quantityOfEvent = data!["quantityOfEvent"] as? String, let unitPrice = data!["unitPrice"] as? String, let distance = data!["distance"] as? String, let location = data!["location"] as? String, let latitudeOfEvent = data!["latitudeOfEvent"] as? String, let longitudeOfEvent = data!["longitudeOfEvent"] as? String, let notesToChef = data!["notesToChef"] as? String, let typeOfService = data!["typeOfService"] as? String, let typeOfEvent = data!["typeOfEvent"] as? String, let city = data!["city"] as? String, let state = data!["state"] as? String, let user = data!["user"] as? String, let imageCount = data!["imageCount"] as? Int, let liked = data!["liked"] as? [String], let itemOrders = data!["itemOrders"] as? Int, let itemRating = data!["itemRating"] as? [Double], let itemCalories = data!["itemCalories"] as? String, let allergies = data!["allergies"] as? String, let additionalMenuItems = data!["additionalMenuItems"] as? String {
                         
-                        self.itemTitle.text = "Executive Chef"
-                        self.itemDescription.text = itemDescription
                         self.typeOfEventText.text = typeOfEvent
                         self.quantityText.text = quantityOfEvent
                         self.documentId = document!.documentID

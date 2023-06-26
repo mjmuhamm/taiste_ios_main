@@ -26,6 +26,7 @@ class AccountSettingsViewController: UIViewController {
     
     @IBOutlet weak var privatizeYes: MDCButton!
     @IBOutlet weak var privatizeNo: MDCButton!
+    var delete = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,19 +91,21 @@ class AccountSettingsViewController: UIViewController {
     @IBAction func privatizeYesPressed(_ sender: Any) {
         let data : [String: Any] = ["privatizeData" : "yes"]
         db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
+        
         privatizeYes.setTitleColor(UIColor.white, for: .normal)
-        privatizeYes.backgroundColor =  UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        privatizeYes.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         privatizeNo.backgroundColor = UIColor.white
-        privatizeNo.setTitleColor( UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
+        privatizeNo.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
     }
     
     @IBAction func privatizeNoPressed(_ sender: Any) {
         let data : [String: Any] = ["privatizeData" : "no"]
         db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
         privatizeNo.setTitleColor(UIColor.white, for: .normal)
-        privatizeNo.backgroundColor =  UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
+        privatizeNo.backgroundColor = UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1)
         privatizeYes.backgroundColor = UIColor.white
-        privatizeYes.setTitleColor( UIColor(red: 160/255, green: 162/255, blue: 104/255, alpha: 1), for: .normal)
+        privatizeYes.setTitleColor(UIColor(red: 98/255, green: 99/255, blue: 72/255, alpha: 1), for: .normal)
+        
     }
     
     @IBAction func dataPrivacyButtonPressed(_ sender: Any) {
@@ -136,13 +139,15 @@ class AccountSettingsViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
             if Auth.auth().currentUser != nil {
+                let uid = Auth.auth().currentUser!.uid
                 Auth.auth().currentUser!.delete { error in
                     if error == nil {
-                        self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
-                        self.db.collection("User").document(Auth.auth().currentUser!.uid).delete()
+                        self.delete = "yes"
+                        self.db.collection("Usernames").document(uid).delete()
+                        self.db.collection("User").document(uid).delete()
                         let storageRef = self.storage.reference()
                         Task {
-                            try? await storageRef.child("users/\(Auth.auth().currentUser!.email!)").delete()
+                            try? await storageRef.child("users/\(uid)").delete()
                         }
                         
                         self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
@@ -162,6 +167,13 @@ class AccountSettingsViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "MenuItemToHomeSegue" {
+            let info = segue.destination as! StartViewController
+            info.delete = "yes"
+        }
     }
     
     
@@ -202,7 +214,11 @@ class AccountSettingsViewController: UIViewController {
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
              toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
-            self.performSegue(withIdentifier: "MenuItemToHomeSegue", sender: self)
+            
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "Start") as? StartViewController  {
+                vc.delete = self.delete
+                self.present(vc, animated: true, completion: nil)
+            }
             toastLabel.removeFromSuperview()
         })
     }

@@ -169,7 +169,6 @@ class ChefPersonalViewController: UIViewController {
         if Reachability.isConnectedToNetwork(){
         print("Internet Connection Available!")
         
-        if Auth.auth().currentUser != nil {
             if newUser == "Yes" {
                 if fullName.text == "" {
                     self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
@@ -294,9 +293,7 @@ class ChefPersonalViewController: UIViewController {
                                     self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).updateData(data1)
                                     self.showToast(message: "Info updated.", font: .systemFont(ofSize: 12))
                                     self.performSegue(withIdentifier: "ChefPersonalInfoToChefHomeSegue", sender: self)
-                                }}}}} else {
-                                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
-                            }
+                                }}}}
         } else {
         self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
        }

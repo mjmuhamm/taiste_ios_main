@@ -194,11 +194,17 @@ class DashboardViewController: UIViewController, ChartViewDelegate {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let itemTitle = data["itemTitle"] as? String {
-                                self.items.append(FoodItems(menuItemId: doc.documentID, itemTitle: itemTitle))
-                                self.itemMenu.dataSource.append(itemTitle)
-                                
-                            }
+                            if data["typeOfService"] as? String != "info" {
+                                 
+                                    if let itemTitle = data["itemTitle"] as? String {
+                                        self.items.append(FoodItems(menuItemId: doc.documentID, itemTitle: itemTitle))
+                                        self.itemMenu.dataSource.append(itemTitle)
+                                        
+                                    }
+                                    
+                                }
+                            
+                           
                         }
                     } else {
                         self.items.append(FoodItems(menuItemId: "", itemTitle: "There no items in \(itemType)."))

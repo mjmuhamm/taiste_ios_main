@@ -66,6 +66,8 @@ class ProfileAsUserViewController: UIViewController {
     var userEmail = ""
     var receiverChefOrUser = ""
     
+    var usernameText = ""
+    
     
     @IBOutlet weak var itemTableView: UITableView!
     @IBOutlet weak var contentCollectionView: UICollectionView!
@@ -194,6 +196,8 @@ class ProfileAsUserViewController: UIViewController {
                             if (workout == 1) {
                                 self.chefPassion.text = "\(self.chefPassion.text!)  Workout"
                             }
+                            
+                            self.usernameText = userName
                         self.userName.text = "@\(userName)"
                             if local == 1 {
                                 self.location.text = "Location: \(city), \(state)"
@@ -449,6 +453,7 @@ class ProfileAsUserViewController: UIViewController {
                     if let chefPassion = data["chefPassion"] as? String, let city = data["city"] as? String, let education = data["education"] as? String, let fullName = data["fullName"] as? String, let state = data["state"] as? String, let username = data["chefName"] as? String, let email = data["email"] as? String {
                         self.chefEmail = email
                         
+                        self.usernameText = username
                         self.userEmail = email
                         self.receiverChefOrUser = "Chef"
                         let chefRef = storageRef.child("chefs/\(email)/profileImage/\(self.user).png").downloadURL { itemUrl, error in
@@ -638,12 +643,12 @@ class ProfileAsUserViewController: UIViewController {
     
     private var createdAt = 0
     private func loadContent() {
-        let json: [String: Any] = ["createdAt" : "\(createdAt)"]
+        let json: [String: Any] = ["name" : "\(self.usernameText)"]
         
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/get-videos")!)
+        var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/get-user-videos")!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = jsonData
@@ -677,8 +682,10 @@ class ProfileAsUserViewController: UIViewController {
                         
                         if name != "sample" && name != "sample1" {
                             var description = ""
-                            if videos[i]["description"]! as! String == "no description" {
+                            if videos[i]["description"] != nil || videos[i]["description"]! as! String == "no description" {
                                 description = ""
+                            } else {
+                                description = videos[i]["description"] as! String
                             }
                             self.db.collection("Videos").document("\(id)").getDocument { document, error in
                                 if error == nil {
@@ -1063,7 +1070,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                                 let data = document!.data()
                                 
                                 let liked = data!["liked"] as? [String]
-                                let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "profileImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb, "expectations" : 0, "chefRating" : 0, "quality" : 0]
+                                let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "chefImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb, "expectations" : 0, "chefRating" : 0, "quality" : 0]
                                 if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                     self.db.collection("\(item.itemType)").document(item.menuItemId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                     self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.menuItemId).delete()
@@ -1104,6 +1111,8 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 let storageRef = self.storage.reference()
                 let itemRef = self.storage.reference()
                 
+                print("chefMEail \(item.chefEmail)")
+                print("chefImageId \(item.chefImageId)")
                 storageRef.child("chefs/\(item.chefEmail)/profileImage/\(item.chefImageId).png").downloadURL { imageUrl, error in
                     
                     URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
@@ -1924,7 +1933,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                                     let data = document!.data()
                                     
                                     let liked = data!["liked"] as? [String]
-                                    let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.itemDescription, "chefUsername" : item.chefName, "profileImageId" : item.chefImageId, "menuItemId" : item.documentId, "itemTitle" : "Executive Chef", "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked!, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : 0, "itemType" : "Executive Item", "city" : item.city, "state" : item.state, "user" : item.chefImageId, "healthy" : 0, "creative" : 0, "vegan" : 0, "burger" : 0, "seafood" : 0, "pasta" : 0, "workout" : 0, "lowCal" : 0, "lowCarb" : 0, "expectations" : item.expectations, "chefRating" : item.chefRating, "quality" : item.quality]
+                                    let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.itemDescription, "chefUsername" : item.chefName, "chefImageId" : item.chefImageId, "menuItemId" : item.documentId, "itemTitle" : "Executive Chef", "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked!, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : 0, "itemType" : "Executive Item", "city" : item.city, "state" : item.state, "user" : item.chefImageId, "healthy" : 0, "creative" : 0, "vegan" : 0, "burger" : 0, "seafood" : 0, "pasta" : 0, "workout" : 0, "lowCal" : 0, "lowCarb" : 0, "expectations" : item.expectations, "chefRating" : item.chefRating, "quality" : item.quality]
                                     if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                         self.db.collection("Executive Items").document(item.documentId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                         self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()

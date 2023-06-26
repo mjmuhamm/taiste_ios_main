@@ -21,6 +21,7 @@ class StartViewController: UIViewController {
     let date = Date()
     let df = DateFormatter()
     
+    var delete = ""
     
     @IBOutlet weak var termsOfSErviceText: UILabel!
     
@@ -83,19 +84,21 @@ class StartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let vc : UITabBarController = UserTabViewController()
-        
+        if delete == "" {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
-            if Auth.auth().currentUser != nil {
-            if Auth.auth().currentUser!.displayName! == "User" {
-                //your view controller
-                self.performSegue(withIdentifier: "StartToUserTabSegue", sender: self)
-            } else {
-                self.performSegue(withIdentifier: "StartToChefTabSegue", sender: self)
+            
+                if Auth.auth().currentUser != nil {
+                    if Auth.auth().currentUser!.displayName! == "User" {
+                        //your view controller
+                        self.performSegue(withIdentifier: "StartToUserTabSegue", sender: self)
+                    } else {
+                        self.performSegue(withIdentifier: "StartToChefTabSegue", sender: self)
+                    }
+                }
+            }else{
+                self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-            }
-        }else{
-            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
         
          

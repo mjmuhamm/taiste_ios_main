@@ -29,9 +29,12 @@ class UserPersonalViewController: UIViewController {
     @IBOutlet weak var state: UITextField!
     
     @IBOutlet weak var stateConstant: NSLayoutConstraint!
+    //155
+    //23
     @IBOutlet weak var preferenceConstant: NSLayoutConstraint!
     @IBOutlet weak var surpriseMeConstant: NSLayoutConstraint!
     //64.5
+    
     
     @IBOutlet weak var localButton: MDCButton!
     @IBOutlet weak var regionButton: MDCButton!
@@ -47,6 +50,7 @@ class UserPersonalViewController: UIViewController {
     @IBOutlet weak var veganButton: MDCButton!
     @IBOutlet weak var seafoodButton: MDCButton!
     @IBOutlet weak var workoutButton: MDCButton!
+    @IBOutlet weak var saveButton: MDCButton!
     
     var local = 0
     var region = 0
@@ -76,7 +80,8 @@ class UserPersonalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        saveButton.applyOutlinedTheme(withScheme: globalContainerScheme())
+        saveButton.layer.cornerRadius = 2
         userImage.layer.borderWidth = 1
         userImage.layer.masksToBounds = false
         userImage.layer.borderColor = UIColor.white.cgColor
@@ -223,7 +228,7 @@ class UserPersonalViewController: UIViewController {
                             self.state.isHidden = false
                             self.city.text = city
                             self.state.text = state
-                            self.stateConstant.constant = 154
+                            self.stateConstant.constant = 155
                             self.preferenceConstant.constant = 69.5
                             self.surpriseMeConstant.constant = 64.5
                             self.localButton.setTitleColor(UIColor.white, for: .normal)
@@ -239,7 +244,7 @@ class UserPersonalViewController: UIViewController {
                             self.city.isHidden = true
                             self.state.isHidden = false
                             self.state.text = state
-                            self.stateConstant.constant = 22
+                            self.stateConstant.constant = 23
                             self.preferenceConstant.constant = 69.5
                             self.surpriseMeConstant.constant = 64.5
                             self.regionButton.setTitleColor(UIColor.white, for: .normal)
@@ -347,7 +352,7 @@ class UserPersonalViewController: UIViewController {
         nation = 0
         city.isHidden = false
         state.isHidden = false
-        stateConstant.constant = 152
+        stateConstant.constant = 155
         preferenceConstant.constant = 69.5
         surpriseMeConstant.constant = 64.5
         
@@ -366,7 +371,7 @@ class UserPersonalViewController: UIViewController {
         
         city.isHidden = true
         state.isHidden = false
-        stateConstant.constant = 10
+        stateConstant.constant = 23
         preferenceConstant.constant = 69.5
         surpriseMeConstant.constant = 64.5
         
@@ -540,50 +545,46 @@ class UserPersonalViewController: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         if Reachability.isConnectedToNetwork(){
-        print("Internet Connection Available!")
-        
-        if newChef == "yes" {
-            if fullName.text == "" {
-                self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
-            } else if userName.text == "" || "\(userName.text)".contains(" ") == true {
-                self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
-            } else if usernames.contains(where: { $0.username == self.userName.text }) {
-                self.showToast(message: "This username is already taken. Please select another one.", font: .systemFont(ofSize: 12))
-            } else if local == 1 && (city.text == "" || state.text == "")  {
-                self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
-            } else if region == 1 && state.text == "" {
-                self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
-            } else if region == 1 || local == 1 && stateFilter(state: state.text!) != "good" {
-                self.showToast(message: "Please enter the abbreviation of your state.", font: .systemFont(ofSize: 12))
-            } else if userImageData == nil {
-                self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
-            } else  {
-                let data: [String: Any] = ["fullName" : self.fullName.text!, "userName" : self.userName.text!, "email": self.email.text!,  "city" : self.city.text!, "state" : self.state.text!, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
-                let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
-                let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : ""]
-                
-                let storageRef = storage.reference()
-                
+            print("Internet Connection Available!")
+            
+            if newChef == "yes" {
+                if fullName.text == "" {
+                    self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
+                } else if userName.text == "" || "\(userName.text)".contains(" ") == true {
+                    self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
+                } else if usernames.contains(where: { $0.username == self.userName.text }) {
+                    self.showToast(message: "This username is already taken. Please select another one.", font: .systemFont(ofSize: 12))
+                } else if local == 1 && (city.text == "" || state.text == "")  {
+                    self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
+                } else if region == 1 && state.text == "" {
+                    self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
+                } else if region == 1 || local == 1 && stateFilter(state: state.text!) != "good" {
+                    self.showToast(message: "Please enter the abbreviation of your state.", font: .systemFont(ofSize: 12))
+                } else if userImageData == nil {
+                    self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
+                } else  {
+                    let data: [String: Any] = ["fullName" : self.fullName.text!, "userName" : self.userName.text!, "email": self.email.text!,  "city" : self.city.text!, "state" : self.state.text!, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
+                    let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
+                    let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : ""]
                     
-                        if self.userImage1 != nil {
-                            storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
-                        }
-                       
-                        self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document().setData(data)
-                        self.db.collection("User").document(Auth.auth().currentUser!.uid).setData(data2)
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = "User"
-                        changeRequest?.commitChanges { error in
-                            // ...
-                        }
-                        self.performSegue(withIdentifier: "UserPreferencesToHome", sender: self)
-               
-                        
+                    let storageRef = storage.reference()
                     
-                
-            }
-        } else {
-            if Auth.auth().currentUser != nil {
+                    
+                    if self.userImage1 != nil {
+                        storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
+                    }
+                    
+                    self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document().setData(data)
+                    self.db.collection("User").document(Auth.auth().currentUser!.uid).setData(data2)
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = "User"
+                    changeRequest?.commitChanges { error in
+                        // ...
+                    }
+                    self.performSegue(withIdentifier: "UserPreferencesToHome", sender: self)
+                    
+                }
+            } else {
                 if fullName.text == "" {
                     self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
                 } else if userName.text == "" || "\(userName.text)".contains(" ") == true {
@@ -603,8 +604,9 @@ class UserPersonalViewController: UIViewController {
                 } else  {
                     
                     if newOrEdit != "edit"  {
-                        if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
+                        if !isPasswordValid(password: password.text!) || password.text != confirmPassword.text {
                             self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
+                        } else {
                             
                             let storageRef = storage.reference()
                             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
@@ -625,6 +627,7 @@ class UserPersonalViewController: UIViewController {
                                         // ...
                                     }
                                     self.performSegue(withIdentifier: "UserPreferencesToHome", sender: self)
+                                    
                                 } else {
                                     self.showToast(message: "Something went wrong. Please try again. \(error?.localizedDescription)", font: .systemFont(ofSize: 12))
                                 }
@@ -649,10 +652,8 @@ class UserPersonalViewController: UIViewController {
                     }
                     
                 }
-            } else {
-                self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
-        }
+        
         } else {
             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }

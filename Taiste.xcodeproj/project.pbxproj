@@ -19,7 +19,6 @@
 		F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */; };
 		F43D90F42A261FBC00AE248E /* CommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90F22A261FBC00AE248E /* CommentsTableViewCell.xib */; };
 		F43D90F52A261FBC00AE248E /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D90F32A261FBC00AE248E /* CommentsTableViewCell.swift */; };
-		F43D90F72A261FC600AE248E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F43D90F62A261FC600AE248E /* GoogleService-Info.plist */; };
 		F43D90FE2A26209500AE248E /* ChefOrdersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43D90FC2A26209400AE248E /* ChefOrdersTableViewCell.xib */; };
 		F43D90FF2A26209500AE248E /* ChefOrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D90FD2A26209500AE248E /* ChefOrdersTableViewCell.swift */; };
 		F43D91012A2621CC00AE248E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D91002A2621CC00AE248E /* Reviews.swift */; };
@@ -93,6 +92,7 @@
 		F4CDB5112A3D26F800BBB0FF /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */; };
 		F4DA73202A056A66004FE58F /* UserReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */; };
 		F4DA73222A05AC8D004FE58F /* TravelFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */; };
+		F4DB7DC02A49BAA0000B9BCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4DB7DBF2A49BAA0000B9BCC /* GoogleService-Info.plist */; };
 		F4E44B1127C940F3007F6295 /* UserTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1027C940F3007F6295 /* UserTabViewController.swift */; };
 		F4E44B1327C94100007F6295 /* ChefTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1227C940FF007F6295 /* ChefTabViewController.swift */; };
 		F4E44B1527C95160007F6295 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1427C95160007F6295 /* ItemDetailViewController.swift */; };
@@ -148,7 +148,6 @@
 		F43D90EF2A261FA700AE248E /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
 		F43D90F22A261FBC00AE248E /* CommentsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTableViewCell.xib; sourceTree = "<group>"; };
 		F43D90F32A261FBC00AE248E /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
-		F43D90F62A261FC600AE248E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F43D90FC2A26209400AE248E /* ChefOrdersTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChefOrdersTableViewCell.xib; sourceTree = "<group>"; };
 		F43D90FD2A26209500AE248E /* ChefOrdersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChefOrdersTableViewCell.swift; sourceTree = "<group>"; };
 		F43D91002A2621CC00AE248E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
@@ -227,6 +226,7 @@
 		F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
 		F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewViewController.swift; sourceTree = "<group>"; };
 		F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelFeeViewController.swift; sourceTree = "<group>"; };
+		F4DB7DBF2A49BAA0000B9BCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F4E44B1027C940F3007F6295 /* UserTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabViewController.swift; sourceTree = "<group>"; };
 		F4E44B1227C940FF007F6295 /* ChefTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefTabViewController.swift; sourceTree = "<group>"; };
 		F4E44B1427C95160007F6295 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
@@ -461,7 +461,7 @@
 				F467B99E2A33499200336947 /* Taiste.entitlements */,
 				F4B90DC927C709A9004B1FB1 /* Main.storyboard */,
 				F4B90DD127C709AB004B1FB1 /* Info.plist */,
-				F43D90F62A261FC600AE248E /* GoogleService-Info.plist */,
+				F4DB7DBF2A49BAA0000B9BCC /* GoogleService-Info.plist */,
 				F4B90DF327C70A25004B1FB1 /* Resources */,
 				F481948027C8022C002BB9D3 /* Cells */,
 				F4B90DF627C70B0D004B1FB1 /* Controllers */,
@@ -794,7 +794,6 @@
 				F4FDB63527CE83720078E563 /* UserOrdersAndLikesTableViewCell.xib in Resources */,
 				F4ED0D642A27EA2A000B166B /* NotificationsTableViewCell.xib in Resources */,
 				F4FDB64427CEAE5E0078E563 /* ChefContentCollectionViewCell.xib in Resources */,
-				F43D90F72A261FC600AE248E /* GoogleService-Info.plist in Resources */,
 				F481948427C80252002BB9D3 /* HomeTableViewCell.xib in Resources */,
 				F43D90FE2A26209500AE248E /* ChefOrdersTableViewCell.xib in Resources */,
 				F4AE2FEF27CF9B6700F529C5 /* FeedCollectionViewCell.xib in Resources */,
@@ -803,6 +802,7 @@
 				F4B3438E2A3CAA0C00D056D4 /* MealKitTableViewCell.xib in Resources */,
 				F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */,
 				F4A080C62A01A11600895938 /* MessagesTableViewCell.xib in Resources */,
+				F4DB7DC02A49BAA0000B9BCC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,12 +1132,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = A8QVKKQPMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Taiste/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Taiste;
+				INFOPLIST_KEY_CFBundleDisplayName = "Taïste";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to media library for this item.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture for this item.";
@@ -1152,7 +1152,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruh.ai.Taiste;
 				PRODUCT_NAME = Taiste;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1176,12 +1176,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = A8QVKKQPMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Taiste/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Taiste;
+				INFOPLIST_KEY_CFBundleDisplayName = "Taïste";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to media library for this item.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a picture for this item.";
@@ -1196,7 +1196,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruh.ai.Taiste;
 				PRODUCT_NAME = Taiste;
 				PROVISIONING_PROFILE_SPECIFIER = "";

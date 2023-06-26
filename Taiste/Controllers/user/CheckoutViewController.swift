@@ -334,21 +334,21 @@ class CheckoutViewController: UIViewController {
 
 @objc
 func didTapCheckoutButton() {
-  // MARK: Start the checkout process
-    paymentSheet?.present(from: self) { paymentResult in
-      // MARK: Handle the payment result
-      switch paymentResult {
-      case .completed:
-          if self.cant == "cant" {
-              self.showToast(message: "You have orders from test profiles in this order. Please cancel this order.", font: .systemFont(ofSize: 12))
-          } else {
-              self.saveInfo()
-          }
-      case .canceled:
-        print("Canceled!")
-      case .failed(let error):
-          self.showToast(message: "Order Failed. Please check your information and try again.", font: .systemFont(ofSize: 12))
-      }
+    if self.cant == "cant" {
+        self.showToast(message: "You have orders from test profiles in this order. Please cancel this order.", font: .systemFont(ofSize: 12))
+    }  else {
+        // MARK: Start the checkout process
+        paymentSheet?.present(from: self) { paymentResult in
+            // MARK: Handle the payment result
+            switch paymentResult {
+            case .completed:
+                self.saveInfo()
+            case .canceled:
+                print("Canceled!")
+            case .failed(let error):
+                self.showToast(message: "Order Failed. Please check your information and try again.", font: .systemFont(ofSize: 12))
+            }
+        }
     }
 }
     

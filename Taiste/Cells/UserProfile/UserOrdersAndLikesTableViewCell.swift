@@ -35,7 +35,7 @@ class UserOrdersAndLikesTableViewCell: UITableViewCell {
         // Initialization code
         itemTitle.text = ""
         itemDescription.text = ""
-        
+        itemImage.layer.cornerRadius = 4
         
         userImage.layer.borderWidth = 1
         userImage.layer.masksToBounds = false

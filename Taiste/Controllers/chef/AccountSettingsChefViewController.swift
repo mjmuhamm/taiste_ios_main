@@ -28,7 +28,8 @@ class AccountSettingsChefViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         
         logoutButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         deleteAccountButton.applyOutlinedTheme(withScheme: secondGlobalContainerScheme())
@@ -138,15 +139,15 @@ class AccountSettingsChefViewController: UIViewController {
         let alert = UIAlertController(title: "Are you sure you want to delete your account?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (handler) in
-           
+            let uid = Auth.auth().currentUser!.uid
             
             Auth.auth().currentUser!.delete { error in
                 if error == nil {
-                    self.db.collection("Usernames").document(Auth.auth().currentUser!.uid).delete()
-                    self.db.collection("Chef").document(Auth.auth().currentUser!.uid).delete()
+                    self.db.collection("Usernames").document(uid).delete()
+                    self.db.collection("Chef").document(uid).delete()
                     
                     Task {
-                        try? await self.storage.reference().child("chefs/\(Auth.auth().currentUser!.email!)").delete()
+                        try? await self.storage.reference().child("chefs/\(uid)").delete()
                     }
                     self.showToastCompletion(message: "Your account has been deleted.", font: .systemFont(ofSize: 12))
                     
@@ -164,6 +165,13 @@ class AccountSettingsChefViewController: UIViewController {
         } else {
         self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ChefSettingsToHome" {
+            let info = segue.destination as! StartViewController
+            info.delete = "yes"
+        }
     }
     
     

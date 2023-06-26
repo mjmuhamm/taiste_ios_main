@@ -71,6 +71,7 @@ class ChefMeViewController: UIViewController {
     private var personalChefItem : PersonalChefInfo?
     private var mealKitItems : [FeedMenuItems] = []
     
+    private var chefNameText = ""
     private var items: [FeedMenuItems] = []
     
     private var city = ""
@@ -90,7 +91,7 @@ class ChefMeViewController: UIViewController {
         chefImage.layer.borderColor = UIColor.white.cgColor
         chefImage.layer.cornerRadius = chefImage.frame.height/2
         chefImage.clipsToBounds = true
-        
+        meTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
         meTableView.register(UINib(nibName: "ChefItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefItemReusableCell")
         meTableView.delegate = self
         meTableView.dataSource = self
@@ -179,6 +180,7 @@ class ChefMeViewController: UIViewController {
                                 self.chefPassion.text = chefPassion
                                 self.location.text = "Location: \(city), \(state)"
                                 self.chefName.text = "@\(username)"
+                                self.chefNameText = username
                                 gChefName = username
                                 self.city = city
                                 self.state = state
@@ -201,7 +203,7 @@ class ChefMeViewController: UIViewController {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
             if Auth.auth().currentUser != nil {
-                meTableView.register(UINib(nibName: "ChefItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ChefItemReusableCell")
+                
                 
                 let storageRef = storage.reference()
                 if !items.isEmpty {
@@ -218,7 +220,6 @@ class ChefMeViewController: UIViewController {
                 } else {
                     itemsI = mealKitItems
                 }
-                if itemsI.isEmpty {
                     
                     db.collection("Chef").document(Auth.auth().currentUser!.uid).collection(toggle).addSnapshotListener { documents, error in
                         if error == nil {
@@ -226,27 +227,21 @@ class ChefMeViewController: UIViewController {
                                 
                                 let data = doc.data()
                                 
-                                if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let live = data["live"] as? String {
+                                if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int {
                                     
                                     var image = UIImage()
                                     
                                     
                                     
-                                    let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: live)
+                                    let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage: UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: "0", itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: "live")
                                     
                                     if itemType == "Cater Items" {
-                                        if self.cateringItems.isEmpty {
-                                            self.cateringItems.append(newItem)
-                                            self.items = self.cateringItems
-                                            self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                        } else {
                                             let index = self.cateringItems.firstIndex { $0.menuItemId == menuItemId }
                                             if index == nil {
                                                 self.cateringItems.append(newItem)
-                                                self.items = self.cateringItems
                                                 self.meTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
                                             }
-                                        }
+                                        
                                     } else if itemType == "MealKit Items" {
                                         if self.mealKitItems.isEmpty {
                                             self.mealKitItems.append(newItem)
@@ -263,17 +258,7 @@ class ChefMeViewController: UIViewController {
                                     }}}
                         }
                     }
-                } else {
-                    
-                    if toggle == "Cater Items" {
-                        items = cateringItems
-                    } else {
-                        items = mealKitItems
-                    }
-                    
-                    meTableView.reloadData()
-                    
-                }
+                
             } else {
                 self.showToast(message: "Something went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
             }
@@ -436,7 +421,7 @@ class ChefMeViewController: UIViewController {
                 items.removeAll()
                 meTableView.reloadData()
             }
-            meTableView.register(UINib(nibName: "PersonalChefTableViewCell", bundle: nil), forCellReuseIdentifier: "PersonalChefReusableCell")
+            
             
             db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("Executive Items").getDocuments { documents, error in
                 if error == nil {
@@ -505,12 +490,12 @@ class ChefMeViewController: UIViewController {
     private var createdAt = 0
     private func loadContent() {
         if Auth.auth().currentUser != nil {
-            let json: [String: Any] = ["createdAt" : "\(createdAt)"]
+            let json: [String: Any] = ["name" : "\(self.chefNameText)"]
             
             
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
             // MARK: Fetch the Intent client secret, Ephemeral Key secret, Customer ID, and publishable key
-            var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/get-videos")!)
+            var request = URLRequest(url: URL(string: "https://taiste-video.onrender.com/get-user-videos")!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
@@ -569,8 +554,12 @@ class ChefMeViewController: UIViewController {
                                 }
                                 print("videos \(videos)")
                                 
+                                var description = ""
+                                if videos[i]["description"] as? String != nil {
+                                    description = videos[i]["description"] as! String
+                                }
                                 
-                                let newVideo = VideoModel(dataUri: videos[i]["dataUrl"]! as! String, id: videos[i]["id"]! as! String, videoDate: String(createdAtI as! Int), user: videos[i]["name"]! as! String, description: videos[i]["description"]! as! String, views: views, liked: liked, comments: comments, shared: shared, thumbNailUrl: videos[i]["thumbnailUrl"]! as! String)
+                                let newVideo = VideoModel(dataUri: videos[i]["dataUrl"]! as! String, id: videos[i]["id"]! as! String, videoDate: String(createdAtI as! Int), user: videos[i]["name"]! as! String, description: description, views: views, liked: liked, comments: comments, shared: shared, thumbNailUrl: videos[i]["thumbnailUrl"]! as! String)
                                 
                                 if self.content.isEmpty {
                                     self.content.append(newVideo)
@@ -1017,7 +1006,7 @@ class ChefMeViewController: UIViewController {
 extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if toggle == "Cater Items" || toggle == "MealKit Items" {
-            return items.count
+            return cateringItems.count
         } else if toggle == "Executive Items" {
             if personalChefItem == nil {
                 return 0
@@ -1033,11 +1022,11 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if toggle == "Cater Items" || toggle == "MealKit Items" {
         var cell = meTableView.dequeueReusableCell(withIdentifier: "ChefItemReusableCell", for: indexPath) as! ChefItemTableViewCell
-        var item = items[indexPath.row]
+        var item = cateringItems[indexPath.row]
         cell.editImage.isHidden = true
         
         var vari = self.toggle
-        if items.count == 0 {
+        if cateringItems.count == 0 {
             
             self.noItemsText.isHidden = false
         } else {

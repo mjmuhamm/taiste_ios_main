@@ -138,6 +138,7 @@ class HomeViewController: UIViewController {
                         
                         if let local = data["local"] as? Int, let region = data["region"] as? Int, let nation = data["nation"] as? Int, let city = data["city"] as? String, let state = data["state"] as? String, let burger = data["burger"] as? Int, let creative = data["creative"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let pasta = data["pasta"] as? Int, let healthy = data["healthy"] as? Int, let vegan = data["vegan"] as? Int, let seafood = data["seafood"] as? Int, let workout = data["workout"] as? Int, let surpriseMe = data["surpriseMe"] as? Int {
                             
+                            print("filter happening")
                             self.filter = Filter(local: local, region: region, nation: nation, city: city, state: state, burger: burger, creative: creative, lowCal: lowCal, lowCarb: lowCarb, pasta: pasta, healthy: healthy, vegan: vegan, seafood: seafood, workout: workout, surpriseMe: surpriseMe)
                             
                             self.loadItems(filter: self.filter!, go: "")
@@ -179,9 +180,10 @@ class HomeViewController: UIViewController {
                     
                     let data = doc.data()
                     
-                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let itemCalories = data["itemCalories"] as? String, let live = data["live"] as? String {
+                    if let chefEmail = data["chefEmail"] as? String, let chefPassion = data["chefPassion"] as? String, let chefUsername = data["chefUsername"] as? String, let profileImageId = data["profileImageId"] as? String, let menuItemId = data["randomVariable"] as? String, let itemTitle = data["itemTitle"] as? String, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let liked = data["liked"] as? [String], let itemOrders = data["itemOrders"] as? Int, let itemRating = data["itemRating"] as? [Double], let date = data["date"], let imageCount = data["imageCount"] as? Int, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let zipCode = data["zipCode"] as? String, let user = data["user"] as? String, let healthy = data["healthy"] as? Int, let creative = data["creative"] as? Int, let vegan = data["vegan"] as? Int, let burger = data["burger"] as? Int, let seafood = data["seafood"] as? Int, let pasta = data["pasta"] as? Int, let workout = data["workout"] as? Int, let lowCal = data["lowCal"] as? Int, let lowCarb = data["lowCarb"] as? Int, let itemCalories = data["itemCalories"] as? String {
                         
                        var location = ""
+                        print("items happening")
                         var preference = ""
                         
                         if filter.local == 1 {
@@ -222,21 +224,17 @@ class HomeViewController: UIViewController {
                         }
                         if (location == "go" && preference == "go") || go == "Yes" {
                             
-                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage:  UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: itemCalories, itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: live)
+                                let newItem = FeedMenuItems(chefEmail: chefEmail, chefPassion: chefPassion, chefUsername: chefUsername, chefImageId: profileImageId, chefImage: UIImage(), menuItemId: menuItemId, itemImage:  UIImage(), itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, liked: liked, itemOrders: itemOrders, itemRating: itemRating, date: "\(date)", imageCount: imageCount, itemCalories: itemCalories, itemType: itemType, city: city, state: state, zipCode: zipCode, user: user, healthy: healthy, creative: creative, vegan: vegan, burger: burger, seafood: seafood, pasta: pasta, workout: workout, lowCal: lowCal, lowCarb: lowCarb, live: "")
                                 
                                 if self.toggle == "Cater Items" {
-                                    if self.cateringItems.isEmpty {
-                                        self.cateringItems.append(newItem)
-                                        self.items = self.cateringItems
-                                        self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                    } else {
+                                    
                                         let index = self.cateringItems.firstIndex { $0.menuItemId == menuItemId }
                                         if index == nil {
                                             self.cateringItems.append(newItem)
                                             self.items = self.cateringItems
                                             self.items.shuffle()
                                             self.homeTableView.insertRows(at: [IndexPath(item: self.cateringItems.count - 1, section: 0)], with: .fade)
-                                        }
+                                        
                                     }
                                 } else if self.toggle == "MealKit Items" {
                                     if self.mealKitItems.isEmpty {
@@ -358,16 +356,13 @@ class HomeViewController: UIViewController {
                                 DispatchQueue.main.async {
                                     let item = PersonalChefInfo(chefName: chefName, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), city: city, state: state, zipCode: zipCode, signatureDishImage: UIImage(), signatureDishId: signatureDishId, option1Title: "", option2Title: "", option3Title: "", option4Title: "", briefIntroduction: briefIntroduction, howLongBeenAChef: lengthOfPersonalChef, specialty: specialty, whatHelpesYouExcel: whatHelpsYouExcel, mostPrizedAccomplishment: mostPrizedAccomplishment, availabilty: availability, hourlyOrPerSession: hourlyOrPersSession, servicePrice: servicePrice, trialRun: trialRun, weeks: weeks, months: months, liked: liked, itemOrders: itemOrders, itemRating: itemRating, expectations: expectations, chefRating: chefRating, quality: quality, documentId: doc.documentID, openToMenuRequests: openToMenuRequests)
                                     
-                                    if self.personalChefItems.isEmpty {
-                                        self.personalChefItems.append(item)
-                                        self.homeTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                    } else {
+                                   
                                         if let index = self.personalChefItems.firstIndex(where: { $0.chefImageId == chefImageId }) {} else {
                                             self.personalChefItems.append(item)
                                             self.personalChefItems.shuffle()
                                             self.homeTableView.insertRows(at: [IndexPath(item: self.personalChefItems.count - 1, section: 0)], with: .fade)
                                         }
-                                    }
+                                    
                                     
                                     
                                 }
@@ -650,7 +645,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                             let data = document!.data()
                             
                             let liked = data!["liked"] as? [String]
-                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "profileImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb, "expectations" : 0, "chefRating" : 0, "quality" : 0]
+                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.chefPassion, "chefUsername" : item.chefUsername, "chefImageId" : item.chefImageId, "menuItemId" : item.menuItemId, "itemTitle" : item.itemTitle, "itemDescription" : item.itemDescription, "itemPrice" : item.itemPrice, "liked" : liked, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : item.imageCount, "itemType" : item.itemType, "city" : item.city, "state" : item.state, "user" : item.user, "healthy" : item.healthy, "creative" : item.creative, "vegan" : item.vegan, "burger" : item.burger, "seafood" : item.seafood, "pasta" : item.pasta, "workout" : item.workout, "lowCal" : item.lowCal, "lowCarb" : item.lowCarb, "expectations" : 0, "chefRating" : 0, "quality" : 0]
                             if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                 self.db.collection("\(item.itemType)").document(item.menuItemId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                 self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.menuItemId).delete()
@@ -876,7 +871,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
                             let data = document!.data()
                             
                             let liked = data!["liked"] as? [String]
-                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.briefIntroduction, "chefUsername" : item.chefName, "profileImageId" : item.chefImageId, "menuItemId" : item.documentId, "itemTitle" : "Executive Chef", "itemDescription" : item.briefIntroduction, "itemPrice" : item.servicePrice, "liked" : liked!, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : 0, "itemType" : "Executive Item", "city" : item.city, "state" : item.state, "user" : item.chefImageId, "healthy" : 0, "creative" : 0, "vegan" : 0, "burger" : 0, "seafood" : 0, "pasta" : 0, "workout" : 0, "lowCal" : 0, "lowCarb" : 0, "expectations" : item.expectations, "chefRating" : item.chefRating, "quality" : item.quality]
+                            let data1 : [String: Any] = ["chefEmail" : item.chefEmail, "chefPassion" : item.briefIntroduction, "chefUsername" : item.chefName, "chefImageId" : item.chefImageId, "menuItemId" : item.documentId, "itemTitle" : "Executive Chef", "itemDescription" : item.briefIntroduction, "itemPrice" : item.servicePrice, "liked" : liked!, "itemOrders" : item.itemOrders, "itemRating": item.itemRating, "imageCount" : 0, "itemType" : "Executive Item", "city" : item.city, "state" : item.state, "user" : item.chefImageId, "healthy" : 0, "creative" : 0, "vegan" : 0, "burger" : 0, "seafood" : 0, "pasta" : 0, "workout" : 0, "lowCal" : 0, "lowCarb" : 0, "expectations" : item.expectations, "chefRating" : item.chefRating, "quality" : item.quality]
                             if (liked!.firstIndex(of: Auth.auth().currentUser!.email!) != nil) {
                                 self.db.collection("Executive Items").document(item.documentId).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
                                 self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").document(item.documentId).delete()
