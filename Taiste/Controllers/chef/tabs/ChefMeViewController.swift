@@ -206,9 +206,7 @@ class ChefMeViewController: UIViewController {
                 
                 
                 let storageRef = storage.reference()
-                if !items.isEmpty {
-                    items.removeFirst()
-                    items.removeAll()
+                if !cateringItems.isEmpty {
                     meTableView.reloadData()
                 }
                 

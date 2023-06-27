@@ -4379,6 +4379,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ekl-Cy-yeP" firstAttribute="top" secondItem="EeX-JL-Tq9" secondAttribute="bottom" constant="8.5" id="3uf-3U-g1F"/>
+                            <constraint firstItem="4Q9-La-WQN" firstAttribute="top" secondItem="Ekl-Cy-yeP" secondAttribute="bottom" constant="71" id="CB6-BS-IIO"/>
                             <constraint firstItem="uRz-ct-pzz" firstAttribute="top" secondItem="z6j-UK-gsj" secondAttribute="bottom" constant="7.5" id="EXl-89-wMu"/>
                             <constraint firstItem="EeX-JL-Tq9" firstAttribute="centerX" secondItem="qzw-8a-iHJ" secondAttribute="centerX" id="HDK-vA-nXw"/>
                             <constraint firstItem="kjI-vR-gBG" firstAttribute="trailing" secondItem="UzB-B6-lQ9" secondAttribute="trailing" constant="12" id="Hlp-vY-aZA"/>
@@ -4396,7 +4397,6 @@
                             <constraint firstItem="uRz-ct-pzz" firstAttribute="leading" secondItem="kjI-vR-gBG" secondAttribute="leading" constant="12" id="Yb3-zt-qrc"/>
                             <constraint firstItem="rK5-AN-Ptp" firstAttribute="centerX" secondItem="qzw-8a-iHJ" secondAttribute="centerX" id="a6t-Pd-yG8"/>
                             <constraint firstItem="z6j-UK-gsj" firstAttribute="leading" secondItem="kjI-vR-gBG" secondAttribute="leading" constant="12" id="bCQ-nj-cDf"/>
-                            <constraint firstItem="4Q9-La-WQN" firstAttribute="top" secondItem="PpK-PA-ZjH" secondAttribute="bottom" constant="3" id="cZO-yh-uKT"/>
                             <constraint firstItem="4Q9-La-WQN" firstAttribute="trailing" secondItem="kjI-vR-gBG" secondAttribute="trailing" id="dSv-GX-SS5"/>
                             <constraint firstItem="PpK-PA-ZjH" firstAttribute="top" secondItem="uRz-ct-pzz" secondAttribute="bottom" constant="7.5" id="etz-ej-yhc"/>
                             <constraint firstItem="Ekl-Cy-yeP" firstAttribute="leading" secondItem="qzw-8a-iHJ" secondAttribute="leading" id="f4I-eI-LP9"/>
@@ -4414,6 +4414,7 @@
                         <outlet property="messageTableView" destination="4Q9-La-WQN" id="1qL-FX-zVk"/>
                         <outlet property="messageText" destination="UzB-B6-lQ9" id="qPk-G2-ECa"/>
                         <outlet property="requestTravelFeeButton" destination="EeX-JL-Tq9" id="b1a-0m-LrX"/>
+                        <outlet property="tableViewConstant" destination="CB6-BS-IIO" id="yfo-aR-94o"/>
                         <outlet property="travelFeeLabel" destination="HVR-bS-Qoe" id="zzV-02-dJU"/>
                         <outlet property="username" destination="z6j-UK-gsj" id="1wU-IM-oe7"/>
                         <segue destination="O7X-fF-rpK" kind="presentation" identifier="MessagesToProfileAsUserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gmU-Hz-wfQ"/>

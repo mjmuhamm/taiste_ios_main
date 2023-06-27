@@ -72,8 +72,8 @@ class MessagesViewController: UIViewController {
         var orderMessageSenderEmail = ""
         var orderMessageReceiverChefOrUser = ""
     
+  
     @IBOutlet weak var tableViewConstant: NSLayoutConstraint!
-    
     //31.5
     
     //this user
