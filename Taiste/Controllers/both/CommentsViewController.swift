@@ -62,12 +62,12 @@ class CommentsViewController: UIViewController {
                     for doc in documents!.documents {
                         let data = doc.data()
                         
-                        if let comment = data["comment"] as? String, let date = data["date"] as? String, let likes = data["likes"] as? [String], let userImageId = data["userImageId"] as? String, let userEmail = data["userEmail"] as? String, let chefOrUser = data["chefOrUser"] as? String {
+                        if let comment = data["comment"] as? String, let date = data["date"] as? String, let likes = data["likes"] as? [String], let userImageId = data["userImageId"] as? String, let userEmail = data["userEmail"] as? String, let chefOrUser = data["chefOrUser"] as? String, let username = data["username"] as? String {
                             
                             
                             let index = self.comments.firstIndex(where: { $0.documentId == doc.documentID })
                             if index == nil {
-                                self.comments.append(Comments(userImage: UIImage(), userImageId: userImageId, userEmail: userEmail, comment: comment, date: date, likes: likes, documentId: doc.documentID, chefOrUser: chefOrUser))
+                                self.comments.append(Comments(userImage: UIImage(), username: username, userImageId: userImageId, userEmail: userEmail, comment: comment, date: date, likes: likes, documentId: doc.documentID, chefOrUser: chefOrUser))
                                 if self.comments.count == 1 {}
                             }
                             
@@ -115,7 +115,7 @@ class CommentsViewController: UIViewController {
                 self.db.collection("Videos").document(self.videoId).collection("UserComments").document(documentId).setData(data)
                 self.messageText.text = ""
                 self.showToast(message: "Comment Sent.", font: .systemFont(ofSize: 12))
-                self.comments.append(Comments(userImage: UIImage(), userImageId: Auth.auth().currentUser!.uid, userEmail: Auth.auth().currentUser!.email!, comment: self.messageText.text!, date: self.df.string(from: Date()), likes: [], documentId: documentId, chefOrUser: chefOrUser))
+                self.comments.append(Comments(userImage: UIImage(), username: username, userImageId: Auth.auth().currentUser!.uid, userEmail: Auth.auth().currentUser!.email!, comment: self.messageText.text!, date: self.df.string(from: Date()), likes: [], documentId: documentId, chefOrUser: chefOrUser))
                 self.commentsTableView.reloadData()
                 
             }  else {
@@ -136,6 +136,8 @@ extension CommentsViewController :  UITableViewDelegate, UITableViewDataSource  
         let cell = commentsTableView.dequeueReusableCell(withIdentifier: "CommentsReusableCell", for: indexPath) as! CommentsTableViewCell
         let comment = comments[indexPath.row]
       
+        
+
         cell.thoughtsText.text = comment.comment
         cell.date.text = comment.date
         

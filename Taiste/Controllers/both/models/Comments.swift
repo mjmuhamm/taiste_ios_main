@@ -11,6 +11,7 @@ import UIKit
 struct Comments {
     
     let userImage: UIImage
+    let username: String
     let userImageId: String
     let userEmail: String
     let comment: String
