@@ -232,7 +232,8 @@ extension FeedViewController : UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionViewReusableCell", for: indexPath) as! FeedCollectionViewCell
         
-        let model = content[indexPath.row]
+        var model = content[indexPath.row]
+        
         
         cell.configure(model: model)
         cell.likeText.text = "\(model.liked.count)"
@@ -240,6 +241,31 @@ extension FeedViewController : UICollectionViewDelegate, UICollectionViewDataSou
         cell.shareText.text = "\(model.shared)"
         cell.userName.text = model.user
         cell.videoDescription.text = model.description
+        
+        if (model.liked.contains(Auth.auth().currentUser!.email!)) {
+            cell.likeImage.image = UIImage(systemName: "heart.fill")
+        } else {
+            cell.likeImage.image = UIImage(systemName: "heart")
+        }
+        
+        cell.likeButtonTapped = {
+            if !model.liked.contains(Auth.auth().currentUser!.email!) {
+                self.db.collection("Videos").document(model.id).updateData(["liked" : FieldValue.arrayUnion(["\(Auth.auth().currentUser!.email!)"])])
+                model.liked.append(Auth.auth().currentUser!.email!)
+                cell.likeText.text = "\(Int(cell.likeText.text!)! + 1)"
+                cell.likeImage.image = UIImage(systemName: "heart.fill")
+                
+            } else {
+                self.db.collection("Videos").document(model.id).updateData(["liked" : FieldValue.arrayRemove(["\(Auth.auth().currentUser!.email!)"])])
+                if let index = model.liked.firstIndex(where: { $0 == "\(Auth.auth().currentUser!.email!)" }) {
+                    model.liked.remove(at: index)
+                }
+                
+                model.liked.append(Auth.auth().currentUser!.email!)
+                cell.likeText.text = "\(Int(cell.likeText.text!)! - 1)"
+                cell.likeImage.image = UIImage(systemName: "heart")
+            }
+        }
         
         
         if chefOrFeed != "" {

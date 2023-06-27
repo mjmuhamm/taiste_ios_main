@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseFirestore
 import MaterialComponents.MaterialButtons
 import MaterialComponents.MaterialButtons_Theming
 import MaterialComponents.MaterialTextControls_FilledTextAreasTheming
@@ -15,6 +16,8 @@ import MaterialComponents.MaterialTextControls_OutlinedTextAreasTheming
 import MaterialComponents.MaterialTextControls_OutlinedTextFieldsTheming
 
 class FeedCollectionViewCell: UICollectionViewCell {
+    private let db = Firestore.firestore()
+    
 
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likeText: UILabel!
@@ -62,6 +65,9 @@ class FeedCollectionViewCell: UICollectionViewCell {
         playerLayer.videoGravity = .resizeAspectFill
         playerLayer.frame = contentView.bounds
         videoView.layer.addSublayer(playerLayer)
+        let data : [String: Any] = ["views": model.views + 1]
+        db.collection("Videos").document(model.id).updateData(data)
+       
       
     }
 
