@@ -26,6 +26,7 @@ class CommentsViewController: UIViewController {
     
     var videoId = ""
     var chefOrUser = ""
+    var username = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,23 @@ class CommentsViewController: UIViewController {
         commentsTableView.dataSource = self
         
         commentsTableView.register(UINib(nibName: "CommentsTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentsReusableCell")
+        loadUsername()
+    }
+    
+    private func loadUsername() {
+        db.collection("Usernames").getDocuments { documents, error in
+            if error == nil {
+                for doc in documents!.documents {
+                    let data = doc.data()
+                    
+                    if let email = data["email"] as? String, let username = data["username"] as? String {
+                        if email == Auth.auth().currentUser!.email! {
+                            self.username = username
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private func loadComments() {
@@ -86,22 +104,26 @@ class CommentsViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func sendCommentButtonPressed(_ sender: Any) {
-        if Reachability.isConnectedToNetwork(){
-            print("Internet Connection Available!")
-            
-            let data : [String : Any] = ["comment" : messageText.text!, "date" : df.string(from: Date()), "likes" : [], "userImageId" : Auth.auth().currentUser!.uid, "userEmail" : Auth.auth().currentUser!.email!, "chefOrUser" : chefOrUser]
-            
-            let documentId = UUID().uuidString
-            self.db.collection("Videos").document(self.videoId).collection("UserComments").document(documentId).setData(data)
-            self.messageText.text = ""
-            self.showToast(message: "Comment Sent.", font: .systemFont(ofSize: 12))
-            self.comments.append(Comments(userImage: UIImage(), userImageId: Auth.auth().currentUser!.uid, userEmail: Auth.auth().currentUser!.email!, comment: self.messageText.text!, date: self.df.string(from: Date()), likes: [], documentId: documentId, chefOrUser: chefOrUser))
-            self.commentsTableView.reloadData()
-            
-        }  else {
-            self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+        if messageText.text != nil && messageText.text! != "" {
+            if Reachability.isConnectedToNetwork(){
+                print("Internet Connection Available!")
+                
+                
+                let data : [String : Any] = ["comment" : messageText.text!, "date" : df.string(from: Date()), "likes" : [], "userImageId" : Auth.auth().currentUser!.uid, "username" : self.username, "userEmail" : Auth.auth().currentUser!.email!, "chefOrUser" : chefOrUser]
+                
+                let documentId = UUID().uuidString
+                self.db.collection("Videos").document(self.videoId).collection("UserComments").document(documentId).setData(data)
+                self.messageText.text = ""
+                self.showToast(message: "Comment Sent.", font: .systemFont(ofSize: 12))
+                self.comments.append(Comments(userImage: UIImage(), userImageId: Auth.auth().currentUser!.uid, userEmail: Auth.auth().currentUser!.email!, comment: self.messageText.text!, date: self.df.string(from: Date()), likes: [], documentId: documentId, chefOrUser: chefOrUser))
+                self.commentsTableView.reloadData()
+                
+            }  else {
+                self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
+            }
+        } else {
+            self.showToast(message: "Please enter a message first.", font: .systemFont(ofSize: 12))
         }
-        
     }
 }
 
