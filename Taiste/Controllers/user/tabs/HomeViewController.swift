@@ -47,6 +47,14 @@ class HomeViewController: UIViewController {
     private var toggle = "Cater Items"
     
     private var happened = ""
+    @IBOutlet weak var liveButton: MDCButton!
+    @IBOutlet weak var chefStack: UIStackView!
+    
+    @IBOutlet weak var liveStack: UIStackView!
+    @IBOutlet weak var foodTruckButton: MDCButton!
+    @IBOutlet weak var restaurantButton: MDCButton!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -439,6 +447,31 @@ class HomeViewController: UIViewController {
         }
     
     }
+    
+    @IBAction func liveButtonPressed(_ sender: Any) {
+        if liveButton.imageView?.image == UIImage(systemName: "livephoto.badge.a") {
+            liveButton.setImage(UIImage(systemName: "cooktop"), for: .normal)
+            self.homeTableView.isHidden = true
+            chefStack.isHidden = true
+            liveStack.isHidden = false
+        } else {
+            liveButton.setImage(UIImage(systemName: "livephoto.badge.a"), for: .normal)
+            chefStack.isHidden = false
+            liveStack.isHidden = true
+            self.homeTableView.isHidden = false
+        }
+    }
+    
+    @IBAction func foodTruckButtonPressed(_ sender: Any) {
+        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+    }
+    
+    @IBAction func restuarantButtonPressed(_ sender: Any) {
+        self.showToast(message: "Coming Soon.", font: .systemFont(ofSize: 12))
+    }
+    
+    
+    
     
     
     @IBAction func filterButtonPressed(_ sender: Any) {

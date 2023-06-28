@@ -28,11 +28,9 @@ class FeedViewController: UIViewController {
             collectionView.dataSource = self
             collectionView.delegate = self
             if chefOrFeed == "" {
-                if Auth.auth().currentUser != nil {
-                    loadContent()
-                } else {
-                    self.showToast(message: "Soemthing went wrong. Please check your connection.", font: .systemFont(ofSize: 12))
-                }
+                
+                   
+              
             } else {
                 collectionView.reloadData()
             }
@@ -45,6 +43,7 @@ class FeedViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor.black
+        loadContent()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -27,6 +27,8 @@ class StartViewController: UIViewController {
     
     @IBOutlet weak var userButton: MDCButton!
     @IBOutlet weak var chefButton: MDCButton!
+    @IBOutlet weak var foodTruckAndRestaurants: MDCButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userButton.applyOutlinedTheme(withScheme: globalContainerScheme())
