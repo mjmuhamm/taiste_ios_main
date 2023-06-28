@@ -263,6 +263,12 @@ class MeViewController: UIViewController {
         userReviews.removeAll()
         meTableView.reloadData()
         
+        if !chefs.isEmpty {
+            chefs.removeAll()
+            meTableView.reloadData()
+        }
+       
+        
         
         
             if Auth.auth().currentUser != nil {
@@ -288,11 +294,7 @@ class MeViewController: UIViewController {
                                 } else {
                                     let newItem = UserChefs(chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), chefName: chefName, chefPassion: chefPassion, timesLiked: 0, chefLiked: liked, chefOrders: itemOrders, chefRating: itemRating)
                                     
-                                    if self.userChefs.isEmpty {
-                                        self.userChefs.append(newItem)
-                                        self.chefs = self.userChefs
-                                        self.meTableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
-                                    } else {
+                                   
                                         let index = self.userChefs.firstIndex { $0.chefEmail == chefEmail }
                                         if index == nil {
                                             self.userChefs.append(newItem)
@@ -301,7 +303,7 @@ class MeViewController: UIViewController {
                                         } else {
                                             self.userChefs[index!].timesLiked = self.userChefs[index!].timesLiked + 1
                                         }
-                                    }
+                                    
                                 }
                             }
                         }
@@ -323,6 +325,11 @@ class MeViewController: UIViewController {
         userLikes.removeAll()
         userReviews.removeAll()
         meTableView.reloadData()
+        
+        if !chefs.isEmpty {
+            likes.removeAll()
+            meTableView.reloadData()
+        }
         
             if Auth.auth().currentUser != nil {
             db.collection("User").document(Auth.auth().currentUser!.uid).collection("UserLikes").getDocuments { documents, error in

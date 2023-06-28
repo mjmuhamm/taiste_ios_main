@@ -112,7 +112,7 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6cr-rt-Rhk">
-                        <rect key="frame" x="290.5" y="576" width="103.5" height="27"/>
+                        <rect key="frame" x="290.5" y="580" width="103.5" height="27"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$554.44" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Go2-fP-1jG">
                                 <rect key="frame" x="0.0" y="0.0" width="60.5" height="27"/>
@@ -173,7 +173,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKL-F3-N7w">
-                        <rect key="frame" x="360" y="575" width="33" height="28"/>
+                        <rect key="frame" x="360" y="579" width="33" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="hov-BD-tVc"/>
                             <constraint firstAttribute="width" constant="33" id="xSW-B3-uI8"/>
@@ -204,8 +204,8 @@
                     <constraint firstItem="EXk-qY-VrN" firstAttribute="top" secondItem="Kvg-al-jDp" secondAttribute="bottom" constant="32" id="Xmq-Ms-M0D"/>
                     <constraint firstItem="wfG-7H-nke" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Yyn-xf-RXV"/>
                     <constraint firstItem="KOK-ft-tQt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bKx-ut-QeJ"/>
-                    <constraint firstItem="6cr-rt-Rhk" firstAttribute="top" secondItem="Bmd-U8-kjK" secondAttribute="bottom" constant="13" id="gVe-8H-NWm"/>
-                    <constraint firstItem="NKL-F3-N7w" firstAttribute="top" secondItem="Bmd-U8-kjK" secondAttribute="bottom" constant="12" id="gW9-Dg-FwQ"/>
+                    <constraint firstItem="6cr-rt-Rhk" firstAttribute="top" secondItem="Bmd-U8-kjK" secondAttribute="bottom" constant="17" id="gVe-8H-NWm"/>
+                    <constraint firstItem="NKL-F3-N7w" firstAttribute="top" secondItem="Bmd-U8-kjK" secondAttribute="bottom" constant="16" id="gW9-Dg-FwQ"/>
                     <constraint firstItem="Bmd-U8-kjK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="hPW-uy-0LQ"/>
                     <constraint firstAttribute="bottom" secondItem="wfG-7H-nke" secondAttribute="bottom" constant="11" id="huo-Zn-AYI"/>
                     <constraint firstItem="KOK-ft-tQt" firstAttribute="top" secondItem="Kvg-al-jDp" secondAttribute="bottom" constant="32" id="ll7-1s-6wM"/>
