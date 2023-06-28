@@ -329,7 +329,18 @@ class OrderDetailsViewController: UIViewController, UITextFieldDelegate {
         print("itemprice \(self.item!.itemPrice)")
         print("quantity \(quantityOfEventText.text!)")
         print("eventdy \(eventDays.count)")
-        let price = Double(self.item!.itemPrice)! * Double(quantityOfEventText.text!)! * Double(eventDays.count)
+        var quantity = Int(quantityOfEventText.text!)!
+        var percentage = 1.0
+        if (quantity > 25) {
+            percentage = 0.90
+        } else if (quantity > 50) {
+            percentage = 0.83
+        } else if (quantity > 75) {
+            percentage = 0.75
+        } else if (quantity > 100) {
+            percentage = 0.70
+        }
+        let price = Double(self.item!.itemPrice)! * Double(quantityOfEventText.text!)! * Double(eventDays.count) * percentage
         self.eventTotalText.text = "$\(String(format: "%.2f", price))"
        
         print("print \(datePicker.date)")

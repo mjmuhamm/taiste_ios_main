@@ -11493,7 +11493,7 @@ Taïste may contain links to third-party websites or services that are not contr
                                                 </constraints>
                                                 <string key="text">We give full autonomy to the chef to consider their ingredient and preparation expenses before marketing an item price; but we have safeguarded windows of expectation for our customers to beware of any over-charged menu prices. Please be cautious. Although some chefs are premier, well-experienced and deserving of above average prices, we open our platform to all culinary enthusiasts, culinary students, chef entrepreneurs, restaurant chefs, and hobbyists. Please consider this in your decision making.
 
-Cater Items price similarly to restaurant dishes and thus, you can expect to pay anywhere from $12 - $60 for per serving. As a courtesy, we have discounted the price for multiple day events.
+Cater Items price similarly to restaurant dishes and thus, you can expect to pay anywhere from $12 - $60 for per serving. As a courtesy, we have discounted the price for multiple day events. Additionally, we have tiered the pricing structure to discount appropriately as the guest attendance rises. 
 
 Executive Chef’s can charge anywhere from $100 - $4,000 for one event. This range is represented by the years of experience of the chef, menu items associated with the event, and the chef’s availability.
 
@@ -13076,7 +13076,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sg9-3V-z67" customClass="MDCButton">
-                                                <rect key="frame" x="103" y="976" width="190" height="45"/>
+                                                <rect key="frame" x="108" y="1083" width="190" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="6qu-1E-a8T"/>
                                                     <constraint firstAttribute="width" constant="190" id="AuW-XD-xvN"/>
@@ -13220,7 +13220,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Payouts will be issued exactly one hour of the events scheduling." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulm-I9-qiR">
-                                                <rect key="frame" x="11" y="928" width="384" height="29"/>
+                                                <rect key="frame" x="11" y="1035" width="384" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -13229,6 +13229,19 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                                 <rect key="frame" x="18" y="137" width="376" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemGray4Color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5. Tiered Pricing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voA-8H-TKg">
+                                                <rect key="frame" x="18" y="924" width="101.5" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0g-27-Sww">
+                                                <rect key="frame" x="23" y="947" width="366" height="72"/>
+                                                <string key="text">We have tiered the pricing for larger quantity events, charging less for higher quantities. Please be attentive to the take home price you will receive before accepting. As a disclosure, we want to ensure the best event pricing for our consumer base. There is no hidden cost associated with the above process.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.38431372549999998" green="0.38823529410000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -13275,12 +13288,15 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="tLy-ji-rfB" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="23" id="UuN-4B-89b"/>
                                             <constraint firstItem="Sg9-3V-z67" firstAttribute="top" secondItem="ulm-I9-qiR" secondAttribute="bottom" constant="19" id="WVm-6g-tAi"/>
                                             <constraint firstItem="hrG-Ig-B7s" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="13" id="XGH-Vc-c2n"/>
+                                            <constraint firstItem="ulm-I9-qiR" firstAttribute="top" secondItem="d0g-27-Sww" secondAttribute="bottom" constant="16" id="XQM-ux-oeb"/>
                                             <constraint firstItem="4hJ-6z-LGi" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="23" id="YWb-yg-9q1"/>
                                             <constraint firstItem="q5E-lZ-Q95" firstAttribute="top" secondItem="qOJ-rY-3nJ" secondAttribute="bottom" constant="92" id="YtD-lM-NTT"/>
+                                            <constraint firstAttribute="trailing" secondItem="d0g-27-Sww" secondAttribute="trailing" constant="25" id="YzT-Rj-Uwg"/>
                                             <constraint firstItem="mGl-it-0Zt" firstAttribute="top" secondItem="4UE-eG-Ws3" secondAttribute="top" constant="20" symbolic="YES" id="b18-qC-rTP"/>
                                             <constraint firstItem="uWi-Ik-Jbh" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="18" id="bGq-gc-19Y"/>
                                             <constraint firstItem="4hJ-6z-LGi" firstAttribute="top" secondItem="dit-oF-7CG" secondAttribute="bottom" constant="7" id="c4t-Ge-W48"/>
                                             <constraint firstItem="dit-oF-7CG" firstAttribute="top" secondItem="zxC-o5-Hvz" secondAttribute="bottom" constant="9" id="cbd-mi-GMa"/>
+                                            <constraint firstItem="voA-8H-TKg" firstAttribute="top" secondItem="0ln-ld-YlL" secondAttribute="bottom" constant="16" id="cfo-HO-DTF"/>
                                             <constraint firstItem="kx7-Ry-DxD" firstAttribute="top" secondItem="ttv-04-xtg" secondAttribute="bottom" constant="7" id="fwG-UL-xgb"/>
                                             <constraint firstItem="gjp-tL-RfS" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="22" id="gC0-QN-g7n"/>
                                             <constraint firstAttribute="height" constant="1250" id="hBY-Vz-LWK"/>
@@ -13290,8 +13306,10 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="TkL-xs-mw7" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="23" id="ixL-1q-11w"/>
                                             <constraint firstItem="4Xa-6M-iVX" firstAttribute="top" secondItem="zxC-o5-Hvz" secondAttribute="bottom" constant="8" symbolic="YES" id="kth-tg-ef5"/>
                                             <constraint firstItem="0ln-ld-YlL" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="23" id="lPa-f4-t9q"/>
+                                            <constraint firstItem="voA-8H-TKg" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="18" id="lWL-C1-eaL"/>
                                             <constraint firstItem="3Hh-UE-Ven" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="12" id="mAl-JO-fWF"/>
                                             <constraint firstAttribute="trailing" secondItem="uWi-Ik-Jbh" secondAttribute="trailing" constant="139" id="mnw-q1-zoK"/>
+                                            <constraint firstItem="d0g-27-Sww" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="23" id="mpf-NK-WcS"/>
                                             <constraint firstItem="7Sh-FB-Ftq" firstAttribute="top" secondItem="RCV-0x-eq6" secondAttribute="bottom" constant="9" id="nE4-nT-W3x"/>
                                             <constraint firstAttribute="trailing" secondItem="0ln-ld-YlL" secondAttribute="trailing" constant="25" id="oaO-54-V5J"/>
                                             <constraint firstAttribute="trailing" secondItem="tLy-ji-rfB" secondAttribute="trailing" constant="25" id="rWu-XP-mpz"/>
@@ -13299,9 +13317,9 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
                                             <constraint firstItem="vzl-TF-II0" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="18" id="rdq-eQ-cfW"/>
                                             <constraint firstItem="ttv-04-xtg" firstAttribute="top" secondItem="3Hh-UE-Ven" secondAttribute="bottom" constant="15.5" id="sGF-9y-6lP"/>
                                             <constraint firstItem="TkL-xs-mw7" firstAttribute="top" secondItem="vzl-TF-II0" secondAttribute="bottom" constant="7" id="sJH-vd-EUt"/>
+                                            <constraint firstItem="d0g-27-Sww" firstAttribute="top" secondItem="voA-8H-TKg" secondAttribute="bottom" constant="7" id="u4e-P6-70r"/>
                                             <constraint firstAttribute="trailing" secondItem="kx7-Ry-DxD" secondAttribute="trailing" constant="25" id="vBL-Xf-QRo"/>
-                                            <constraint firstItem="Sg9-3V-z67" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="103" id="xKE-J8-Q4P"/>
-                                            <constraint firstItem="ulm-I9-qiR" firstAttribute="top" secondItem="0ln-ld-YlL" secondAttribute="bottom" constant="20" id="yDV-jm-zUH"/>
+                                            <constraint firstItem="Sg9-3V-z67" firstAttribute="leading" secondItem="4UE-eG-Ws3" secondAttribute="leading" constant="108" id="xKE-J8-Q4P"/>
                                         </constraints>
                                     </view>
                                 </subviews>
