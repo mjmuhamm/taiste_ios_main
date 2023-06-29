@@ -1570,7 +1570,6 @@
                                             <constraint firstItem="vkt-W4-hI5" firstAttribute="leading" secondItem="Jmb-2z-8lS" secondAttribute="trailing" constant="8" symbolic="YES" id="Bcv-Ja-Rqm"/>
                                             <constraint firstItem="VGM-6e-J6Z" firstAttribute="top" secondItem="QuI-0x-OtV" secondAttribute="bottom" constant="10.5" id="Bnj-TC-6IE"/>
                                             <constraint firstItem="CPh-ld-BeT" firstAttribute="top" secondItem="xRM-Eu-YfS" secondAttribute="bottom" constant="59.5" id="BqI-aA-IbO"/>
-                                            <constraint firstItem="rSG-xO-jdr" firstAttribute="top" secondItem="QuI-0x-OtV" secondAttribute="bottom" constant="53.5" id="EKE-6F-ExJ"/>
                                             <constraint firstItem="xRM-Eu-YfS" firstAttribute="leading" secondItem="X8a-CX-Uan" secondAttribute="trailing" constant="19" id="FWy-fi-NFS"/>
                                             <constraint firstItem="OyM-KI-3lf" firstAttribute="top" secondItem="XST-Li-Jq0" secondAttribute="top" constant="36" id="G57-VE-vBL"/>
                                             <constraint firstItem="rSG-xO-jdr" firstAttribute="leading" secondItem="XST-Li-Jq0" secondAttribute="leading" constant="23" id="Gba-yA-dye"/>
@@ -1586,6 +1585,7 @@
                                             <constraint firstItem="QuI-0x-OtV" firstAttribute="leading" secondItem="XST-Li-Jq0" secondAttribute="leading" constant="23" id="QS4-tX-kUl"/>
                                             <constraint firstItem="xRM-Eu-YfS" firstAttribute="leading" secondItem="X8a-CX-Uan" secondAttribute="trailing" constant="19" id="Ze4-hP-llc"/>
                                             <constraint firstItem="X8a-CX-Uan" firstAttribute="leading" secondItem="XST-Li-Jq0" secondAttribute="leading" constant="23" id="a8q-fH-FZH"/>
+                                            <constraint firstItem="rSG-xO-jdr" firstAttribute="top" secondItem="VGM-6e-J6Z" secondAttribute="bottom" constant="15" id="cDO-Zv-zPU"/>
                                             <constraint firstItem="xRM-Eu-YfS" firstAttribute="top" secondItem="XST-Li-Jq0" secondAttribute="top" constant="20.5" id="dh6-9X-jlt"/>
                                             <constraint firstAttribute="height" constant="915" id="eA7-0U-0Ju"/>
                                             <constraint firstItem="gwF-Ov-aMR" firstAttribute="top" secondItem="vkt-W4-hI5" secondAttribute="bottom" constant="6.5" id="exP-Lf-HPE"/>
@@ -13819,7 +13819,7 @@ If the event is less than 45 miles, then normal operations will prompt, and you 
         <segue reference="QE2-o5-q5i"/>
         <segue reference="VD0-qR-l0Z"/>
         <segue reference="BS6-oY-CaB"/>
-        <segue reference="K6P-qp-kmw"/>
+        <segue reference="VRh-YA-qPz"/>
         <segue reference="tTE-cs-Wrc"/>
     </inferredMetricsTieBreakers>
     <resources>

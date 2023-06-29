@@ -106,9 +106,7 @@ class FeedViewController: UIViewController {
                                     if document!.exists {
                                         let data = document!.data()
                                         
-                                        if data!["views"] != nil {
-                                            views = data!["views"] as! Int
-                                        }
+                                        views = Int("\(data!["views"]!)")!
                                         
                                         if data!["liked"] != nil {
                                             liked = data!["liked"] as! [String]

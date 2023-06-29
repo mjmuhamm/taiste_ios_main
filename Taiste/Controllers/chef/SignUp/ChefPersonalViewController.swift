@@ -176,8 +176,8 @@ class ChefPersonalViewController: UIViewController {
                     self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
                 } else if email.text == "" || !isValidEmail(email.text!) {
                     self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
-                } else if usernames.contains(where: { $0.username == self.chefName.text }) {
-                    self.showToast(message: "This username is already taken. Please select another one.", font: .systemFont(ofSize: 12))
+                } else if chefName.text == "" || "\(chefName.text!)".contains(" ") == true || searchForSpecialChar(search: chefName.text!) || chefName.text!.count < 4 {
+                    self.showToast(message: "Please enter your chefName with no spaces, no special characters, and longer than 3 characters.", font: .systemFont(ofSize: 12))
                 } else if usernames.contains(where: { $0.email == self.email.text }) {
                     self.showToast(message: "This email is already in use.", font: .systemFont(ofSize: 12))
                 } else if isPasswordValid(password: password.text!) == false || password.text != confirmPassword.text {
@@ -208,8 +208,8 @@ class ChefPersonalViewController: UIViewController {
                 if newOrEdit == "new" {
                     if fullName.text == "" {
                         self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
-                    } else if chefName.text == "" || "\(chefName.text!)".contains(" ") == true {
-                        self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
+                    } else if chefName.text == "" || "\(chefName.text!)".contains(" ") == true || searchForSpecialChar(search: chefName.text!) || chefName.text!.count < 4 {
+                        self.showToast(message: "Please enter your chefName with no spaces, no special characters, and longer than 3 characters.", font: .systemFont(ofSize: 12))
                     } else if email.text == "" || !isValidEmail(email.text!) {
                         self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
                     } else if usernames.contains(where: { $0.username == self.chefName.text }) {
@@ -358,4 +358,13 @@ func isPasswordValid(password: String) -> Bool {
     let passwordTest = NSPredicate(format: "SELF MATCHES %@", passRegEx)
     print("password \(passwordTest.evaluate(with: password))")
     return passwordTest.evaluate(with: password)
+}
+
+func searchForSpecialChar(search: String) -> Bool {
+    let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+    if search.rangeOfCharacter(from: characterset.inverted) != nil {
+        print("string contains special characters")
+        return true
+    }
+    return false
 }

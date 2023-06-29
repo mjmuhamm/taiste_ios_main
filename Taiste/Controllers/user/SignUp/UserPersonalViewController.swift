@@ -52,7 +52,7 @@ class UserPersonalViewController: UIViewController {
     @IBOutlet weak var workoutButton: MDCButton!
     @IBOutlet weak var saveButton: MDCButton!
     
-    var local = 0
+    var local = 1
     var region = 0
     var nation = 0
     var surpriseMe = 0
@@ -552,8 +552,8 @@ class UserPersonalViewController: UIViewController {
                     self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
                 } else if userName.text == "" || "\(userName.text)".contains(" ") == true {
                     self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
-                } else if usernames.contains(where: { $0.username == self.userName.text }) {
-                    self.showToast(message: "This username is already taken. Please select another one.", font: .systemFont(ofSize: 12))
+                } else if userName.text == "" || "\(userName.text)".contains(" ") == true || searchForSpecialChar(search: userName.text!) == true || userName.text!.count < 4 {
+                    self.showToast(message: "Please enter your username with no spaces, no special characters, and longer than 3 characters.", font: .systemFont(ofSize: 12))
                 } else if local == 1 && (city.text == "" || state.text == "")  {
                     self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
                 } else if region == 1 && state.text == "" {
@@ -587,8 +587,8 @@ class UserPersonalViewController: UIViewController {
             } else {
                 if fullName.text == "" {
                     self.showToast(message: "Please enter your full name.", font: .systemFont(ofSize: 12))
-                } else if userName.text == "" || "\(userName.text)".contains(" ") == true {
-                    self.showToast(message: "Please enter your chefname with no spaces.", font: .systemFont(ofSize: 12))
+                } else if userName.text == "" || "\(userName.text)".contains(" ") == true || searchForSpecialChar(search: userName.text!) == true || userName.text!.count < 4 {
+                    self.showToast(message: "Please enter your username with no spaces, no special characters, and longer than 3 characters.", font: .systemFont(ofSize: 12))
                 } else if email.text == "" || !isValidEmail(email.text!) {
                     self.showToast(message: "Please enter your valid email.", font: .systemFont(ofSize: 12))
                 } else if usernames.contains(where: { $0.username == self.userName.text }) {
@@ -678,6 +678,15 @@ class UserPersonalViewController: UIViewController {
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         })
+    }
+    
+    func searchForSpecialChar(search: String) -> Bool {
+        let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        if search.rangeOfCharacter(from: characterset.inverted) != nil {
+            print("string contains special characters")
+            return true
+        }
+        return false
     }
 }
 
