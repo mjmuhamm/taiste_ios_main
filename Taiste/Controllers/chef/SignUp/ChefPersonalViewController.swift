@@ -184,15 +184,21 @@ class ChefPersonalViewController: UIViewController {
                     self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
                 } else if education.text == "" {
                     self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
-                } else if userImageData == nil {
-                    self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
                 } else {
+                    var profilePic = ""
                     let storageRef = storage.reference()
-                    storageRef.child("chefs/\(self.email.text!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
+                    if userImageData != nil {
+                        profilePic = "yes"
+                        storageRef.child("chefs/\(self.email.text!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
+                    } else {
+                        profilePic = "no"
+                        let image = UIImage(named: "default_image")!.pngData()
+                        storageRef.child("chefs/\(self.email.text!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(image!)
+                    }
                     
                     let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
                     let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
-                    let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : ""]
+                    let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : "", "profilePic" : profilePic]
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document().setData(data)
                     self.db.collection("Chef").document(Auth.auth().currentUser!.uid).setData(data2)
                     let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
@@ -220,20 +226,26 @@ class ChefPersonalViewController: UIViewController {
                         self.showToast(message: "Please make sure password has 1 uppercase letter, 1 special character, 1 number, 1 lowercase letter, and matches with the second insert.", font: .systemFont(ofSize: 12))
                     } else if education.text == "" {
                         self.showToast(message: "Please enter education. Can be 'Self-Educated'", font: .systemFont(ofSize: 12))
-                    } else if userImageData == nil {
-                        self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
                     } else {
+                        var profilePic = ""
                         
                         let storageRef = storage.reference()
                         Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
                             
                             if error == nil {
                                 if self.userImage1 != nil {
+                                    profilePic = "yes"
                                     storageRef.child("chefs/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
+                                }
+                                if self.userImageData == nil || self.userImage1 == nil {
+                                    profilePic = "no"
+                                    let image = UIImage(named: "default_image")!.pngData()
+                                    storageRef.child("chefs/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(image!)
+                                    
                                 }
                                 let data: [String: Any] = ["fullName" : self.fullName.text!, "chefName" : self.chefName.text!, "email": self.email.text!, "education" : self.education.text!, "chefPassion" : "", "city" : "", "state" : "", "zipCode" : ""]
                                 let data1: [String: Any] = ["username" : self.chefName.text!, "email" : self.email.text!, "chefOrUser" : "Chef", "fullName" : self.fullName.text!]
-                                let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : ""]
+                                let data2: [String: Any] = ["chefOrUser" : "Chef", "chargeForPayout" : 0.0, "notificationToken" : "", "notifications" : "", "profilePic" : profilePic]
                                 self.db.collection("Chef").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
                                 self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
                                 self.db.collection("Chef").document(authResult!.user.uid).setData(data2)
@@ -339,7 +351,8 @@ extension ChefPersonalViewController: UIImagePickerControllerDelegate, UINavigat
         
         if newOrEdit == "edit" {
             let storageRef = self.storage.reference()
-            
+            let data : [String: Any] = ["profilePic" : "yes"]
+            db.collection("Chef").document(Auth.auth().currentUser!.uid).updateData(data)
             storageRef.child("chefs/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(image.pngData()!, metadata: nil) { metatdata, error in
                 if error == nil {
                     self.showToast(message: "Image Updated.", font: .systemFont(ofSize: 12))

@@ -69,7 +69,7 @@ class CheckoutViewController: UIViewController {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
             
-            loadCart()
+            profilePicGuard()
         } else {
             self.showToast(message: "Seems to be a problem with your internet. Please check your connection.", font: .systemFont(ofSize: 12))
         }
@@ -127,7 +127,24 @@ class CheckoutViewController: UIViewController {
         task.resume()
     }
     
+    private func profilePicGuard() {
+        db.collection("User").document(Auth.auth().currentUser!.uid).getDocument { document, error in
+            if error == nil {
+                if document != nil {
+                    let data = document!.data()
+                    if let profilePic = data!["profilePic"] as? String {
+                        if profilePic == "yes" {
+                            self.loadCart()
+                        } else {
+                            self.showToast(message: "Please upload a profile pic before continuing.", font: .systemFont(ofSize: 12))
+                        }
+                    }
+                }
+            }
+        }
+    }
     private func loadCart() {
+        
         if Auth.auth().currentUser != nil {
             let storageRef = storage.reference()
             var chefImage = UIImage()

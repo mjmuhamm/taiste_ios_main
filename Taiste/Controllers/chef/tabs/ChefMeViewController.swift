@@ -83,6 +83,9 @@ class ChefMeViewController: UIViewController {
     private var menuItemId = UUID().uuidString
     @IBOutlet weak var newNotificationImage: UIImageView!
     
+    var profilePic = ""
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +124,8 @@ class ChefMeViewController: UIViewController {
         self.tabBarController?.tabBar.barTintColor = UIColor.white
     }
     
+    
+    
     private func loadNotifications() {
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
@@ -129,12 +134,13 @@ class ChefMeViewController: UIViewController {
                     if error == nil {
                         if document != nil {
                             let data = document!.data()
-                            if let notifications = data?["notifications"] as? String {
+                            if let notifications = data?["notifications"] as? String, let profilePic = data?["profilePic"] as? String {
                                 if notifications == "yes" {
                                     self.newNotificationImage.isHidden = false
                                 } else {
                                     self.newNotificationImage.isHidden = true
                                 }
+                                self.profilePic = profilePic
                             }
                         }
                     }
@@ -901,45 +907,49 @@ class ChefMeViewController: UIViewController {
     }
     
     @IBAction func addContentButtonPressed(_ sender: MDCButton) {
-        if toggle == "MealKit Items" {
+        if profilePic != "yes" {
+            self.showToast(message: "Please upload a profile pic before continuing.", font: .systemFont(ofSize: 12))
+        } else {
+            if toggle == "MealKit Items" {
                 if self.mealKitItems.count == 0 {
                     if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToMealKits") as? GuideToMealKitViewController  {
                         self.present(vc, animated: true, completion: nil)
                     }
-            } else {
-                performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
-            }
-        
-        } else if toggle == "Executive Items" {
-            if self.personalChefItem == nil {
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToExecutiveItems") as? GuideToExecutiveItemsViewController  {
-                    self.present(vc, animated: true, completion: nil)
-                }
-        } else {
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChef") as? PersonalChefViewController  {
-                vc.chefImageI = self.chefImage.image
-                vc.chefName = self.chefName.text!
-                vc.city = self.city
-                vc.state = self.state
-                vc.zipCode = self.zipCode
-                if self.personalChefItem != nil {
-                    vc.personalChefItem = self.personalChefItem!
+                } else {
+                    performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
                 }
                 
-                self.present(vc, animated: true, completion: nil)
-            }
-        }
-        } else if toggle == "Cater Items" {
-            if self.cateringItems.count == 0 {
-                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToCaterItems") as? GuideToCaterItemsViewController  {
+            } else if toggle == "Executive Items" {
+                if self.personalChefItem == nil {
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToExecutiveItems") as? GuideToExecutiveItemsViewController  {
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                } else {
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalChef") as? PersonalChefViewController  {
+                        vc.chefImageI = self.chefImage.image
+                        vc.chefName = self.chefName.text!
+                        vc.city = self.city
+                        vc.state = self.state
+                        vc.zipCode = self.zipCode
+                        if self.personalChefItem != nil {
+                            vc.personalChefItem = self.personalChefItem!
+                        }
+                        
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
+            } else if toggle == "Cater Items" {
+                if self.cateringItems.count == 0 {
+                    if let vc = self.storyboard?.instantiateViewController(withIdentifier: "GuideToCaterItems") as? GuideToCaterItemsViewController  {
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                } else {
+                    performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
+                }
+            } else if toggle == "Content" {
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentItem") as? AddContentViewController  {
                     self.present(vc, animated: true, completion: nil)
                 }
-        } else {
-            performSegue(withIdentifier: "ChefMeToMenuItemSegue", sender: self)
-        }
-        } else if toggle == "Content" {
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentItem") as? AddContentViewController  {
-                self.present(vc, animated: true, completion: nil)
             }
         }
     }

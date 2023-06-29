@@ -80,6 +80,7 @@ class UserPersonalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         saveButton.applyOutlinedTheme(withScheme: globalContainerScheme())
         saveButton.layer.cornerRadius = 2
         userImage.layer.borderWidth = 1
@@ -560,18 +561,25 @@ class UserPersonalViewController: UIViewController {
                     self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
                 } else if region == 1 || local == 1 && stateFilter(state: state.text!) != "good" {
                     self.showToast(message: "Please enter the abbreviation of your state.", font: .systemFont(ofSize: 12))
-                } else if userImageData == nil {
-                    self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
                 } else  {
+                    var profilePic = ""
                     let data: [String: Any] = ["fullName" : self.fullName.text!, "userName" : self.userName.text!, "email": self.email.text!,  "city" : self.city.text!, "state" : self.state.text!, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
                     let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
-                    let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : ""]
+                    let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : "", "profilePic" : profilePic]
                     
                     let storageRef = storage.reference()
                     
                     
                     if self.userImage1 != nil {
-                        storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
+                        if userImageData != nil {
+                            profilePic = "yes"
+                            storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(self.userImageData!)
+                        }
+                    }
+                    if userImageData == nil {
+                        profilePic = "no"
+                        let image = UIImage(named: "default_image")!.pngData()
+                        storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(image!)
                     }
                     
                     self.db.collection("User").document(Auth.auth().currentUser!.uid).collection("PersonalInfo").document().setData(data)
@@ -599,9 +607,8 @@ class UserPersonalViewController: UIViewController {
                     self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
                 } else if region == 1 && state.text == "" {
                     self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
-                } else if userImageData == nil {
-                    self.showToast(message: "Please add an image.", font: .systemFont(ofSize: 12))
                 } else  {
+                    var profilePic = ""
                     
                     if newOrEdit != "edit"  {
                         if !isPasswordValid(password: password.text!) || password.text != confirmPassword.text {
@@ -613,11 +620,19 @@ class UserPersonalViewController: UIViewController {
                                 
                                 if error == nil {
                                     if self.userImage1 != nil {
-                                        storageRef.child("users/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
+                                        if self.userImageData != nil {
+                                            profilePic = "yes"
+                                            storageRef.child("users/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(self.userImageData!)
+                                        }
+                                    }
+                                    if self.userImageData == nil {
+                                        profilePic = "no"
+                                        let image = UIImage(named: "default_image")!.pngData()
+                                        storageRef.child("users/\(self.email.text!)/profileImage/\(authResult!.user.uid).png").putData(image!)
                                     }
                                     let data: [String: Any] = ["fullName" : self.fullName.text!, "userName" : self.userName.text!, "email": self.email.text!,  "city" : self.city.text!, "state" : self.state.text!, "burger" : self.burger, "creative" : self.creative, "lowCal" : self.lowCal, "lowCarb" : self.lowCarb, "pasta" : self.pasta, "healthy" : self.healthy, "vegan" : self.vegan, "seafood" : self.seafood, "workout" : self.workout, "local" : self.local, "region" : self.region, "nation" : self.nation, "surpriseMe" : self.surpriseMe]
                                     let data1: [String: Any] = ["username" : self.userName.text!, "email" : self.email.text!, "chefOrUser" : "User", "fullName" : self.fullName.text! ]
-                                    let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : ""]
+                                    let data2: [String: Any] = ["chefOrUser" : "User", "privatizeData" : "no", "notificationToken" : "", "notifications" : "", "profilePic" : profilePic]
                                     self.db.collection("User").document(authResult!.user.uid).collection("PersonalInfo").document().setData(data)
                                     self.db.collection("Usernames").document(authResult!.user.uid).setData(data1)
                                     self.db.collection("User").document(authResult!.user.uid).setData(data2)
@@ -705,7 +720,9 @@ extension UserPersonalViewController: UIImagePickerControllerDelegate, UINavigat
         self.userImage.image = image
         self.userImage1 = image
         if newOrEdit == "edit" {
+            let data : [String: Any] = ["profilePic" : "yes"]
             let storageRef = storage.reference()
+            db.collection("User").document(Auth.auth().currentUser!.uid).updateData(data)
             storageRef.child("users/\(Auth.auth().currentUser!.email!)/profileImage/\(Auth.auth().currentUser!.uid).png").putData(image.pngData()!)
             self.showToast(message: "Image Updated.", font: .systemFont(ofSize: 12))
         }
