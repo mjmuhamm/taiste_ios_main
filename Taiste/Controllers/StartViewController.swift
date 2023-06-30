@@ -38,7 +38,6 @@ class StartViewController: UIViewController {
         
         
         
-        
         var normalText = "Please review our "
         var boldText  = "Terms of Service"
         

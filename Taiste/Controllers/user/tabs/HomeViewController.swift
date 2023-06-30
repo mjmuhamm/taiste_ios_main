@@ -709,7 +709,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource  {
             
             var item = personalChefItems[indexPath.row]
                 cell.chefImage.image = item.chefImage
-                cell.chefName.text = item.chefName
+                cell.chefName.text = "@\(item.chefName)"
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
             cell.chefLikes.text = "\(item.liked.count)"

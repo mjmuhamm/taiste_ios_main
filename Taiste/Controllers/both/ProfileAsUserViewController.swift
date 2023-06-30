@@ -1096,7 +1096,7 @@ extension ProfileAsUserViewController :  UITableViewDelegate, UITableViewDataSou
                 var item = personalChefItem!
                 
                 cell.chefImage.image = item.chefImage
-                cell.chefName.text = item.chefName
+                cell.chefName.text = "@\(item.chefName)"
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
                 

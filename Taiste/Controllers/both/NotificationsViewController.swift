@@ -238,7 +238,7 @@ extension NotificationsViewController :  UITableViewDelegate, UITableViewDataSou
             let notification = notifications[indexPath.row]
             cell.userImage.isHidden = true
             cell.userImageButton.isHidden = true
-            cell.message.text = notification.notification
+            cell.message.text = "@\(notification.notification)"
             cell.message2.text = notification.date
             
             
