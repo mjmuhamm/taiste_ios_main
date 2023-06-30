@@ -1130,7 +1130,7 @@ extension ChefMeViewController :  UITableViewDelegate, UITableViewDataSource  {
                 let item = personalChefItem!
                 cell.chefImage.image = item.chefImage
                 cell.signatureImage.image = item.signatureDishImage
-                cell.chefName.text = "@\(item.chefName)"
+                cell.chefName.text = ""
                 cell.briefIntro.text = item.briefIntroduction
                 cell.servicePrice.text = "$\(item.servicePrice)"
                 cell.chefLikes.text = "\(item.liked.count)"
