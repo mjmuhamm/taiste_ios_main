@@ -338,7 +338,7 @@ class MeViewController: UIViewController {
                         for doc in documents!.documents {
                             let data = doc.data()
                             
-                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["chefImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int  {
+                            if let chefEmail = data["chefEmail"] as? String, let chefUsername = data["chefUsername"] as? String, let chefImageId = data["chefImageId"] as? String, let imageCount = data["imageCount"] as? Int, let itemDescription = data["itemDescription"] as? String, let itemPrice = data["itemPrice"] as? String, let itemTitle = data["itemTitle"] as? String, let itemType = data["itemType"] as? String, let city = data["city"] as? String, let state = data["state"] as? String, let expectations = data["expectations"] as? Int, let chefRating = data["chefRating"] as? Int, let quality = data["quality"] as? Int, let itemCalories = data["itemCalories"] as? String  {
                                 print("likes happening")
                                 
                                 
@@ -350,7 +350,7 @@ class MeViewController: UIViewController {
                                             
                                             if let liked = data1!["liked"] as? [String], let itemOrders = data1!["itemOrders"] as? Int, let itemRating = data1!["itemRating"] as? [Double] {
                                                 
-                                                let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: 0, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: "")
+                                                let newItem = UserLikes(chefName: chefUsername, chefEmail: chefEmail, chefImageId: chefImageId, chefImage: UIImage(), itemType: itemType, city: city, state: state, zipCode: "", itemTitle: itemTitle, itemDescription: itemDescription, itemPrice: itemPrice, itemImage: UIImage(), imageCount: imageCount, liked: liked, itemOrders: itemOrders, itemRating: itemRating, itemCalories: Int(itemCalories)!, documentId: doc.documentID, expectations: expectations, chefRating: chefRating, quality: quality, signatureDishId: "")
                                                 
                                                 if self.userLikes.isEmpty {
                                                     self.userLikes.append(newItem)
@@ -942,6 +942,8 @@ extension MeViewController : UITableViewDataSource, UITableViewDelegate {
                         vc.itemDescriptionI = item.itemDescription
                         vc.itemImage = item.itemImage
                         vc.caterOrPersonal = "cater"
+                        vc.item = FeedMenuItems(chefEmail: item.chefEmail, chefPassion: "", chefUsername: item.chefName, chefImageId: item.chefImageId, menuItemId: item.documentId, itemImage: item.itemImage, itemTitle: item.itemTitle, itemDescription: item.itemDescription, itemPrice: item.itemPrice, liked: item.liked, itemOrders: item.itemOrders, itemRating: item.itemRating, date: "", imageCount: item.imageCount, itemCalories: "\(item.itemCalories)", itemType: item.itemType, city: item.city, state: item.state, zipCode: item.zipCode, user: item.chefImageId, healthy: 0, creative: 0, vegan: 0, burger: 0, seafood: 0, pasta: 0, workout: 0, lowCal: 0, lowCarb: 0, live: "")
+                        
                         self.present(vc, animated: true, completion: nil)
                     }
                 }
