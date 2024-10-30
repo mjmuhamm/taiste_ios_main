@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20B36EFE2CD1AA4F005C04BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20B36EFD2CD1AA4F005C04BF /* GoogleService-Info.plist */; };
 		C85B21F142398F3FBD1C030A /* Pods_Taiste.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF6BC1FBC57B3B140EC4756 /* Pods_Taiste.framework */; };
 		F415572D27CAB0C2000C8DE5 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F415572C27CAB0C2000C8DE5 /* CheckoutViewController.swift */; };
 		F423AC0E2A1D136A009E9600 /* ExternalAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F423AC0D2A1D136A009E9600 /* ExternalAccountViewController.swift */; };
@@ -92,7 +93,6 @@
 		F4CDB5112A3D26F800BBB0FF /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */; };
 		F4DA73202A056A66004FE58F /* UserReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */; };
 		F4DA73222A05AC8D004FE58F /* TravelFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */; };
-		F4DB7DC02A49BAA0000B9BCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4DB7DBF2A49BAA0000B9BCC /* GoogleService-Info.plist */; };
 		F4E44B1127C940F3007F6295 /* UserTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1027C940F3007F6295 /* UserTabViewController.swift */; };
 		F4E44B1327C94100007F6295 /* ChefTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1227C940FF007F6295 /* ChefTabViewController.swift */; };
 		F4E44B1527C95160007F6295 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E44B1427C95160007F6295 /* ItemDetailViewController.swift */; };
@@ -135,6 +135,7 @@
 
 /* Begin PBXFileReference section */
 		1EDAD4AF548E8EA7609C6722 /* Pods-Taiste.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taiste.debug.xcconfig"; path = "Target Support Files/Pods-Taiste/Pods-Taiste.debug.xcconfig"; sourceTree = "<group>"; };
+		20B36EFD2CD1AA4F005C04BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3BF6BC1FBC57B3B140EC4756 /* Pods_Taiste.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Taiste.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B88A05B0D69E5C5CBBB918 /* Pods-Taiste.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taiste.release.xcconfig"; path = "Target Support Files/Pods-Taiste/Pods-Taiste.release.xcconfig"; sourceTree = "<group>"; };
 		F415572C27CAB0C2000C8DE5 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
@@ -226,7 +227,6 @@
 		F4CDB5102A3D26F800BBB0FF /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
 		F4DA731F2A056A66004FE58F /* UserReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewViewController.swift; sourceTree = "<group>"; };
 		F4DA73212A05AC8D004FE58F /* TravelFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelFeeViewController.swift; sourceTree = "<group>"; };
-		F4DB7DBF2A49BAA0000B9BCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F4E44B1027C940F3007F6295 /* UserTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabViewController.swift; sourceTree = "<group>"; };
 		F4E44B1227C940FF007F6295 /* ChefTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefTabViewController.swift; sourceTree = "<group>"; };
 		F4E44B1427C95160007F6295 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
@@ -283,6 +283,24 @@
 				50B88A05B0D69E5C5CBBB918 /* Pods-Taiste.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		20B36EFB2CD1A9E9005C04BF /* start */ = {
+			isa = PBXGroup;
+			children = (
+				F4B90DC727C709A9004B1FB1 /* StartViewController.swift */,
+				F4C5E7EB2A1ABB2F0063A5E1 /* PrivacyPolicyViewController.swift */,
+				F4C5E7EA2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift */,
+			);
+			path = start;
+			sourceTree = "<group>";
+		};
+		20B36EFC2CD1AA02005C04BF /* guide */ = {
+			isa = PBXGroup;
+			children = (
+				F4568E992A3BAF8400B64E9B /* GuideToPostingViewController.swift */,
+			);
+			path = guide;
 			sourceTree = "<group>";
 		};
 		E962F5C7C30E3F984D03761A /* Frameworks */ = {
@@ -461,7 +479,7 @@
 				F467B99E2A33499200336947 /* Taiste.entitlements */,
 				F4B90DC927C709A9004B1FB1 /* Main.storyboard */,
 				F4B90DD127C709AB004B1FB1 /* Info.plist */,
-				F4DB7DBF2A49BAA0000B9BCC /* GoogleService-Info.plist */,
+				20B36EFD2CD1AA4F005C04BF /* GoogleService-Info.plist */,
 				F4B90DF327C70A25004B1FB1 /* Resources */,
 				F481948027C8022C002BB9D3 /* Cells */,
 				F4B90DF627C70B0D004B1FB1 /* Controllers */,
@@ -500,13 +518,11 @@
 		F4B90DF627C70B0D004B1FB1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F4B90DC727C709A9004B1FB1 /* StartViewController.swift */,
-				F4C5E7EB2A1ABB2F0063A5E1 /* PrivacyPolicyViewController.swift */,
-				F4C5E7EA2A1ABB2F0063A5E1 /* TermsOfServiceViewController.swift */,
+				20B36EFB2CD1A9E9005C04BF /* start */,
 				F4B90DF927C70B2B004B1FB1 /* both */,
 				F4B90DF827C70B27004B1FB1 /* chef */,
 				F4B90DF727C70B21004B1FB1 /* user */,
-				F4568E992A3BAF8400B64E9B /* GuideToPostingViewController.swift */,
+				20B36EFC2CD1AA02005C04BF /* guide */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -802,7 +818,7 @@
 				F4B3438E2A3CAA0C00D056D4 /* MealKitTableViewCell.xib in Resources */,
 				F43D90F12A261FA700AE248E /* ReviewsTableViewCell.xib in Resources */,
 				F4A080C62A01A11600895938 /* MessagesTableViewCell.xib in Resources */,
-				F4DB7DC02A49BAA0000B9BCC /* GoogleService-Info.plist in Resources */,
+				20B36EFE2CD1AA4F005C04BF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
