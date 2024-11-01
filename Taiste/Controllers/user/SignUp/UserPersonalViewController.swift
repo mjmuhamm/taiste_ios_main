@@ -556,9 +556,9 @@ class UserPersonalViewController: UIViewController {
                 } else if userName.text == "" || "\(userName.text)".contains(" ") == true || searchForSpecialChar(search: userName.text!) == true || userName.text!.count < 4 {
                     self.showToast(message: "Please enter your username with no spaces, no special characters, and longer than 3 characters.", font: .systemFont(ofSize: 12))
                 } else if local == 1 && (city.text == "" || state.text == "")  {
-                    self.showToast(message: "Please enter your city, state.", font: .systemFont(ofSize: 12))
+                    self.showToast(message: "Please enter your city and the abbreviation for your state.", font: .systemFont(ofSize: 12))
                 } else if region == 1 && state.text == "" {
-                    self.showToast(message: "Please enter your state.", font: .systemFont(ofSize: 12))
+                    self.showToast(message: "Please enter the abbreviation for your state.", font: .systemFont(ofSize: 12))
                 } else if region == 1 || local == 1 && stateFilter(state: state.text!) != "good" {
                     self.showToast(message: "Please enter the abbreviation of your state.", font: .systemFont(ofSize: 12))
                 } else  {
